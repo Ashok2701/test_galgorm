@@ -1,0 +1,103 @@
+[
+  {
+    "railcar": "ACFX 78674",
+    "des": "",
+    "vehicleid": "22211433",
+    "type": "Rail Tank Car",
+    "color": ";font-style:normal;background-color:#FFFFB0",
+    "capacities": 20944,
+    "xweu" : "gal",
+    "insulate": "Non Insulated",
+    "liningtype" : "PLASITE",
+    "coiltype" : "External",
+    "heigth": 14,
+    "length": 52,
+    "width": 10,
+    "xunit": "feet"
+  },
+  {
+
+    "railcar": "GATX008841",
+    "des": "",
+    "vehicleid": "22220011",
+    "type": "Rail Tank Car",
+    "color": ";font-style:normal;background-color:#D3FEFC",
+    "capacities": 11970,
+    "xweu" : "gal",
+    "insulate": "Insulated",
+    "liningtype" : "PLASITE 4100",
+    "coiltype" : "NON-COIL",
+    "heigth": 14,
+    "length": 52,
+    "width": 10,
+    "xunit": "feet"
+  },
+  {
+
+    "railcar": "GATX008842",
+    "des": "",
+    "vehicleid": "22220022",
+    "type": "Rail Tank Car",
+    "color": ";font-style:normal;background-color:#FFE1E1",
+    "capacities": 11970,
+    "xweu" : "gal",
+    "insulate": "NON- Insulated",
+    "liningtype" : "PLASITE 4200",
+    "coiltype" : "NON-COIL",
+    "heigth": 14,
+    "length": 52,
+    "width": 10,
+    "xunit": "feet"
+  },
+  {
+
+    "railcar": "GATX008843",
+    "des": "",
+    "vehicleid": "22220033",
+    "type": "Rail Tank Car",
+    "color": ";font-style:normal;background-color:#E7E1CF",
+    "capacities": 11970,
+    "xweu" : "gal",
+    "insulate": "NON- Insulated",
+    "liningtype" : "PLASITE 4100",
+    "coiltype" : "NON-COIL",
+    "heigth": 14,
+    "length": 52,
+    "width": 10,
+    "xunit": "feet"
+  },
+  {
+
+    "railcar": "GATX0088445",
+    "des": "",
+    "vehicleid": "22220044",
+    "type": "Rail Tank Car",
+    "color": ";font-style:normal;background-color:#C5F5C5",
+    "capacities": 11970,
+    "xweu" : "gal",
+    "insulate": "Insulated",
+    "liningtype" : "PLASITE",
+    "coiltype" : "NON-COIL",
+    "heigth": 14,
+    "length": 52,
+    "width": 10,
+    "xunit": "feet"
+  },
+  {
+
+    "railcar": "GATX0088446",
+    "des": "",
+    "vehicleid": "22220055",
+    "type": "Rail Tank Car",
+    "color": ";font-style:normal;background-color:#FFFFB0",
+    "capacities": 11970,
+    "xweu" : "gal",
+    "insulate": "Insulated",
+    "liningtype" : "PLASITE",
+    "coiltype" : "External",
+    "heigth": 14,
+    "length": 52,
+    "width": 10,
+    "xunit": "feet"
+  }
+]

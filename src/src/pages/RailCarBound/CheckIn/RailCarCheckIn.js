@@ -1,0 +1,228 @@
+import React, { Component } from "react";
+import { Card, CardBody, Container, Row, Col, Button } from "reactstrap";
+import { MDBDataTable } from "mdbreact";
+import { Link } from "react-router-dom";
+import SelectSite from "../Components/SelectSite";
+import { fetchRailCarAPI } from '../../../service';
+import Select from "../Components/Select";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Grid from '@material-ui/core/Grid';
+import CheckInHeader  from './CheckInHeader';
+import RailCarCheckInList  from './RailCarCheckInList';
+import "./checkIn.scss";
+
+class RailCarCheckIn extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+        sites : [],
+        selectedSite : '',
+        CheckInList : [],
+        CheckOutList : [],
+        CheckAvailList : [],
+
+
+
+    };
+  }
+
+
+   componentDidMount() {
+
+      var user = JSON.parse(localStorage.getItem("authUser"));
+       Promise.all([fetch('http://tmsportal.tema-systems.com:8082/api/v1/transport/usrsites?user='+ user.username)])
+      .then(([res1]) => {
+        return Promise.all([res1.json()])
+      }).then(([res1]) => {
+                this.setState({
+                   sites: res1
+                });
+              });
+}
+
+
+   setCurrentSite = selectedOption => {
+
+      this.setState({
+        selectedSite: selectedOption
+      });
+    }
+
+
+    OnCheckInClicked = selectedRailCar => {
+
+      console.log("onCheckInClikced",selectedRailCar);
+      fetch('http://tmsportal.tema-systems.com:8082/api/v1/rail/Checkin', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(selectedRailCar)
+      }).then((response) => {
+        console.log("inside after Railcarcheckin - response",response);
+       this.handleErrors(response);
+      }).then(function (response) {
+
+      }).then(() => {
+         console.log("after success ",this.state.selectedSite);
+        this.ReloadData(this.state.selectedSite);
+      }).then(() => {
+        this.notifySucess("RailCar Checked-In Sucessfully");
+      }).catch(error => {
+
+        this.notifyError("Failed to CheckIn");
+      });
+
+    }
+
+      handleErrors = (response) => {
+          if (!response.ok) {
+            throw Error(response.statusText);
+          }
+          return response;
+        }
+
+
+
+    ReloadData =selectedOption => {
+     console.log("after success ",selectedOption);
+    fetchRailCarAPI(selectedOption)
+             .then(([res1, res2, res3]) => {
+               this.setState({
+                 CheckInList: res1,
+                 CheckOutList : res2,
+                 CheckAvailList : res3
+               });
+             }).then(() => {
+
+             }).catch(error => {
+
+             });
+    }
+
+
+
+
+  handleSiteChange = selectedOption => {
+        console.log("site change",selectedOption);
+        console.log("date =",this.state.date);
+        this.setCurrentSite(selectedOption);
+       fetchRailCarAPI(selectedOption)
+         .then(([res1, res2, res3]) => {
+           this.setState({
+             CheckInList: res1,
+             CheckOutList : res2,
+             CheckAvailList : res3
+           });
+         }).then(() => {
+
+         }).catch(error => {
+
+         });
+     };
+
+ notifySucess = (message) => toast.success(message, { autoClose: 3000 });
+
+ notifyError = (message) => toast.error(message, { autoClose: 3000 });
+
+  render() {
+    const routeData = {
+      columns: [
+        {
+          label: "RAIL CAR",
+          field: "railcar",
+          width: 130,
+        },
+        {
+          label: "DESCRIPTION",
+          field: "desc",
+          width: 130,
+        },
+        {
+          label: "SITE",
+          field: "site",
+          width: 130,
+        },
+        {
+          label: "CHECKED-IN DATE",
+          field: "date",
+          width: 150,
+        },
+        {
+          label: "CHECKED-IN TIME",
+          field: "time",
+          width: 150,
+        }
+      ],
+      rows: [
+        {
+           railcar : "ACFX 78674",
+           desc : "",
+           site : "STCA1",
+           date :   "10-02-2022",
+           time :  "10:00"
+        },
+        {
+           railcar : "GATX008841",
+                     desc : "",
+                     site : "STCA1",
+                     date :   "10-02-2022",
+                     time :  "11:00"
+        },
+         {
+                   railcar : "GATX008842",
+                             desc : "",
+                             site : "STCA1",
+                             date :   "10-02-2022",
+                             time :  "09:00"
+                },
+          {
+                    railcar : "GATX008843",
+                              desc :  "",
+                              site : "STCA1",
+                              date :   "10-02-2022",
+                              time :  "10:40"
+                 },
+           {
+                     railcar : "GATX008844",
+                               desc :  "",
+                               site : "STCA1",
+                               date :   "10-02-2022",
+                               time :  "14:00"
+                  },
+      ],
+    };
+    return (
+      <React.Fragment>
+        <div className="page-content">
+         <ToastContainer />
+          <Container fluid>
+            <Row>
+              <Col xs="12">
+                <Card>
+                  <CardBody>
+                    <CheckInHeader
+                      sites = {this.state.sites}
+                      railcarAvaillist = {this.state.CheckAvailList}
+                      selectedSite={this.state.selectedSite}
+                      handleSiteChange={this.handleSiteChange}
+                      OnCheckInClicked= {this.OnCheckInClicked}
+
+                    />
+                    <div className="gap">
+                    </div>
+
+                    <RailCarCheckInList
+                    railcarChecedInlist = {this.state.CheckInList}
+                    />
+                  </CardBody>
+                </Card>
+              </Col>
+            </Row>
+          </Container>
+        </div>
+      </React.Fragment>
+    );
+  }
+}
+
+export default RailCarCheckIn;

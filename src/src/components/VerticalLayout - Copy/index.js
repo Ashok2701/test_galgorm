@@ -1,0 +1,183 @@
+import React, { Component } from "react";
+import moment from 'moment';
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import {
+  changeLayout,
+  changeSidebarTheme,
+  changeSidebarType,
+  toggleRightSidebar,
+  changeTopbarTheme,
+  changeLayoutWidth
+} from "../../store/actions";
+
+// Layout Related Components
+import Header from "./Header";
+import Sidebar from "./Sidebar";
+// import Footer from "./Footer";
+import Rightbar from "../CommonForBoth/Rightbar";
+
+class Layout extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isMobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent),
+
+    };
+    this.toggleMenuCallback = this.toggleMenuCallback.bind(this);
+    this.toggleRightSidebar = this.toggleRightSidebar.bind(this);
+  }
+
+  toggleRightSidebar() {
+    this.props.toggleRightSidebar();
+  }
+
+  capitalizeFirstLetter = string => {
+    return string.charAt(1).toUpperCase() + string.slice(2);
+  };
+
+  componentDidUpdate(prevProps) {
+     console.log("index componentDidUpdate");
+
+
+
+
+    if (prevProps !== this.props) {
+      if(this.props.isPreloader === true)
+        {
+          document.getElementById('preloader').style.display = "block";
+          document.getElementById('status').style.display = "block";
+
+          setTimeout(function(){ 
+
+          document.getElementById('preloader').style.display = "none";
+          document.getElementById('status').style.display = "none";
+
+          }, 2500);
+        }
+        else
+        {
+          document.getElementById('preloader').style.display = "none";
+          document.getElementById('status').style.display = "none";
+        }
+    }
+}
+
+  onDateselection = (date) => {
+     console.log("T11 inside dateselection",date);
+     const Seldate = moment(date).format('YYYY-MM-DD');
+     console.log("T11 inside dateselection",Seldate);
+          localStorage.setItem('Date', Seldate);
+        //  this.props.handleDateChange(Seldate);
+          this.setState = {
+               SeletedDate : Seldate
+          }
+    }
+
+       selectedSitesArr = (val) => {
+               //    this.props.sitesArr(val);
+      console.log("selected site array =",val);
+    //this.setCurrentSite(val);
+        //  localStorage.setItem('sites', val);
+       this.setState({ selectedSitesArr: val })
+               }
+
+
+        handleSiteChange = (val) => {
+                // this.props.handleSiteChange(val);
+              console.log("selected site value =",val);
+            //  this.setCurrentSite(val);
+          //   var selSitesArr = [];
+           //  var existingsite = JSON.parse(localStorage.getItem("sites"));
+             console.log("val =",val);
+           //  console.log("existing site are",existingsite);
+
+             }
+
+
+
+  componentDidMount() {
+
+    
+    // Scroll Top to 0
+    window.scrollTo(0, 0);
+    let currentage = this.capitalizeFirstLetter(this.props.location.pathname);
+
+    document.title =
+      currentage + " | Route Planner for Sage X3";
+    if (this.props.leftSideBarTheme) {
+      this.props.changeSidebarTheme(this.props.leftSideBarTheme);
+    }
+
+    if (this.props.layoutWidth) {
+      this.props.changeLayoutWidth(this.props.layoutWidth);
+    }
+
+    if (this.props.leftSideBarType) {
+      this.props.changeSidebarType(this.props.leftSideBarType);
+    }
+    if (this.props.topbarTheme) {
+      this.props.changeTopbarTheme(this.props.topbarTheme);
+    }
+
+    if (this.props.showRightSidebar) {
+      this.toggleRightSidebar();
+    }
+
+
+  }
+  toggleMenuCallback = () => {
+    if (this.props.leftSideBarType === "default") {
+      this.props.changeSidebarType("condensed", this.state.isMobile);
+    } else if (this.props.leftSideBarType === "condensed") {
+      this.props.changeSidebarType("default", this.state.isMobile);
+    }
+  };
+
+  render() {
+    return (
+      <React.Fragment>
+        <div id="preloader">
+            <div id="status">
+                <div className="spinner">
+                    <i className="ri-loader-line spin-icon"></i>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="layout-wrapper">
+        <Header toggleMenuCallback={this.toggleMenuCallback} toggleRightSidebar={this.toggleRightSidebar}
+        />
+          <Sidebar
+            theme={this.props.leftSideBarTheme}
+            type={this.props.leftSideBarType}
+            isMobile={this.state.isMobile}
+
+          />
+              <div className="main-content">
+                {this.props.children}
+                {/* <Footer/> */}
+              </div>
+        </div>
+        <Rightbar />
+      </React.Fragment>
+    );
+  }
+}
+
+
+const mapStatetoProps = state => {
+  return {
+    ...state.Layout
+  };
+};
+export default connect(mapStatetoProps, {
+  changeLayout,
+  changeSidebarTheme,
+  changeSidebarType,
+  toggleRightSidebar,
+  changeTopbarTheme,
+  changeLayoutWidth
+})(withRouter(Layout));
+

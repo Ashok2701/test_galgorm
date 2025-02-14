@@ -1,0 +1,588 @@
+:root {
+    --body-bg : rgb(204,204,204);
+    --white : #ffffff;
+    --darkwhite : #ccc;
+    --black : #615c60;
+    --themeColor: #07d675;
+    --pageShadow : 0 0 0.5cm rgba(0,0,0,0.5);
+
+}
+
+body {
+    background-color: var(--body-bg);
+}
+
+.page {
+    background-color: var(--white);
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    box-shadow: var(--pageShadow);
+    
+}
+
+.page[size="A4"] {
+     width: 21.59cm;
+     height: 29.7cm;
+
+
+}
+
+.bb{
+    border-bottom: 3px solid var(--darkwhite);
+}
+
+
+
+
+.logo-bol img {
+
+    height: 140px;
+    padding: 0.5cm;
+}
+
+
+
+.top-left .graphic-path {
+    height: 80px;
+    position: relative;
+}
+
+.top-left .graphic-path::b {
+    content:"";
+    height: 20px;
+    background-color: var(--dark);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top : 0;
+    z-index :2;
+}
+
+.top-left {
+  padding-top : 30px;
+}
+
+.comp1-left {
+  position: absolute;
+  top: 60px;
+  left: 105px;
+}
+
+.comp2-left {
+  position: absolute;
+  top: 80px;
+  left: 355px;
+}
+
+.comp1-left  p{
+ margin : 0;
+}
+
+.comp1-right  p{
+ margin : 0;
+}
+
+.comp2-right  p{
+ margin : 0;
+}
+
+.comp2-left  p{
+ margin : 0;
+}
+
+.comp1-right {
+  position: absolute;
+  top: 60px;
+  left: 260px;
+}
+
+.comp1-rightH {
+  position: absolute;
+  top: 65px;
+  left: 260px;
+}
+
+
+.comp11-rightH {
+  position: absolute;
+  top: 47px;
+  left: 425px;
+}
+
+.comp2-rightH {
+  position: absolute;
+  top: 65px;
+  right: 100px;
+}
+
+.comp2-right {
+  position: absolute;
+  top: 60px;
+  left: 500px;
+}
+
+
+.top-left  li{
+    font-size: 12px;
+    font-weight: bolder;
+
+}
+
+
+.Maindata tbody {
+  width : 780px !important;
+}
+
+
+.Maindata td {
+  font-size : small;
+  font-weight : bolder;
+}
+
+
+.top-left  ul{
+    list-style-type:none;
+    padding-left: 10px;
+     font-size: 14px;
+        font-weight: bolder;
+
+}
+
+.page {
+
+
+}
+
+.driver-section .driverdirections {
+    margin-top: 15px;
+}
+
+.driver-section .driverdirections   p {
+    border-bottom: 2px black solid;
+    margin-bottom: 40px;
+}
+
+
+
+.heading1 .graphic-path {
+  display : inline-flex;
+}
+
+
+pre {
+  border : none;
+}
+
+.heading1 .graphic-path .bol h4{
+     color: var(--white);
+     height: 40px;
+  font-weight: bolder;
+     left: 0;
+     right: 0;
+     text-align: left;
+     text-transform: uppercase;
+     font : 26px;
+     padding: 3PX;
+
+
+}
+
+.heading1 .graphic-path .title {
+   margin-left : 100px;
+}
+
+.heading1 .graphic-path .title h4{
+     color: var(--black);
+     height: 40px;
+  font-weight: bolder;
+     left: 0;
+     right: 0;
+     text-align: left;
+     text-transform: uppercase;
+     font : 26px;
+     padding-top: 10PX;
+
+}
+
+.shiping-section {
+    margin-top: 5px;
+    height: 180px;
+    width: 50%;
+
+    float : left
+}
+.shiping-section2 {
+    margin-top: 5px;
+    height: 180px;
+    width: 50%;
+
+    float : right
+}
+
+
+.shiping-section .second-left {
+   
+    height: 170px;
+    width: 350px;
+    border : 2px solid black;
+
+
+}
+
+.shiping-section .second-left .site {
+    padding: 0px;
+    border-bottom: black 1px solid;
+    width: 350px;
+    height : 100px;
+
+}
+
+
+.shiping-section .second-left .site ul {
+    
+    list-style-type:none;
+    padding-left: 10px;
+}
+
+
+.shiping-section .second-left .site ul  li{
+    font-size: 12;
+    font-weight:900;
+    color: black;
+}
+
+.shiping-section .second-left .site-info {
+    padding: 0px;
+    width: 346px;
+    height: 65px;
+    background-color: gray;
+    color: black;
+    font-size: 12px;
+
+}
+.shiping-section .second-left .site-info p{
+    padding-left: 10px;
+    padding-top: 3px;
+    margin: 0;
+    font-size: 12px;
+    font-weight: bolder;
+
+}
+
+.shiping-section2 .second-right {
+    margin-left: 15px;
+    height: 170px;
+    width: 550px;
+    float : left;
+
+}
+
+
+
+.shiping-section .second-right  .headings p{
+    padding-left: 10px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    margin: 0;
+    font-size: 16px;
+    font-weight: bolder;
+
+}
+
+.column {
+  float: left;
+
+  height: 170px; /* Should be removed. Only for demonstration */
+}
+
+.left {
+  width: 25%;
+}
+
+.middle {
+  width : 10%;
+}
+
+
+.right {
+  width: 65%;
+}
+
+
+.left p {
+ font-size : 16px;
+ font-weight : bolder;
+ color : black;
+  padding : 0;
+     margin : 0;
+}
+
+.middle p {
+ padding : 0;
+     margin : 0;
+}
+
+
+.right p {
+ font-size : 16px;
+ font-weight : 900;
+  padding : 0;
+     margin : 0;
+}
+
+
+.transport-section {
+   
+    height: 350px;
+    width: 40%;
+    float : left
+   
+}
+
+
+.transport-section2 {
+
+    height: 350px;
+    width: 60%;
+    float : right
+
+}
+
+
+.driver-section {
+   
+    height: 450px;
+    width: 100%;
+   
+}
+
+.driver-section .third-left {
+   
+    height: 150px;
+    
+
+}
+
+.driver-section .third-left p {
+    padding-left: 10px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    margin: 0;
+    font-size: 12px;
+    font-weight: bolder;
+
+}
+
+.driver-section .directions-head p{
+    font-size: 14px;
+    font-weight: bolder;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+
+}
+
+.transport-section .third-left {
+   
+    height: 250px;
+    width: 350px;
+
+}
+
+.transport-section .third-left p {
+    padding-left: 10px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    margin: 0;
+    font-size: 12px;
+    font-weight: bolder;
+
+}
+
+
+.transport-section .third-right {
+   margin-left: 5px;
+    height: 220px;
+    width: 600px;
+
+
+}
+
+.railcar {
+ height: 280px;
+    width: 660px;
+  position: relative;
+  text-align: center;
+
+}
+
+
+
+.railcar img {
+    width: 100%;
+ height: 100%;
+}
+
+
+.Maindata {
+   min-height : 800px;
+    height : auto;
+    width : 100%;
+    min-width : 100%
+
+}
+
+
+.Maindata .mytable {
+    border:2px solid black;
+    width : inherit;
+}
+
+
+
+.Maindata   .comboouter {
+   width : inherit;
+}
+
+
+.extrafooter-section{
+   height: 100px;
+   margin-top : 25px;
+}
+
+
+
+.sealnumber {
+  height : 150px;
+}
+
+.sealnumber p{
+  margin : 0px;
+}
+
+.extrafooter-section  p{
+    border-top: 5px;
+    font-size: 10px;
+ }
+
+.extrafooter-section .deputysign p{
+    border-top: 5px;
+    font-size: 12px;
+    font-weight: bolder;
+ }
+
+
+ .extrafooter-section .deputysign {
+
+ width: 280px;
+ border-top: 1px solid black;
+ 
+ }
+
+
+
+
+.extrafooter-section .customersign .customersign .deputysign {
+  width: 180px;
+
+}
+
+
+.extrafooter-section  .we_heading {
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+footer {
+
+   margin : 0px;
+}
+
+
+footer p{
+    background-color: var(--white);
+    color: var(--black);
+    font-size: 12px;
+    margin: 0px;
+}
+
+.signature-section {
+    height: 30px;
+    display: inline;
+    margin-top: 10px;
+    padding-top: 10px;
+
+}
+
+.signature-section .customersign {
+     width: 280px;
+     border-top: 1px solid black;
+     
+
+}
+
+
+.signature-section .customersign p{
+   
+    font-weight: bolder;
+    font-size: 12px;
+
+}
+.signature-section .driversign {
+    width: 280px;
+    border-top: 1px solid black;
+    align-self : left;
+
+
+}
+
+.signature-section .driversign P{
+    font-weight: bolder;
+    font-size: 12px;
+    
+
+}
+
+
+.final-footer {
+
+    text-align: center;
+    margin : 0px;
+}
+
+.final-footer p{
+    margin: 0;
+}
+
+
+.mytable  tr td  {
+     font-size:10px;
+}
+
+.mytable  tbody td  {
+
+     margin : 0px;
+     padding : 0px;
+}
+
+
+.mytable thead td  {
+     font-size:12px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

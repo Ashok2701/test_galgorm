@@ -1,0 +1,93 @@
+
+  {
+    "sdhnum": "STCA12201SDH00000115",
+    "xdlv_status": "1",
+    "bpcord": "USC00062",
+    "bprnam": "SCHURMAN SOIL SERVICE",
+    "poscod": "50595",
+    "cty": "WEBSTER CITY",
+    "combo1" : {
+       "desc" : "COMBO1",
+       "products": [
+        {
+        "productCode": "HGNRGNBN",
+        "productName": "HIGH NRG-N",
+        "type": "COMBO1",
+        "quantity": "100",
+        "units": "GAL",
+        "comp1": "50",
+        "comp2": "50"
+      },
+      {
+        "productCode": "MICRO5BZN",
+        "productName": "MICRO 500",
+        "type": "COMBO1",
+        "quantity": "100",
+        "units": "GAL",
+        "comp1": "50",
+        "comp2": "50"
+      }
+
+       ]
+  },
+    "combo2" : {
+       "desc" : "COMBO2",
+      "products": [
+        {
+          "productCode": "HGNRGNBN",
+          "productName": "HIGH NRG-N",
+          "type": "COMBO2",
+          "quantity": "100",
+          "units": "GAL",
+          "comp5": "50",
+          "comp6": "50"
+        },
+        {
+          "productCode": "MICRO5BZN",
+          "productName": "MICRO 500",
+          "type": "COMBO2",
+          "quantity": "100",
+          "units": "GAL",
+          "comp5": "50",
+          "comp6": "50"
+        }
+
+      ]
+    },
+    "noncombo" : {
+      "desc" : "NONCOMBO",
+    "products" : [
+  {
+    "productCode" : "ACCESSBS",
+    "productName" : "ACCESS",
+    "type" : "NONCOMBO",
+    "quantity"  : "50",
+    "units" : "GAL",
+    "comp3" : "50"
+
+  },
+  {
+    "productCode" : "PRGRMRBP",
+    "productName" : "PRO-GERMINATOR",
+    "type" : "NONCOMBO",
+    "quantity"  : "30",
+    "units" : "GAL",
+    "comp4" : "30"
+
+  }
+
+      ]
+    },
+    "sat": "IA",
+    "cry": "US",
+    "crynam": "UNITED STATES OF AMERICA",
+    "arvtime": "07:36",
+    "growei": "719.350",
+    "weu": "lb",
+    "vol": "0.00000",
+    "vou": " ",
+    "fromprevDist": "19.5040",
+    "fromprevTra": "0.3500",
+    "ywaitTime": "0.000",
+    "xdocSite": "STCA1"
+  }

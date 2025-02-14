@@ -1,0 +1,15 @@
+.tmr-tooltip {
+  position: absolute;
+  min-width: 60px;
+  height: auto;
+  background: none repeat scroll 0 0 white;
+  border: 1px;
+  border-style: solid;
+  max-width: 750px;
+  border-radius: 3px;
+  color: black;
+  padding: 2px;
+  text-align: center;
+  pointer-events: none;
+  z-index: 9999;
+}

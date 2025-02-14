@@ -1,0 +1,68 @@
+@import '../../../theme.scss';
+
+
+
+
+
+.panel1 {
+  color: #0f6149 !important;
+     background-color: #d2f1e8 !important;
+     border-color: #bfecdf !important;
+     height: 100px;
+
+}
+
+.gap{
+    height : 50px;
+
+}
+
+
+.Sitegrid
+{
+
+  padding : 25px 10px 5px 0px;
+
+}
+
+
+.Selectsite{
+   float : left;
+   width : 200px;
+}
+
+
+.Select {
+  margin-left : 50px;
+  float : left;
+     width : 200px;
+
+}
+
+.Button {
+ float : right;
+}
+
+
+
+
+.railcarList  flex-row{
+   width : 300px;
+   height : 50px;
+}
+
+
+.railcarList tbody tr td {
+   font-size : 16px;
+}
+
+.railcarList thead  {
+   font-size : 16px;
+   background-color : #509e2f;
+   color : white;
+}
+
+.heading{
+      background-color: green;
+      height: 40px;
+}

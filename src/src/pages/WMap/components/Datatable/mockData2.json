@@ -1,0 +1,50 @@
+[
+  {
+    "color": "purple",
+    "driverName": "David John",
+    "tripId": "WVR-210304",
+    "trip": 12,
+    "vehicleInfo": "Volvo S40 TS09EE5678",
+    "departure": "08:00AM",
+    "arrival": "04:00PM",
+    "capacity": 56,
+    "time": 76,
+    "times": [
+      {
+        "action": "start",
+        "starting_time": 1355714400000,
+        "display": "circle"
+      },
+      {
+        "action": "driving",
+        "starting_time": 1355718000000,
+        "ending_time": 1355720400000
+      },
+      {
+        "action": "parking",
+        "starting_time": 1355721400000,
+        "ending_time": 1355724000000
+      },
+      {
+        "action": "driving",
+        "starting_time": 1355725800000,
+        "ending_time": 1355733000000
+      },
+      {
+        "action": "lunch",
+        "starting_time": 1355735000000,
+        "ending_time": 1355739000000
+      },
+      {
+        "action": "driving",
+        "starting_time": 1355741000000,
+        "ending_time": 1355751000000
+      },
+      {
+        "action": "home",
+        "starting_time": 1355768000000,
+        "display": "circle"
+      }
+    ]
+  }
+]

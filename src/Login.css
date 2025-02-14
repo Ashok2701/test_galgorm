@@ -1,0 +1,19 @@
+.flag-lang{
+				text-align: end;
+			}
+.flags {
+				border: 1px solid white;
+				padding: 0px!important;
+				display: inline-block!important;
+				height: 22px!important;
+}
+.flags:hover {
+				border-color: #ddd!important;
+			}
+.flag-fr,.flag-en:hover {
+				border-color: #439894!important;
+    			background: #f1f1f1;
+    			cursor: default;
+}
+
+

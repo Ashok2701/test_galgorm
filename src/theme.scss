@@ -1,0 +1,94 @@
+//Import Icon scss
+@import "./assets/scss/icons.scss";
+
+//import Light Theme
+@import "./assets/scss/bootstrap.scss";
+@import "./assets/scss/app.scss";
+
+//Import Dark theme
+// @import "./assets/scss/bootstrap-dark.scss";
+// @import "./assets/scss/app-dark.scss";
+
+// RTL mode
+// @import "./assets/scss/bootstrap.scss";
+// @import "./assets/scss/app-rtl.scss";
+
+
+
+.modal-header-bg {
+    // background: linear-gradient(90deg,#5522fa 0,#0074e4 100%);
+    // background: linear-gradient(90deg, rgba(85, 34, 250, 0.8) 0%, rgba(0, 116, 228, 0.8) 100%), rgba(0, 0, 0, 0.2);
+    background-color: #708090;
+  }
+.accordian-bg-products {
+    background-color: $gray-300;
+}
+
+.nav-link {
+    cursor: pointer;
+}
+
+.dataTables_filter, .dataTables_paginate
+{
+    float: right;
+    .pagination {
+            .page-link {
+                border-radius: 30px !important;
+                margin: 0 3px;
+                border: none;
+                text-align: center;
+                cursor: pointer;
+            }
+    }
+}
+
+.rdw-editor-main
+{
+    border: 1px solid  $gray-300;
+    height: 239px;
+}
+.dz-message
+{
+     text-align: center;
+    padding: 100px;
+}
+
+.react-datepicker-wrapper
+{
+    width: 100%!important;
+}
+
+.ReactModal__Overlay
+{
+  z-index: 1001!important;
+}
+
+.rangeslider__fill {
+    background-color: $primary !important;
+}
+
+.react-bootstrap-table{
+    padding-top: 0px!important;
+}
+
+.square-switch
+{
+ .react-switch-bg
+ {
+ border-radius : 5px!important;
+ }   
+}
+
+input[type="range"] {
+    -webkit-appearance: auto!important;
+}
+
+.chat-conversation-height {
+        min-height: 500px;
+}
+
+.expand-cell{
+    cursor: pointer!important;
+}
+
+

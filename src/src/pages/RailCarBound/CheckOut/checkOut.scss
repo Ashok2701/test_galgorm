@@ -1,0 +1,51 @@
+@import '../../../theme.scss';
+
+
+
+.panel1 {
+  color: #0f6149 !important;
+     background-color: #d2f1e8 !important;
+     border-color: #bfecdf !important;
+     height: 100px;
+}
+
+.gap{
+    height : 50px;
+
+}
+
+
+.Sitegrid
+{
+
+  padding : 25px 10px 5px 0px;
+
+}
+
+.Select {
+  margin-left : 50px;
+
+}
+
+.Button {
+ float : right;
+}
+
+
+
+.heading{
+      background-color: green;
+      height: 40px;
+}
+
+
+.reportlist-view2  table thead {
+  font-size : 16px;
+   background-color : #509e2f;
+   color : white;
+}
+
+.reportlist-view2  tbody tr td {
+  font-size : 16px;
+
+}

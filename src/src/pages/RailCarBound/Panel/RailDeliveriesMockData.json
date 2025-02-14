@@ -1,0 +1,250 @@
+[
+  {
+    "site": "STCA1",
+    "docnum": "STCA12201SDH00000118",
+    "adrescode": "S0001",
+    "adresname": "SCHURMAN SOIL SERVICE",
+    "carrierColor": ";font-style:normal;background-color:#92a8d1",
+    "docdate": "2022-02-08 00:00:00.0",
+    "dlvystatus": "0",
+    "bpcode": "USC00062",
+    "bpname": "SCHURMAN SOIL SERVICE",
+    "netweight": 15,
+    "weightunit": "LB",
+    "volume": 0,
+    "volume_unit": " ",
+    "poscode": "50595",
+    "city": "WEBSTER CITY",
+    "lat": 38.899078,
+    "lng": -77.04039339999997,
+    "railCode": "GATX008841",
+    "routeCode": "1123",
+    "products": [
+      {
+        "productCode": "251624DL",
+        "productName": "Product 3",
+        "productCateg": "MTREL",
+        "quantity": "3000",
+        "uom": "UN",
+        "docLineNum": "1000"
+      }
+    ]
+  },
+  {
+    "site": "STCA1",
+    "docnum": "STCA12201SDH00000110",
+    "adrescode": "S0001",
+    "adresname": "SCHURMAN SOIL SERVICE",
+    "carrierColor": ";font-weight:normal;font-style:italic;background-color:#77BBBB",
+    "docdate": "2022-02-08 00:00:00.0",
+    "dlvystatus": "0",
+    "bpcode": "USC00062",
+    "bpname": "SCHURMAN SOIL SERVICE",
+    "netweight": 0,
+    "weightunit": " ",
+    "volume": 0,
+    "volume_unit": " ",
+    "poscode": "50595",
+    "city": "WEBSTER CITY",
+    "lat": 48.2808430112343,
+    "lng": -2.5063740380603576,
+    "railCode": "GATX008842",
+    "routeCode": "1123",
+    "products": [
+      {
+        "productCode": "251624DL",
+        "productName": "Product 4",
+        "productCateg": "MTREL",
+        "quantity": "3",
+        "uom": "UN",
+        "docLineNum": "1000"
+      }
+    ]
+  },
+  {
+    "site": "STCA1",
+    "docnum": "STCA12201SDH00000112",
+    "adrescode": "S0001",
+    "adresname": "SCHURMAN SOIL SERVICE",
+    "carrierColor": ";font-weight:normal;font-style:italic;background-color:#77BBBB",
+    "docdate": "2022-02-08 00:00:00.0",
+    "dlvystatus": "0",
+    "bpcode": "USC00062",
+    "bpname": "SCHURMAN SOIL SERVICE",
+    "netweight": 0,
+    "weightunit": " ",
+    "volume": 0,
+    "volume_unit": " ",
+    "poscode": "50595",
+    "city": "WEBSTER CITY",
+    "lat": 48.2808430112343,
+    "lng": -2.5063740380603576,
+    "railCode": "GATX008841",
+    "routeCode": "1123",
+    "products": [
+      {
+        "productCode": "251624DL",
+        "productName": "Product 3",
+        "productCateg": "MTREL",
+        "quantity": "3",
+        "uom": "UN",
+        "docLineNum": "1000"
+      }
+    ]
+  },
+  {
+    "site": "STCA1",
+    "docnum": "STCA12201SDH00000113",
+    "adrescode": "S0001",
+    "adresname": "SCHURMAN SOIL SERVICE",
+    "carrierColor": ";font-style:normal;background-color:#FFFFB0",
+    "docdate": "2022-02-08 00:00:00.0",
+    "dlvystatus": "1",
+    "bpcode": "USC00062",
+    "bpname": "SCHURMAN SOIL SERVICE",
+    "netweight": 0,
+    "weightunit": " ",
+    "volume": 0,
+    "volume_unit": " ",
+    "poscode": "50595",
+    "city": "WEBSTER CITY",
+    "lat": 48.2808430112343,
+    "lng": -2.5063740380603576,
+    "railCode": "GATX008842",
+    "routeCode": "1124",
+    "products": [
+      {
+        "productCode": "251624DL",
+        "productName": "Product 1",
+        "productCateg": "MTREL",
+        "quantity": "2223",
+        "uom": "UN",
+        "docLineNum": "1000"
+      }
+    ]
+  },
+  {
+    "site": "STCA1",
+    "docnum": "STCA12201SDH00000114",
+    "adrescode": "S0001",
+    "adresname": "SCHURMAN SOIL SERVICE",
+    "carrierColor": ";font-style:normal;background-color:#92a8d1",
+    "docdate": "2022-02-08 00:00:00.0",
+    "dlvystatus": "0",
+    "bpcode": "USC00062",
+    "bpname": "SCHURMAN SOIL SERVICE",
+    "netweight": 15,
+    "weightunit": "LB",
+    "volume": 0,
+    "volume_unit": " ",
+    "poscode": "50595",
+    "city": "WEBSTER CITY",
+    "lat": 38.899078,
+    "lng": -77.04039339999997,
+    "railCode": "GATX008842",
+    "routeCode": "1123",
+    "products": [
+      {
+        "productCode": "251624DL",
+        "productName": "Product 3",
+        "productCateg": "MTREL",
+        "quantity": "3000",
+        "uom": "UN",
+        "docLineNum": "1000"
+      }
+    ]
+  },
+  {
+    "site": "STCA1",
+    "docnum": "STCA12201SDH00000115",
+    "adrescode": "S0001",
+    "adresname": "SCHURMAN SOIL SERVICE",
+    "carrierColor": ";font-weight:normal;font-style:italic;background-color:#77BBBB",
+    "docdate": "2022-02-08 00:00:00.0",
+    "dlvystatus": "0",
+    "bpcode": "USC00062",
+    "bpname": "SCHURMAN SOIL SERVICE",
+    "netweight": 0,
+    "weightunit": " ",
+    "volume": 0,
+    "volume_unit": " ",
+    "poscode": "50595",
+    "city": "WEBSTER CITY",
+    "lat": 48.2808430112343,
+    "lng": -2.5063740380603576,
+    "railCode": "GATX008842",
+    "routeCode": "1123",
+    "products": [
+      {
+        "productCode": "251624DL",
+        "productName": "Product 4",
+        "productCateg": "MTREL",
+        "quantity": "3",
+        "uom": "UN",
+        "docLineNum": "1000"
+      }
+    ]
+  },
+  {
+    "site": "STCA1",
+    "docnum": "STCA12201SDH00000116",
+    "adrescode": "S0001",
+    "adresname": "SCHURMAN SOIL SERVICE",
+    "carrierColor": ";font-weight:normal;font-style:italic;background-color:#77BBBB",
+    "docdate": "2022-02-08 00:00:00.0",
+    "dlvystatus": "0",
+    "bpcode": "USC00062",
+    "bpname": "SCHURMAN SOIL SERVICE",
+    "netweight": 0,
+    "weightunit": " ",
+    "volume": 0,
+    "volume_unit": " ",
+    "poscode": "50595",
+    "city": "WEBSTER CITY",
+    "lat": 48.2808430112343,
+    "lng": -2.5063740380603576,
+    "railCode": "GATX008841",
+    "routeCode": "1123",
+    "products": [
+      {
+        "productCode": "251624DL",
+        "productName": "Product 3",
+        "productCateg": "MTREL",
+        "quantity": "3",
+        "uom": "UN",
+        "docLineNum": "1000"
+      }
+    ]
+  },
+  {
+    "site": "STCA1",
+    "docnum": "STCA12201SDH00000117",
+    "adrescode": "S0001",
+    "adresname": "SCHURMAN SOIL SERVICE",
+    "carrierColor": ";font-style:normal;background-color:#FFFFB0",
+    "docdate": "2022-02-08 00:00:00.0",
+    "dlvystatus": "1",
+    "bpcode": "USC00062",
+    "bpname": "SCHURMAN SOIL SERVICE",
+    "netweight": 0,
+    "weightunit": " ",
+    "volume": 0,
+    "volume_unit": " ",
+    "poscode": "50595",
+    "city": "WEBSTER CITY",
+    "lat": 48.2808430112343,
+    "lng": -2.5063740380603576,
+    "railCode": "GATX008842",
+    "routeCode": "1124",
+    "products": [
+      {
+        "productCode": "251624DL",
+        "productName": "Product 1",
+        "productCateg": "MTREL",
+        "quantity": "2223",
+        "uom": "UN",
+        "docLineNum": "1000"
+      }
+    ]
+  }
+]

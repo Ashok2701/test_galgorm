@@ -1,0 +1,118 @@
+[
+  {
+    "code": "GFP885D0P",
+    "docdate": "2021-07-04T18:30:00.000+00:00",
+    "tripList": [
+      {}
+    ]
+  },
+  {
+    "code": "GFP885D0P",
+    "docdate": "2021-07-05T18:30:00.000+00:00",
+    "tripList": [
+      {
+        "code": "GFP885D0P",
+        "driverName": "LEMOS JOSE",
+        "trailers": 0,
+        "equipments": 0,
+        "trips": 1,
+        "pickups": 0,
+        "itemCode": "WVR-210705-SHERV-001"
+      }
+    ]
+  },
+  {
+    "code": "GFP885D0P",
+    "docdate": "2021-07-06T18:30:00.000+00:00",
+    "tripList": [
+      {
+        "code": "GFP885D0P",
+        "driverName": "LEMOS JOSE",
+        "trailers": 0,
+        "equipments": 0,
+        "trips": 1,
+        "pickups": 0,
+        "itemCode": "WVR-210706-SHERV-001"
+      }
+    ]
+  },
+  {
+    "code": "GFP885D0P",
+    "docdate": "2021-07-07T18:30:00.000+00:00",
+    "tripList": [
+      {}
+    ]
+  },
+  {
+    "code": "GFP885D0P",
+    "docdate": "2021-07-08T18:30:00.000+00:00",
+    "tripList": [
+      {
+        "code": "GFP885D0P",
+        "driverName": "LEMOS JOSE",
+        "trailers": 0,
+        "equipments": 0,
+        "trips": 1,
+        "pickups": 0,
+        "itemCode": "WVR-210708-SHERV-001"
+      },
+      {
+        "code": "GFP885D0P",
+        "driverName": "MAX",
+        "trailers": 0,
+        "equipments": 0,
+        "trips": 1,
+        "pickups": 0,
+        "itemCode": "WVR-210708-SHERV-002"
+      },
+      {
+        "code": "GFP885D0P",
+        "driverName": "HAMILTON",
+        "trailers": 0,
+        "equipments": 0,
+        "trips": 1,
+        "pickups": 0,
+        "itemCode": "WVR-210708-SHERV-003"
+      },
+      {
+        "code": "GFP885D0P",
+        "driverName": "BOTTAS",
+        "trailers": 0,
+        "equipments": 0,
+        "trips": 1,
+        "pickups": 0,
+        "itemCode": "WVR-210708-SHERV-004"
+      }
+    ]
+  },
+  {
+    "code": "GFP885D0P",
+    "docdate": "2021-07-09T18:30:00.000+00:00",
+    "tripList": [
+      {
+        "code": "GFP885D0P",
+        "driverName": "LEMOS JOSE",
+        "trailers": 0,
+        "equipments": 0,
+        "trips": 1,
+        "pickups": 0,
+        "itemCode": "WVR-210709-SHERV-001"
+      }
+    ]
+  },
+  {
+    "code": "GFP885D0P",
+    "docdate": "2021-07-10T18:30:00.000+00:00",
+    "tripList": [
+      {
+        "code": "GFP885D0P",
+        "driverName": "LEMOS JOSE",
+        "trailers": 0,
+        "equipments": 0,
+        "trips": 1,
+        "pickups": 0,
+        "itemCode": "WVR-210710-SHERV-001"
+      }
+    ]
+  }
+]

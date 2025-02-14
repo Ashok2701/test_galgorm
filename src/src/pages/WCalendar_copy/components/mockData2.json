@@ -1,0 +1,149 @@
+[
+  {
+    "color": "purple",
+    "driverName": "David John Mathew",
+    "tripId": "WVR-210304-CORPS-001",
+    "trip": 12,
+    "vehicleInfo": "Volvo S40 XHR TS09EE5678",
+    "departure": "08:00AM",
+    "arrival": "04:00PM",
+    "capacity%": 56,
+    "time%": 76,
+    "id": "chart1",
+    "times": [
+      {
+        "action": "start",
+        "starting_time": 1355711400000,
+        "display": "circle"
+      },
+      {
+        "action": "driving",
+        "starting_time": 1355713200000,
+        "ending_time": 1355720280000
+      },
+      {
+        "action": "parking",
+        "starting_time": 1355721600000,
+        "display": "circle"
+      },
+      {
+        "action": "driving",
+        "starting_time": 1355727600000,
+        "ending_time": 1355733000000
+      },
+      {
+        "action": "lunch",
+        "starting_time": 1355734800000,
+        "display": "circle"
+      },
+      {
+        "action": "driving",
+        "starting_time": 1355736600000,
+        "ending_time": 1355741580000
+      },
+      {
+        "action": "home",
+        "starting_time": 1355743200000,
+        "display": "circle"
+      }
+    ]
+  },
+  {
+    "color": "purple",
+    "driverName": "David John Mathew",
+    "tripId": "WVR-210304-CORPS-001",
+    "trip": 12,
+    "vehicleInfo": "Volvo S40 XHR TS09EE5678",
+    "departure": "08:00AM",
+    "arrival": "04:00PM",
+    "capacity%": 56,
+    "time%": 76,
+    "id": "chart2",
+    "times": [
+      {
+        "action": "start",
+        "starting_time": 1355714400000,
+        "display": "circle"
+      },
+      {
+        "action": "driving",
+        "starting_time": 1355718000000,
+        "ending_time": 1355720400000
+      },
+      {
+        "action": "parking",
+        "starting_time": 1355724000000,
+        "display": "circle"
+      },
+      {
+        "action": "driving",
+        "starting_time": 1355727600000,
+        "ending_time": 1355733000000
+      },
+      {
+        "action": "lunch",
+        "starting_time": 1355734800000,
+        "display": "circle"
+      },
+      {
+        "action": "driving",
+        "starting_time": 1355736600000,
+        "ending_time": 1355741580000
+      },
+      {
+        "action": "home",
+        "starting_time": 1355743200000,
+        "display": "circle"
+      }
+    ]
+  },
+  {
+    "color": "purple",
+    "driverName": "David John Mathew",
+    "tripId": "WVR-210304-CORPS-001",
+    "trip": 12,
+    "vehicleInfo": "Volvo S40 XHR TS09EE5678",
+    "departure": "08:00AM",
+    "arrival": "04:00PM",
+    "capacity%": 56,
+    "time%": 76,
+    "id": "chart3",
+    "times": [
+      {
+        "action": "start",
+        "starting_time": 1355709600000,
+        "display": "circle"
+      },
+      {
+        "action": "driving",
+        "starting_time": 1355718000000,
+        "ending_time": 1355720400000
+      },
+      {
+        "action": "parking",
+        "starting_time": 1355724000000,
+        "display": "circle"
+      },
+      {
+        "action": "driving",
+        "starting_time": 1355727600000,
+        "ending_time": 1355733000000
+      },
+      {
+        "action": "lunch",
+        "starting_time": 1355734800000,
+        "display": "circle"
+      },
+      {
+        "action": "driving",
+        "starting_time": 1355736600000,
+        "ending_time": 1355741580000
+      },
+      {
+        "action": "home",
+        "starting_time": 1355743200000,
+        "display": "circle"
+      }
+    ]
+  }
+]
