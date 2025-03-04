@@ -28,12 +28,12 @@ import {
 
 
 class Drivers3 extends React.Component {
-    // dragStyle = (type) => {
-    //     if (type === 'open') {
-    //         return ("custom-enable");
-    //     }
-    //     return ("custom-disable");
-    // }
+    dragStyle = (type) => {
+        if (type === 'open') {
+            return ("custom-enable");
+        }
+        return ("custom-disable");
+    }
 
  getWorkingDays = (driver) => {
 
@@ -135,9 +135,9 @@ class Drivers3 extends React.Component {
         this.props.updateDriverSearchTerm(e);
     }
 
-
-
+    
     render() {
+        console.log(this.props.curDrivers, "current drivers checking")
         return (
             <TabPane tabId="Drivers">
                 <Row className="my-2">
@@ -197,7 +197,7 @@ class Drivers3 extends React.Component {
                         <tbody>
                             {(this.props.curDrivers || []).map((driver, i) => (
                                 <tr id={'driver' + i}
-                                    // className={this.dragStyle(driver.type)}
+                                    className={this.dragStyle(driver.type)}
                                     draggable={driver.type === 'open' ? "true" : "true"}
                                     onDragStart={(event) =>
                                         this.props.handleDragStart(event, driver, 'driver', i)

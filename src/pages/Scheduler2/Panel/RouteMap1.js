@@ -263,6 +263,278 @@ class RouteMap extends React.Component {
 
   notifySucess = (message) => toast.success(message, { autoClose: 3000 });
 
+  // updateMap = () => {
+  //   document.getElementById("google-map").innerHTML = "";
+  //   if (this.props.markers !== undefined && this.props.markers.length > 0) {
+  //     var centerLocation = this.props.markers[0];
+  //     var mapOptions = {
+  //       zoom: 10,
+  //       center: {
+  //         lat: centerLocation.lat,
+  //         lng: centerLocation.lng,
+  //       },
+  //     };
+  //     var markerArray;
+
+  //     markerArray = this.props.markers;
+  //     console.log("inside update place markersArray", markerArray);
+  //     if (this.props.selectedTrips && this.props.selectedTrips[0]) {
+  //       if (this.props.selectedTrips[0].depSite) {
+  //         let depatureSite = {};
+  //         if (this.props.sites && this.props.sites.length > 0) {
+  //           this.props.sites.map((site) => {
+  //             if (site.id === this.props.selectedTrips[0].depSite) {
+  //               depatureSite.city = site.value;
+  //               depatureSite.docnum = site.value;
+  //               depatureSite.id = site.id;
+  //               depatureSite.lat = site.lat;
+  //               depatureSite.lng = site.lng;
+  //               depatureSite.value = site.value;
+  //             }
+  //           });
+  //           markerArray.shift();
+  //           markerArray.unshift(depatureSite);
+  //         }
+  //       }
+
+  //       if (this.props.selectedTrips[0].arrSite) {
+  //         let arrivalSite = {};
+  //         this.props.sites.map((site) => {
+  //           if (site.id === this.props.selectedTrips[0].arrSite) {
+  //             arrivalSite.city = site.value;
+  //             arrivalSite.docnum = site.value;
+  //             arrivalSite.idd = site.id;
+  //             arrivalSite.lat = site.lat;
+  //             arrivalSite.lng = site.lng;
+  //             arrivalSite.value = site.value;
+  //             arrivalSite.arrivalCheck = "arrival";
+  //           }
+  //         });
+  //         markerArray.push(arrivalSite);
+  //       }
+  //     }
+  //     var map = new window.google.maps.Map(
+  //       document.getElementById("google-map"),
+  //       mapOptions
+  //     );
+  //     var DepartureSite = "";
+  //     var SiteCode = "";
+  //     const centerControlDiv = document.createElement("div");
+  //     this.customControl(centerControlDiv, map);
+  //     map.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(
+  //       centerControlDiv
+  //     );
+  //     markerArray.map((place) => {
+  //       console.log("inside update place", place);
+  //       var marker = null;
+  //       if (place.id !== undefined) {
+  //         DepartureSite = place.id;
+  //         SiteCode = place.id;
+  //         place.docnum = place.value;
+  //         place.city = place.value;
+  //         marker = new window.google.maps.Marker({
+  //           position: { lat: place.lat, lng: place.lng },
+  //           title: place.value,
+  //           icon: {
+  //             url: "/assets/img/address.png",
+  //           },
+  //         });
+  //       } else if (place.panelType && place.panelType === "pickup") {
+  //         marker = new window.google.maps.Marker({
+  //           position: { lat: place.lat, lng: place.lng },
+  //           title: place.city,
+  //           // label : place.tripno+" - ",
+  //           icon: {
+  //             url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+  //           },
+  //         });
+  //       } else if (place.panelType && place.panelType === "drop") {
+  //         marker = new window.google.maps.Marker({
+  //           position: { lat: place.lat, lng: place.lng },
+  //           title: place.city,
+  //           icon: {
+  //             url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
+  //           },
+  //         });
+  //       } else if (place.arrivalCheck === "arrival") {
+  //         var ArrIcon = "";
+  //         SiteCode = place.idd;
+  //         if (DepartureSite != place.idd) {
+  //           ArrIcon = "/assets/img/home36.png";
+  //         } else {
+  //           ArrIcon = "/assets/img/address.png";
+  //         }
+  //         marker = new window.google.maps.Marker({
+  //           position: { lat: place.lat, lng: place.lng },
+  //           title: place.city,
+  //           icon: {
+  //             url: ArrIcon,
+  //           },
+  //         });
+  //       }
+  //       /*else if (place.type === "arrival") {
+  //                                   var ArrIcon = '';
+  //                                    SiteCode = place.idd;
+  //                                   if(DepartureSite != place.idd){
+  //                                      ArrIcon = '/assets/img/home36.png';
+  //                                   }
+  //                                   else{
+  //                                      ArrIcon = '/assets/img/address.png';
+  //                                   }
+  //                                   marker = new window.google.maps.Marker({
+  //                                       position: { lat: place.lat, lng: place.lng },
+  //                                       title: place.city,
+  //                                       icon: {
+  //                                           url: ArrIcon
+  //                                       }
+  //                                   });
+  //                               }
+  //                               */
+  //       // const url = "http://125.18.84.158:8124/syracuse-main/html/main.html?url=/trans/x3/erp/BURV12PRD_BPRPROD/$sessions?f=GESSDH/2/M/" + place.docnum;
+  //       var url = "";
+  //       var content;
+  //       if (place.doctype == "PRECEIPT") {
+  //         url = `${x3Url}/$sessions?f=GESXX10CPTH/2//M/` + place.docnum;
+  //         if (place.tripno == 0)
+  //           content =
+  //             "<div id='content'><div id='siteNotice'></div><div id = 'bodyContent'><a href=" +
+  //             url +
+  //             " target='_blank'>" +
+  //             place.docnum +
+  //             "</a></br>" +
+  //             place.bpname +
+  //             "</br>" +
+  //             place.poscode +
+  //             " - " +
+  //             place.city +
+  //             "</div></div>";
+  //         else
+  //           content =
+  //             "<div id='content'><div id='siteNotice'></div><div id = 'bodyContent'><a href=" +
+  //             url +
+  //             " target='_blank'>" +
+  //             place.docnum +
+  //             "</a></br>" +
+  //             place.bpname +
+  //             "</br>" +
+  //             place.poscode +
+  //             " - " +
+  //             place.city +
+  //             "</br>" +
+  //             place.tripno +
+  //             "-" +
+  //             place.seq +
+  //             "</br>" +
+  //             place.vehicleCode +
+  //             "</div></div>";
+  //       } else if (place.doctype == "DLV") {
+  //         url = `${x3Url}/$sessions?f=GESSDH/2//M/` + place.docnum;
+  //         if (place.tripno == 0)
+  //           content =
+  //             "<div id='content'><div id='siteNotice'></div><div id = 'bodyContent'><a href=" +
+  //             url +
+  //             " target='_blank'>" +
+  //             place.docnum +
+  //             "</a></br>" +
+  //             place.bpname +
+  //             "</br>" +
+  //             place.poscode +
+  //             " - " +
+  //             place.city +
+  //             "</div></div>";
+  //         else
+  //           content =
+  //             "<div id='content'><div id='siteNotice'></div><div id = 'bodyContent'><a href=" +
+  //             url +
+  //             " target='_blank'>" +
+  //             place.docnum +
+  //             "</a></br>" +
+  //             place.bpname +
+  //             "</br>" +
+  //             place.poscode +
+  //             " - " +
+  //             place.city +
+  //             "</br>" +
+  //             place.tripno +
+  //             "-" +
+  //             place.seq +
+  //             "</br>" +
+  //             place.vehicleCode +
+  //             "</div></div>";
+  //       } else if (place.doctype == "PICK") {
+  //         url = `${x3Url}/$sessions?f=GESPRH2/2//M/` + place.docnum;
+  //         if (place.tripno == 0)
+  //           content =
+  //             "<div id='content'><div id='siteNotice'></div><div id = 'bodyContent'><a href=" +
+  //             url +
+  //             " target='_blank'>" +
+  //             place.docnum +
+  //             "</a></br>" +
+  //             place.bpname +
+  //             "</br>" +
+  //             place.poscode +
+  //             " - " +
+  //             place.city +
+  //             "</div></div>";
+  //         else
+  //           content =
+  //             "<div id='content'><div id='siteNotice'></div><div id = 'bodyContent'><a href=" +
+  //             url +
+  //             " target='_blank'>" +
+  //             place.docnum +
+  //             "</a></br>" +
+  //             place.bpname +
+  //             "</br>" +
+  //             place.poscode +
+  //             " - " +
+  //             place.city +
+  //             "</br>" +
+  //             place.tripno +
+  //             "-" +
+  //             place.seq +
+  //             "</br>" +
+  //             place.vehicleCode +
+  //             "</div></div>";
+  //       } else {
+  //         url = `${x3Url}/$sessions?f=GESFCY/2//M/` + place.docnum;
+  //         content =
+  //           "<div id='content'><div id='siteNotice'></div><div id = 'bodyContent'><a href=" +
+  //           url +
+  //           " target='_blank'>" +
+  //           SiteCode +
+  //           "," +
+  //           place.docnum +
+  //           "</a></br>" +
+  //           place.city +
+  //           "</div></div>";
+  //       }
+  //       var infowindow = new window.google.maps.InfoWindow({
+  //         content: content,
+  //       });
+  //       marker.setMap(map);
+  //       marker.addListener("click", function () {
+  //         infowindow.open(map, marker);
+  //       });
+  //     });
+  //     this.props.updateMagChaged();
+  //   } else {
+  //     var myLatlng1 = new window.google.maps.LatLng(
+  //       52.9450399954547,
+  //       -1.1206600354614977
+  //     );
+  //     var mapOptions = {
+  //       zoom: 10,
+  //       center: myLatlng1,
+  //     };
+  //     var map = new window.google.maps.Map(
+  //       document.getElementById("google-map"),
+  //       mapOptions
+  //     );
+  //   }
+  // };
+
+  // changes in progress map
+
   updateMap = () => {
     document.getElementById("google-map").innerHTML = "";
     if (this.props.markers !== undefined && this.props.markers.length > 0) {
@@ -274,22 +546,17 @@ class RouteMap extends React.Component {
           lng: centerLocation.lng,
         },
       };
-      var markerArray;
+      var markerArray = [...this.props.markers];
 
-      markerArray = this.props.markers;
       console.log("inside update place markersArray", markerArray);
+
       if (this.props.selectedTrips && this.props.selectedTrips[0]) {
         if (this.props.selectedTrips[0].depSite) {
           let depatureSite = {};
           if (this.props.sites && this.props.sites.length > 0) {
-            this.props.sites.map((site) => {
+            this.props.sites.forEach((site) => {
               if (site.id === this.props.selectedTrips[0].depSite) {
-                depatureSite.city = site.value;
-                depatureSite.docnum = site.value;
-                depatureSite.id = site.id;
-                depatureSite.lat = site.lat;
-                depatureSite.lng = site.lng;
-                depatureSite.value = site.value;
+                depatureSite = { ...site };
               }
             });
             markerArray.shift();
@@ -299,47 +566,97 @@ class RouteMap extends React.Component {
 
         if (this.props.selectedTrips[0].arrSite) {
           let arrivalSite = {};
-          this.props.sites.map((site) => {
+          this.props.sites.forEach((site) => {
             if (site.id === this.props.selectedTrips[0].arrSite) {
-              arrivalSite.city = site.value;
-              arrivalSite.docnum = site.value;
-              arrivalSite.idd = site.id;
-              arrivalSite.lat = site.lat;
-              arrivalSite.lng = site.lng;
-              arrivalSite.value = site.value;
-              arrivalSite.arrivalCheck = "arrival";
+              arrivalSite = { ...site, arrivalCheck: "arrival" };
             }
           });
           markerArray.push(arrivalSite);
         }
       }
+
       var map = new window.google.maps.Map(
         document.getElementById("google-map"),
         mapOptions
       );
-      var DepartureSite = "";
-      var SiteCode = "";
+
+      // Initialize Directions Service and Renderer
+      var directionsService = new window.google.maps.DirectionsService();
+      var directionsRenderer = new window.google.maps.DirectionsRenderer({
+        suppressMarkers: true, // We will handle markers separately
+      });
+      directionsRenderer.setMap(map);
+
+      var waypoints = markerArray
+        .slice(1, markerArray.length - 1)
+        .map((place) => ({
+          location: new window.google.maps.LatLng(place.lat, place.lng),
+          stopover: true,
+        }));
+
+      var origin = markerArray[0];
+      var destination = markerArray[markerArray.length - 1];
+
+      if (origin && destination) {
+        var request = {
+          origin: new window.google.maps.LatLng(origin.lat, origin.lng),
+          destination: new window.google.maps.LatLng(
+            destination.lat,
+            destination.lng
+          ),
+          waypoints: waypoints,
+          travelMode: window.google.maps.TravelMode.DRIVING,
+        };
+
+
+        console.log(this.props.selectedTrips,"612")
+
+        if(this.props.selectedTrips && this.props.selectedTrips[0] && (this.props.selectedTrips[0].routeStatus !== "Open" || this.props.selectedTrips[0].optistatus !== "Open")){
+          directionsService.route(request, function (result, status) {
+            if (status === window.google.maps.DirectionsStatus.OK) {
+              directionsRenderer.setDirections(result);
+            } else {
+              console.error("Directions request failed due to " + status);
+            }
+          });
+        }
+      
+      }
+
+      // Custom Control
       const centerControlDiv = document.createElement("div");
       this.customControl(centerControlDiv, map);
       map.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(
         centerControlDiv
       );
-      markerArray.map((place) => {
-        console.log("inside update place", place);
-        var marker = null;
-        if (place.id !== undefined) {
-          DepartureSite = place.id;
-          SiteCode = place.id;
-          place.docnum = place.value;
-          place.city = place.value;
+           var SiteCode = "";
+
+      markerArray.forEach((place) => {
+        console.log(place, "checking doctype of the place 629");
+
+        console.log(place.panelType, "checking doctype of the place 631");
+        // let iconUrl = "/asse
+        // ts/img/address.png"; // Default icon
+        let iconUrl = "";
+
+        console.log(place, "624");
+
+
+
+        
+
+        if (place.arrivalCheck === "arrival") {
           marker = new window.google.maps.Marker({
             position: { lat: place.lat, lng: place.lng },
-            title: place.value,
+            title: place.city,
             icon: {
-              url: "/assets/img/address.png",
+              url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
             },
           });
-        } else if (place.panelType && place.panelType === "pickup") {
+          iconUrl = "/assets/img/address.png"; // Arrival icon
+        } else if (place.panelType === "drop") {
+          iconUrl = "http://maps.google.com/mapfiles/ms/icons/green-dot.png"; // Drop marker
+        } else if (place.panelType === "pickup") {
           marker = new window.google.maps.Marker({
             position: { lat: place.lat, lng: place.lng },
             title: place.city,
@@ -348,184 +665,154 @@ class RouteMap extends React.Component {
               url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
             },
           });
-        } else if (place.panelType && place.panelType === "drop") {
-          marker = new window.google.maps.Marker({
-            position: { lat: place.lat, lng: place.lng },
-            title: place.city,
-            icon: {
-              url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
-            },
-          });
-        } else if (place.arrivalCheck === "arrival") {
-          var ArrIcon = "";
-          SiteCode = place.idd;
-          if (DepartureSite != place.idd) {
-            ArrIcon = "/assets/img/home36.png";
-          } else {
-            ArrIcon = "/assets/img/address.png";
-          }
-          marker = new window.google.maps.Marker({
-            position: { lat: place.lat, lng: place.lng },
-            title: place.city,
-            icon: {
-              url: ArrIcon,
-            },
-          });
+          iconUrl = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"; // Pickup marker
         }
-        /*else if (place.type === "arrival") {
-                                    var ArrIcon = '';
-                                     SiteCode = place.idd;
-                                    if(DepartureSite != place.idd){
-                                       ArrIcon = '/assets/img/home36.png';
-                                    }
-                                    else{
-                                       ArrIcon = '/assets/img/address.png';
-                                    }
-                                    marker = new window.google.maps.Marker({
-                                        position: { lat: place.lat, lng: place.lng },
-                                        title: place.city,
-                                        icon: {
-                                            url: ArrIcon
-                                        }
-                                    });
-                                }
-                                */
-        // const url = "http://125.18.84.158:8124/syracuse-main/html/main.html?url=/trans/x3/erp/BURV12PRD_BPRPROD/$sessions?f=GESSDH/2/M/" + place.docnum;
+
+
         var url = "";
-        var content;
-        if (place.doctype == "PRECEIPT") {
-          url = `${x3Url}/$sessions?f=GESXX10CPTH/2//M/` + place.docnum;
-          if (place.tripno == 0)
-            content =
-              "<div id='content'><div id='siteNotice'></div><div id = 'bodyContent'><a href=" +
-              url +
-              " target='_blank'>" +
-              place.docnum +
-              "</a></br>" +
-              place.bpname +
-              "</br>" +
-              place.poscode +
-              " - " +
-              place.city +
-              "</div></div>";
-          else
-            content =
-              "<div id='content'><div id='siteNotice'></div><div id = 'bodyContent'><a href=" +
-              url +
-              " target='_blank'>" +
-              place.docnum +
-              "</a></br>" +
-              place.bpname +
-              "</br>" +
-              place.poscode +
-              " - " +
-              place.city +
-              "</br>" +
-              place.tripno +
-              "-" +
-              place.seq +
-              "</br>" +
-              place.vehicleCode +
-              "</div></div>";
-        } else if (place.doctype == "DLV") {
-          url = `${x3Url}/$sessions?f=GESSDH/2//M/` + place.docnum;
-          if (place.tripno == 0)
-            content =
-              "<div id='content'><div id='siteNotice'></div><div id = 'bodyContent'><a href=" +
-              url +
-              " target='_blank'>" +
-              place.docnum +
-              "</a></br>" +
-              place.bpname +
-              "</br>" +
-              place.poscode +
-              " - " +
-              place.city +
-              "</div></div>";
-          else
-            content =
-              "<div id='content'><div id='siteNotice'></div><div id = 'bodyContent'><a href=" +
-              url +
-              " target='_blank'>" +
-              place.docnum +
-              "</a></br>" +
-              place.bpname +
-              "</br>" +
-              place.poscode +
-              " - " +
-              place.city +
-              "</br>" +
-              place.tripno +
-              "-" +
-              place.seq +
-              "</br>" +
-              place.vehicleCode +
-              "</div></div>";
-        } else if (place.doctype == "PICK") {
-          url = `${x3Url}/$sessions?f=GESPRH2/2//M/` + place.docnum;
-          if (place.tripno == 0)
-            content =
-              "<div id='content'><div id='siteNotice'></div><div id = 'bodyContent'><a href=" +
-              url +
-              " target='_blank'>" +
-              place.docnum +
-              "</a></br>" +
-              place.bpname +
-              "</br>" +
-              place.poscode +
-              " - " +
-              place.city +
-              "</div></div>";
-          else
-            content =
-              "<div id='content'><div id='siteNotice'></div><div id = 'bodyContent'><a href=" +
-              url +
-              " target='_blank'>" +
-              place.docnum +
-              "</a></br>" +
-              place.bpname +
-              "</br>" +
-              place.poscode +
-              " - " +
-              place.city +
-              "</br>" +
-              place.tripno +
-              "-" +
-              place.seq +
-              "</br>" +
-              place.vehicleCode +
-              "</div></div>";
-        } else {
-          url = `${x3Url}/$sessions?f=GESFCY/2//M/` + place.docnum;
-          content =
-            "<div id='content'><div id='siteNotice'></div><div id = 'bodyContent'><a href=" +
-            url +
-            " target='_blank'>" +
-            SiteCode +
-            "," +
-            place.docnum +
-            "</a></br>" +
-            place.city +
-            "</div></div>";
-        }
-        var infowindow = new window.google.maps.InfoWindow({
-          content: content,
+              var content;
+              if (place.doctype == "PRECEIPT") {
+                url = `${x3Url}/$sessions?f=GESXX10CPTH/2//M/` + place.docnum;
+                if (place.tripno == 0)
+                  content =
+                    "<div id='content'><div id='siteNotice'></div><div id = 'bodyContent'><a href=" +
+                    url +
+                    " target='_blank'>" +
+                    place.docnum +
+                    "</a></br>" +
+                    place.bpname +
+                    "</br>" +
+                    place.poscode +
+                    " - " +
+                    place.city +
+                    "</div></div>";
+                else
+                  content =
+                    "<div id='content'><div id='siteNotice'></div><div id = 'bodyContent'><a href=" +
+                    url +
+                    " target='_blank'>" +
+                    place.docnum +
+                    "</a></br>" +
+                    place.bpname +
+                    "</br>" +
+                    place.poscode +
+                    " - " +
+                    place.city +
+                    "</br>" +
+                    place.tripno +
+                    "-" +
+                    place.seq +
+                    "</br>" +
+                    place.vehicleCode +
+                    "</div></div>";
+              } else if (place.doctype == "DLV") {
+                url = `${x3Url}/$sessions?f=GESSDH/2//M/` + place.docnum;
+                if (place.tripno == 0)
+                  content =
+                    "<div id='content'><div id='siteNotice'></div><div id = 'bodyContent'><a href=" +
+                    url +
+                    " target='_blank'>" +
+                    place.docnum +
+                    "</a></br>" +
+                    place.bpname +
+                    "</br>" +
+                    place.poscode +
+                    " - " +
+                    place.city +
+                    "</div></div>";
+                else
+                  content =
+                    "<div id='content'><div id='siteNotice'></div><div id = 'bodyContent'><a href=" +
+                    url +
+                    " target='_blank'>" +
+                    place.docnum +
+                    "</a></br>" +
+                    place.bpname +
+                    "</br>" +
+                    place.poscode +
+                    " - " +
+                    place.city +
+                    "</br>" +
+                    place.tripno +
+                    "-" +
+                    place.seq +
+                    "</br>" +
+                    place.vehicleCode +
+                    "</div></div>";
+              } else if (place.doctype == "PICK") {
+                url = `${x3Url}/$sessions?f=GESPRH2/2//M/` + place.docnum;
+                if (place.tripno == 0)
+                  content =
+                    "<div id='content'><div id='siteNotice'></div><div id = 'bodyContent'><a href=" +
+                    url +
+                    " target='_blank'>" +
+                    place.docnum +
+                    "</a></br>" +
+                    place.bpname +
+                    "</br>" +
+                    place.poscode +
+                    " - " +
+                    place.city +
+                    "</div></div>";
+                else
+                  content =
+                    "<div id='content'><div id='siteNotice'></div><div id = 'bodyContent'><a href=" +
+                    url +
+                    " target='_blank'>" +
+                    place.docnum +
+                    "</a></br>" +
+                    place.bpname +
+                    "</br>" +
+                    place.poscode +
+                    " - " +
+                    place.city +
+                    "</br>" +
+                    place.tripno +
+                    "-" +
+                    place.seq +
+                    "</br>" +
+                    place.vehicleCode +
+                    "</div></div>";
+              } else {
+                url = `${x3Url}/$sessions?f=GESFCY/2//M/` + place.docnum;
+                content =
+                  "<div id='content'><div id='siteNotice'></div><div id = 'bodyContent'><a href=" +
+                  url +
+                  " target='_blank'>" +
+                  SiteCode +
+                  "," +
+                  place.docnum +
+                  "</a></br>" +
+                  place.city +
+                  "</div></div>";
+              }
+
+        var marker = new window.google.maps.Marker({
+          position: { lat: place.lat, lng: place.lng },
+          title: place.value || place.city,
+          map: map,
+          icon: { url: iconUrl }, // Assign the correct icon
         });
-        marker.setMap(map);
+
+        // var content = `<div id='content'><div id='bodyContent'>
+        //       <a href='${x3Url}/$sessions?f=GESSDH/2//M/${place.docnum}' target='_blank'>
+        //       ${place.docnum}</a><br>${place.city}
+        //       </div></div>`;
+
+        var infowindow = new window.google.maps.InfoWindow({ content });
+
         marker.addListener("click", function () {
           infowindow.open(map, marker);
         });
       });
+
       this.props.updateMagChaged();
     } else {
       var myLatlng1 = new window.google.maps.LatLng(
         52.9450399954547,
         -1.1206600354614977
       );
-      var mapOptions = {
-        zoom: 10,
-        center: myLatlng1,
-      };
+      var mapOptions = { zoom: 10, center: myLatlng1 };
       var map = new window.google.maps.Map(
         document.getElementById("google-map"),
         mapOptions
@@ -893,10 +1180,7 @@ class RouteMap extends React.Component {
   };
 
   render() {
-    console.log(
-      this.state.addProductShoww,
-      "product show popup state"
-    );
+    console.log(this.state.addProductShoww, "product show popup state");
     console.log("inside RouteMap-  geodata", this.props.geoData);
     console.log("inside RouteMap - markers", this.props.markers);
     console.log("inside RouteMap - mapchanged", this.props.mapChanged);
@@ -920,7 +1204,10 @@ class RouteMap extends React.Component {
       "this is seelcted doc number when click"
     );
 
-    console.log(this.props.currDropsPanel, "this is currDropsPanel in route map")
+    console.log(
+      this.props.currDropsPanel,
+      "this is currDropsPanel in route map"
+    );
     return (
       <div class="routeMapOuter " style={{ zIndex: "10", height: "400px" }}>
         <ToastContainer />
@@ -1202,7 +1489,6 @@ class RouteMap extends React.Component {
           </div>
         </div>
         <DeleteConfirm
-         
           show={this.state.addConfirmShow}
           onHide={this.onConfirmNo}
           confirmDelete={this.onConfirmYes}
@@ -1211,7 +1497,7 @@ class RouteMap extends React.Component {
           confirmMessage={this.state.confirmMessage}
         ></DeleteConfirm>
         <DisplayProducts
-         routeCodes={this.props.routeCodes}
+          routeCodes={this.props.routeCodes}
           currDropsPanel={this.props.currDropsPanel}
           pickersList={this.props.pickersList}
           show={this.state.addProductShoww}

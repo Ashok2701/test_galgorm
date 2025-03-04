@@ -281,7 +281,7 @@ class AddUpdateTrip1 extends React.Component {
           // console.log(updatedGeoData,"updatttttteeeeddddgggeeoooodaaatttaa")
 
         } else {
-          // console.log("updateVehicleData", this.state.updateVehicleData);
+          console.log("updateVehicleData", this.state.updateVehicleData);
           type = "vehicle";
           data = this.state.updateVehicleData;
           tempCurrentData = currentTrip;
@@ -771,33 +771,43 @@ class AddUpdateTrip1 extends React.Component {
               }
             }
 
+            console.log(erroralert,"774")
+
+            console.log(trip.vehicleObject, "vehicle object checking 776")
 
 
             if (erroralert === false) {
-
+              console.log(erroralert,"778")
            
               if (trip.vehicleObject.alldrivers === 2) {
+                console.log(erroralert,"781")
                 trip.driverId = data.driverid;
                 trip.driverName = data.driver;
                 currentTrip.push(trip);
                 this.props.updateTrip(currentTrip);
                 status = false;
               } else {
+                console.log(erroralert,"788")
 
                 trip.driverId = data.driverid;
                 trip.driverName = data.driver;
                 currentTrip.push(trip);
+                console.log(trip,"this is trip updated 795")
                 this.props.updateTrip(currentTrip);
                 status = false;
 
               }
             }
 
+            console.log(this.state.siteValueTripList, "796")
+
             if (this.state.siteValueTripList.length > 0) {
               this.setState({
                 siteValueTripList: this.state.siteValueTripList,
               });
             }
+
+            console.log(this.state.siteStartValue,"804")
             if (this.state.siteStartValue.length > 0) {
               this.setState({ siteStartValue: this.state.siteStartValue });
             }

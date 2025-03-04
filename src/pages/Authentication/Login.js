@@ -102,9 +102,9 @@ class Login extends Component {
 
         return (
             <React.Fragment>
-                <div className="home-btn d-none d-sm-block">
+                {/* <div className="home-btn d-none d-sm-block">
                     <Link to="/"><i className="mdi mdi-home-variant h2 text-white"></i></Link>
-                </div>
+                </div> */}
 
                 <div>
             <Container fluid className="p-0">

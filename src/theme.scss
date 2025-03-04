@@ -12,7 +12,9 @@
 // RTL mode
 // @import "./assets/scss/bootstrap.scss";
 // @import "./assets/scss/app-rtl.scss";
-
+.e-schedule-table > tbody > tr{
+    height: 100% !important;
+}
 
 
 .modal-header-bg {

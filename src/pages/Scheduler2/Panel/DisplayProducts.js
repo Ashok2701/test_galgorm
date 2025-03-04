@@ -878,19 +878,22 @@ class DisplayProducts extends React.Component {
       selectedOptions: null, // Default state as null
       selectedRouteCode: null,
       document: null,
+      routeCodeChangeFlg:false,
+      pickerChangeFlg:false
     };
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange = (selected) => {
     console.log(selected, "selected state");
-    this.setState({ selectedOptions: selected });
+    this.setState({ selectedOptions: selected,pickerChangeFlg:true });
   };
 
   setSelectedRouteCode = (routeCode) => {
     console.log(routeCode, "selected route code check");
     this.setState({
       selectedRouteCode: routeCode,
+      routeCodeChangeFlg:true
     });
   };
 
@@ -1023,6 +1026,7 @@ class DisplayProducts extends React.Component {
         this.props.fetchDocumentPanelDateChange(this.props.documentPanel_date);
         this.notifySucess("Picker updated successfully");
         this.props.onHide();
+        this.setState({pickerChangeFlg:false})
       })
       .catch((err) => {
         console.log(err.message);
@@ -1066,6 +1070,7 @@ class DisplayProducts extends React.Component {
         this.props.fetchDocumentPanelDateChange(this.props.documentPanel_date);
         this.notifySucess("Route Code updated successfully");
         this.props.onHide();
+        this.setState({routeCodeChangeFlg:false})
       })
       .catch((err) => {
         console.log(err.message);
@@ -1076,7 +1081,7 @@ class DisplayProducts extends React.Component {
   // Close handler that resets selectedOptions
   handleClose = () => {
     // Reset selectedOptions to null when modal is closed
-    this.setState({ selectedOptions: null });
+    this.setState({ selectedOptions: null,routeCodeChangeFlg:false,pickerChangeFlg:false });
 
     // Call the provided onHide function (passed from parent)
     this.props.onHide();
@@ -1405,7 +1410,7 @@ class DisplayProducts extends React.Component {
                       </span>
                       <span>
                         <Button
-                          disabled={this.state.document?.dlvystatus !== "8"}
+                          disabled={this.state.document?.dlvystatus !== "8" || !this.state.pickerChangeFlg}
                           className="mr-1"
                           onClick={this.onSavePickers}
                         >
@@ -1468,7 +1473,7 @@ class DisplayProducts extends React.Component {
                                 {/* {this.state.document?.dlvystatus != "8" && ( */}
                                 <Button
                                   disabled={
-                                    this.state.document?.dlvystatus != "8"
+                                    this.state.document?.dlvystatus != "8" || !this.state.routeCodeChangeFlg
                                   }
                                   className="mr-1"
                                   onClick={this.onSaveRouteCode}

@@ -1323,11 +1323,23 @@ console.log(data, "checking data in drop event")
     console.log(index, "this is index data transfer")
     console.log(cellData,"this is the issue cell data checking")
 
-    if (!cellData) {
-      cellData = this.cellData;  // Use previously stored value if undefined
-    } else {
-      this.cellData = cellData;  // Store new value
+    // if (!cellData) {
+    //   cellData = this.cellData;  // Use previously stored value if undefined
+    // } else {
+    //   this.cellData = cellData;  // Store new value
+    // }
+
+    if (!this.cellDataMap) {
+      this.cellDataMap = {};
     }
+    
+    if (cellData) {
+      this.cellDataMap[cellData.groupIndex] = cellData;
+    }
+    
+    // Retrieve the correct cellData based on the groupIndex
+    cellData = this.cellDataMap[cellData.groupIndex] || cellData;
+    
 
     const parseDate1 = new Date(Date.parse(cellData.startTime)).toString();
     const SelParsedate1 = moment.tz(parseDate1, "").format("YYYY-MM-DD");
@@ -1618,6 +1630,7 @@ console.log(data, "checking data in drop event")
           height: "105px",
           display: "flex",
           background: this.bgcolor(props.doctype),
+          paddingBottom:"100px"
         }}
       >
         <div className="tooltip1">
