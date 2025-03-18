@@ -34,6 +34,7 @@ import {
 } from "reactstrap";
 import "../dashboard.scss";
 import classnames from "classnames";
+import ExternalDrops3 from "./ExternalDrops3";
 class DocumentsPanel extends React.Component {
   constructor(props) {
     super(props);
@@ -212,6 +213,7 @@ class DocumentsPanel extends React.Component {
 
 
     let filterTrips;
+    
 
     if (this.props.tripsList) {
       // console.log("T11 inside triplist",this.props.tripsList);
@@ -464,6 +466,8 @@ class DocumentsPanel extends React.Component {
           return drop;
         }
 
+        
+
         /*
                     if(site === ""){
                       return ((drop.docnum.toLowerCase().indexOf(
@@ -689,6 +693,9 @@ class DocumentsPanel extends React.Component {
     let ToPlanCount = 0;
     let InboundCount = 0;
     let OutboundCount = 0;
+    let externalToplan=0;
+    let externalInbound=0;
+    let externalOutbound=0;
     let OpenTripsCount = 0;
     let OptimisedTripsCount = 0;
     let LockedTripsCount = 0;
@@ -721,21 +728,44 @@ class DocumentsPanel extends React.Component {
           ToPlanCount = ToPlanCount + 1;
         }
 
+        // external document toplan
+        if (
+          drop.type === "open" &&
+          (drop.dlvystatus === "0" || drop.dlvystatus === "8") && drop.carrier == "EXTERNAL"
+        ) {
+          // ToPlanCount = ToPlanCount + 1;
+          externalToplan+=1
+        }
+
         //To drop
         if (drop.movtype === "DROP") {
           OutboundCount = OutboundCount + 1;
-        }
+        }     
 
         //To Pickup
 
         if (drop.movtype === "PICK") {
           InboundCount = InboundCount + 1;
         }
+
+        if (drop.movtype === "DROP" && drop.carrier == "EXTERNAL") {
+          // OutboundCount = OutboundCount + 1;
+          externalOutbound+=1
+        }
+
+        if (drop.movtype === "PICK" && drop.carrier == "EXTERNAL") {
+          // OutboundCount = OutboundCount + 1;
+          externalInbound+=1
+        }
+
      
       });
 
 
     // console.log(this.props.dropsPanel, "this is toplancounttttt")
+console.log(filterDrops ,"these are filtered drops checking")
+
+let externalCount = filterDrops?.filter((doc)=>doc.carrier== "EXTERNAL").length || 0;
 
 
     return (
@@ -773,8 +803,28 @@ class DocumentsPanel extends React.Component {
                   </span>
                 </NavLink>
               </NavItem>
+
+
+              <NavItem>
+                <NavLink
+                  style={{ cursor: "pointer" }}
+                  className={classnames({
+                    active: this.state.activeTab === "External",
+                  })}
+                  onClick={() => {
+                    this.toggleTab("External");
+                  }}
+                >
+                  <span style={{ fontWeight: "bolder", fontSize: "large" }}>
+                    {this.props.t("External")}
+                    [{externalCount}]
+                  </span>
+                </NavLink>
+              </NavItem>
             </Nav>
-            {this.state.activeTab === "Documents" ? (
+
+            {/* documents */}
+            {this.state.activeTab === "Documents" && (
               <div className="d-flex align-items-center">
                 <FormGroup className="mb-0 mr-3">
                   <Flatpickr
@@ -880,7 +930,120 @@ class DocumentsPanel extends React.Component {
                   </Button>
                 </div>
               </div>
-            ) : (
+            ) 
+            }
+{/* for external documents checking */}
+{this.state.activeTab === "External" && (
+              <div className="d-flex align-items-center">
+                <FormGroup className="mb-0 mr-3">
+                  <Flatpickr
+                    className="form-control"
+                    placeholder="Select Date.."
+                    value={SelectedDate}
+                    onChange={this.onDateselection}
+                  />
+                </FormGroup>
+
+                <FormGroup className="mb-0 mr-4 bg">
+                  <Input
+                    bsSize="md"
+                    type="search"
+                    placeholder={this.props.t("SearchCaption")}
+                    className="form-control"
+                    onChange={this.SearchDrops}
+                    value={this.props.searchDrp}
+                  />
+                </FormGroup>
+
+                <div
+                  className="custom-control custom-checkbox mb-2 mr-3"
+                  style={{ fontWeight: "bolder", fontSize: "large" }}
+                >
+                  <Input
+                    type="checkbox"
+                    className="custom-control-input"
+                    onChange={() => this.OnDropscheckBoxChange()}
+                    checked={this.state.Todropchecked}
+                  />
+                  <Label
+                    className="custom-control-label"
+                    onClick={() => {
+                      this.setState({
+                        Todropchecked: !this.state.Todropchecked,
+                      });
+                    }}
+                  >
+                    {this.props.t("Outbound")}[{externalOutbound}]
+                  </Label>
+                </div>
+
+                <div
+                  className="custom-control custom-checkbox mb-2 mr-3"
+                  style={{ fontWeight: "bolder", fontSize: "large" }}
+                >
+                  <Input
+                    type="checkbox"
+                    className="custom-control-input"
+                    onChange={() => this.OnPickupscheckBoxChange()}
+                    checked={this.state.ToPickchecked}
+                  />
+                  <Label
+                    className="custom-control-label"
+                    onClick={() => {
+                      this.setState({
+                        ToPickchecked: !this.state.ToPickchecked,
+                      });
+                    }}
+                  >
+                    {this.props.t("Inbound")}[{externalInbound}]
+                  </Label>
+                </div>
+
+
+
+                <div
+                  className="custom-control custom-checkbox mb-2 mr-3"
+                  style={{ fontWeight: "bolder", fontSize: "large" }}
+                >
+                  <Input
+                    type="checkbox"
+                    className="custom-control-input"
+                    onChange={() => this.checkBoxChange()}
+                    checked={this.state.ToPlanchecked}
+                  />
+                  <Label
+                    className="custom-control-label"
+                    onClick={() => {
+                      this.setState({
+                        ToPlanchecked: !this.state.ToPlanchecked,
+                      });
+                    }}
+                  >
+                    {this.props.t("ToPlan")}[{externalToplan}]
+                  </Label>
+                </div>
+                <div
+                  className="d-inline-block"
+                  style={{ paddingRight: "40px", alignSelf: "center" }}
+                >
+                  <Button
+                    style={{
+                      fontSize: "12px",
+                      fontWeight: "bold",
+                      marginRight: "20%",
+                      marginLeft: "20%",
+                    }}
+                    onClick={() => this.props.refreshDocspanel()}
+                  >
+                    {this.props.t("Update")}
+                  </Button>
+                </div>
+              </div>
+            ) 
+            }
+
+{/* trips tab */}
+            {this.state.activeTab === "Trips" &&(
               <div className="d-flex align-items-center">
                 <FormGroup className="mb-0 mr-3">
                   <Flatpickr
@@ -988,7 +1151,8 @@ class DocumentsPanel extends React.Component {
                   </Label>
                 </div>
               </div>
-            )}
+            )
+          }
           </div>
 
           <hr className="my-0" />
@@ -1039,6 +1203,28 @@ class DocumentsPanel extends React.Component {
               selectedSite={this.props.selectedSite}
               getValues={this.props.getValues}
             />
+
+
+            <ExternalDrops3
+             routeCodes={this.props.routeCodes}
+             fetchDocumentPanelDateChange={this.props.fetchDocumentPanelDateChange}
+             documentPanel_date={this.props.documentPanel_date}
+              currDropsPanel={this.props.dropsPanel}
+                pickersList={this.props.pickersList}
+               updateDropSearchTerm={this.props.updateDropSearchTerm}
+               sortDrop={this.props.sortDrop}
+               dropOrder={this.props.dropOrder}
+               dropsList={filterDrops}
+               dayschecked={this.props.daysCheckedIn}
+               currDate={this.props.selectedDate}
+               handleDragStart={this.props.handleDragStart}
+               updateDocsGeoLocations={this.props.updateDocsGeoLocations}
+               selectedDocs={this.props.selectedDocs}
+            />
+
+
+
+            
           </TabContent>
         </div>
       </>

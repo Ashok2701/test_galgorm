@@ -1030,10 +1030,10 @@ class TripsList3 extends React.Component {
                                     }
                                     */
                   routesSchedule.endDate = latestEndDate;
-                  console.log(
-                    "T6565 final data routeScheduler",
-                    routesSchedule
-                  );
+                  // console.log(
+                  //   "T6565 final data routeScheduler",
+                  //   routesSchedule
+                  // );
                   this.props.getValues(
                     routesSchedule,
                     optiindex,

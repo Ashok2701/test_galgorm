@@ -633,6 +633,9 @@ class Drops3 extends React.Component {
     // console.log("products show state inside render", this.props.selectedDocs);
 
     console.log(dropList, "this is droplist checking")
+
+
+    let filteredDrops = dropList?.filter((doc)=>doc.carrier!="EXTERNAL")
     return (
       <TabPane
         className="tripstab"
@@ -749,7 +752,7 @@ class Drops3 extends React.Component {
               </tr>
             </thead>
             <tbody>
-              {(dropList || []).map((drops, i) => {
+              {(filteredDrops || []).map((drops, i) => {
                 let logisticDetails = {};
                 logisticDetails.loadBay = drops.loadBay && drops.loadBay;
                 logisticDetails.tailGate = drops.tailGate && drops.tailGate;

@@ -1552,7 +1552,7 @@ class Dashboard extends Component {
       trips: trip,
     });
 
-    console.log(trip,"this is trip checking 1555")
+    console.log(trip, "this is trip checking 1555");
     // this.removeMarkers();
   };
 
@@ -2474,7 +2474,6 @@ class Dashboard extends Component {
         slectedTrips: selectedTrips,
         left: index * 55,
         docsPanel: updatedDocsPanel,
-        
       });
     } else {
     }
@@ -5026,7 +5025,7 @@ class Dashboard extends Component {
       var auto_tot_travel_time = formatTime(routes[k].duration);
       var auto_total_time = (routes[k].duration + routes[k].service) / 60 / 60;
       var auto_service_time = routes[k].service / 60 / 60;
-      var auto_total_distance = routes[k].distance / 1000
+      var auto_total_distance = routes[k].distance / 1000;
 
       // console.log("OSRM Auto  veh are",Vehicle);
       var dropObject = [],
@@ -5087,7 +5086,9 @@ class Dashboard extends Component {
               //let time = data.summary.travelTimeInSeconds
               //currDoc.serviceTime = secondsToHms(currTask.service);
               currDoc.serTime = secondsToHms(currTask.service);
-              currDoc.tDistance = currTask.distance ? (currTask.distance / 1000) : 0;
+              currDoc.tDistance = currTask.distance
+                ? currTask.distance / 1000
+                : 0;
               currDoc.waitingTime = currTask.waiting_time / 3600;
               currDoc.tTime = currTask.duration;
               currDoc.vehicleCode = Veh;
@@ -5140,7 +5141,7 @@ class Dashboard extends Component {
       var TimelineInterval = VehicleObject.timelineInterval;
       var stops = pickups + drops;
       var site = VehicleObject.fcy;
-      var capacity =parseInt(VehicleObject.capacities);
+      var capacity = parseInt(VehicleObject.capacities);
       var fld_tot_capacity = parseInt(VehicleObject.capacities);
       var fld_tot_volume = VehicleObject.vol;
       var fld_uom_capacity = VehicleObject.xweu;
@@ -5345,7 +5346,7 @@ class Dashboard extends Component {
 
   OSRM_manuallytrip = async (optitrip) => {
     let selectedDate = this.state.documentPanel_date;
-let DayOnDate = this.getDayOfWeek(selectedDate);
+    let DayOnDate = this.getDayOfWeek(selectedDate);
     this.setState({ loader: true });
     let processtrip = optitrip;
     let selectedTripdata = processtrip.totalObject.selectedTripData;
@@ -5367,30 +5368,29 @@ let DayOnDate = this.getDayOfWeek(selectedDate);
 
     // get vehicle from the vehicle list
 
- 
     for (let vi = 0; vi < this.state.vehiclePanel.vehicles.length; vi++) {
       let tempveh = this.state.vehiclePanel.vehicles[vi];
-      var array =[]
+      var array = [];
 
       switch (DayOnDate) {
         case "Monday":
-          console.log("mondayentered")
-          array= JSON.parse("[" + tempveh.mondayRC + "]");    
+          console.log("mondayentered");
+          array = JSON.parse("[" + tempveh.mondayRC + "]");
           break;
         case "Tuesday":
-          array= JSON.parse("[" + tempveh.tuesdayRC + "]");   
-          console.log("tuesdayentered")
+          array = JSON.parse("[" + tempveh.tuesdayRC + "]");
+          console.log("tuesdayentered");
           break;
         case "Wednesday":
-          array= JSON.parse("[" + tempveh.wednesdayRC + "]"); 
-          console.log("wednesdayentered")
+          array = JSON.parse("[" + tempveh.wednesdayRC + "]");
+          console.log("wednesdayentered");
           break;
         case "Thursday":
-          array= JSON.parse("[" + tempveh.thursdayRC + "]"); 
-          console.log("thursdayEntered")
+          array = JSON.parse("[" + tempveh.thursdayRC + "]");
+          console.log("thursdayEntered");
           break;
         case "Friday":
-          array= JSON.parse("[" + tempveh.fridayRC + "]"); 
+          array = JSON.parse("[" + tempveh.fridayRC + "]");
           // console.log("Fridayentered",varray)
           break;
       }
@@ -5406,9 +5406,8 @@ let DayOnDate = this.getDayOfWeek(selectedDate);
         let MVeh = {};
 
         MVeh.max_travel_time = convertHrToSec(tempveh.maxtotaltrvtime);
-     
-        MVeh.capacity = [parseInt(tempveh.capacities),
-          parseInt(tempveh.vol)];
+
+        MVeh.capacity = [parseInt(tempveh.capacities), parseInt(tempveh.vol)];
         MVeh.id = 1;
         MVeh.description = tempveh.codeyve;
         let starttime = splitTimeAndConv2Sec(tempveh.starttime);
@@ -5425,7 +5424,7 @@ let DayOnDate = this.getDayOfWeek(selectedDate);
         MVeh.time_window = timew;
         MVeh.start = geo;
         MVeh.end = geo;
-   
+
         // MVeh.skills = array;
         if (veh.maxordercnt > 0) {
           MVeh.max_tasks = 99;
@@ -5485,8 +5484,7 @@ let DayOnDate = this.getDayOfWeek(selectedDate);
       DocLang = doc.lng;
       Doc.location = [DocLang, DocLat];
       Doc.priority = doc.priority;
-      Doc.amount = [ parseInt(doc.netweight),
-        parseInt(doc.volume),];
+      Doc.amount = [parseInt(doc.netweight), parseInt(doc.volume)];
       // var array1 = JSON.parse("[" + doc.skills + "]");
       // var array1=[]
       //  Veh.skills = array;
@@ -5553,7 +5551,6 @@ let DayOnDate = this.getDayOfWeek(selectedDate);
         body: JSON.stringify(processedData),
       });
 
-      
       if (response.status === 200) {
         let res = await response.json();
         if (res.routes.length > 0) {
@@ -6754,7 +6751,7 @@ let DayOnDate = this.getDayOfWeek(selectedDate);
           let timew = [stime, etime];
           let geo = [siteLang, siteLat];
 
-          Veh.time_window = timew;
+          // Veh.time_window = timew;
           Veh.start = geo;
           Veh.end = geo;
           //  var array = JSON.parse("[" + vehSkill + "]");
@@ -6903,11 +6900,11 @@ let DayOnDate = this.getDayOfWeek(selectedDate);
           let ds,
             de = 0;
 
-          if (fromflag) {
-            if (timeWindw[0][0] !== 0) {
-              Doc.time_windows = timeWindw;
-            }
-          }
+          // if (fromflag) {
+          //   if (timeWindw[0][0] !== 0) {
+          //     Doc.time_windows = timeWindw;
+          //   }
+          // }
 
           /*
                 ps = VehStartTime + 10800;
@@ -6989,10 +6986,191 @@ let DayOnDate = this.getDayOfWeek(selectedDate);
             let errorbox = [];
 
             let selectedDate = this.state.documentPanel_date;
-let DayOnDate = this.getDayOfWeek(selectedDate);
+            let DayOnDate = this.getDayOfWeek(selectedDate);
+
+            //         autoDocs.forEach((doc) => {
+            //           let glbalmissingskill = [];
+            //           let tempoptiError = {
+            //             docnum: "",
+            //             skillerrorflg: false,
+            //             skillmessage: "",
+            //             capacatyflg: false,
+            //             capacityError: "",
+            //             generalflg: false,
+            //             genearalError: "",
+            //           };
+            //           let glabalerrorOBject = "";
+
+            //           let isSkillMatchFoundflg = false;
+            //           let docskill = JSON.parse("[" + doc.skills + "]");
+            //           let tcapacatyflg = false;
+            //           let tskillflg = false;
+            //           let tvolumeflg = false;
+            //           let prodCodevehList = [];
+            //           let routeCodeVehList = [];
+            //           let timewindowVehList = [];
+            //           let capacityVehList = [];
+            //           let volumeVehList = [];
+            //           let vehClassVehList = [];
+            //           let TimewindowforDoc = [];
+            //           filteredVehArray.forEach((veh) => {
+            //             let missingSkillsForDoc = [];
+
+            //               var varray="";
+            // switch (DayOnDate) {
+            //   case "Monday":
+            //     console.log("mondayentered")
+            //     varray= JSON.parse("[" + veh.mondayRC + "]");
+            //     break;
+            //   case "Tuesday":
+            //     varray= JSON.parse("[" + veh.tuesdayRC + "]");
+            //     console.log("tuesdayentered")
+            //     break;
+            //   case "Wednesday":
+            //     varray= JSON.parse("[" + veh.wednesdayRC + "]");
+            //     console.log("wednesdayentered")
+            //     break;
+            //   case "Thursday":
+            //     varray= JSON.parse("[" + veh.thursdayRC + "]");
+            //     console.log("thursdayEntered")
+            //     break;
+            //   case "Friday":
+            //     varray= JSON.parse("[" + veh.fridayRC + "]");
+            //     console.log("Fridayentered",varray)
+            //     break;
+            // }
+            //             const missingSkills = docskill.filter(
+            //               (skill) => !varray.includes(skill)
+            //             );
+
+            //             console.log(veh.codeyve, "TTT doc - veh subset", missingSkills);
+
+            //             if (missingSkills.length == 0) {
+            //               // If no missing skills, it's a match
+            //               if (veh.capacities < doc.netweight) {
+            //                 tcapacatyflg = true;
+            //                 capacityVehList.push(veh.name);
+            //               }
+            //               // volume check
+            //               if (veh.vol < doc.volume) {
+            //                 tvolumeflg = true;
+            //                 volumeVehList.push(veh.name);
+            //               }
+            //             } else {
+            //               // If there are missing skills, collect them
+            //               isSkillMatchFoundflg = true;
+            //               missingSkillsForDoc.push(...missingSkills);
+            //               glbalmissingskill.push(...missingSkills);
+
+            //               if (veh.capacities < doc.netweight) {
+            //                 tcapacatyflg = true;
+            //                 capacityVehList.push(veh.name);
+            //               }
+            //               // volume check
+            //               if (veh.vol < doc.volume) {
+            //                 tvolumeflg = true;
+            //                 volumeVehList.push(veh.name);
+            //               }
+
+            //               // assign the not mathced skills to the vehicle array
+            //               const tempuniqueMissingSkills = [...new Set(missingSkills)];
+            //               const temprouteCodeErrors = tempuniqueMissingSkills.filter(
+            //                 (skill) => skill >= -1 && skill <= 100
+            //               );
+            //               const tempproductCategoryErrors =
+            //                 tempuniqueMissingSkills.filter(
+            //                   (skill) => skill > 100 && skill <= 200
+            //                 );
+            //               const tempvehicleClassErrors = tempuniqueMissingSkills.filter(
+            //                 (skill) => skill > 200
+            //               );
+
+            //               if (temprouteCodeErrors.length > 0) {
+            //                 routeCodeVehList.push(veh.name);
+            //               }
+            //               if (tempproductCategoryErrors.length > 0) {
+            //                 prodCodevehList.push(veh.name);
+            //               }
+            //               if (tempvehicleClassErrors.length > 0) {
+            //                 vehClassVehList.push(veh.name);
+            //               }
+            //             }
+            //           });
+
+            //           if (!tvolumeflg || !tcapacatyflg || !isSkillMatchFoundflg) {
+            //             tempoptiError.docnum = doc.docnum;
+            //             let tmsg = "";
+
+            //             if (doc.fromTime.length > 0) {
+            //               const fromTimes = this.TimeWindow_splitTime(doc.fromTime); // Split into ["0700", "0900"]
+            //               const toTimes = this.TimeWindow_splitTime(doc.toTime); // Split into ["0800", "1030"]
+            //               console.log("T222 timewindow from", fromTimes);
+            //               for (let i = 0; i < fromTimes.length; i++) {
+            //                 TimewindowforDoc.push(`${fromTimes[i]}-${toTimes[i]}`); // Combine each pair into a time range
+            //               }
+            //             }
+            //             console.log("T222 timewindow from", TimewindowforDoc);
+
+            //             console.log(capacityVehList, "vehicle capacity list checking");
+            //             console.log(
+            //               routeCodeVehList,
+            //               "vehicle route code list checking"
+            //             );
+
+            //             if (vehClassVehList.length > 0) {
+            //               glabalerrorOBject =
+            //                 glabalerrorOBject +
+            //                 `Document ${doc.docnum} has been excluded as the Customer's assigned Vehicle Class does not match of these vehicles  ${vehClassVehList}. \n`;
+            //             }
+            //             if (prodCodevehList.length > 0) {
+            //               glabalerrorOBject =
+            //                 glabalerrorOBject +
+            //                 `Document ${doc.docnum} has been excluded as it contains products not matching the  vehicles' ${prodCodevehList}  product categories . \n`;
+            //             }
+            //             if (routeCodeVehList.length > 0) {
+            //               glabalerrorOBject =
+            //                 glabalerrorOBject +
+            //                 `Document ${doc.docnum} has been excluded as the customer's assigned RouteCode does not match any of the vehicles ${routeCodeVehList}. \n`;
+            //             }
+            //             if (capacityVehList.length > 0) {
+            //               glabalerrorOBject =
+            //                 glabalerrorOBject +
+            //                 `Document ${doc.docnum} has been excluded due to Weight Capacity restriction on the vehicles ${capacityVehList}. \n`;
+            //             }
+            //             if (volumeVehList.length > 0) {
+            //               glabalerrorOBject =
+            //                 glabalerrorOBject +
+            //                 `Document ${doc.docnum} has been excluded due to Volume Capacity restriction on the  vehicles ${volumeVehList}. \n`;
+            //             }
+            //             // if (TimewindowforDoc.length > 0) {
+            //             //   glabalerrorOBject =
+            //             //     glabalerrorOBject +
+            //             //     `Document ${doc.docnum} has been excluded due to Delivery Time Frame restriction (${TimewindowforDoc}) . \n`;
+            //             // }
+
+            //             if (glabalerrorOBject.length < 1) {
+            //               if (TimewindowforDoc.length > 0) {
+            //                 glabalerrorOBject =
+            //                   glabalerrorOBject +
+            //                   `Document ${doc.docnum} has been excluded due to Delivery Time Frame restriction (${TimewindowforDoc}). \n`;
+            //               } else {
+            //                 // console.log("TTT temp object nothing = ", doc.docnum);
+            //                 glabalerrorOBject = `Document ${doc.docnum} has been excluded due to the vehicles weight/volume capacity was full in the current trip. \n`;
+            //               }
+            //             }
+
+            //             // console.log("TTT temp object = ", tempoptiError);
+            //             glabalerrorOBject = glabalerrorOBject + "\n";
+            //             // console.log("TTT temp glabalerrorOBject = ", glabalerrorOBject);
+            //             errorbox.push(glabalerrorOBject);
+            //           }
+            //         });
+
+            // Track assigned weight and volume per vehicle
+            let vehicleAssignedWeight = {};
+            let vehicleAssignedVolume = {};
 
             autoDocs.forEach((doc) => {
-              let glbalmissingskill = [];
               let tempoptiError = {
                 docnum: "",
                 skillerrorflg: false,
@@ -7002,172 +7180,135 @@ let DayOnDate = this.getDayOfWeek(selectedDate);
                 generalflg: false,
                 genearalError: "",
               };
-              let glabalerrorOBject = "";
 
-              let isSkillMatchFoundflg = false;
               let docskill = JSON.parse("[" + doc.skills + "]");
-              let tcapacatyflg = false;
-              let tskillflg = false;
-              let tvolumeflg = false;
-              let prodCodevehList = [];
-              let routeCodeVehList = [];
-              let timewindowVehList = [];
-              let capacityVehList = [];
-              let volumeVehList = [];
-              let vehClassVehList = [];
-              let TimewindowforDoc = [];
-              filteredVehArray.forEach((veh) => {
-                let missingSkillsForDoc = [];
+              let matchedVehicles = [];
+              let unmatchedVehicles = [];
+              let capacityFailedVehicles = new Set(); // Use Set to prevent duplicates
+              let volumeFailedVehicles = new Set(); // Use Set to prevent duplicates
 
-                  var varray="";
-    switch (DayOnDate) {
-      case "Monday":
-        console.log("mondayentered")
-        varray= JSON.parse("[" + veh.mondayRC + "]");    
-        break;
-      case "Tuesday":
-        varray= JSON.parse("[" + veh.tuesdayRC + "]");   
-        console.log("tuesdayentered")
-        break;
-      case "Wednesday":
-        varray= JSON.parse("[" + veh.wednesdayRC + "]"); 
-        console.log("wednesdayentered")
-        break;
-      case "Thursday":
-        varray= JSON.parse("[" + veh.thursdayRC + "]"); 
-        console.log("thursdayEntered")
-        break;
-      case "Friday":
-        varray= JSON.parse("[" + veh.fridayRC + "]"); 
-        console.log("Fridayentered",varray)
-        break;
-    }
-                const missingSkills = docskill.filter(
-                  (skill) => !varray.includes(skill)
+              filteredVehArray.forEach((veh) => {
+                let varray = [];
+
+                // 🔹 Select the correct route based on the day
+                switch (DayOnDate) {
+                  case "Monday":
+                    varray = JSON.parse("[" + veh.mondayRC + "]");
+                    break;
+                  case "Tuesday":
+                    varray = JSON.parse("[" + veh.tuesdayRC + "]");
+                    break;
+                  case "Wednesday":
+                    varray = JSON.parse("[" + veh.wednesdayRC + "]");
+                    break;
+                  case "Thursday":
+                    varray = JSON.parse("[" + veh.thursdayRC + "]");
+                    break;
+                  case "Friday":
+                    varray = JSON.parse("[" + veh.fridayRC + "]");
+                    break;
+                }
+
+                console.log("📌 Checking doc.skill:", docskill);
+                console.log("📌 Checking vehicle skills:", varray);
+
+                // ✅ Check if at least one skill matches
+                const isSkillMatched = docskill.some((skill) =>
+                  varray.includes(skill)
                 );
 
-                console.log(veh.codeyve, "TTT doc - veh subset", missingSkills);
+                console.log(isSkillMatched, "🔍 Skill Matched");
 
-                if (missingSkills.length == 0) {
-                  // If no missing skills, it's a match
-                  if (veh.capacities < doc.netweight) {
-                    tcapacatyflg = true;
-                    capacityVehList.push(veh.name);
-                  }
-                  // volume check
-                  if (veh.vol < doc.volume) {
-                    tvolumeflg = true;
-                    volumeVehList.push(veh.name);
-                  }
+                if (isSkillMatched) {
+                  matchedVehicles.push(veh.name);
                 } else {
-                  // If there are missing skills, collect them
-                  isSkillMatchFoundflg = true;
-                  missingSkillsForDoc.push(...missingSkills);
-                  glbalmissingskill.push(...missingSkills);
+                  unmatchedVehicles.push(veh.name);
+                  return; // Skip further checks if skills don’t match
+                }
 
-                  if (veh.capacities < doc.netweight) {
-                    tcapacatyflg = true;
-                    capacityVehList.push(veh.name);
-                  }
-                  // volume check
-                  if (veh.vol < doc.volume) {
-                    tvolumeflg = true;
-                    volumeVehList.push(veh.name);
-                  }
+                // 🔹 Initialize assigned weight & volume if not present
+                if (!vehicleAssignedWeight[veh.name])
+                  vehicleAssignedWeight[veh.name] = 0;
+                if (!vehicleAssignedVolume[veh.name])
+                  vehicleAssignedVolume[veh.name] = 0;
 
-                  // assign the not mathced skills to the vehicle array
-                  const tempuniqueMissingSkills = [...new Set(missingSkills)];
-                  const temprouteCodeErrors = tempuniqueMissingSkills.filter(
-                    (skill) => skill >= -1 && skill <= 100
+                // ✅ Calculate total assigned weight if this doc is added
+                let totalWeightIfAdded =
+                  vehicleAssignedWeight[veh.name] + doc.netweight;
+                let totalVolumeIfAdded =
+                  vehicleAssignedVolume[veh.name] + doc.volume;
+
+                console.log(
+                  `🚚 Vehicle: ${veh.name} | Max Weight: ${
+                    veh.capacities
+                  } | Assigned: ${
+                    vehicleAssignedWeight[veh.name]
+                  } | New Total: ${totalWeightIfAdded}`
+                );
+                console.log(
+                  `📦 Vehicle: ${veh.name} | Max Volume: ${
+                    veh.vol
+                  } | Assigned: ${
+                    vehicleAssignedVolume[veh.name]
+                  } | New Total: ${totalVolumeIfAdded}`
+                );
+
+                // ✅ Check if adding this document exceeds capacity
+                if (totalWeightIfAdded > veh.capacities) {
+                  capacityFailedVehicles.add(
+                    `${veh.name} (Max Weight: ${veh.capacities})`
                   );
-                  const tempproductCategoryErrors =
-                    tempuniqueMissingSkills.filter(
-                      (skill) => skill > 100 && skill <= 200
-                    );
-                  const tempvehicleClassErrors = tempuniqueMissingSkills.filter(
-                    (skill) => skill > 200
-                  );
+                } else {
+                  // ✅ If within capacity, update assigned weight
+                  vehicleAssignedWeight[veh.name] += doc.netweight;
+                }
 
-                  if (temprouteCodeErrors.length > 0) {
-                    routeCodeVehList.push(veh.name);
-                  }
-                  if (tempproductCategoryErrors.length > 0) {
-                    prodCodevehList.push(veh.name);
-                  }
-                  if (tempvehicleClassErrors.length > 0) {
-                    vehClassVehList.push(veh.name);
-                  }
+                // ✅ Check if adding this document exceeds volume
+                if (totalVolumeIfAdded > veh.vol) {
+                  volumeFailedVehicles.add(
+                    `${veh.name} (Max Volume: ${veh.vol})`
+                  );
+                } else {
+                  vehicleAssignedVolume[veh.name] += doc.volume;
                 }
               });
 
-              if (!tvolumeflg || !tcapacatyflg || !isSkillMatchFoundflg) {
-                tempoptiError.docnum = doc.docnum;
-                let tmsg = "";
+              let errorMessagesArray = [];
 
-                if (doc.fromTime.length > 0) {
-                  const fromTimes = this.TimeWindow_splitTime(doc.fromTime); // Split into ["0700", "0900"]
-                  const toTimes = this.TimeWindow_splitTime(doc.toTime); // Split into ["0800", "1030"]
-                  console.log("T222 timewindow from", fromTimes);
-                  for (let i = 0; i < fromTimes.length; i++) {
-                    TimewindowforDoc.push(`${fromTimes[i]}-${toTimes[i]}`); // Combine each pair into a time range
-                  }
+              // ✅ If at least one vehicle matched skills, check weight/volume errors
+              if (matchedVehicles.length > 0) {
+                if (capacityFailedVehicles.size > 0) {
+                  errorMessagesArray.push(
+                    `❌ ${doc.docnum} excluded: Weight Capacity exceeded on: ${[
+                      ...capacityFailedVehicles,
+                    ].join(", ")}.`
+                  );
                 }
-                console.log("T222 timewindow from", TimewindowforDoc);
-
-                console.log(capacityVehList, "vehicle capacity list checking");
-                console.log(
-                  routeCodeVehList,
-                  "vehicle route code list checking"
+                if (volumeFailedVehicles.size > 0) {
+                  errorMessagesArray.push(
+                    `❌ ${doc.docnum} excluded: Volume Capacity exceeded on: ${[
+                      ...volumeFailedVehicles,
+                    ].join(", ")}.`
+                  );
+                }
+              } else {
+                // ❌ No vehicle matched, show skill mismatch error
+                errorMessagesArray.push(
+                  `❌ ${
+                    doc.docnum
+                  } excluded: No vehicle matched for provided Route code. Vehicles checked: ${unmatchedVehicles.join(
+                    ", "
+                  )}.`
                 );
+              }
 
-                if (vehClassVehList.length > 0) {
-                  glabalerrorOBject =
-                    glabalerrorOBject +
-                    `Document ${doc.docnum} has been excluded as the Customer's assigned Vehicle Class does not match of these vehicles  ${vehClassVehList}. \n`;
-                }
-                if (prodCodevehList.length > 0) {
-                  glabalerrorOBject =
-                    glabalerrorOBject +
-                    `Document ${doc.docnum} has been excluded as it contains products not matching the  vehicles' ${prodCodevehList}  product categories . \n`;
-                }
-                if (routeCodeVehList.length > 0) {
-                  glabalerrorOBject =
-                    glabalerrorOBject +
-                    `Document ${doc.docnum} has been excluded as the customer's assigned RouteCode does not match any of the vehicles ${routeCodeVehList}. \n`;
-                }
-                if (capacityVehList.length > 0) {
-                  glabalerrorOBject =
-                    glabalerrorOBject +
-                    `Document ${doc.docnum} has been excluded due to Weight Capacity restriction on the vehicles ${capacityVehList}. \n`;
-                }
-                if (volumeVehList.length > 0) {
-                  glabalerrorOBject =
-                    glabalerrorOBject +
-                    `Document ${doc.docnum} has been excluded due to Volume Capacity restriction on the  vehicles ${volumeVehList}. \n`;
-                }
-                // if (TimewindowforDoc.length > 0) {
-                //   glabalerrorOBject =
-                //     glabalerrorOBject +
-                //     `Document ${doc.docnum} has been excluded due to Delivery Time Frame restriction (${TimewindowforDoc}) . \n`;
-                // }
-
-                if (glabalerrorOBject.length < 1) {
-                  if (TimewindowforDoc.length > 0) {
-                    glabalerrorOBject =
-                      glabalerrorOBject +
-                      `Document ${doc.docnum} has been excluded due to Delivery Time Frame restriction (${TimewindowforDoc}). \n`;
-                  } else {
-                    // console.log("TTT temp object nothing = ", doc.docnum);
-                    glabalerrorOBject = `Document ${doc.docnum} has been excluded due to the vehicles weight/volume capacity was full in the current trip. \n`;
-                  }
-                }
-
-                // console.log("TTT temp object = ", tempoptiError);
-                glabalerrorOBject = glabalerrorOBject + "\n";
-                // console.log("TTT temp glabalerrorOBject = ", glabalerrorOBject);
-                errorbox.push(glabalerrorOBject);
+              // 🔹 Push errors only if there are any
+              if (errorMessagesArray.length > 0) {
+                let globalErrorObject = errorMessagesArray.join("\n");
+                errorbox.push(globalErrorObject);
               }
             });
+
             const finalErrorMessage = errorbox.join("\n");
 
             console.log("TTT error box = ", errorbox);
@@ -7206,7 +7347,7 @@ let DayOnDate = this.getDayOfWeek(selectedDate);
       var auto_tot_travel_time = formatTime(routes[k].duration);
       var auto_total_time = (routes[k].duration + routes[k].service) / 60 / 60;
       var auto_service_time = routes[k].service / 60 / 60;
-      var auto_total_distance = routes[k].distance / 1000
+      var auto_total_distance = routes[k].distance / 1000;
       // console.log("OSRM Auto Routes veh are",routes[k].description);
       for (let i = 0; i < this.state.vehiclePanel.vehicles.length; i++) {
         if (Veh == this.state.vehiclePanel.vehicles[i].codeyve) {
@@ -7284,7 +7425,9 @@ let DayOnDate = this.getDayOfWeek(selectedDate);
               currDoc.arrival = secondsToHms(currTask.arrival);
               currDoc.time = convertSecToMin(currTask.duration);
               // currDoc.distance = 0;
-              currDoc.distance = currTask.distance ?  (currTask.distance / 1000) : 0;
+              currDoc.distance = currTask.distance
+                ? currTask.distance / 1000
+                : 0;
               currDoc.serTime = secondsToHms(currTask.service);
               currDoc.end = secondsToHms(currTask.arrival + currTask.service);
               currDoc.startDate = newStartDate1;
@@ -7691,6 +7834,7 @@ let DayOnDate = this.getDayOfWeek(selectedDate);
         customerlist: "",
         allocatedRouteCodes: commaSeperated,
         xusrcode: user.username,
+        loginUser:user.username
       };
 
       RouteprocessedData.push(trip);
@@ -8052,19 +8196,19 @@ let DayOnDate = this.getDayOfWeek(selectedDate);
     this.ConfirmScheduledTrips(Trips);
   };
 
-  
-
-
-
   TimeWindow_splitTime = (timeString) => {
     // Split the timeString into individual times
     return timeString.split(" ");
   };
 
   // exceptional List
-  Exceptionalanalysis = (selectedDocs, SelectedVehicles, res) => {
-
-    console.log(res,"checking response for exceptionsl list")
+  Exceptionalanalysis = (
+    selectedDocs,
+    SelectedVehicles,
+    res,
+    tripsfromAuto
+  ) => {
+    console.log(tripsfromAuto, "assigned weight checking");
     let totalSelectedDocs = selectedDocs.length;
     let unassignedDocCount = res.unassigned.length;
     let unassignedDocs = res.unassigned;
@@ -8075,8 +8219,10 @@ let DayOnDate = this.getDayOfWeek(selectedDate);
 
     let selVeh = SelectedVehicles;
 
-
-    console.log(selVeh, "these are selected vehicles checkinggg in exeptionalanaysis")
+    console.log(
+      SelectedVehicles,
+      "these are generated trip checkinggg in exeptionalanaysis 8079"
+    );
 
     let tempselDocs = [];
     unassignedDocs.map((undoc, index) => {
@@ -8088,7 +8234,7 @@ let DayOnDate = this.getDayOfWeek(selectedDate);
       }
     });
 
-    console.log(tempselDocs, "this is temseldocs list not assigned one")
+    console.log(tempselDocs, "this is temseldocs list not assigned one");
     summarybox.push(
       ` ${trips} trips have been auto generated containing a total of  ${assignedDocs} documents  \n`
     );
@@ -8103,321 +8249,309 @@ let DayOnDate = this.getDayOfWeek(selectedDate);
 
     // console.log("TCCC selected document data =",tempselDocs)
 
-let selectedDate = this.state.documentPanel_date;
-let DayOnDate = this.getDayOfWeek(selectedDate);
-//     tempselDocs.forEach((doc) => {
-//       let glbalmissingskill = [];
-//       let tempoptiError = {
-//         docnum: "",
-//         skillerrorflg: false,
-//         skillmessage: "",
-//         capacatyflg: false,
-//         capacityError: "",
-//         generalflg: false,
-//         genearalError: "",
-//       };
-//       // let glabalerrorOBject = [];
+    let selectedDate = this.state.documentPanel_date;
+    let DayOnDate = this.getDayOfWeek(selectedDate);
+    //     tempselDocs.forEach((doc) => {
+    //       let glbalmissingskill = [];
+    //       let tempoptiError = {
+    //         docnum: "",
+    //         skillerrorflg: false,
+    //         skillmessage: "",
+    //         capacatyflg: false,
+    //         capacityError: "",
+    //         generalflg: false,
+    //         genearalError: "",
+    //       };
+    //       // let glabalerrorOBject = [];
 
-//       let isSkillMatchFoundflg = false;
-//       let docskill = JSON.parse("[" + doc.skills + "]");
-//       let tcapacatyflg = false;
-//       let tskillflg = false;
-//       let tvolumeflg = false;
-//       let prodCodevehList = [];
-//       let routeCodeVehList = [];
-//       let timewindowVehList = [];
-//       let capacityVehList = [];
-//       let volumeVehList = [];
-//       let vehClassVehList = [];
-//       let TimewindowforDoc = [];
-     
+    //       let isSkillMatchFoundflg = false;
+    //       let docskill = JSON.parse("[" + doc.skills + "]");
+    //       let tcapacatyflg = false;
+    //       let tskillflg = false;
+    //       let tvolumeflg = false;
+    //       let prodCodevehList = [];
+    //       let routeCodeVehList = [];
+    //       let timewindowVehList = [];
+    //       let capacityVehList = [];
+    //       let volumeVehList = [];
+    //       let vehClassVehList = [];
+    //       let TimewindowforDoc = [];
 
+    //       selVeh.forEach((veh) => {
+    //         let missingSkillsForDoc = [];
+    //         var varray="";
+    //     switch (DayOnDate) {
+    //       case "Monday":
+    //         console.log("mondayentered")
+    //         varray= JSON.parse("[" + veh.mondayRC + "]");
+    //         break;
+    //       case "Tuesday":
+    //         varray= JSON.parse("[" + veh.tuesdayRC + "]");
+    //         console.log("tuesdayentered")
+    //         break;
+    //       case "Wednesday":
+    //         varray= JSON.parse("[" + veh.wednesdayRC + "]");
+    //         console.log("wednesdayentered")
+    //         break;
+    //       case "Thursday":
+    //         varray= JSON.parse("[" + veh.thursdayRC + "]");
+    //         console.log("thursdayEntered")
+    //         break;
+    //       case "Friday":
+    //         varray= JSON.parse("[" + veh.fridayRC + "]");
+    //         console.log("Fridayentered",varray)
+    //         break;
+    //     }
 
-//       selVeh.forEach((veh) => {
-//         let missingSkillsForDoc = [];
-//         var varray="";
-//     switch (DayOnDate) {
-//       case "Monday":
-//         console.log("mondayentered")
-//         varray= JSON.parse("[" + veh.mondayRC + "]");    
-//         break;
-//       case "Tuesday":
-//         varray= JSON.parse("[" + veh.tuesdayRC + "]");   
-//         console.log("tuesdayentered")
-//         break;
-//       case "Wednesday":
-//         varray= JSON.parse("[" + veh.wednesdayRC + "]"); 
-//         console.log("wednesdayentered")
-//         break;
-//       case "Thursday":
-//         varray= JSON.parse("[" + veh.thursdayRC + "]"); 
-//         console.log("thursdayEntered")
-//         break;
-//       case "Friday":
-//         varray= JSON.parse("[" + veh.fridayRC + "]"); 
-//         console.log("Fridayentered",varray)
-//         break;
-//     }
+    //         // Check if all skills of doc are in veh's skills
+    //         //  let varray = JSON.parse('[' + veh.mondayRCDesc +veh.mondayRCDesc +veh.mondayRCDesc +veh.mondayRCDesc +veh.mondayRCDesc + ']')
+    //         //  Veh.skills = array
+    //         //   let vehskill = ;
+    //         console.log(docskill, "this is doc.skill");
+    //         console.log(varray, "this is varray checking exceptional list");
 
-       
+    //         //  const isSubset = docskill.every((skill) => varray.includes(skill));
+    //         const missingSkills = docskill.filter(
+    //           (skill) => !varray.includes(skill)
+    //         );
 
-//         // Check if all skills of doc are in veh's skills
-//         //  let varray = JSON.parse('[' + veh.mondayRCDesc +veh.mondayRCDesc +veh.mondayRCDesc +veh.mondayRCDesc +veh.mondayRCDesc + ']')
-//         //  Veh.skills = array
-//         //   let vehskill = ;
-//         console.log(docskill, "this is doc.skill");
-//         console.log(varray, "this is varray checking exceptional list");
+    //         console.log(veh.codeyve, "TTT doc - veh subset", missingSkills);
+    // console.log(missingSkills ,"checking length of skill")
+    //         if (missingSkills.length == 0) {
+    //           // If no missing skills, it's a match
+    //           console.log(missingSkills)
+    //           if (veh.capacities < doc.netweight) {
+    //             tcapacatyflg = true;
+    //             capacityVehList.push(veh.name);
+    //           }
+    //           // volume check
+    //           if (veh.vol < doc.volume) {
+    //             tvolumeflg = true;
+    //             volumeVehList.push(veh.name);
+    //           }
+    //         } else {
+    //           // If there are missing skills, collect them
+    //           isSkillMatchFoundflg = true;
+    //           missingSkillsForDoc.push(...missingSkills);
+    //           glbalmissingskill.push(...missingSkills);
 
-//         //  const isSubset = docskill.every((skill) => varray.includes(skill));
-//         const missingSkills = docskill.filter(
-//           (skill) => !varray.includes(skill)
-//         );
+    //           if (veh.capacities < doc.netweight) {
+    //             tcapacatyflg = true;
+    //             capacityVehList.push(veh.name);
+    //           }
+    //           // volume check
+    //           if (veh.vol < doc.volume) {
+    //             tvolumeflg = true;
+    //             volumeVehList.push(veh.name);
+    //           }
+    //           // assign the not mathced skills to the vehicle array
+    //           const tempuniqueMissingSkills = [...new Set(missingSkills)];
 
-//         console.log(veh.codeyve, "TTT doc - veh subset", missingSkills);
-// console.log(missingSkills ,"checking length of skill")
-//         if (missingSkills.length == 0) {
-//           // If no missing skills, it's a match
-//           console.log(missingSkills)
-//           if (veh.capacities < doc.netweight) {
-//             tcapacatyflg = true;
-//             capacityVehList.push(veh.name);
-//           }
-//           // volume check
-//           if (veh.vol < doc.volume) {
-//             tvolumeflg = true;
-//             volumeVehList.push(veh.name);
-//           }
-//         } else {
-//           // If there are missing skills, collect them
-//           isSkillMatchFoundflg = true;
-//           missingSkillsForDoc.push(...missingSkills);
-//           glbalmissingskill.push(...missingSkills);
+    //           console.log(tempuniqueMissingSkills, "tempuniqueMissingSkills")
+    //           const temprouteCodeErrors = tempuniqueMissingSkills.filter(
+    //             (skill) => skill >= -1 && skill <= 100
+    //           );
 
-//           if (veh.capacities < doc.netweight) {
-//             tcapacatyflg = true;
-//             capacityVehList.push(veh.name);
-//           }
-//           // volume check
-//           if (veh.vol < doc.volume) {
-//             tvolumeflg = true;
-//             volumeVehList.push(veh.name);
-//           }
-//           // assign the not mathced skills to the vehicle array
-//           const tempuniqueMissingSkills = [...new Set(missingSkills)];
+    //           console.log(temprouteCodeErrors,"route code error checking 8208")
+    //           const tempproductCategoryErrors = tempuniqueMissingSkills.filter(
+    //             (skill) => skill > 100 && skill <= 200
+    //           );
+    //           const tempvehicleClassErrors = tempuniqueMissingSkills.filter(
+    //             (skill) => skill > 200
+    //           );
 
-//           console.log(tempuniqueMissingSkills, "tempuniqueMissingSkills")
-//           const temprouteCodeErrors = tempuniqueMissingSkills.filter(
-//             (skill) => skill >= -1 && skill <= 100
-//           );
+    //           if (temprouteCodeErrors.length > 0) {
+    //             routeCodeVehList.push(veh.name);
+    //           }
+    //           if (tempproductCategoryErrors.length > 0) {
+    //             prodCodevehList.push(veh.name);
+    //           }
+    //           if (tempvehicleClassErrors.length > 0) {
+    //             vehClassVehList.push(veh.name);
+    //           }
+    //         }
+    //       });
 
-//           console.log(temprouteCodeErrors,"route code error checking 8208")
-//           const tempproductCategoryErrors = tempuniqueMissingSkills.filter(
-//             (skill) => skill > 100 && skill <= 200
-//           );
-//           const tempvehicleClassErrors = tempuniqueMissingSkills.filter(
-//             (skill) => skill > 200
-//           );
+    //       if (!tvolumeflg || !tcapacatyflg || !isSkillMatchFoundflg) {
+    //         tempoptiError.docnum = doc.docnum;
+    //         let tmsg = "",
+    //           timeWindowStr = "";
+    //         let errorMessagesArray = [];
 
-//           if (temprouteCodeErrors.length > 0) {
-//             routeCodeVehList.push(veh.name);
-//           }
-//           if (tempproductCategoryErrors.length > 0) {
-//             prodCodevehList.push(veh.name);
-//           }
-//           if (tempvehicleClassErrors.length > 0) {
-//             vehClassVehList.push(veh.name);
-//           }
-//         }
-//       });
+    //         if (doc.fromTime.length > 0) {
+    //           const fromTimes = this.TimeWindow_splitTime(doc.fromTime); // Split into ["0700", "0900"]
+    //           const toTimes = this.TimeWindow_splitTime(doc.toTime); // Split into ["0800", "1030"]
 
-//       if (!tvolumeflg || !tcapacatyflg || !isSkillMatchFoundflg) {
-//         tempoptiError.docnum = doc.docnum;
-//         let tmsg = "",
-//           timeWindowStr = "";
-//         let errorMessagesArray = [];
+    //           //               for (let i = 0; i < fromTimes.length; i++) {
+    //           //                   TimewindowforDoc.push(`${fromTimes[i]}-${toTimes[i]}`); // Combine each pair into a time range
+    //           //               }
 
-//         if (doc.fromTime.length > 0) {
-//           const fromTimes = this.TimeWindow_splitTime(doc.fromTime); // Split into ["0700", "0900"]
-//           const toTimes = this.TimeWindow_splitTime(doc.toTime); // Split into ["0800", "1030"]
+    //           const timeRanges = fromTimes.map(
+    //             (fromTime, index) => `${fromTime}-${toTimes[index]}`
+    //           );
+    //           timeWindowStr = `(${timeRanges.join(", ")})`; // Format as a single string
+    //         }
 
-//           //               for (let i = 0; i < fromTimes.length; i++) {
-//           //                   TimewindowforDoc.push(`${fromTimes[i]}-${toTimes[i]}`); // Combine each pair into a time range
-//           //               }
+    //         //           if((doc.fromTime).length > 0) {
+    //         //
+    //         //                   TimewindowforDoc.push(splitTime(doc.fromTime))
+    //         //                    TimewindowforDoc.push(splitTime(doc.toTime))
+    //         //                        timeWindowStr = `(${TimewindowforDoc[0]} - ${TimewindowforDoc[1]})`;
+    //         //                 }
 
-//           const timeRanges = fromTimes.map(
-//             (fromTime, index) => `${fromTime}-${toTimes[index]}`
-//           );
-//           timeWindowStr = `(${timeRanges.join(", ")})`; // Format as a single string
-//         }
+    //         console.log(capacityVehList, "this is vehicle capacity list checking");
+    //         console.log(routeCodeVehList, "this is route code list checking");
+    //         if (vehClassVehList.length > 0) {
+    //           errorMessagesArray.push(
+    //             ` ${doc.docnum} has been excluded as the Customer's assigned Vehicle Class does not match  of these vehicles  ${vehClassVehList}.`
+    //           );
+    //         }
+    //         if (prodCodevehList.length > 0) {
+    //           errorMessagesArray.push(
+    //             ` ${doc.docnum} has been excluded as it contains products not matching the selected vehicles' ${prodCodevehList}  product categories .`
+    //           );
+    //         }
+    //         if (routeCodeVehList.length > 0) {
+    //           errorMessagesArray.push(
+    //             ` ${doc.docnum} has been excluded as the customer's assigned RouteCode does not match any of the selected vehicles ${routeCodeVehList}.`
+    //           );
+    //         }
+    //         if (capacityVehList.length > 0) {
+    //           errorMessagesArray.push(
+    //             ` ${doc.docnum} has been excluded due to Weight Capacity restriction on the selected vehicles ${capacityVehList}.`
+    //           );
+    //         }
+    //         if (volumeVehList.length > 0) {
+    //           errorMessagesArray.push(
+    //             ` ${doc.docnum} has been excluded due to Volume Capacity restriction on the selected vehicles ${volumeVehList}.`
+    //           );
+    //         }
+    //         if (TimewindowforDoc.length > 0) {
+    //           errorMessagesArray.push(
+    //             ` ${doc.docnum} has been excluded due to Delivery Time Frame restriction ${timeWindowStr}.`
+    //           );
+    //         }
 
-//         //           if((doc.fromTime).length > 0) {
-//         //
-//         //                   TimewindowforDoc.push(splitTime(doc.fromTime))
-//         //                    TimewindowforDoc.push(splitTime(doc.toTime))
-//         //                        timeWindowStr = `(${TimewindowforDoc[0]} - ${TimewindowforDoc[1]})`;
-//         //                 }
+    //         if (errorMessagesArray.length < 1) {
+    //           if (TimewindowforDoc.length > 0) {
+    //             errorMessagesArray.push(
+    //               ` ${doc.docnum} has been excluded due to Delivery Time Frame restriction ${timeWindowStr}.`
+    //             );
+    //           } else {
+    //             errorMessagesArray.push(
+    //               ` ${doc.docnum} has been excluded due to the vehicles weight/volume capacity was full in the current trip.`
+    //             );
+    //           }
+    //         }
 
-//         console.log(capacityVehList, "this is vehicle capacity list checking");
-//         console.log(routeCodeVehList, "this is route code list checking");
-//         if (vehClassVehList.length > 0) {
-//           errorMessagesArray.push(
-//             ` ${doc.docnum} has been excluded as the Customer's assigned Vehicle Class does not match  of these vehicles  ${vehClassVehList}.`
-//           );
-//         }
-//         if (prodCodevehList.length > 0) {
-//           errorMessagesArray.push(
-//             ` ${doc.docnum} has been excluded as it contains products not matching the selected vehicles' ${prodCodevehList}  product categories .`
-//           );
-//         }
-//         if (routeCodeVehList.length > 0) {
-//           errorMessagesArray.push(
-//             ` ${doc.docnum} has been excluded as the customer's assigned RouteCode does not match any of the selected vehicles ${routeCodeVehList}.`
-//           );
-//         }
-//         if (capacityVehList.length > 0) {
-//           errorMessagesArray.push(
-//             ` ${doc.docnum} has been excluded due to Weight Capacity restriction on the selected vehicles ${capacityVehList}.`
-//           );
-//         }
-//         if (volumeVehList.length > 0) {
-//           errorMessagesArray.push(
-//             ` ${doc.docnum} has been excluded due to Volume Capacity restriction on the selected vehicles ${volumeVehList}.`
-//           );
-//         }
-//         if (TimewindowforDoc.length > 0) {
-//           errorMessagesArray.push(
-//             ` ${doc.docnum} has been excluded due to Delivery Time Frame restriction ${timeWindowStr}.`
-//           );
-//         }
+    //         // glabalerrorOBject = glabalerrorOBject + "\n";
+    //         //  const glabalerrorOBject = errorMessagesArray.join('\n');
+    //         let glabalerrorOBject = errorMessagesArray
+    //           .map((msg) => msg + "\n")
+    //           .join("");
 
-//         if (errorMessagesArray.length < 1) {
-//           if (TimewindowforDoc.length > 0) {
-//             errorMessagesArray.push(
-//               ` ${doc.docnum} has been excluded due to Delivery Time Frame restriction ${timeWindowStr}.`
-//             );
-//           } else {
-//             errorMessagesArray.push(
-//               ` ${doc.docnum} has been excluded due to the vehicles weight/volume capacity was full in the current trip.`
-//             );
-//           }
-//         }
+    //         errorbox.push(glabalerrorOBject + "\n");
+    //       } else {
+    //       }
+    //     });
 
-//         // glabalerrorOBject = glabalerrorOBject + "\n";
-//         //  const glabalerrorOBject = errorMessagesArray.join('\n');
-//         let glabalerrorOBject = errorMessagesArray
-//           .map((msg) => msg + "\n")
-//           .join("");
+    // newly added code working code
 
-//         errorbox.push(glabalerrorOBject + "\n");
-//       } else {
-//       }
-//     });
+    // tempselDocs.forEach((doc) => {
+    //   let tempoptiError = {
+    //       docnum: "",
+    //       skillerrorflg: false,
+    //       skillmessage: "",
+    //       capacatyflg: false,
+    //       capacityError: "",
+    //       generalflg: false,
+    //       genearalError: "",
+    //   };
 
+    //   let docskill = JSON.parse("[" + doc.skills + "]");
+    //   let tcapacatyflg = false;
+    //   let tvolumeflg = false;
 
+    //   let matchedVehicles = [];
+    //   let unmatchedVehicles = [];
+    //   let capacityFailedVehicles = [];
+    //   let volumeFailedVehicles = [];
 
+    //   selVeh.forEach((veh) => {
+    //       let varray = [];
 
-// newly added code working code
+    //       // Select the correct route based on the day
+    //       switch (DayOnDate) {
+    //           case "Monday": varray = JSON.parse("[" + veh.mondayRC + "]"); break;
+    //           case "Tuesday": varray = JSON.parse("[" + veh.tuesdayRC + "]"); break;
+    //           case "Wednesday": varray = JSON.parse("[" + veh.wednesdayRC + "]"); break;
+    //           case "Thursday": varray = JSON.parse("[" + veh.thursdayRC + "]"); break;
+    //           case "Friday": varray = JSON.parse("[" + veh.fridayRC + "]"); break;
+    //       }
 
+    //       console.log("Checking doc.skill:", docskill);
+    //       console.log("Checking vehicle skills:", varray);
 
+    //       // 🔹 Check if at least one skill matches
+    //       const isSkillMatched = docskill.filter((skill) => varray.includes(skill));
 
-tempselDocs.forEach((doc) => {
-  let tempoptiError = {
-      docnum: "",
-      skillerrorflg: false,
-      skillmessage: "",
-      capacatyflg: false,
-      capacityError: "",
-      generalflg: false,
-      genearalError: "",
-  };
+    //       console.log(isSkillMatched, "skill matched checking 8356");
 
-  let docskill = JSON.parse("[" + doc.skills + "]");
-  let tcapacatyflg = false;
-  let tvolumeflg = false;
+    //       if (isSkillMatched) {
+    //           matchedVehicles.push(veh.name);
+    //       } else {
+    //           unmatchedVehicles.push(veh.name);
+    //       }
 
-  let matchedVehicles = [];
-  let unmatchedVehicles = [];
-  let capacityFailedVehicles = [];
-  let volumeFailedVehicles = [];
+    //       console.log(veh.capacities , doc.netweight ,"capacity check 8364")
 
-  selVeh.forEach((veh) => {
-      let varray = [];
+    //       // 🔹 Always check Capacity and Volume, even if skills matched
+    //       if (veh.capacities < doc.netweight) {
+    //           tcapacatyflg = true;
+    //           capacityFailedVehicles.push(veh.name);
+    //       }
+    //       if (veh.vol < doc.volume) {
+    //           tvolumeflg = true;
+    //           volumeFailedVehicles.push(veh.name);
+    //       }
+    //   });
 
-      // Select the correct route based on the day
-      switch (DayOnDate) {
-          case "Monday": varray = JSON.parse("[" + veh.mondayRC + "]"); break;
-          case "Tuesday": varray = JSON.parse("[" + veh.tuesdayRC + "]"); break;
-          case "Wednesday": varray = JSON.parse("[" + veh.wednesdayRC + "]"); break;
-          case "Thursday": varray = JSON.parse("[" + veh.thursdayRC + "]"); break;
-          case "Friday": varray = JSON.parse("[" + veh.fridayRC + "]"); break;
-      }
+    //   let errorMessagesArray = [];
 
-      console.log("Checking doc.skill:", docskill);
-      console.log("Checking vehicle skills:", varray);
+    //   // ✅ If at least one vehicle matched skills, show weight/volume errors
+    //   if (matchedVehicles.length > 0) {
+    //       if (capacityFailedVehicles.length > 0) {
+    //           errorMessagesArray.push(
+    //               ` ${doc.docnum} excluded: Weight Capacity restriction on vehicles: ${capacityFailedVehicles.join(", ")}.`
+    //           );
+    //       }
+    //       if (volumeFailedVehicles.length > 0) {
+    //           errorMessagesArray.push(
+    //               ` ${doc.docnum} excluded: Volume Capacity restriction on vehicles: ${volumeFailedVehicles.join(", ")}.`
+    //           );
+    //       }
+    //   } else {
+    //       // ❌ No vehicle matched, show skill mismatch error
+    //       errorMessagesArray.push(
+    //           ` ${doc.docnum} excluded: No vehicle matched. Vehicles checked: ${unmatchedVehicles.join(", ")}.`
+    //       );
+    //   }
 
-      // 🔹 Check if at least one skill matches
-      const isSkillMatched = docskill.filter((skill) => varray.includes(skill));
+    //   // 🔹 Push errors only if there are any
+    //   if (errorMessagesArray.length > 0) {
+    //       let glabalerrorOBject = errorMessagesArray.join("\n");
+    //       errorbox.push(glabalerrorOBject);
+    //   }
+    // });
 
-      console.log(isSkillMatched, "skill matched checking 8356");
+    // specifically checking which vehicle weight exceed
 
-      if (isSkillMatched) {
-          matchedVehicles.push(veh.name);
-      } else {
-          unmatchedVehicles.push(veh.name);
-      }
+    // Track assigned weight and volume per vehicle
+    let vehicleAssignedWeight = {};
+    let vehicleAssignedVolume = {};
 
-      console.log(veh.capacities , doc.netweight ,"capacity check 8364")
-
-      // 🔹 Always check Capacity and Volume, even if skills matched
-      if (veh.capacities < doc.netweight) {
-          tcapacatyflg = true;
-          capacityFailedVehicles.push(veh.name);
-      }
-      if (veh.vol < doc.volume) {
-          tvolumeflg = true;
-          volumeFailedVehicles.push(veh.name);
-      }
-  });
-
-  let errorMessagesArray = [];
-
-  // ✅ If at least one vehicle matched skills, show weight/volume errors
-  if (matchedVehicles.length > 0) {
-      if (capacityFailedVehicles.length > 0) {
-          errorMessagesArray.push(
-              ` ${doc.docnum} excluded: Weight Capacity restriction on vehicles: ${capacityFailedVehicles.join(", ")}.`
-          );
-      }
-      if (volumeFailedVehicles.length > 0) {
-          errorMessagesArray.push(
-              ` ${doc.docnum} excluded: Volume Capacity restriction on vehicles: ${volumeFailedVehicles.join(", ")}.`
-          );
-      }
-  } else {
-      // ❌ No vehicle matched, show skill mismatch error
-      errorMessagesArray.push(
-          ` ${doc.docnum} excluded: No vehicle matched. Vehicles checked: ${unmatchedVehicles.join(", ")}.`
-      );
-  }
-
-  // 🔹 Push errors only if there are any
-  if (errorMessagesArray.length > 0) {
-      let glabalerrorOBject = errorMessagesArray.join("\n");
-      errorbox.push(glabalerrorOBject);
-  }
-});
-
-
-
-
-// specifically checking which vehicle weight exceed
-
-// Track assigned weight and volume per vehicle
-let vehicleAssignedWeight = {}; 
-let vehicleAssignedVolume = {}; 
-
-tempselDocs.forEach((doc) => {
-    let tempoptiError = {
+    tempselDocs.forEach((doc) => {
+      let tempoptiError = {
         docnum: "",
         skillerrorflg: false,
         skillmessage: "",
@@ -8425,24 +8559,34 @@ tempselDocs.forEach((doc) => {
         capacityError: "",
         generalflg: false,
         genearalError: "",
-    };
+      };
 
-    let docskill = JSON.parse("[" + doc.skills + "]");
-    let matchedVehicles = [];
-    let unmatchedVehicles = [];
-    let capacityFailedVehicles = new Set(); // Use Set to prevent duplicates
-    let volumeFailedVehicles = new Set();  // Use Set to prevent duplicates
+      let docskill = JSON.parse("[" + doc.skills + "]");
+      let matchedVehicles = [];
+      let unmatchedVehicles = [];
+      let capacityFailedVehicles = new Set(); // Use Set to prevent duplicates
+      let volumeFailedVehicles = new Set(); // Use Set to prevent duplicates
 
-    selVeh.forEach((veh) => {
+      selVeh.forEach((veh) => {
         let varray = [];
 
         // 🔹 Select the correct route based on the day
         switch (DayOnDate) {
-            case "Monday": varray = JSON.parse("[" + veh.mondayRC + "]"); break;
-            case "Tuesday": varray = JSON.parse("[" + veh.tuesdayRC + "]"); break;
-            case "Wednesday": varray = JSON.parse("[" + veh.wednesdayRC + "]"); break;
-            case "Thursday": varray = JSON.parse("[" + veh.thursdayRC + "]"); break;
-            case "Friday": varray = JSON.parse("[" + veh.fridayRC + "]"); break;
+          case "Monday":
+            varray = JSON.parse("[" + veh.mondayRC + "]");
+            break;
+          case "Tuesday":
+            varray = JSON.parse("[" + veh.tuesdayRC + "]");
+            break;
+          case "Wednesday":
+            varray = JSON.parse("[" + veh.wednesdayRC + "]");
+            break;
+          case "Thursday":
+            varray = JSON.parse("[" + veh.thursdayRC + "]");
+            break;
+          case "Friday":
+            varray = JSON.parse("[" + veh.fridayRC + "]");
+            break;
         }
 
         console.log("📌 Checking doc.skill:", docskill);
@@ -8454,68 +8598,106 @@ tempselDocs.forEach((doc) => {
         console.log(isSkillMatched, "🔍 Skill Matched");
 
         if (isSkillMatched) {
-            matchedVehicles.push(veh.name);
+          matchedVehicles.push(veh.name);
         } else {
-            unmatchedVehicles.push(veh.name);
-            return; // Skip further checks if skills don’t match
+          unmatchedVehicles.push(veh.name);
+          return; // Skip further checks if skills don’t match
         }
+
+        // for getting vehicle fulled weight
+        const assignedWeight = tripsfromAuto
+          .filter((trip) => trip.code === veh.codeyve) // Find the trip for this vehicle
+          .reduce((sum, trip) => sum + Number(trip.doc_capacity), 0); // Sum assigned weights
+
+        console.log(veh, "8572");
+        // Calculate remaining capacity
+        const remainingCapacity = Number(veh.capacities) - assignedWeight;
+
+        console.log(remainingCapacity, "checking remaining capacity here");
+
+        const assignedVolume = tripsfromAuto
+          .filter((trip) => trip.code === veh.codeyve) // Find the trip for this vehicle
+          .reduce((sum, trip) => sum + Number(trip.doc_volume), 0); // Sum assigned weights
+console.log(assignedVolume, "8620","Veh Tot Volume ->",veh.vol)
+        const remainingVol = veh.vol - assignedVolume;
+
+        console.log(remainingVol ,"remaining vol in vehicle")
 
         // 🔹 Initialize assigned weight & volume if not present
-        if (!vehicleAssignedWeight[veh.name]) vehicleAssignedWeight[veh.name] = 0;
-        if (!vehicleAssignedVolume[veh.name]) vehicleAssignedVolume[veh.name] = 0;
+        if (!vehicleAssignedWeight[veh.name])
+          vehicleAssignedWeight[veh.name] = 0;
+        if (!vehicleAssignedVolume[veh.name])
+          vehicleAssignedVolume[veh.name] = 0;
 
         // ✅ Calculate total assigned weight if this doc is added
-        let totalWeightIfAdded = vehicleAssignedWeight[veh.name] + doc.netweight;
+        let totalWeightIfAdded =
+          vehicleAssignedWeight[veh.name] + doc.netweight;
         let totalVolumeIfAdded = vehicleAssignedVolume[veh.name] + doc.volume;
 
-        console.log(`🚚 Vehicle: ${veh.name} | Max Weight: ${veh.capacities} | Assigned: ${vehicleAssignedWeight[veh.name]} | New Total: ${totalWeightIfAdded}`);
-        console.log(`📦 Vehicle: ${veh.name} | Max Volume: ${veh.vol} | Assigned: ${vehicleAssignedVolume[veh.name]} | New Total: ${totalVolumeIfAdded}`);
+        console.log(
+          `🚚 Vehicle: ${veh.name} | Max Weight: ${
+            veh.capacities
+          } | Assigned: ${
+            vehicleAssignedWeight[veh.name]
+          } | New Total: ${totalWeightIfAdded}`
+        );
+        console.log(
+          `📦 Vehicle: ${veh.name} | Max Volume: ${veh.vol} | Assigned: ${
+            vehicleAssignedVolume[veh.name]
+          } | New Total: ${totalVolumeIfAdded}`
+        );
 
         // ✅ Check if adding this document exceeds capacity
-        if (totalWeightIfAdded > veh.capacities) {
-            capacityFailedVehicles.add(`${veh.name} (Max Vol: ${veh.capacities}`);
-        } else {
-            // ✅ If within capacity, update assigned weight
-            vehicleAssignedWeight[veh.name] += doc.netweight;
+        if (totalWeightIfAdded > remainingCapacity) {
+          capacityFailedVehicles.add(
+            ` Cannot assign document! Document weight: ${doc.netweight} Vehicle: ${veh.name} is already loaded with ${assignedWeight} KG.Remaining capacity: ${remainingCapacity} KG, which is insufficient for this document.`
+          );
         }
-
         // ✅ Check if adding this document exceeds volume
-        if (totalVolumeIfAdded > veh.vol) {
-            volumeFailedVehicles.add(`${veh.name} (Max: ${veh.vol}`);
+        if (totalVolumeIfAdded > remainingVol) {
+          volumeFailedVehicles.add(
+            `Cannot Assign Document Volume is ${doc.volume} Vehicle: ${veh.name} is alerady loaded with ${assignedVolume} Remaining Capacity Volume Remaining in the vehicle: ${remainingVol} which is insufficient for this document`
+          );
         } else {
-            vehicleAssignedVolume[veh.name] += doc.volume;
+          vehicleAssignedVolume[veh.name] += doc.volume;
         }
-    });
+      });
 
-    let errorMessagesArray = [];
+      let errorMessagesArray = [];
 
-    // ✅ If at least one vehicle matched skills, check weight/volume errors
-    if (matchedVehicles.length > 0) {
+      // ✅ If at least one vehicle matched skills, check weight/volume errors
+      if (matchedVehicles.length > 0) {
         if (capacityFailedVehicles.size > 0) {
-            errorMessagesArray.push(
-                `❌ ${doc.docnum} excluded: Weight Capacity exceeded on: ${[...capacityFailedVehicles].join(", ")}.`
-            );
+          errorMessagesArray.push(
+            `${[
+              ...capacityFailedVehicles,
+            ].join(", ")}.`
+          );
         }
         if (volumeFailedVehicles.size > 0) {
-            errorMessagesArray.push(
-                `❌ ${doc.docnum} excluded: Volume Capacity exceeded on: ${[...volumeFailedVehicles].join(", ")}.`
-            );
+          errorMessagesArray.push(
+            `${[
+              ...volumeFailedVehicles,
+            ].join(", ")}.`
+          );
         }
-    } else {
+      } else {
         // ❌ No vehicle matched, show skill mismatch error
         errorMessagesArray.push(
-            `❌ ${doc.docnum} excluded: No vehicle matched. Vehicles checked: ${unmatchedVehicles.join(", ")}.`
+          `❌ ${
+            doc.docnum
+          } excluded: No vehicle matched for provided Route code. Vehicles checked: ${unmatchedVehicles.join(
+            ", "
+          )}.`
         );
-    }
+      }
 
-    // 🔹 Push errors only if there are any
-    if (errorMessagesArray.length > 0) {
+      // 🔹 Push errors only if there are any
+      if (errorMessagesArray.length > 0) {
         let globalErrorObject = errorMessagesArray.join("\n");
         errorbox.push(globalErrorObject);
-    }
-});
-
-
+      }
+    });
 
     // console.log(varray,"this is varrayoutside loop")
 
@@ -8532,8 +8714,14 @@ tempselDocs.forEach((doc) => {
   };
 
   ConfirmScheduledTrips = (trips, selDocs, SelVeh, res, from) => {
-
-    console.log(trips, selDocs, SelVeh, res, from,'checking auto gen confirm trips function')
+    console.log(
+      trips,
+      selDocs,
+      SelVeh,
+      res,
+      from,
+      "checking auto gen confirm trips function"
+    );
     this.setState({ loader: true });
     fetch(`${apiUrl}/api/v1/transport/trips`, {
       method: "POST",
@@ -8560,15 +8748,12 @@ tempselDocs.forEach((doc) => {
         this.notifySucess("Trip Added/Updated Sucessfully");
 
         if (from === "auto") {
-          console.log("entered in auto Exceptional anaysissss")
-          this.Exceptionalanalysis(selDocs, SelVeh, res);
+          console.log("entered in auto Exceptional anaysissss");
+          this.Exceptionalanalysis(selDocs, SelVeh, res, trips);
         }
-
-       
       })
       .catch((error) => {
-
-        console.log(error,"Error checking inside confirm schedule trip")
+        console.log(error, "Error checking inside confirm schedule trip");
         this.handleDateRangeChange();
         this.setState({ loader: false });
         this.notifyError(
