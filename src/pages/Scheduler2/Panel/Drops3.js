@@ -635,7 +635,7 @@ class Drops3 extends React.Component {
     console.log(dropList, "this is droplist checking")
 
 
-    let filteredDrops = dropList?.filter((doc)=>doc.carrier!="EXTERNAL")
+    let filteredDrops = dropList?.filter((doc)=>doc.carrier=="INTERNAL" || doc.carrier=="COLLECTIONS" )
     return (
       <TabPane
         className="tripstab"

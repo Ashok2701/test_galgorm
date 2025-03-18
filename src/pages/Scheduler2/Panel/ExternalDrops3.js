@@ -634,7 +634,7 @@ class Drops3 extends React.Component {
 
     console.log(dropList, "this is droplist checking");
 
-    let filteredExternalDrops = dropList?.filter((doc)=>doc.carrier=="EXTERNAL")
+    let filteredExternalDrops = dropList?.filter((doc)=>doc.carrier=="EXTERNAL" || doc.carrier=="MONTGOMERY" ||  doc.carrier=="DPD"  )
 
 
 

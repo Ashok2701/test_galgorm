@@ -731,7 +731,7 @@ class DocumentsPanel extends React.Component {
         // external document toplan
         if (
           drop.type === "open" &&
-          (drop.dlvystatus === "0" || drop.dlvystatus === "8") && drop.carrier == "EXTERNAL"
+          (drop.dlvystatus === "0" || drop.dlvystatus === "8") && drop.carrier == "EXTERNAL" || drop.carrier == "DPD" || drop.carrier == "MONTGOMERY"
         ) {
           // ToPlanCount = ToPlanCount + 1;
           externalToplan+=1
@@ -748,12 +748,12 @@ class DocumentsPanel extends React.Component {
           InboundCount = InboundCount + 1;
         }
 
-        if (drop.movtype === "DROP" && drop.carrier == "EXTERNAL") {
+        if (drop.movtype === "DROP" && drop.carrier == "EXTERNAL" || drop.carrier == "DPD" || drop.carrier == "MONTGOMERY") {
           // OutboundCount = OutboundCount + 1;
           externalOutbound+=1
         }
 
-        if (drop.movtype === "PICK" && drop.carrier == "EXTERNAL") {
+        if (drop.movtype === "PICK" && drop.carrier == "EXTERNAL" || drop.carrier == "DPD" || drop.carrier == "MONTGOMERY") {
           // OutboundCount = OutboundCount + 1;
           externalInbound+=1
         }
@@ -765,7 +765,7 @@ class DocumentsPanel extends React.Component {
     // console.log(this.props.dropsPanel, "this is toplancounttttt")
 console.log(filterDrops ,"these are filtered drops checking")
 
-let externalCount = filterDrops?.filter((doc)=>doc.carrier== "EXTERNAL").length || 0;
+let externalCount = filterDrops?.filter((doc)=>doc.carrier== "EXTERNAL"|| doc.carrier == "DPD" || doc.carrier == "MONTGOMERY").length || 0;
 
 
     return (
@@ -987,7 +987,7 @@ let externalCount = filterDrops?.filter((doc)=>doc.carrier== "EXTERNAL").length 
                     onChange={() => this.OnPickupscheckBoxChange()}
                     checked={this.state.ToPickchecked}
                   />
-                  <Label
+                  {/* <Label
                     className="custom-control-label"
                     onClick={() => {
                       this.setState({
@@ -996,7 +996,7 @@ let externalCount = filterDrops?.filter((doc)=>doc.carrier== "EXTERNAL").length 
                     }}
                   >
                     {this.props.t("Inbound")}[{externalInbound}]
-                  </Label>
+                  </Label> */}
                 </div>
 
 
