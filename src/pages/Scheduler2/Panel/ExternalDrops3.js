@@ -730,10 +730,10 @@ class Drops3 extends React.Component {
                   {this.props.t("Vehicle")}{" "}
                   {this.props.dropOrder[7] === 1 ? "▼" : "▲"}
                 </th>
-                <th onClick={() => this.props.sortDrop("Trailer", 10)}>
+                {/* <th onClick={() => this.props.sortDrop("Trailer", 10)}>
                   {this.props.t("Trailer")}{" "}
                   {this.props.dropOrder[10] === 1 ? "▼" : "▲"}
-                </th>
+                </th> */}
 
                 <th>{this.props.t("Driver")}</th>
 
@@ -964,7 +964,7 @@ class Drops3 extends React.Component {
                       <td>{drops.prelistCode}</td>
 
                       <td>{drops.vehicleCode}</td>
-                      <td>{drops.trailer}</td>
+                      {/* <td>{drops.trailer}</td> */}
 
                       <td>{drops.drivercode}</td>
 

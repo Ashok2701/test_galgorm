@@ -35,6 +35,7 @@ import {
 import "../dashboard.scss";
 import classnames from "classnames";
 import ExternalDrops3 from "./ExternalDrops3";
+import CollectionsDrops3 from "./CollectionsDrops3";
 class DocumentsPanel extends React.Component {
   constructor(props) {
     super(props);
@@ -696,6 +697,13 @@ class DocumentsPanel extends React.Component {
     let externalToplan=0;
     let externalInbound=0;
     let externalOutbound=0;
+
+    // for collections
+    let collectionToPan=0;
+    let collectionInbound=0;
+    let collectionOutbound=0;
+
+
     let OpenTripsCount = 0;
     let OptimisedTripsCount = 0;
     let LockedTripsCount = 0;
@@ -737,6 +745,17 @@ class DocumentsPanel extends React.Component {
           externalToplan+=1
         }
 
+        // collections documents to plan
+
+        if (
+          drop.type === "open" &&
+          (drop.dlvystatus === "0" || drop.dlvystatus === "8") && drop.carrier == "COLLECTIONS"
+        ) {
+          // ToPlanCount = ToPlanCount + 1;
+          collectionToPan+=1
+        }
+
+
         //To drop
         if (drop.movtype === "DROP") {
           OutboundCount = OutboundCount + 1;
@@ -753,6 +772,13 @@ class DocumentsPanel extends React.Component {
           externalOutbound+=1
         }
 
+        // collections 
+
+        if (drop.movtype === "DROP" && drop.carrier == "COLLECTIONS") {
+          // OutboundCount = OutboundCount + 1;
+          collectionOutbound+=1
+        }
+
         if (drop.movtype === "PICK" && drop.carrier == "EXTERNAL" || drop.carrier == "DPD" || drop.carrier == "MONTGOMERY") {
           // OutboundCount = OutboundCount + 1;
           externalInbound+=1
@@ -766,6 +792,8 @@ class DocumentsPanel extends React.Component {
 console.log(filterDrops ,"these are filtered drops checking")
 
 let externalCount = filterDrops?.filter((doc)=>doc.carrier== "EXTERNAL"|| doc.carrier == "DPD" || doc.carrier == "MONTGOMERY").length || 0;
+
+let collectionCount =  filterDrops?.filter((doc)=>doc.carrier== "COLLECTIONS").length || 0;
 
 
     return (
@@ -818,6 +846,24 @@ let externalCount = filterDrops?.filter((doc)=>doc.carrier== "EXTERNAL"|| doc.ca
                   <span style={{ fontWeight: "bolder", fontSize: "large" }}>
                     {this.props.t("External")}
                     [{externalCount}]
+                  </span>
+                </NavLink>
+              </NavItem>
+
+{/* Collections */}
+              <NavItem>
+                <NavLink
+                  style={{ cursor: "pointer" }}
+                  className={classnames({
+                    active: this.state.activeTab === "Collections",
+                  })}
+                  onClick={() => {
+                    this.toggleTab("Collections");
+                  }}
+                >
+                  <span style={{ fontWeight: "bolder", fontSize: "large" }}>
+                    {this.props.t("Collections")}
+                    [{collectionCount}]
                   </span>
                 </NavLink>
               </NavItem>
@@ -933,7 +979,7 @@ let externalCount = filterDrops?.filter((doc)=>doc.carrier== "EXTERNAL"|| doc.ca
             ) 
             }
 {/* for external documents checking */}
-{this.state.activeTab === "External" && (
+{(this.state.activeTab === "External" || this.state.activeTab === "Collections") &&  (
               <div className="d-flex align-items-center">
                 <FormGroup className="mb-0 mr-3">
                   <Flatpickr
@@ -973,7 +1019,7 @@ let externalCount = filterDrops?.filter((doc)=>doc.carrier== "EXTERNAL"|| doc.ca
                       });
                     }}
                   >
-                    {this.props.t("Outbound")}[{externalOutbound}]
+                    {this.props.t("Outbound")}[{ this.state.activeTab === "External" ?externalOutbound :collectionOutbound}]
                   </Label>
                 </div>
 
@@ -1019,7 +1065,7 @@ let externalCount = filterDrops?.filter((doc)=>doc.carrier== "EXTERNAL"|| doc.ca
                       });
                     }}
                   >
-                    {this.props.t("ToPlan")}[{externalToplan}]
+                    {this.props.t("ToPlan")}[{ this.state.activeTab === "External" ? externalToplan :collectionToPan} ]
                   </Label>
                 </div>
                 <div
@@ -1221,6 +1267,27 @@ let externalCount = filterDrops?.filter((doc)=>doc.carrier== "EXTERNAL"|| doc.ca
                updateDocsGeoLocations={this.props.updateDocsGeoLocations}
                selectedDocs={this.props.selectedDocs}
             />
+
+
+            <CollectionsDrops3
+             routeCodes={this.props.routeCodes}
+             fetchDocumentPanelDateChange={this.props.fetchDocumentPanelDateChange}
+             documentPanel_date={this.props.documentPanel_date}
+              currDropsPanel={this.props.dropsPanel}
+                pickersList={this.props.pickersList}
+               updateDropSearchTerm={this.props.updateDropSearchTerm}
+               sortDrop={this.props.sortDrop}
+               dropOrder={this.props.dropOrder}
+               dropsList={filterDrops}
+               dayschecked={this.props.daysCheckedIn}
+               currDate={this.props.selectedDate}
+               handleDragStart={this.props.handleDragStart}
+               updateDocsGeoLocations={this.props.updateDocsGeoLocations}
+               selectedDocs={this.props.selectedDocs}
+            
+            />
+
+            
 
 
 

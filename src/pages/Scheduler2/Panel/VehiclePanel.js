@@ -457,7 +457,7 @@ class VehiclePanel extends React.Component {
                                   <span>{this.props.t('Vehicles')}</span>
                                 </NavLink>
                               </NavItem>
-                              <NavItem>
+                              {/* <NavItem>
                                 <NavLink
                                   style={{ cursor: "pointer" }}
                                   className={classnames({
@@ -469,7 +469,7 @@ class VehiclePanel extends React.Component {
                                 >
                                   <span>{this.props.t('Trailers')}</span>
                                 </NavLink>
-                              </NavItem>
+                              </NavItem> */}
                               <NavItem>
                                 <NavLink
                                   style={{ cursor: "pointer" }}

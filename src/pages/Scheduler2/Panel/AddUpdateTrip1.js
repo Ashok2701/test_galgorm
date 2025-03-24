@@ -575,10 +575,13 @@ class AddUpdateTrip1 extends React.Component {
 
           // driver validation code starts from here
 
+          // console.log(data.driverid,"Driver validation starts from here 578")
 
 
+          // driverId
 
 
+// console.log(this.props.tripsPanel ,"these are trips 582 check")
 
 
 
@@ -622,6 +625,19 @@ class AddUpdateTrip1 extends React.Component {
               });
 
             }
+
+
+             // 🚀 NEW: Check if the driver is already used in another trip
+  const isDriverUsed = this.props.tripsPanel.some(trip => trip.driverId === data.driverid);
+
+  if (isDriverUsed) {
+    this.setState({
+      showDriverConfirm: true, // Show the confirmation modal
+      selectedDriver: data, // Store the selected driver info
+    });
+    return; // Stop execution until user confirms
+  }
+
 
             /*
 // Driver and customer Address level grid validation
@@ -1064,7 +1080,32 @@ class AddUpdateTrip1 extends React.Component {
       }
     }
   }
+  handleConfirmYes = () => {
+    const { selectedDriver } = this.state;
+  
+    console.log(selectedDriver ,"this is current trip checking")
+    // Proceed with assigning the driver
+    let currentTrip = [...this.props.trips]; // Clone current trip array
+    let trip = currentTrip[0] || {}; // Get the current trip
+  
+    console.log(trip ,"this is current trip checking")
+    trip.driverId = selectedDriver.driverid;
+    trip.driverName = selectedDriver.driver;
+    currentTrip.push(trip);
 
+    console.log(trip ,"checking after driver addition")
+    this.props.updateTrip([trip]);
+  
+    // Hide the confirmation popup
+    this.setState({ showDriverConfirm: false, selectedDriver: null });
+  };
+  
+  handleConfirmNo = () => {
+    // Hide the confirmation popup and prevent assignment
+    this.setState({ showDriverConfirm: false, selectedDriver: null });
+  };
+
+  
   addDrop = (currentTrip, data, trip) => {
     let dropCompatability = true;
     let error = "";
@@ -2569,7 +2610,7 @@ class AddUpdateTrip1 extends React.Component {
 
                       <th width="6%">{this.props.t("Vehicle")}</th>
                       <th width="6%">{this.props.t("Driver")}</th>
-                      <th width="3%">{this.props.t("Trailer")}</th>
+                      {/* <th width="3%">{this.props.t("Trailer")}</th> */}
                       {/* <th width="3%">{this.props.t('Equipment')}</th> */}
                       <th width="3%">{this.props.t("DepartureSite")} </th>
                       <th width="3%">{this.props.t("ArrivalSite")}</th>
@@ -2610,7 +2651,7 @@ class AddUpdateTrip1 extends React.Component {
 
                           <td width="6%">{trip.vehicleObject.name}</td>
                           <td width="6%">{trip.driverName}</td>
-                          <td width="3%">
+                          {/* <td width="3%">
                             <a
                               class="custom-anchor"
                               href="#"
@@ -2620,7 +2661,7 @@ class AddUpdateTrip1 extends React.Component {
                             >
                               <u>{this.trailerData(trip)}</u>
                             </a>
-                          </td>
+                          </td> */}
                           {/* <td width="3%"><a class="custom-anchor" href="#" onClick={() => this.onEquipmentClick(actualTrip.equipmentObject)}><u>{this.equipmentData(trip)}</u></a></td> */}
                           <td
                             onClick={
@@ -2942,6 +2983,18 @@ class AddUpdateTrip1 extends React.Component {
               onSaveNotes={this.onSaveNotes}
               displayEdit={actualTrip.lock ? false : true}
             ></DisplayNotes>
+
+<Modal centered isOpen={this.state.showDriverConfirm} toggle={this.handleConfirmNo}>
+  <ModalHeader className="modal-header-bg"><span className="text-light">Driver Already Assigned</span></ModalHeader>
+  <ModalBody className="bg-light">
+    Driver ({this.state.selectedDriver?.driver}) is already assigned to another vehicle. Do you still want to proceed?
+  </ModalBody>
+  <ModalFooter className="bg-light">
+    <Button color="primary" onClick={this.handleConfirmYes}>Yes</Button>
+    <Button color="primary" onClick={this.handleConfirmNo}>No</Button>
+  </ModalFooter>
+</Modal>
+
           </div>
         </CardBody>
       </Card>

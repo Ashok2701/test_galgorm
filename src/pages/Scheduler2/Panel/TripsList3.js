@@ -1824,7 +1824,7 @@ console.log(trip, "this is trip for checking driver")
 
 
 
-                <th width="1%"> {this.props.t("Trailer")}</th>
+                {/* <th width="1%"> {this.props.t("Trailer")}</th> */}
                 {/* <th width="1%"> {this.props.t('Equipment')}</th> */}
 
 
@@ -1997,7 +1997,7 @@ console.log(trip, "this is trip for checking driver")
 
 
 
-                    <td width="1%">
+                    {/* <td width="1%">
                       <a
                         className="custom-anchor"
                         href="#"
@@ -2007,7 +2007,7 @@ console.log(trip, "this is trip for checking driver")
                           ? trip.trialerObject.length
                           : 0}
                       </a>
-                    </td>
+                    </td> */}
                     {/* <td width="1%"><a className="custom-anchor" href="#" onClick={() => this.onEquipmentClick(trip.equipmentObject)}>{this.displayEquipments(trip)}</a></td> */}
 
 

@@ -268,11 +268,11 @@ let loadvehstock_url = `${x3Url}/$sessions?f=GESXX10CS/2//M/${this.props.loadveh
                 <p className="mb-0 h6 text-primary">{trip.lock ? this.props.vrdata.bptnum : trip && trip.vehicleObject && trip.vehicleObject.bptnum && trip.vehicleObject.bptnum}</p>
                 <hr className="mt-1" />
               </Col>
-              <Col lg="3" xl="2">
+              {/* <Col lg="3" xl="2">
                 <p className="mb-1">{this.props.t('Trailer')}</p>
                 <p className="mb-0 h6 text-primary">{trip.lock ? this.props.vrdata.trailer : trip && trip.trialerObject && trip.trialerObject.length ? trip.trialerObject[0].trailer : '-'}</p>
                 <hr className="mt-1" />
-              </Col>
+              </Col> */}
               <Col lg="3" xl="2">
                 <p className="mb-1">{this.props.t('VehClass')}</p>
                 <p className="mb-0 h6 text-primary">{trip.lock ? this.props.vrdata.vehclass : trip && trip.vehicleObject && trip.vehicleObject.className && trip.vehicleObject.className}</p>

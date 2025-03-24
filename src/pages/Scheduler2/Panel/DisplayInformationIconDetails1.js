@@ -78,22 +78,22 @@ console.log(props.data , "this is data for vehicle")
                       <Input value={props.data.Driver} style={{ fontWeight: "bold" }} disabled />
                     </Col>
                   </FormGroup>
-                  <FormGroup row>
+                  {/* <FormGroup row>
                     <Label sm='6'>Trailer</Label>
                     <Col sm='6'>
                       <Input value={props.data.Trailer} style={{ fontWeight: "bold" }} disabled />
                     </Col>
-                  </FormGroup>
+                  </FormGroup> */}
 
-
-                </Col>
-                <Col >
-                  <FormGroup row>
-                    <Label md='4'>ARRIVAL SITE</Label>
-                    <Col md='8'>
+<FormGroup row>
+                    <Label  sm='6'>ARRIVAL SITE</Label>
+                    <Col  sm='6'>
                       <Input value={props.data.ArrivalSite} style={{ fontWeight: "bold" }} disabled />
                     </Col>
                   </FormGroup>
+                </Col>
+                <Col >
+               
                   <FormGroup row>
                     <Label md='4' >DEPARTURE SITE</Label>
                     <Col md='8'>
