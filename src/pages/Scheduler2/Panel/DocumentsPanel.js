@@ -795,6 +795,8 @@ let externalCount = filterDrops?.filter((doc)=>doc.carrier== "EXTERNAL"|| doc.ca
 
 let collectionCount =  filterDrops?.filter((doc)=>doc.carrier== "COLLECTIONS").length || 0;
 
+let internalCount = filterDrops?.filter((doc)=>doc.carrier== "INTERNAL").length || 0;
+
 
     return (
       <>
@@ -812,7 +814,7 @@ let collectionCount =  filterDrops?.filter((doc)=>doc.carrier== "COLLECTIONS").l
                   }}
                 >
                   <span style={{ fontWeight: "bolder", fontSize: "large" }}>
-                    {this.props.t("Documents")}[{filterDrops.length}]
+                    {this.props.t("Documents")}[{internalCount}]
                   </span>
                 </NavLink>
               </NavItem>

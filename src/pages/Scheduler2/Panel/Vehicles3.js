@@ -154,10 +154,10 @@ class Vehicles3 extends React.Component {
                   {this.props.t("SideOperation")}{" "}
                   {this.props.vehOrder[5] === 1 ? "▼" : "▲"}
                 </th>
-                <th onClick={() => this.props.sortVehicles("trailer", 6)}>
+                {/* <th onClick={() => this.props.sortVehicles("trailer", 6)}>
                   {this.props.t("Trailer")}{" "}
                   {this.props.vehOrder[6] === 1 ? "▼" : "▲"}
-                </th>
+                </th> */}
                 <th>Info</th>
                 <th onClick={() => this.props.sortVehicles("catego", 7)}>
                   {this.props.t("Category")}{" "}
@@ -223,7 +223,7 @@ class Vehicles3 extends React.Component {
                   <td>{vehicle.enddepotname}</td>
                   <td>{vehicle.drivername}</td>
                   <td>{vehicle.lateral}</td>
-                  <td>{vehicle.trailer}</td>
+                  {/* <td>{vehicle.trailer}</td> */}
                   <td data-toggle="tooltip" data-placement="top">
                     <a href="#" onClick={() => this.onInfoClick(vehicle)}>
                       <i class="fa fa-info-circle" aria-hidden="true"></i>

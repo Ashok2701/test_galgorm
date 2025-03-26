@@ -6751,7 +6751,7 @@ class Dashboard extends Component {
           let timew = [stime, etime];
           let geo = [siteLang, siteLat];
 
-          // Veh.time_window = timew;
+          Veh.time_window = timew;
           Veh.start = geo;
           Veh.end = geo;
           //  var array = JSON.parse("[" + vehSkill + "]");
@@ -6900,11 +6900,11 @@ class Dashboard extends Component {
           let ds,
             de = 0;
 
-          // if (fromflag) {
-          //   if (timeWindw[0][0] !== 0) {
-          //     Doc.time_windows = timeWindw;
-          //   }
-          // }
+          if (fromflag) {
+            if (timeWindw[0][0] !== 0) {
+              Doc.time_windows = timeWindw;
+            }
+          }
 
           /*
                 ps = VehStartTime + 10800;
