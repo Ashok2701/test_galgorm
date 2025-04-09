@@ -6970,9 +6970,9 @@ class Dashboard extends Component {
           }
         })
         .then((res) => {
-          // console.log("OSRM - opti result",res);
+          console.log("OSRM - opti result",res);
           if (res.routes.length > 0) {
-            // console.log("OSRM - opti route count",res.routes.length);
+            console.log("OSRM - opti route count",res);
             // submit generated routes for trips creation
             this.submitRoutesforTripsCreation(
               res.routes,
@@ -7318,7 +7318,13 @@ class Dashboard extends Component {
               addAlertArrayShow: true,
             });
           }
-        });
+        }).catch((err)=>{
+          this.setState({
+            errorMessage: "No Documents are available for Trips creation",
+            loader: false,
+            addAlertShow: true,
+          });
+        })
     } else {
       this.setState({
         errorMessage: "No Documents are available for Trips creation",
