@@ -190,7 +190,7 @@ class Drops3 extends React.Component {
   };
 
   // Added by BN 20200130
-  displayDropStatus = (vStatus, x) => {
+  displayDropStatus = (vStatus, x, reschFlg) => {
     const dropStatus = vStatus;
     const dlvyStatus = x;
     if (dropStatus == "open" && (dlvyStatus == "0" || dlvyStatus == "8")) {
@@ -200,7 +200,7 @@ class Drops3 extends React.Component {
             class="badge badge-warning text-uppercase"
             style={{ fontSize: "14px" }}
           >
-            {this.props.t("ToPlan")}
+            {this.props.t("ToPlan")} <span class="badge badge-danger text-smallcase">{reschFlg == 2 ? "(Rescheduled)" : ""}</span>
           </span>
         </h6>
       );
@@ -212,7 +212,7 @@ class Drops3 extends React.Component {
             class="badge badge-success text-uppercase"
             style={{ fontSize: "14px" }}
           >
-            {this.props.t("Planned")}
+            {this.props.t("Planned")} <span class="badge badge-danger text-smallcase">{reschFlg == 2 ? "(Rescheduled)" : ""}</span>
           </span>
         </h6>
       );
@@ -224,7 +224,7 @@ class Drops3 extends React.Component {
             class="badge badge-success text-uppercase"
             style={{ fontSize: "14px" }}
           >
-            {this.props.t("Planned")}
+            {this.props.t("Planned")} <span class="badge badge-danger text-smallcase">{reschFlg == 2 ? "(Rescheduled)" : ""}</span>
           </span>
         </h6>
       );
@@ -236,7 +236,7 @@ class Drops3 extends React.Component {
             class="badge badge-success text-uppercase"
             style={{ fontSize: "14px" }}
           >
-            {this.props.t("Planned")}
+            {this.props.t("Planned")} <span class="badge badge-danger text-smallcase">{reschFlg == 2 ? "(Rescheduled)" : ""}</span>
           </span>
         </h6>
       );
@@ -248,7 +248,7 @@ class Drops3 extends React.Component {
             class="badge badge-success text-uppercase"
             style={{ fontSize: "14px" }}
           >
-            {this.props.t("Planned")}
+            {this.props.t("Planned")} <span class="badge badge-danger text-smallcase">{reschFlg == 2 ? "(Rescheduled)" : ""}</span>
           </span>
         </h6>
       );
@@ -260,7 +260,7 @@ class Drops3 extends React.Component {
             class="badge badge-primary text-uppercase"
             style={{ fontSize: "14px" }}
           >
-            {this.props.t("OntheWay")}
+            {this.props.t("OntheWay")} <span class="badge badge-danger text-smallcase">{reschFlg == 2 ? "(Rescheduled)" : ""}</span>
           </span>
         </h6>
       );
@@ -272,7 +272,7 @@ class Drops3 extends React.Component {
             class="badge badge-warning text-uppercase"
             style={{ fontSize: "14px" }}
           >
-            {this.props.t("InProgress")}
+            {this.props.t("InProgress")} <span class="badge badge-danger text-smallcase">{reschFlg == 2 ? "(Rescheduled)" : ""}</span>
           </span>
         </h6>
       );
@@ -284,7 +284,7 @@ class Drops3 extends React.Component {
             class="badge badge-danger text-uppercase"
             style={{ fontSize: "14px" }}
           >
-            {this.props.t("Completed")}
+            {this.props.t("Completed")} <span class="badge badge-danger text-smallcase">{reschFlg == 2 ? "(Rescheduled)" : ""}</span>
           </span>
         </h6>
       );
@@ -296,7 +296,7 @@ class Drops3 extends React.Component {
             class="badge badge-danger text-uppercase"
             style={{ fontSize: "14px" }}
           >
-            {this.props.t("Skipped")}
+            {this.props.t("Skipped")} <span class="badge badge-danger text-smallcase">{reschFlg == 2 ? "(Rescheduled)" : ""}</span>
           </span>
         </h6>
       );
@@ -320,7 +320,7 @@ class Drops3 extends React.Component {
             class="badge badge-danger text-uppercase"
             style={{ fontSize: "14px" }}
           >
-            {this.props.t("Canceled")}
+            {this.props.t("Canceled")} <span class="badge badge-danger text-smallcase">{reschFlg == 2 ? "(Rescheduled)" : ""}</span>
           </span>
         </h6>
       );
@@ -935,7 +935,7 @@ class Drops3 extends React.Component {
                       <td>
                         {/* <span className= { this.colorStyle(drops.type) }>{drops.type}</span> */}
                         <td width="3%">
-                          {this.displayDropStatus(drops.type, drops.dlvystatus)}
+                          {this.displayDropStatus(drops.type, drops.dlvystatus, drops.reschFlg)}
                         </td>
                       </td>
                       <td>

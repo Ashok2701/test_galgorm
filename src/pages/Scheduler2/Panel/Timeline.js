@@ -1,31 +1,31 @@
 import React, { useEffect } from 'react';
-import { AgGridReact , AgGridColumn } from "ag-grid-react";
+import { AgGridReact, AgGridColumn } from "ag-grid-react";
 import { withNamespaces } from "react-i18next";
 import Alert from './Alert';
 import 'moment-timezone';
 import {
-  Container,
-  Row,
-  Col,
-  Card,
-  CardBody,
-  CardTitle,
-  Nav,
+    Container,
+    Row,
+    Col,
+    Card,
+    CardBody,
+    CardTitle,
+    Nav,
 
-  NavLink,
-  TabContent,
-  TabPane,
-  ButtonGroup,
-  Button,
-  Input,
-  Label,
-  FormGroup,
-  Table,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Form,
+    NavLink,
+    TabContent,
+    TabPane,
+    ButtonGroup,
+    Button,
+    Input,
+    Label,
+    FormGroup,
+    Table,
+    Modal,
+    ModalHeader,
+    ModalBody,
+    ModalFooter,
+    Form,
 } from "reactstrap";
 import classnames from "classnames";
 
@@ -53,15 +53,15 @@ import DisplayTomTomInfo from './DisplayTomTomInfo';
 
 function Timeline(props) {
 
- const [totalTime, setTotalTime] = React.useState(0);
+    const [totalTime, setTotalTime] = React.useState(0);
     const [totalDistance, setTotalDistance] = React.useState(0);
     const [endTime, setEndTime] = React.useState();
     const [tomTomMessage, setTomTomMessage] = React.useState({});
     const [title, setTitle] = React.useState({});
-    const [loader , setLoader] = React.useState(false);
+    const [loader, setLoader] = React.useState(false);
     const [tomTomNotification, setTomTomNotification] = React.useState(false);
     const [addAlertClose, setaddAlertClose] = React.useState(true);
-    const [addAlertShow , setAddAlertShow] = React.useState(false);
+    const [addAlertShow, setAddAlertShow] = React.useState(false);
     const [ErrorMessage, setErrorMessage] = React.useState("");
     const [getHr, setHr] = React.useState(0);
     const [getMin, setMin] = React.useState(0);
@@ -88,18 +88,18 @@ function Timeline(props) {
     const [autooptimise, setAutooptimise] = React.useState(false);
 
     // console.log("2 Routeshc",props.data);
-// console.log("T223  Routeshc timeline",props.data.docdate);
+    // console.log("T223  Routeshc timeline",props.data.docdate);
 
-    if(props.optimisedClickedTrip) {
-       // console.log("TSSS at Timeline - true");
-       // console.log("TSSS at Trips - optimise ",props.data);
-         CheckedOptimisationRoute(props.data);
+    if (props.optimisedClickedTrip) {
+        // console.log("TSSS at Timeline - true");
+        // console.log("TSSS at Trips - optimise ",props.data);
+        CheckedOptimisationRoute(props.data);
     }
 
 
 
-   // var date = new Date();
-   var date = props.data.docdate;
+    // var date = new Date();
+    var date = props.data.docdate;
     // console.log("T223 inside Timeline-Date =",date);
     let distanceCost = 0;
     let timeCost = 0;
@@ -111,27 +111,27 @@ function Timeline(props) {
 
     var lang = "en";
 
-    const onchangeSwitch =() => {
-       let autoop = autooptimise;
-       // console.log("auto op",autooptimise);
-       setAutooptimise(!autooptimise);
+    const onchangeSwitch = () => {
+        let autoop = autooptimise;
+        // console.log("auto op",autooptimise);
+        setAutooptimise(!autooptimise);
     }
 
 
-    const displayVehicleName  = (code) => {
-         let vehcode = code, vehName = '';
-    console.log("data insdie vehname =", vehcode)
-     if (props.vehiclePanel && props.vehiclePanel.vehicles  && props.vehiclePanel.vehicles.length > 0) {
-           console.log("data insdie vehname if=")
-                props.vehiclePanel.vehicles.map((veh) => {
-                   console.log("data insdie vehname if=", veh)
-                  if (veh.codeyve === vehcode) {
-                     vehName = veh.name;
-                      console.log("data insdie vehname matched", vehName)
-                  }
-                });
-      }
-      return vehName;
+    const displayVehicleName = (code) => {
+        let vehcode = code, vehName = '';
+        console.log("data insdie vehname =", vehcode)
+        if (props.vehiclePanel && props.vehiclePanel.vehicles && props.vehiclePanel.vehicles.length > 0) {
+            console.log("data insdie vehname if=")
+            props.vehiclePanel.vehicles.map((veh) => {
+                console.log("data insdie vehname if=", veh)
+                if (veh.codeyve === vehcode) {
+                    vehName = veh.name;
+                    console.log("data insdie vehname matched", vehName)
+                }
+            });
+        }
+        return vehName;
     }
 
 
@@ -180,7 +180,7 @@ function Timeline(props) {
 
     const getEndDate = () => {
         if (!(props.data.optistatus === "Open") && props.data.endDate) {
-            return moment.tz(props.data.endDate,'').format('YYYY-MM-DD');
+            return moment.tz(props.data.endDate, '').format('YYYY-MM-DD');
         }
 
         /*
@@ -199,7 +199,7 @@ function Timeline(props) {
     }
 
     const handleDateChange = (date) => {
-       // console.log("T223 inside Timeine- date ",date);
+        // console.log("T223 inside Timeine- date ",date);
         let hr = Number(formatHrMin(date.getHours()));
         let min = Number(formatHrMin(date.getMinutes()));
         let loadingTime = loadingSecs(hr, min, loadHrs)
@@ -264,27 +264,27 @@ function Timeline(props) {
 
 
     const CheckedOptimisationRoute = (data) => {
-       // console.log("T000 data =",data);
-       // console.log("T000 props data =",props.data);
+        // console.log("T000 data =",data);
+        // console.log("T000 props data =",props.data);
 
         optimizeRoute(data);
-      /* if(data.driverId === '') {
-         setAddAlertShow(true);
-         setErrorMessage("Driver is not assigned for the Trip, please assign then proceed for Optimisation");
-       }
-       else {
-        // console.log("T000 inside else");
-        optimizeRoute(data);
-       }
-       */
+        /* if(data.driverId === '') {
+           setAddAlertShow(true);
+           setErrorMessage("Driver is not assigned for the Trip, please assign then proceed for Optimisation");
+         }
+         else {
+          // console.log("T000 inside else");
+          optimizeRoute(data);
+         }
+         */
     }
 
 
     const optimizeRoute = (data) => {
 
-       // console.log("T000 data =",data);
+        // console.log("T000 data =",data);
 
-       // console.log("T000 props data",props.data);
+        // console.log("T000 props data",props.data);
 
         setLoader(true);
         let siteLat;
@@ -311,14 +311,14 @@ function Timeline(props) {
 
 
 
-       if(autooptimise){
-         apiurl = 'https://api.tomtom.com/routing/1/calculateRoute/';
-         jsonUrl = `/json?computeBestOrder=true&routeRepresentation=summaryOnly&computeTravelTimeFor=all&routeType=shortest&avoid=unpavedRoads&travelMode=truck&vehicleMaxSpeed=${data.vehicleObject.maxspeed}&vehicleWeight=${data.vehicleObject.capacities}&vehicleLength=${((data.vehicleObject.length) / 100)}&vehicleWidth=${((data.vehicleObject.width) / 100)}&vehicleHeight=${((data.vehicleObject.heigth) / 100)}&vehicleCommercial=true&vehicleLoadType=otherHazmatGeneral&vehicleEngineType=combustion&key=ctZzLlfGUpaNdfHiIobOeub8NBzzGkNG`;
+        if (autooptimise) {
+            apiurl = 'https://api.tomtom.com/routing/1/calculateRoute/';
+            jsonUrl = `/json?computeBestOrder=true&routeRepresentation=summaryOnly&computeTravelTimeFor=all&routeType=shortest&avoid=unpavedRoads&travelMode=truck&vehicleMaxSpeed=${data.vehicleObject.maxspeed}&vehicleWeight=${data.vehicleObject.capacities}&vehicleLength=${((data.vehicleObject.length) / 100)}&vehicleWidth=${((data.vehicleObject.width) / 100)}&vehicleHeight=${((data.vehicleObject.heigth) / 100)}&vehicleCommercial=true&vehicleLoadType=otherHazmatGeneral&vehicleEngineType=combustion&key=ctZzLlfGUpaNdfHiIobOeub8NBzzGkNG`;
 
-       }else{
-         apiurl = 'https://api.tomtom.com/routing/1/calculateRoute/';
-         jsonUrl = `/json?computeBestOrder=false&routeRepresentation=summaryOnly&computeTravelTimeFor=all&routeType=shortest&avoid=unpavedRoads&travelMode=truck&vehicleMaxSpeed=${data.vehicleObject.maxspeed}&vehicleWeight=${data.vehicleObject.capacities}&vehicleLength=${((data.vehicleObject.length) / 100)}&vehicleWidth=${((data.vehicleObject.width) / 100)}&vehicleHeight=${((data.vehicleObject.heigth) / 100)}&vehicleCommercial=true&vehicleLoadType=otherHazmatGeneral&vehicleEngineType=combustion&key=ctZzLlfGUpaNdfHiIobOeub8NBzzGkNG`;
-       }
+        } else {
+            apiurl = 'https://api.tomtom.com/routing/1/calculateRoute/';
+            jsonUrl = `/json?computeBestOrder=false&routeRepresentation=summaryOnly&computeTravelTimeFor=all&routeType=shortest&avoid=unpavedRoads&travelMode=truck&vehicleMaxSpeed=${data.vehicleObject.maxspeed}&vehicleWeight=${data.vehicleObject.capacities}&vehicleLength=${((data.vehicleObject.length) / 100)}&vehicleWidth=${((data.vehicleObject.width) / 100)}&vehicleHeight=${((data.vehicleObject.heigth) / 100)}&vehicleCommercial=true&vehicleLoadType=otherHazmatGeneral&vehicleEngineType=combustion&key=ctZzLlfGUpaNdfHiIobOeub8NBzzGkNG`;
+        }
 
 
         let prevTripsDist = 0;
@@ -341,7 +341,7 @@ function Timeline(props) {
         return fetch(url)
             .then(function (response) {
                 if (response.status === 200) {
-                     setLoader(false);
+                    setLoader(false);
                     return response.json()
                 } else {
                     setOptimizationFailedStatus(true)
@@ -349,11 +349,11 @@ function Timeline(props) {
                 }
             }).then((res) => {
                 // console.log("T6565 auto - opti result",res);
-                    if(res && res.optimizedWaypoints){
-                       optiindex.push(res.optimizedWaypoints);
-                    }
+                if (res && res.optimizedWaypoints) {
+                    optiindex.push(res.optimizedWaypoints);
+                }
 
-                    if(res && res.routes) {
+                if (res && res.routes) {
                     summaryData.push(res.routes);
                 }
                 let summaryResult = { "summarydata": [...summaryData], "serviceTime": serviceTime, "waitingTime": waitingTime }
@@ -381,8 +381,8 @@ function Timeline(props) {
                             });
                             let currTripTimeHr = getHr;
                             let currTripTimeMin = getMin;
-                               // console.log("T6565 getHr",getHr);
-                                                             // console.log("T6565 getMin",getMin);
+                            // console.log("T6565 getHr",getHr);
+                            // console.log("T6565 getMin",getMin);
                             departure.setHours(Number(currTripTimeHr));
                             departure.setMinutes(Number(currTripTimeMin));
                             let sameTrips = [];
@@ -590,7 +590,7 @@ function Timeline(props) {
                                     setTimeErrorMessage(`The vehicle cannot perform trip more than ${props.data.vehicleObject.maxtotaltime} Hrs, please review trip documents.`)
                                     setTimeError(true);
                                 } else if (tripsClosed) {
-                                    setTripsClosedErrorMessage(`The Vehicle ${props.data.vehicleObject.codeyve} cant perform this Trip on ${ moment(props.date).format('yyyy-MM-DD')} , Prev Trips covered whole Day. Use Another Vehicle or Schedule on Next Day`)
+                                    setTripsClosedErrorMessage(`The Vehicle ${props.data.vehicleObject.codeyve} cant perform this Trip on ${moment(props.date).format('yyyy-MM-DD')} , Prev Trips covered whole Day. Use Another Vehicle or Schedule on Next Day`)
                                     setTripClosedError(true);
                                 } else if (optimizationStatus) {
                                     setOptimizationMessage('Please optimize previous trip.');
@@ -600,54 +600,54 @@ function Timeline(props) {
                             } else {
                                 let loadingHrs = convertHrToSec(loadHrs);
 
-                                  console.log("T11 travel total time in sec", tTime);
-                                  console.log("T11 travel total time in sec format", formatTime(tTime) );
-                                  console.log("T11 total dist", totDistance);
-                                   console.log("T11 total dist / 1000", totDistance/1000);
-                                    console.log("T11 max total dist", props.data.vehicleObject.maxtotaldist);
+                                console.log("T11 travel total time in sec", tTime);
+                                console.log("T11 travel total time in sec format", formatTime(tTime));
+                                console.log("T11 total dist", totDistance);
+                                console.log("T11 total dist / 1000", totDistance / 1000);
+                                console.log("T11 max total dist", props.data.vehicleObject.maxtotaldist);
                                 // to check total travel time
-                                if(tTime > maxTotTimeSec) {
-                                  setTimeErrorMessage(`The vehicle cannot perform trip ${formatTime(tTime)} HH:MM more than ${formatTime(maxTotTimeSec)} HH:MM , please review trip documents.`)
-                                                                     setTimeError(true);
+                                if (tTime > maxTotTimeSec) {
+                                    setTimeErrorMessage(`The vehicle cannot perform trip ${formatTime(tTime)} HH:MM more than ${formatTime(maxTotTimeSec)} HH:MM , please review trip documents.`)
+                                    setTimeError(true);
 
                                 }
-                                else if((totDistance / 1000)  > props.data.vehicleObject.maxtotaldist) {
-                                  setTimeErrorMessage(`The vehicle cannot perform trip ${totDistance / 1000} more than ${props.data.vehicleObject.maxtotaldist} Distance, please review trip documents.`)
-                                                                     setTimeError(true);
+                                else if ((totDistance / 1000) > props.data.vehicleObject.maxtotaldist) {
+                                    setTimeErrorMessage(`The vehicle cannot perform trip ${totDistance / 1000} more than ${props.data.vehicleObject.maxtotaldist} Distance, please review trip documents.`)
+                                    setTimeError(true);
                                 }
 
-                            else {
-                                let tripData = {
-                                    tripCode: props.data.itemCode,
-                                    tripVehicle: props.data.code,
-                                    tripTotalTime: convertSecToHr(tTime + convertHrToSec(serTime) + convertHrToSec(waitTime) + loadingHrs),
-                                    tripTravelTime: formatTime(tTime),
-                                    tripTotalServiceTime: splitTime(serTime),
-                                    totalDistance: totDistance / 1000,
-                                    autoOptimised : autooptimise,
+                                else {
+                                    let tripData = {
+                                        tripCode: props.data.itemCode,
+                                        tripVehicle: props.data.code,
+                                        tripTotalTime: convertSecToHr(tTime + convertHrToSec(serTime) + convertHrToSec(waitTime) + loadingHrs),
+                                        tripTravelTime: formatTime(tTime),
+                                        tripTotalServiceTime: splitTime(serTime),
+                                        totalDistance: totDistance / 1000,
+                                        autoOptimised: autooptimise,
 
-                                };
-                                let routesSchedule = {
-                                    startDate: props.data.docdate,
-                                    endDate:  props.data.docdate,
-                                    startTime: splitTime(startTimeLocal),
-                                    endTime: splitTime(endTime),
-                                    routesData: resultsData,
-                                    tripData: tripData,
-                                    trips: props.data,
-                                    cost: costCalculation(props.vehiclePanel, totTime, Math.round(totDistance / 1000), props.data.code)
+                                    };
+                                    let routesSchedule = {
+                                        startDate: props.data.docdate,
+                                        endDate: props.data.docdate,
+                                        startTime: splitTime(startTimeLocal),
+                                        endTime: splitTime(endTime),
+                                        routesData: resultsData,
+                                        tripData: tripData,
+                                        trips: props.data,
+                                        cost: costCalculation(props.vehiclePanel, totTime, Math.round(totDistance / 1000), props.data.code)
+                                    }
+                                    let latestEndDate = props.data.docdate
+                                    if (Number(endTime.split(':')[0]) <=
+                                        Number(startTimeLocal.split(':')[0])) {
+                                        let dateNew = new Date(props.data.docdate);
+                                        let date1 = new Date(dateNew.setDate(dateNew.getDate() + 1));
+                                        latestEndDate = date1;
+                                    }
+                                    routesSchedule.endDate = latestEndDate;
+                                    // console.log("T6565 final data routeScheduler",routesSchedule);
+                                    props.getValues(routesSchedule, optiindex, autooptimise);
                                 }
-                                let latestEndDate = props.data.docdate
-                                if (Number(endTime.split(':')[0]) <=
-                                    Number(startTimeLocal.split(':')[0])) {
-                                    let dateNew = new Date(props.data.docdate);
-                                    let date1 = new Date(dateNew.setDate(dateNew.getDate() + 1));
-                                    latestEndDate = date1;
-                                }
-                                routesSchedule.endDate = latestEndDate;
-                                 // console.log("T6565 final data routeScheduler",routesSchedule);
-                                props.getValues(routesSchedule, optiindex, autooptimise);
-                            }
                             }
                         }
                     }
@@ -656,7 +656,7 @@ function Timeline(props) {
     };
 
     useEffect(() => {
-      // console.log("T223 inside loading useEffect",props);
+        // console.log("T223 inside loading useEffect",props);
         let hr;
         let min;
         let loadingHrs;
@@ -667,7 +667,7 @@ function Timeline(props) {
         // console.log("T223 inside loading - vehiclepanel",props.vehiclePanel);
         props.vehiclePanel && props.vehiclePanel.vehicles.length > 0 && props.vehiclePanel.vehicles.map((vehicle) => {
             if (vehicle.codeyve === props.data.code) {
-              // console.log("T223 inside loading - vehiclepanel - matched",vehicle.codeyve);
+                // console.log("T223 inside loading - vehiclepanel - matched",vehicle.codeyve);
                 if (vehicle.starttime.includes(':')) {
                     hr = vehicle.starttime.split(':')[0];
                     min = vehicle.starttime.split(':')[1];
@@ -675,7 +675,7 @@ function Timeline(props) {
                     hr = vehicle.starttime.substring(0, 2);
                     min = vehicle.starttime.substring(2, 4);
                 }
-               // console.log("T223 inside use effct",hr+' -'+min);
+                // console.log("T223 inside use effct",hr+' -'+min);
                 loadingHrs = vehicle.startdepots;
                 unloadHrs = vehicle.enddepotserv;
                 setLoadHrs(vehicle.startdepots);
@@ -688,31 +688,31 @@ function Timeline(props) {
             hr = props.data.startTime.split(':')[0];
             min = props.data.startTime.split(':')[1];
             loadingTime = loadingSecs(hr, min)
-              // console.log("T223 inside loading use effct not opti",loadingTime);
+            // console.log("T223 inside loading use effct not opti",loadingTime);
         } else {
             loadingTime = loadingSecs(hr, min, loadingHrs);
-              // console.log("T223 inside loading use effct opti",loadingTime);
+            // console.log("T223 inside loading use effct opti",loadingTime);
         }
 
         //unit setting
-       props.sites && props.sites.length > 0 && props.sites.map((site) => {
-                  // console.log("2 set sites",site);
-              if (props.data.depSite === site.id) {
-                 // console.log("T223 inside loading site match")
+        props.sites && props.sites.length > 0 && props.sites.map((site) => {
+            // console.log("2 set sites",site);
+            if (props.data.depSite === site.id) {
+                // console.log("T223 inside loading site match")
 
 
-                  m = site.massunit;
-                  v = site.volunit;
-                  d = site.distunit;
-                  c = site.cur;
+                m = site.massunit;
+                v = site.volunit;
+                d = site.distunit;
+                c = site.cur;
 
-              }
-})
+            }
+        })
 
-      props.tripsPanel && props.tripsPanel.length > 0  && props.tripsPanel.map((tripPanel) => {
+        props.tripsPanel && props.tripsPanel.length > 0 && props.tripsPanel.map((tripPanel) => {
 
             if (tripPanel.code === props.data.code && tripPanel.optistatus === "Optimized" && tripPanel.docdate === props.data.docdate) {
-                tripEndTime.push({ hr: tripPanel.endTime.split(':')[0], min: tripPanel.endTime.split(':')[1] });
+                tripEndTime.push({ hr: tripPanel.endTime?.split(':')[0], min: tripPanel.endTime?.split(':')[1] });
                 if (tripEndTime.length > 0) {
                     tripEndTime.sort(function (a, b) {
                         return Number(b.hr) - Number(a.hr)
@@ -776,50 +776,51 @@ function Timeline(props) {
         let details = ''
         let tomtitle = ''
         if (lang === "en") {
-         tomtitle = "Optimisation Details";
-        details = {
-            "<b>Distance</b></br> Trip Distance": Math.round(totdis) + ' ' + distunts,
-            "Max Total Distance": data.vehicleObject.maxtotaldist + ' ' + distunts,
-
-
-            "</br><b>Time</b></br>Trip Time": tottime,
-            "Max Total Time": data.vehicleObject.maxtotaltime + ' Hours',
-
-
-            "</br><b>Capacity</b></br>Total Weight": totweight,
-            "Max Vehicle Capacities": data.vehicleObject.capacities + ' ' + massunit,
-
-            "</br><b>Volume</b></br>Total Volume": totvolume,
-            "Max Volume": data.vehicleObject.vol + ' ' + volunits,
-
-            "</br><b>Parameters</b></br>Max Speed": data.vehicleObject.maxspeed + ' ' + distunts + '/Hr',
-            "Vehicle Length": (Number(data.vehicleObject.length)) / 100 + ' Mts',
-            "Vehicle Width": (Number(data.vehicleObject.width)) / 100 + ' Mts',
-            "Vehicle Height": (Number(data.vehicleObject.heigth)) / 100 + ' Mts'
-        }}
-        else {
-           tomtitle = "Paramètres doptimisation";
+            tomtitle = "Optimisation Details";
             details = {
-          "<b>Distance</b></br> Distance Trounee": Math.round(totdis) + ' ' + distunts,
-                    "Distance Maxi": data.vehicleObject.maxtotaldist + ' ' + distunts,
+                "<b>Distance</b></br> Trip Distance": Math.round(totdis) + ' ' + distunts,
+                "Max Total Distance": data.vehicleObject.maxtotaldist + ' ' + distunts,
 
 
-                    "</br><b>Time</b></br>Duree de la tournee": tottime,
-                    "Duree Totale": data.vehicleObject.maxtotaltime + ' Hours',
+                "</br><b>Time</b></br>Trip Time": tottime,
+                "Max Total Time": data.vehicleObject.maxtotaltime + ' Hours',
 
 
-                    "</br><b>Capacity</b></br>Poids chargement": totweight,
-                    "poids Maxi": data.vehicleObject.capacities + ' ' + massunit,
+                "</br><b>Capacity</b></br>Total Weight": totweight,
+                "Max Vehicle Capacities": data.vehicleObject.capacities + ' ' + massunit,
 
-                    "</br><b>Volume</b></br>Total Volume": totvolume,
-                    "Max Volume": data.vehicleObject.vol + ' ' + volunits,
+                "</br><b>Volume</b></br>Total Volume": totvolume,
+                "Max Volume": data.vehicleObject.vol + ' ' + volunits,
 
-                    "</br><b>Parameters</b></br>vitesse Maxi": data.vehicleObject.maxspeed + ' ' + distunts + '/Hr',
-                    "Longeur": (Number(data.vehicleObject.length)) / 100 + ' Mts',
-                    "Largeur": (Number(data.vehicleObject.width)) / 100 + ' Mts',
-                    "Hauteur": (Number(data.vehicleObject.heigth)) / 100 + ' Mts'
+                "</br><b>Parameters</b></br>Max Speed": data.vehicleObject.maxspeed + ' ' + distunts + '/Hr',
+                "Vehicle Length": (Number(data.vehicleObject.length)) / 100 + ' Mts',
+                "Vehicle Width": (Number(data.vehicleObject.width)) / 100 + ' Mts',
+                "Vehicle Height": (Number(data.vehicleObject.heigth)) / 100 + ' Mts'
+            }
+        }
+        else {
+            tomtitle = "Paramètres doptimisation";
+            details = {
+                "<b>Distance</b></br> Distance Trounee": Math.round(totdis) + ' ' + distunts,
+                "Distance Maxi": data.vehicleObject.maxtotaldist + ' ' + distunts,
 
-}
+
+                "</br><b>Time</b></br>Duree de la tournee": tottime,
+                "Duree Totale": data.vehicleObject.maxtotaltime + ' Hours',
+
+
+                "</br><b>Capacity</b></br>Poids chargement": totweight,
+                "poids Maxi": data.vehicleObject.capacities + ' ' + massunit,
+
+                "</br><b>Volume</b></br>Total Volume": totvolume,
+                "Max Volume": data.vehicleObject.vol + ' ' + volunits,
+
+                "</br><b>Parameters</b></br>vitesse Maxi": data.vehicleObject.maxspeed + ' ' + distunts + '/Hr',
+                "Longeur": (Number(data.vehicleObject.length)) / 100 + ' Mts',
+                "Largeur": (Number(data.vehicleObject.width)) / 100 + ' Mts',
+                "Hauteur": (Number(data.vehicleObject.heigth)) / 100 + ' Mts'
+
+            }
         }
 
         setTomTomMessage(details)
@@ -827,192 +828,192 @@ function Timeline(props) {
         setTomTomNotification(true)
     }
 
-// console.log("insdei timeline",props.date);
-     return(
-    <Card className="mb-3">
-                  <CardBody className="p-0">
-                          <LoadingOverlay
-                            active={loader}
-                            spinner
-                            text='Loading your content...'
-                          >
+    // console.log("insdei timeline",props.date);
+    return (
+        <Card className="mb-3">
+            <CardBody className="p-0">
+                <LoadingOverlay
+                    active={loader}
+                    spinner
+                    text='Loading your content...'
+                >
                     <div className="detail-sidebar-header p-2">
-                      <CardTitle tag="h3" className="mb-0 text-white">
-                        {props.t('Optim_heading')}
-                      </CardTitle>
-                      <span
-                        role="button"
-                        className="h4 mb-0 text-white"
-                        onClick={() => props.toggleDetail(false)}
-                      >
-                        <i className="ri-close-line"></i>
-                      </span>
+                        <CardTitle tag="h3" className="mb-0 text-white">
+                            {props.t('Optim_heading')}
+                        </CardTitle>
+                        <span
+                            role="button"
+                            className="h4 mb-0 text-white"
+                            onClick={() => props.toggleDetail(false)}
+                        >
+                            <i className="ri-close-line"></i>
+                        </span>
                     </div>
                     <div className="table-responsive">
-                      <Table className="mb-0">
-                        <tbody>
-                          <tr>
-                            <th scope="row">{props.t('Route')}</th>
-                            <td>{props.data.itemCode}</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">{props.t('Driver')}</th>
-                            <td>{props.data.driverName}</td>
-                          </tr>
-                          <tr>
-                              <th scope="row">{props.t('Vehicle')}</th>
-                              <td>{props.data.code && props.data.code.length > 0 && displayVehicleName(props.data.code)}</td>
-                                                    </tr>
-                          <tr>
-                            <th scope="row">{props.t('StartDate')}</th>
-                            <td>{moment.tz(props.data.docdate,'').format('YYYY-MM-DD')}</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">{props.t('EndDate')}</th>
-                            <td>{getEndDate()}</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">{props.t('Departure')}</th>
-                            <td>
-                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                                                <TimePicker
-                                                                    InputProps={{
-                                                                        // disableUnderline: true,
-                                                                        style: { fontWeight: 'bold', color: 'black', fontSize: '13px', width: '35px' }
-                                                                    }}
-                                                                    clearable
-                                                                    ampm={false}
-                                                                    value={selectedDate}
-                                                                    onChange={handleDateChange}
-                                                                />
-                            </MuiPickersUtilsProvider>
-                          </td>
-                          </tr>
-                          <tr>
-                            <th scope="row">{props.t('Arrival')}</th>
-                            <td>{props.data.optistatus === "Open" ? '' :
-                                                                (props.data.endTime) ? nullAndNanChecking(props.data.endTime, 'time') : ''}</td>
-                          </tr>
-                          <tr>
-                                                      <th scope="row">{props.t('Duration')}</th>
-                                                      <td>{props.data.optistatus === "Open" ? '' :
-                                                                                              (props.data.totalTime) ? nullAndTime(props.data.totalTime) : ' '}</td>
-                                                    </tr>
-                          <tr>
-                                                      <th scope="row">{props.t('Distance')}</th>
-                                                      <td>{props.data.optistatus === "Open" ? '' :
-                                                                                          props.data.totalDistance ? Math.round(Number(nullAndNanChecking(props.data.totalDistance, 'distance'))) + " " + distunts : ' '}</td>
-                                                    </tr>
-                          <tr>
-                            <th scope="row">{props.t('Stops')}</th>
-                            <td>{props.data.stops}</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">{props.t('Cost')}</th>
-                            <td>{props.data.optistatus === "Open" ? '' :
-                                                                props.data.totalCost ? Math.round(Number(nullAndNanChecking(props.data.totalCost, 'distance'))) + " " + currency : ' '}</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">{props.t('Details')}</th>
-                            <td>
-                              <a href="#"
-                                                                  onClick={() => displayTomTomDetails(props.data)}><i class="fa fa-info-circle" aria-hidden="true"></i>
-                                                              </a>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </Table>
+                        <Table className="mb-0">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">{props.t('Route')}</th>
+                                    <td>{props.data.itemCode}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">{props.t('Driver')}</th>
+                                    <td>{props.data.driverName}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">{props.t('Vehicle')}</th>
+                                    <td>{props.data.code && props.data.code.length > 0 && displayVehicleName(props.data.code)}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">{props.t('StartDate')}</th>
+                                    <td>{moment.tz(props.data.docdate, '').format('YYYY-MM-DD')}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">{props.t('EndDate')}</th>
+                                    <td>{getEndDate()}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">{props.t('Departure')}</th>
+                                    <td>
+                                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                            <TimePicker
+                                                InputProps={{
+                                                    // disableUnderline: true,
+                                                    style: { fontWeight: 'bold', color: 'black', fontSize: '13px', width: '35px' }
+                                                }}
+                                                clearable
+                                                ampm={false}
+                                                value={selectedDate}
+                                                onChange={handleDateChange}
+                                            />
+                                        </MuiPickersUtilsProvider>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">{props.t('Arrival')}</th>
+                                    <td>{props.data.optistatus === "Open" ? '' :
+                                        (props.data.endTime) ? nullAndNanChecking(props.data.endTime, 'time') : ''}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">{props.t('Duration')}</th>
+                                    <td>{props.data.optistatus === "Open" ? '' :
+                                        (props.data.totalTime) ? nullAndTime(props.data.totalTime) : ' '}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">{props.t('Distance')}</th>
+                                    <td>{props.data.optistatus === "Open" ? '' :
+                                        props.data.totalDistance ? Math.round(Number(nullAndNanChecking(props.data.totalDistance, 'distance'))) + " " + distunts : ' '}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">{props.t('Stops')}</th>
+                                    <td>{props.data.stops}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">{props.t('Cost')}</th>
+                                    <td>{props.data.optistatus === "Open" ? '' :
+                                        props.data.totalCost ? Math.round(Number(nullAndNanChecking(props.data.totalCost, 'distance'))) + " " + currency : ' '}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">{props.t('Details')}</th>
+                                    <td>
+                                        <a href="#"
+                                            onClick={() => displayTomTomDetails(props.data)}><i class="fa fa-info-circle" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </Table>
                     </div>
-                  <div>
-                    <span> <b>Auto-optimisation </b>:</span>
-                    <Switch
-                    checked={autooptimise}
-                     onChange={onchangeSwitch}
-                     />
-                </div>
-                <div>
-                    {(() => {
-                        if (props.data.tmsValidated) {
-                        }
-                        else {
-                            return (
-                                <button style={{ fontSize: '12px', fontWeight: 'bold', marginRight: '20%', marginLeft: '20%' }}
-                                    onClick={() => CheckedOptimisationRoute(props.data)}>
-                                    {props.t('OPTIMISATION')}
-                                </button>
-                            );
-                        }
-                    })()}
-                </div>
+                    <div>
+                        <span> <b>Auto-optimisation </b>:</span>
+                        <Switch
+                            checked={autooptimise}
+                            onChange={onchangeSwitch}
+                        />
+                    </div>
+                    <div>
+                        {(() => {
+                            if (props.data.tmsValidated) {
+                            }
+                            else {
+                                return (
+                                    <button style={{ fontSize: '12px', fontWeight: 'bold', marginRight: '20%', marginLeft: '20%' }}
+                                        onClick={() => CheckedOptimisationRoute(props.data)}>
+                                        {props.t('OPTIMISATION')}
+                                    </button>
+                                );
+                            }
+                        })()}
+                    </div>
 
-             <Alert
-                                    show={addAlertShow}
-                                    onHide={AlertClose}
-                                    errorMessage={ErrorMessage}
-                                ></Alert>
+                    <Alert
+                        show={addAlertShow}
+                        onHide={AlertClose}
+                        errorMessage={ErrorMessage}
+                    ></Alert>
 
-            {tripClosedError &&
-                <DisplayInformationIconDetails
-                    show={tripClosedError}
-                    onInfoIconHide={warningWindowClose}
-                    data={tripsClosedErrorMessage}
-                    warning={true} >
-                </DisplayInformationIconDetails>
-            }
-            {distError &&
-                <DisplayInformationIconDetails
-                    show={distError}
-                    onInfoIconHide={warningWindowClose}
-                    data={distErrorMessage}
-                    warning={true} >
-                </DisplayInformationIconDetails>
-            }
-            {timeError &&
-                <DisplayInformationIconDetails
-                    show={timeError}
-                    onInfoIconHide={warningWindowClose}
-                    data={timeErrorMessage}
-                    warning={true} >
-                </DisplayInformationIconDetails>
-            }
-            {optiStatusError &&
-                <DisplayInformationIconDetails
-                    show={optiStatusError}
-                    onInfoIconHide={warningWindowClose}
-                    data={optimizationMessage}
-                    warning={true} >
-                </DisplayInformationIconDetails>
-            }
-            {tomTomNotification &&
-                <DisplayTomTomInfo
-                    show={tomTomNotification}
-                     title= {title}
+                    {tripClosedError &&
+                        <DisplayInformationIconDetails
+                            show={tripClosedError}
+                            onInfoIconHide={warningWindowClose}
+                            data={tripsClosedErrorMessage}
+                            warning={true} >
+                        </DisplayInformationIconDetails>
+                    }
+                    {distError &&
+                        <DisplayInformationIconDetails
+                            show={distError}
+                            onInfoIconHide={warningWindowClose}
+                            data={distErrorMessage}
+                            warning={true} >
+                        </DisplayInformationIconDetails>
+                    }
+                    {timeError &&
+                        <DisplayInformationIconDetails
+                            show={timeError}
+                            onInfoIconHide={warningWindowClose}
+                            data={timeErrorMessage}
+                            warning={true} >
+                        </DisplayInformationIconDetails>
+                    }
+                    {optiStatusError &&
+                        <DisplayInformationIconDetails
+                            show={optiStatusError}
+                            onInfoIconHide={warningWindowClose}
+                            data={optimizationMessage}
+                            warning={true} >
+                        </DisplayInformationIconDetails>
+                    }
+                    {tomTomNotification &&
+                        <DisplayTomTomInfo
+                            show={tomTomNotification}
+                            title={title}
 
-                    onInfoIconHide={warningWindowClose}
-                    data={tomTomMessage} >
-                </DisplayTomTomInfo>
-            }
-            {modelTime &&
-                <DisplayInformationIconDetails
-                    show={modelTime}
-                    onInfoIconHide={warningWindowClose}
-                    data={modalTimeMessage}
-                    warning={true} >
-                </DisplayInformationIconDetails>
-            }
-            {optimizationFailedStatus &&
-                <DisplayInformationIconDetails
-                    show={optimizationFailedStatus}
-                    onInfoIconHide={warningWindowClose}
-                    data={"Optimization is failing. Please check the Geo Coordinates for Site and Deliveries ,should be in same Region/Country"}
-                    warning={true}>
-                </DisplayInformationIconDetails>
-            }
+                            onInfoIconHide={warningWindowClose}
+                            data={tomTomMessage} >
+                        </DisplayTomTomInfo>
+                    }
+                    {modelTime &&
+                        <DisplayInformationIconDetails
+                            show={modelTime}
+                            onInfoIconHide={warningWindowClose}
+                            data={modalTimeMessage}
+                            warning={true} >
+                        </DisplayInformationIconDetails>
+                    }
+                    {optimizationFailedStatus &&
+                        <DisplayInformationIconDetails
+                            show={optimizationFailedStatus}
+                            onInfoIconHide={warningWindowClose}
+                            data={"Optimization is failing. Please check the Geo Coordinates for Site and Deliveries ,should be in same Region/Country"}
+                            warning={true}>
+                        </DisplayInformationIconDetails>
+                    }
 
                 </LoadingOverlay>
-                  </CardBody>
-                </Card>
-                );
+            </CardBody>
+        </Card>
+    );
 }
 
 

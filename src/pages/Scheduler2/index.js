@@ -1238,7 +1238,7 @@ class Dashboard extends Component {
   };
 
   confirmTrip = (trip, route, routesSchedule, newGeoData) => {
-    // console.log("T6565 routesSchedule =", routesSchedule);
+    console.log("T6565 routesSchedule =", routesSchedule);
 
     if (
       (trip.timelineInterval != undefined &&

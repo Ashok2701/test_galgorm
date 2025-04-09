@@ -819,9 +819,10 @@ function Timeline(props) {
           tripPanel.optistatus === "Optimized" &&
           tripPanel.docdate === props.data.docdate
         ) {
+          console.log("inside useeffect - tripPanel 822", tripPanel);
           tripEndTime.push({
-            hr: tripPanel.endTime.split(":")[0],
-            min: tripPanel.endTime.split(":")[1],
+            hr: nullAndNanChecking(tripPanel.endTime?.split(":")[0], "time"),
+            min: nullAndNanChecking(tripPanel.endTime?.split(":")[1], "time"),
           });
           if (tripEndTime.length > 0) {
             tripEndTime.sort(function (a, b) {
