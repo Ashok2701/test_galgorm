@@ -115,6 +115,8 @@ class Dashboard extends Component {
       currentViewCheck: "",
       activeTab: "Vehicles",
       docnoRemoveTrip: "",
+      optimizeFailedDocuments: "",
+      optimizationFailedStatus: false,
       checkedToPlan: false,
       checkedToOpen: false,
       checkedToOptimise: false,
@@ -409,7 +411,7 @@ class Dashboard extends Component {
     }
   }
 
-  Dateformat() {}
+  Dateformat() { }
 
   updateMagChaged = () => {
     this.setState({
@@ -688,17 +690,17 @@ class Dashboard extends Component {
       const totalQuantityA =
         a.products && a.products.length > 0
           ? a.products.reduce(
-              (sum, product) => sum + parseFloat(product.quantity || 0),
-              0
-            )
+            (sum, product) => sum + parseFloat(product.quantity || 0),
+            0
+          )
           : 0;
 
       const totalQuantityB =
         b.products && b.products.length > 0
           ? b.products.reduce(
-              (sum, product) => sum + parseFloat(product.quantity || 0),
-              0
-            )
+            (sum, product) => sum + parseFloat(product.quantity || 0),
+            0
+          )
           : 0;
 
       return totalQuantityA - totalQuantityB; // Ascending order
@@ -1193,7 +1195,7 @@ class Dashboard extends Component {
         // console.log("inside after trip - response",response);
         this.handleErrors(response);
       })
-      .then(function (response) {})
+      .then(function (response) { })
       .then(() => {
         // console.log("inside submit Trips",this.state.date);
         // this.onRouteoptihide();
@@ -1583,7 +1585,7 @@ class Dashboard extends Component {
             tripsPanel: res2,
           });
         })
-        .catch((error) => {});
+        .catch((error) => { });
     } else {
       // console.log("Tttt inside changeDAte checked5days false");
 
@@ -1599,7 +1601,7 @@ class Dashboard extends Component {
             tripsPanel: res2,
           });
         })
-        .catch((error) => {});
+        .catch((error) => { });
     }
   };
 
@@ -1639,7 +1641,7 @@ class Dashboard extends Component {
             dropsPanel: dropsP,
           });
         })
-        .catch((error) => {});
+        .catch((error) => { });
     } else {
       // console.log("T222 inside changeDAte checked5days false");
 
@@ -1655,7 +1657,7 @@ class Dashboard extends Component {
             dropsPanel: dropsP,
           });
         })
-        .catch((error) => {});
+        .catch((error) => { });
     }
   };
 
@@ -2151,7 +2153,7 @@ class Dashboard extends Component {
           this.refreshSite();
           this.removeDocsCheckBoxes();
         })
-        .catch((error) => {});
+        .catch((error) => { });
     } else {
       fetchSchedulerAPIOneDate(
         this.state.selectedMultipleSites,
@@ -2179,7 +2181,7 @@ class Dashboard extends Component {
           this.refreshSite();
           this.removeDocsCheckBoxes();
         })
-        .catch((error) => {});
+        .catch((error) => { });
     }
   };
 
@@ -2221,7 +2223,7 @@ class Dashboard extends Component {
           // this.refreshSite();
           this.removeDocsCheckBoxes();
         })
-        .catch((error) => {});
+        .catch((error) => { });
     }
   };
 
@@ -2287,7 +2289,7 @@ class Dashboard extends Component {
             pickersList: res5,
           });
         })
-        .catch((error) => {});
+        .catch((error) => { });
     }
   };
 
@@ -2531,7 +2533,7 @@ class Dashboard extends Component {
         this.updateTopBar();
         this.refreshSite();
       })
-      .catch((error) => {});
+      .catch((error) => { });
   };
 
   onVRhide = () => {
@@ -2596,7 +2598,7 @@ class Dashboard extends Component {
           loader: false,
         });
       })
-      .then(() => {})
+      .then(() => { })
       .catch((error) => {
         //  history.push('/');
       });
@@ -3015,7 +3017,7 @@ class Dashboard extends Component {
           loader: false,
         });
       })
-      .then(() => {})
+      .then(() => { })
       .catch((error) => {
         // history.push('/');
       });
@@ -3691,7 +3693,7 @@ class Dashboard extends Component {
         .then((response) => {
           this.handleErrors(response);
         })
-        .then(function (response) {})
+        .then(function (response) { })
         .then(() => {
           // this.handleDateRangeChange();
           this.fetchDocumentPanelDateChange(this.state.documentPanel_date);
@@ -3729,7 +3731,7 @@ class Dashboard extends Component {
       .then((response) => {
         // this.handleErrors(response);
       })
-      .then(function (response) {})
+      .then(function (response) { })
       .then(() => {
         // this.handleDateRangeChange();
         this.fetchDocumentPanelDateChange(this.state.documentPanel_date);
@@ -3783,7 +3785,7 @@ class Dashboard extends Component {
       .then((response) => {
         this.handleErrors(response);
       })
-      .then(function (response) {})
+      .then(function (response) { })
       .then(() => {
         // this.handleDateRangeChange();
         this.fetchDocumentPanelDateChange(this.state.documentPanel_date);
@@ -4089,7 +4091,7 @@ class Dashboard extends Component {
             .toLowerCase()
             .indexOf(searchTripString.toLowerCase()) !== -1 ||
           trip.code.toLowerCase().indexOf(searchTripString.toLowerCase()) !==
-            -1 ||
+          -1 ||
           trip.driverName
             .toLowerCase()
             .indexOf(searchTripString.toLowerCase()) !== -1
@@ -4450,7 +4452,7 @@ class Dashboard extends Component {
           loadvehstock: res3,
         });
       })
-      .then(() => {})
+      .then(() => { })
       .catch((error) => {
         // history.push('/');
       });
@@ -4685,7 +4687,7 @@ class Dashboard extends Component {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(this.state.SelectedDeletedDocs),
-    }).then((response) => {});
+    }).then((response) => { });
   };
 
   refreshDocspanel = () => {
@@ -4702,7 +4704,7 @@ class Dashboard extends Component {
           docsPanel: res1,
         });
       })
-      .catch((error) => {});
+      .catch((error) => { });
   };
 
   onTripDelete = (index, docnum, vtype, vcode, docObject) => {
@@ -6958,21 +6960,61 @@ class Dashboard extends Component {
       })
         .then((response) => {
           console.log("OSRM inside after OSRM - response", response);
-          if (response.status === 200) {
+          // const body = response.json();
+          if (response.ok) {
             return response.json();
+            // } else {
+            //   throw new Error(`${body.error}`)
+            //   var StatusErrorMessage = response.statusText;
+            //   this.setState({
+            //     errorMessage: { StatusErrorMessage },
+            //     loader: false,
+            //     addAlertShow: true,
+            //   });
+            // }
           } else {
-            var StatusErrorMessage = response.statusText;
-            this.setState({
-              errorMessage: { StatusErrorMessage },
-              loader: false,
-              addAlertShow: true,
+            console.log("entering into else part 6977");
+            response.json().then((errRes) => {
+              const errorMessage = errRes.error || "";
+              // Match pattern like [-9.675732;53.117928]
+              const latLngRegex = /\[(-?\d+\.\d+);(-?\d+\.\d+)\]/;
+
+              const match = errorMessage.match(latLngRegex);
+              if (match !== null) {
+                console.log("match is not null 6983", match);
+                const errorLng = parseFloat(match[1]);
+                const errorLat = parseFloat(match[2]);
+
+                const tolerance = 0.000001; // Define your tolerance level
+                console.log("consoling DocList at 6989", this.state.docsPanel);
+                const matchingDocNums = this.state.docsPanel
+                  .filter(item =>
+                    Math.abs(item.lat - errorLat) < tolerance &&
+                    Math.abs(item.lng - errorLng) < tolerance
+                  )
+                  // .map(item => item.docnum)
+                  .map(item => `${item.docnum} - ${item.bpcode} ${item.bpname}`)
+                  .join('\n'); // Join the array of docnums into a single string
+
+                this.setState({ optimizeFailedDocuments: matchingDocNums, errorMessage: `The following document with the customer location is too far from the site location \n ${matchingDocNums}`, addAlertShow: true });
+
+              } else if (match === null) {
+                console.log("match is null 7000");
+                // let bpcode = DocList.bpcode;
+                // let bpname = DocList.bpname;
+                // let docnum = DocList.docnum;
+                // this.setState({optimizeFailedDocuments: `${bpcode} ${bpname} - ${docnum}`, errorMessage: `${bpcode} ${bpname} - ${docnum}`, addAlertShow: true});
+                this.setState({ errorMessage: `Geo Coordinates of some documents are too far from site location`, addAlertShow: true });
+              }
+
+              this.setState({ optimizationFailedStatus: true, loader: false });
             });
           }
         })
         .then((res) => {
-          console.log("OSRM - opti result",res);
-          if (res.routes.length > 0) {
-            console.log("OSRM - opti route count",res);
+          console.log("OSRM - opti result", res);
+          if (res.routes && res.routes.length > 0) {
+            console.log("OSRM - opti route count", res);
             // submit generated routes for trips creation
             this.submitRoutesforTripsCreation(
               res.routes,
@@ -7239,17 +7281,13 @@ class Dashboard extends Component {
                   vehicleAssignedVolume[veh.name] + doc.volume;
 
                 console.log(
-                  `🚚 Vehicle: ${veh.name} | Max Weight: ${
-                    veh.capacities
-                  } | Assigned: ${
-                    vehicleAssignedWeight[veh.name]
+                  `🚚 Vehicle: ${veh.name} | Max Weight: ${veh.capacities
+                  } | Assigned: ${vehicleAssignedWeight[veh.name]
                   } | New Total: ${totalWeightIfAdded}`
                 );
                 console.log(
-                  `📦 Vehicle: ${veh.name} | Max Volume: ${
-                    veh.vol
-                  } | Assigned: ${
-                    vehicleAssignedVolume[veh.name]
+                  `📦 Vehicle: ${veh.name} | Max Volume: ${veh.vol
+                  } | Assigned: ${vehicleAssignedVolume[veh.name]
                   } | New Total: ${totalVolumeIfAdded}`
                 );
 
@@ -7294,8 +7332,7 @@ class Dashboard extends Component {
               } else {
                 // ❌ No vehicle matched, show skill mismatch error
                 errorMessagesArray.push(
-                  `❌ ${
-                    doc.docnum
+                  `❌ ${doc.docnum
                   } excluded: No vehicle matched for provided Route code. Vehicles checked: ${unmatchedVehicles.join(
                     ", "
                   )}.`
@@ -7318,9 +7355,9 @@ class Dashboard extends Component {
               addAlertArrayShow: true,
             });
           }
-        }).catch((err)=>{
+        }).catch((err) => {
           this.setState({
-            errorMessage: "No Documents are available for Trips creation",
+            errorMessage: `  `,
             loader: false,
             addAlertShow: true,
           });
@@ -7840,7 +7877,7 @@ class Dashboard extends Component {
         customerlist: "",
         allocatedRouteCodes: commaSeperated,
         xusrcode: user.username,
-        loginUser:user.username
+        loginUser: user.username
       };
 
       RouteprocessedData.push(trip);
@@ -8624,10 +8661,10 @@ class Dashboard extends Component {
         const assignedVolume = tripsfromAuto
           .filter((trip) => trip.code === veh.codeyve) // Find the trip for this vehicle
           .reduce((sum, trip) => sum + Number(trip.doc_volume), 0); // Sum assigned weights
-console.log(assignedVolume, "8620","Veh Tot Volume ->",veh.vol)
+        console.log(assignedVolume, "8620", "Veh Tot Volume ->", veh.vol)
         const remainingVol = veh.vol - assignedVolume;
 
-        console.log(remainingVol ,"remaining vol in vehicle")
+        console.log(remainingVol, "remaining vol in vehicle")
 
         // 🔹 Initialize assigned weight & volume if not present
         if (!vehicleAssignedWeight[veh.name])
@@ -8641,15 +8678,12 @@ console.log(assignedVolume, "8620","Veh Tot Volume ->",veh.vol)
         let totalVolumeIfAdded = vehicleAssignedVolume[veh.name] + doc.volume;
 
         console.log(
-          `🚚 Vehicle: ${veh.name} | Max Weight: ${
-            veh.capacities
-          } | Assigned: ${
-            vehicleAssignedWeight[veh.name]
+          `🚚 Vehicle: ${veh.name} | Max Weight: ${veh.capacities
+          } | Assigned: ${vehicleAssignedWeight[veh.name]
           } | New Total: ${totalWeightIfAdded}`
         );
         console.log(
-          `📦 Vehicle: ${veh.name} | Max Volume: ${veh.vol} | Assigned: ${
-            vehicleAssignedVolume[veh.name]
+          `📦 Vehicle: ${veh.name} | Max Volume: ${veh.vol} | Assigned: ${vehicleAssignedVolume[veh.name]
           } | New Total: ${totalVolumeIfAdded}`
         );
 
@@ -8690,8 +8724,7 @@ console.log(assignedVolume, "8620","Veh Tot Volume ->",veh.vol)
       } else {
         // ❌ No vehicle matched, show skill mismatch error
         errorMessagesArray.push(
-          `❌ ${
-            doc.docnum
+          `❌ ${doc.docnum
           } excluded: No vehicle matched for provided Route code. Vehicles checked: ${unmatchedVehicles.join(
             ", "
           )}.`
@@ -8780,7 +8813,7 @@ console.log(assignedVolume, "8620","Veh Tot Volume ->",veh.vol)
         // console.log("inside after trip - response",response);
         this.handleErrors(response);
       })
-      .then(function (response) {})
+      .then(function (response) { })
       .then(() => {
         // console.log("inside submit Trips",this.state.date);
         this.handleDateRangeChange();
@@ -9269,7 +9302,7 @@ console.log(assignedVolume, "8620","Veh Tot Volume ->",veh.vol)
                       style={{
                         display:
                           this.state.tripsChecked === undefined ||
-                          this.state.tripsChecked.length === 0
+                            this.state.tripsChecked.length === 0
                             ? "none"
                             : "block",
                       }}
