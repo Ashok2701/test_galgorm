@@ -706,6 +706,14 @@ class Dashboard extends Component {
       return totalQuantityA - totalQuantityB; // Ascending order
     };
 
+    const sortByLines = (a, b) => {
+      const countA = Array.isArray(a.products) ? a.products.length : 0;
+      const countB = Array.isArray(b.products) ? b.products.length : 0;
+    
+      return countB - countA; // Descending order: more products first
+    };
+    
+
     if (picOrder[index] === -1 || picOrder[index] === 1) {
       picOrder[index] = 0;
 
@@ -715,6 +723,9 @@ class Dashboard extends Component {
       // Add existing sorting logic for other types
       if (type === "docnum") {
         cusPick.sort((a, b) => (a.docnum < b.docnum ? 1 : -1));
+      }
+      if (type === "lines") {
+        cusPick.sort(sortByLines);
       }
       if (type === "weight") {
         cusPick.sort((a, b) =>
@@ -767,7 +778,9 @@ class Dashboard extends Component {
       if (type == "quantity") {
         cusPick.sort((a, b) => sortByQuantity(b, a)); // Descending order
       }
-
+      if (type === "lines") {
+        cusPick.sort((a, b) => sortByLines(b, a)); // Descending order
+      }
       // Add existing sorting logic for other types
       if (type === "docnum") {
         cusPick.sort((a, b) => (a.docnum > b.docnum ? 1 : -1));

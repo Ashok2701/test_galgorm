@@ -702,9 +702,9 @@ class Drops3 extends React.Component {
                   Weight
                   {this.props.dropOrder[14] === 1 ? "▼" : "▲"}
                 </th>
-                <th onClick={() => this.props.sortDrop("quantity", 16)}>
+                <th onClick={() => this.props.sortDrop("lines", 17)}>
                   No. of Lines
-                  {this.props.dropOrder[16] === 1 ? "▼" : "▲"}
+                  {this.props.dropOrder[17] === 1 ? "▼" : "▲"}
                 </th>
                 <th onClick={() => this.props.sortDrop("quantity", 16)}>
                   Cases
