@@ -703,6 +703,10 @@ class Drops3 extends React.Component {
                   {this.props.dropOrder[14] === 1 ? "▼" : "▲"}
                 </th>
                 <th onClick={() => this.props.sortDrop("quantity", 16)}>
+                  No. of Lines
+                  {this.props.dropOrder[16] === 1 ? "▼" : "▲"}
+                </th>
+                <th onClick={() => this.props.sortDrop("quantity", 16)}>
                   Cases
                   {this.props.dropOrder[16] === 1 ? "▼" : "▲"}
                 </th>
@@ -942,7 +946,8 @@ class Drops3 extends React.Component {
                         {drops.netweight == 0 ? "" : drops.netweight}{" "}
                         {drops.netweight == 0 ? "" : drops.weightunit}
                       </td>
-                      <td>{this.getproductsTotalQuantity(drops.products)}</td>
+                      <td className="text-center">{drops.products?.length}</td>
+                      <td className="text-center">{this.getproductsTotalQuantity(drops.products)}</td>
                       <td>
                         {" "}
                         {drops.carrier &&
