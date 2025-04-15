@@ -1279,7 +1279,7 @@ class RouteMap extends React.Component {
                       }
                     });
                     const isLastGeoData = this.props.geoData.length === 1;
-
+console.log(data.serviceTime ,"this is service time checking")
                     return (
                       <tr
                         key={i}
@@ -1413,7 +1413,7 @@ class RouteMap extends React.Component {
                         <td width="6%">{data.arrival && data.arrival}</td>
                         <td width="6%">{data.end && data.end}</td>
                         <td width="6%">
-                          {formatTime(convertHrToSec(data.serviceTime))}
+                          {data.serviceTime}
                         </td>
                         <td width="6%">
                           {formatTime(convertHrToSec(data.waitingTime))}

@@ -286,7 +286,7 @@ function Timeline(props) {
 
     if (autooptimise) {
       apiurl = "https://api.tomtom.com/routing/1/calculateRoute/";
-      jsonUrl = `/json?computeBestOrder=true&routeRepresentation=summaryOnly&computeTravelTimeFor=all&routeType=shortest&avoid=unpavedRoads&travelMode=truck&vehicleMaxSpeed=${
+      jsonUrl = `/json?computeBestOrder=true&routeRepresentation=summaryOnly&computeTravelTimeFor=all&avoid=unpavedRoads&travelMode=truck&vehicleMaxSpeed=${
         data.vehicleObject.maxspeed
       }&vehicleWeight=${data.vehicleObject.capacities}&vehicleLength=${
         data.vehicleObject.length / 100
@@ -295,7 +295,7 @@ function Timeline(props) {
       }&vehicleCommercial=true&vehicleLoadType=otherHazmatGeneral&vehicleEngineType=combustion&key=ctZzLlfGUpaNdfHiIobOeub8NBzzGkNG`;
     } else {
       apiurl = "https://api.tomtom.com/routing/1/calculateRoute/";
-      jsonUrl = `/json?computeBestOrder=false&routeRepresentation=summaryOnly&computeTravelTimeFor=all&routeType=shortest&avoid=unpavedRoads&travelMode=truck&vehicleMaxSpeed=${
+      jsonUrl = `/json?computeBestOrder=false&routeRepresentation=summaryOnly&computeTravelTimeFor=all&avoid=unpavedRoads&travelMode=truck&vehicleMaxSpeed=${
         data.vehicleObject.maxspeed
       }&vehicleWeight=${data.vehicleObject.capacities}&vehicleLength=${
         data.vehicleObject.length / 100
