@@ -927,6 +927,7 @@ class TripsList3 extends React.Component {
                 prevTripsDist >= data.vehicleObject.maxtotaldist ||
                 prevTripsTime >= maxTotTimeSec ||
                 optimizationStatus ||
+                totTimeSec > maxTotTimeSec ||
                 tripsClosed
               ) {
                 if (prevTripsDist >= data.vehicleObject.maxtotaldist) {
@@ -935,10 +936,15 @@ class TripsList3 extends React.Component {
                     addAlertShow: true
                   });
                 
-                } else if (prevTripsTime >= maxTotTimeSec) {
+                } else if (prevTripsTime >= maxTotTimeSec ) {
              
                   this.setState({
                     errorMessage: `The vehicle cannot perform trip more than ${data.vehicleObject.maxtotaltime} Hrs, please review trip documents.`,
+                    addAlertShow: true
+                  });
+                }else if(totTimeSec >= maxTotTimeSec){
+                  this.setState({
+                    errorMessage: `The vehicle's maximum allowed trip duration is ${data.vehicleObject.maxtotaltime} hours. However, the current trip duration is ${totTime} hours. Please review the trip documents and make necessary adjustments.`,
                     addAlertShow: true
                   });
                 } else if (tripsClosed) {

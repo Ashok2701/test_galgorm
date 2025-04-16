@@ -6805,7 +6805,7 @@ class Dashboard extends Component {
         }
       }
 
-      console.log(vehSkill, "outside loop vehicle skill checking");
+      console.log(VehList, "outside loop vehicle skill checking");
 
       // console.log(intenalVeh, "all type of vehicles with intveh");
       // console.log(externalVeh, "all type of vehicles with extveh");

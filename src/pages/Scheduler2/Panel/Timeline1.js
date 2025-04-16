@@ -332,7 +332,11 @@ function Timeline(props) {
         }
       })
       .then((res) => {
-        // console.log("T6565 auto - opti result",res);
+
+        console.log(data ,"this is trip checking")
+
+        console.log("T6565 auto - opti result",res);
+
         if (res && res.optimizedWaypoints) {
           optiindex.push(res.optimizedWaypoints);
         }
@@ -665,10 +669,14 @@ function Timeline(props) {
               let maxTotTimeSec = convertHrToSec(
                 Number(props.data.vehicleObject.maxtotaltime)
               );
+
+
+              console.log(totTimeSec,maxTotTimeSec ,"state total time checking")
               if (
                 prevTripsDist >= props.data.vehicleObject.maxtotaldist ||
                 prevTripsTime >= maxTotTimeSec ||
                 optimizationStatus ||
+                totTimeSec > maxTotTimeSec ||
                 tripsClosed
               ) {
                 if (prevTripsDist >= props.data.vehicleObject.maxtotaldist) {
@@ -676,9 +684,14 @@ function Timeline(props) {
                     `The vehicle cannot perform trip more than ${props.data.vehicleObject.maxtotaldist} KM, please review trip documents.`
                   );
                   setDistError(true);
-                } else if (prevTripsTime >= maxTotTimeSec) {
+                } else if (prevTripsTime >= maxTotTimeSec   ) {
                   setTimeErrorMessage(
                     `The vehicle cannot perform trip more than ${props.data.vehicleObject.maxtotaltime} Hrs, please review trip documents.`
+                  );
+                  setTimeError(true);
+                }else if(totTimeSec >= maxTotTimeSec){
+                  setTimeErrorMessage(
+                    `The vehicle's maximum allowed trip duration is ${data.vehicleObject.maxtotaltime} hours. However, the current trip duration is ${totTime} hours. Please review the trip documents and make necessary adjustments.`
                   );
                   setTimeError(true);
                 } else if (tripsClosed) {
