@@ -194,3 +194,16 @@ export const formatHHMM = (hm) => {
     return hr + ':' + mm;
     }
 }
+
+
+export const convertDecimalToHHMM = (decimalHours) => {
+    const totalMinutes = Math.round(decimalHours * 60);
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+    return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
+  };
+
+
+  export function secondsToDecimalHours(seconds) {
+    return seconds / 3600;
+  }

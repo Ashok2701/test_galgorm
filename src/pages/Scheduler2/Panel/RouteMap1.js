@@ -1413,7 +1413,7 @@ console.log(data.serviceTime ,"this is service time checking")
                         <td width="6%">{data.arrival && data.arrival}</td>
                         <td width="6%">{data.end && data.end}</td>
                         <td width="6%">
-                          {data.serviceTime}
+                          {formatTime(convertHrToSec(data.serviceTime))}
                         </td>
                         <td width="6%">
                           {formatTime(convertHrToSec(data.waitingTime))}
