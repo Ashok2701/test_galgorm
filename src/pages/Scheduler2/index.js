@@ -5498,14 +5498,17 @@ class Dashboard extends Component {
       //   Doc.skills = []; // or handle the case where skills is undefined or empty
       // }
 
-      console.log(doc.waitingTime,doc.serviceTime ,"waiting time gorup optimize and service time checking" )
+      console.log(
+        doc.waitingTime,
+        doc.serviceTime,
+        "waiting time gorup optimize and service time checking"
+      );
 
       let wtime = convertHrToSec(doc.waitingTime);
       let stime = convertHrToSec(doc.serviceTime);
 
-   
-        console.log(wtime,stime ,"this is waiting time and service time");
-        Doc.service = parseInt(wtime) + parseInt(stime);
+      console.log(wtime, stime, "this is waiting time and service time");
+      Doc.service = parseInt(wtime) + parseInt(stime);
 
       // console.log(wtime ,"this is service time checking")
       let ps,
@@ -7403,6 +7406,7 @@ class Dashboard extends Component {
       var vehobj = [];
       var itemTrip = {
         selectedTripData: [],
+        matchedDocsList: [],
         timelineInterval: [],
         equipments: [],
         trailers: [],
@@ -7419,7 +7423,7 @@ class Dashboard extends Component {
       var routeCodeArr1 = [];
 
       // loop thorugh the documents steps
-      let seenClients = new Set();
+      let seenClientAddress = new Set();
 
       for (let t = 0; t < currRoute.steps.length; t++) {
         var ttime = "";
@@ -7461,32 +7465,76 @@ class Dashboard extends Component {
               //   currDoc.serviceTime = secondsToHms(currTask.service);
               // }
 
-              if (seenClients.has(clientCode)) {
-                // Reuse the first arrival time for this client
+        
+              // if (seenClients.has(clientAddressKey)) {
+              //   // Reuse the first arrival time for this client
+              //   const prevDoc = itemTrip.selectedTripData.find(
+              //     (doc) =>
+              //       doc.bpcode === clientCode &&
+              //       doc.adrescode == currDoc.adrescode
+              //   );
+
+              //   console.log(
+              //     itemTrip.selectedTripData,
+              //     "these are selected trip data 7463"
+              //   );
+
+              //   console.log(prevDoc, "checking prev doc 7463");
+              //   if (prevDoc) {
+              //     currDoc.arrival = prevDoc.arrival;
+              //     currDoc.end = prevDoc.end;
+              //   }
+              //   currDoc.serviceTime = secondsToHms(0);
+              //   currDoc.serTime = secondsToHms(0);
+              // } else {
+              //   seenClients.add(clientCode);
+              //   currDoc.serTime = secondsToHms(currTask.service);
+              //   currDoc.serviceTime =secondsToDecimalHours(currTask.service);
+              //   currDoc.end = secondsToHms(currTask.arrival + currTask.service);
+              // }
+
+              // console.log(
+              //   clientAddressKey,
+              //   "before if condition clientAddressKey"
+              // );
+
+                    const clientAddressKey = `${clientCode}_${currDoc.adrescode}`;
+
+              if (seenClientAddress.has(clientAddressKey)) {
+                console.log(
+                  clientAddressKey,
+                  "inside if condition clientAddressKey"
+                );
+
+                // Already processed this client+address → no service time
                 const prevDoc = itemTrip.selectedTripData.find(
                   (doc) =>
                     doc.bpcode === clientCode &&
-                    doc.adrescode == currDoc.adrescode
+                    doc.adrescode === currDoc.adrescode
                 );
 
-                console.log(
-                  itemTrip.selectedTripData,
-                  "these are selected trip data 7463"
-                );
-
-                console.log(prevDoc, "checking prev doc 7463");
                 if (prevDoc) {
                   currDoc.arrival = prevDoc.arrival;
                   currDoc.end = prevDoc.end;
                 }
+
                 currDoc.serviceTime = secondsToHms(0);
                 currDoc.serTime = secondsToHms(0);
               } else {
-                seenClients.add(clientCode);
+                console.log(
+                  clientAddressKey,
+                  "inside else condition clientAddressKey"
+                );
+
+                // First time → assign full service time
+                seenClientAddress.add(clientAddressKey);
                 currDoc.serTime = secondsToHms(currTask.service);
-                currDoc.serviceTime =secondsToDecimalHours(currTask.service);
+                currDoc.serviceTime = secondsToDecimalHours(currTask.service);
                 currDoc.end = secondsToHms(currTask.arrival + currTask.service);
               }
+
+
+
 
               currDoc.startDate = newStartDate1;
               currDoc.endDate = newStartDate1;
@@ -8270,7 +8318,7 @@ class Dashboard extends Component {
   ) => {
     console.log(res, "response from exceptional analysis");
 
-    console.log(tripsfromAuto ,"tripsfromAuto 8265")
+    console.log(tripsfromAuto, "tripsfromAuto 8265");
     let totalSelectedDocs = selectedDocs.length;
     let unassignedDocCount = res.unassigned.length;
     let unassignedDocs = res.unassigned;
@@ -8381,8 +8429,8 @@ class Dashboard extends Component {
           .filter((trip) => trip.code === veh.codeyve)
           .reduce((sum, trip) => sum + Number(trip.totalDistance || 0), 0); // replace with your distance field
 
-          console.log(assignedDistance, "this is trip assigned distance check");
-          
+        console.log(assignedDistance, "this is trip assigned distance check");
+
         // for getting vehicle fulled weight
         const assignedWeight = tripsfromAuto
           .filter((trip) => trip.code === veh.codeyve) // Find the trip for this vehicle
@@ -8440,7 +8488,6 @@ class Dashboard extends Component {
         } else {
           vehicleAssignedVolume[veh.name] += doc.volume;
         }
-
       });
 
       let errorMessagesArray = [];

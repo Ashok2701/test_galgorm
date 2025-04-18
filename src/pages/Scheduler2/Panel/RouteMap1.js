@@ -1267,6 +1267,7 @@ class RouteMap extends React.Component {
                   <th width="0%" class="pairedDoc" style={{ display: "none" }}>
                     {this.props.t("PairedDoc")}
                   </th>
+                 
                 </tr>
               </thead>
               <tbody>
@@ -1279,7 +1280,7 @@ class RouteMap extends React.Component {
                       }
                     });
                     const isLastGeoData = this.props.geoData.length === 1;
-console.log(data.serviceTime ,"this is service time checking")
+console.log(data ,"this is service time checking")
                     return (
                       <tr
                         key={i}
@@ -1454,6 +1455,8 @@ console.log(data.serviceTime ,"this is service time checking")
                         >
                           {data.pairedDoc}
                         </td>
+               
+                     
                         {data.lock ||
                         (this.props.trips &&
                           this.props.trips[0] &&
@@ -1474,6 +1477,7 @@ console.log(data.serviceTime ,"this is service time checking")
                             unlock
                           </td>
                         )}
+                          
                       </tr>
                     );
                   }
