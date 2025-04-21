@@ -4882,6 +4882,7 @@ class Dashboard extends Component {
       }
     });
 
+
     trip.totalObject.selectedTripData = selectedTripData;
     var dropObject = [];
     for (var i = 0; i < trip.dropObject.length; i++) {
@@ -6996,7 +6997,7 @@ class Dashboard extends Component {
         g: true,
       };
 
-      console.log(DocList)
+      console.log(DocList ,"doc list before sending to osrm")
 
       // for sending route code matched vehicles to OSRM
       let filteredVehArray = this.state.vehiclePanel.vehicles.filter((item1) =>
@@ -7507,47 +7508,7 @@ class Dashboard extends Component {
 
               console.log(currDoc, "This is current doc checking");
               currDoc.serTime = secondsToHms(currTask.service);
-              // if (seenClients.has(clientCode)) {
-              //   currDoc.serviceTime = secondsToHms(0);
-              //   currDoc.end =currDoc.arrival;
-              // } else {
-              //   seenClients.add(clientCode);
-              //   currDoc.end = secondsToHms(currTask.arrival + currTask.service);
-              //   currDoc.serviceTime = secondsToHms(currTask.service);
-              // }
-
-        
-              // if (seenClients.has(clientAddressKey)) {
-              //   // Reuse the first arrival time for this client
-              //   const prevDoc = itemTrip.selectedTripData.find(
-              //     (doc) =>
-              //       doc.bpcode === clientCode &&
-              //       doc.adrescode == currDoc.adrescode
-              //   );
-
-              //   console.log(
-              //     itemTrip.selectedTripData,
-              //     "these are selected trip data 7463"
-              //   );
-
-              //   console.log(prevDoc, "checking prev doc 7463");
-              //   if (prevDoc) {
-              //     currDoc.arrival = prevDoc.arrival;
-              //     currDoc.end = prevDoc.end;
-              //   }
-              //   currDoc.serviceTime = secondsToHms(0);
-              //   currDoc.serTime = secondsToHms(0);
-              // } else {
-              //   seenClients.add(clientCode);
-              //   currDoc.serTime = secondsToHms(currTask.service);
-              //   currDoc.serviceTime =secondsToDecimalHours(currTask.service);
-              //   currDoc.end = secondsToHms(currTask.arrival + currTask.service);
-              // }
-
-              // console.log(
-              //   clientAddressKey,
-              //   "before if condition clientAddressKey"
-              // );
+      
 
                     const clientAddressKey = `${clientCode}_${currDoc.adrescode}`;
 
@@ -7586,7 +7547,7 @@ class Dashboard extends Component {
 
 
 
-
+              // currDoc.waitingTime=
               currDoc.startDate = newStartDate1;
               currDoc.endDate = newStartDate1;
               ttime = currDoc.arrival;

@@ -543,13 +543,25 @@ function Timeline(props) {
                 endTimeRoute = endTimeHr + ":" + endTimeMin;
                 var a = endTimeRoute.split(":");
                 var endTimeSec = +a[0] * 60 * 60 + +a[1] * 60;
+                console.log(serviceTime[index] ,waitTime[index] ,"this is service time and waiting time index checking 546")
+
+                let servTimeCheck =  serviceTime[index] != "00:00" ? serviceTime[index] : 0
+
+
                 var arrivalTime =
                   endTimeSec -
-                  Number(serviceTime[index]) * 60 * 60 -
+                  Number(servTimeCheck) * 60 * 60 -
                   Number(waitingTime[index]) * 60 * 60;
+
+                  console.log(arrivalTime ,"this is arrival time checking 551");
+
                 arrivalTime = formatTime(arrivalTime);
                 res.end = splitTime(endTimeRoute);
                 res.arrival = splitTime(arrivalTime);
+
+
+
+
 
                 res.startDate = prevDate;
                 res.endDate = prevDate;

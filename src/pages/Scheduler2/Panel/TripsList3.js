@@ -810,9 +810,11 @@ class TripsList3 extends React.Component {
                 endTimeRoute = endTimeHr + ":" + endTimeMin;
                 var a = endTimeRoute.split(":");
                 var endTimeSec = +a[0] * 60 * 60 + +a[1] * 60;
+
+                let servTimeCheck =  serviceTime[index] != "00:00" ? serviceTime[index] : 0
                 var arrivalTime =
                   endTimeSec -
-                  Number(serviceTime[index]) * 60 * 60 -
+                  Number(servTimeCheck) * 60 * 60 -
                   Number(waitingTime[index]) * 60 * 60;
                 arrivalTime = formatTime(arrivalTime);
                 res.end = splitTime(endTimeRoute);
