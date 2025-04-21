@@ -381,6 +381,12 @@ class Dashboard extends Component {
     });
   }
 
+  setTriplistSeqChange(flg){
+    this.setState({
+      triplistSeqChange:flg
+    })
+  }
+
   setcurrentView(view) {
     this.setState({
       currentViewCheck: view,
@@ -4840,6 +4846,43 @@ class Dashboard extends Component {
         pickupObject.push(trip.pickupObject[i]);
       }
     }
+
+
+    
+    let selectedTripData = [...trip.totalObject.selectedTripData];
+
+    // service time logic if we have service time in above document and below document having same client code and adresscode then this logic will apply
+
+    removeDocsObject.forEach((deletedDoc) => {
+      const { docnum, serviceTime, bpcode, adrescode } = deletedDoc;
+      console.log(docnum, serviceTime, bpcode, adrescode ,"checking params for deleted doc")
+      if (serviceTime !== "00:00") {
+
+        console.log(serviceTime, "Eneted in if")
+        const index = selectedTripData.findIndex((item) => item.docnum === docnum);
+    
+        
+        console.log(index, "found index in  if")
+
+        if (index !== -1 && index + 1 < selectedTripData.length) {
+          const nextItem = selectedTripData[index + 1];
+
+          
+          console.log(nextItem, "inside nexted if next item")
+
+          console.log(nextItem.bpcode === bpcode, nextItem.adrescode === adrescode, "checking matching condition 4875")
+          if (
+            nextItem.bpcode === bpcode &&
+            nextItem.adrescode === adrescode
+          ) {
+            console.log(selectedTripData[index + 1].serviceTime ,"inside 2nd nested if getting that servide time",serviceTime)
+            selectedTripData[index + 1].serviceTime = serviceTime;
+          }
+        }
+      }
+    });
+
+    trip.totalObject.selectedTripData = selectedTripData;
     var dropObject = [];
     for (var i = 0; i < trip.dropObject.length; i++) {
       if (!removeDocs.includes(trip.dropObject[i].docnum)) {
@@ -4874,6 +4917,9 @@ class Dashboard extends Component {
         tripColor[i] = "#09aaed";
       }
     }
+
+
+    console.log(trip ,'this is trip checking on delte button 4879')
 
     trips.push(trip);
 
@@ -6899,6 +6945,9 @@ class Dashboard extends Component {
           }
           let wtime = convertHrToSec(doc.waitingTime);
           let stime = convertHrToSec(doc.serviceTime);
+          console.log(wtime,stime,"watitin time and service time")
+          console.log(parseInt(wtime) + parseInt(stime),"watitin time and service time after parse int")
+
           Doc.service = parseInt(wtime) + parseInt(stime);
 
           console.log(
@@ -6946,6 +6995,8 @@ class Dashboard extends Component {
       processedData.options = {
         g: true,
       };
+
+      console.log(DocList)
 
       // for sending route code matched vehicles to OSRM
       let filteredVehArray = this.state.vehiclePanel.vehicles.filter((item1) =>
@@ -7359,7 +7410,7 @@ class Dashboard extends Component {
     var TripsfromRoutes = [];
     // let seenClients = new Set();
 
-    // console.log(seenClients ,"seen clients checking 7351")
+    console.log(res.routes ,"routes checking 7365")
     for (let k = 0; k < routes.length; k++) {
       var currRoute = routes[k];
       var Vehicle = {},

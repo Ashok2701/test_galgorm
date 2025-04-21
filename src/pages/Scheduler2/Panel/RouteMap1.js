@@ -166,6 +166,7 @@ class RouteMap extends React.Component {
     this.setState({ showUpdateButton: sequenceChanged });
   }
 
+
   handleUpdateTimeline = () => {
     this.props.updateTimeLine();
 
@@ -1180,7 +1181,7 @@ class RouteMap extends React.Component {
   };
 
   render() {
-    console.log(this.state.addProductShoww, "product show popup state");
+
     console.log("inside RouteMap-  geodata", this.props.geoData);
     console.log("inside RouteMap - markers", this.props.markers);
     console.log("inside RouteMap - mapchanged", this.props.mapChanged);

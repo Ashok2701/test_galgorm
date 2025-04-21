@@ -522,6 +522,7 @@ function Timeline(props) {
                 waitTime =
                   formatHrMin(waitTimeHr) + ":" + formatHrMin(waitTimeMin);
 
+                  console.log(serviceTime[index] ,"checking service time 525")
                 let res = {
                   start: dateformatter(departure, index),
                   distance: length / 1000,
