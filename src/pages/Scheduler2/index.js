@@ -7547,7 +7547,7 @@ class Dashboard extends Component {
 
 
 
-              // currDoc.waitingTime=
+              
               currDoc.startDate = newStartDate1;
               currDoc.endDate = newStartDate1;
               ttime = currDoc.arrival;
@@ -8433,9 +8433,10 @@ class Dashboard extends Component {
           matchedVehicles.push(veh.name);
         } else {
           unmatchedVehicles.push(veh.name);
-          return; // Skip further checks if skills don’t match
         }
 
+
+        console.log(unmatchedVehicles ,"these are unmatched vehicle")
         // For total travel time checking here
         const assignedDistance = tripsfromAuto
           .filter((trip) => trip.code === veh.codeyve)
@@ -8512,7 +8513,7 @@ class Dashboard extends Component {
         if (volumeFailedVehicles.size > 0) {
           errorMessagesArray.push(`${[...volumeFailedVehicles].join(", ")}.`);
         }
-      } else {
+      } else if(unmatchedVehicles.length>0) {
         // ❌ No vehicle matched, show skill mismatch error
         errorMessagesArray.push(
           `❌ ${
@@ -8521,6 +8522,15 @@ class Dashboard extends Component {
             ", "
           )}.`
         );
+      }else{
+        errorMessagesArray.push(
+          `❌ ${
+            doc.docnum
+          } Vehicle has reached its maximum allowed travel distance or time: ${unmatchedVehicles.join(
+            ", "
+          )}.`
+        );
+
       }
 
       // 🔹 Push errors only if there are any
