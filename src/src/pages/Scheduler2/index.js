@@ -363,7 +363,7 @@ class Dashboard extends Component {
           value: "0",
         },
       ],
-      googeMapURL: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAgLp4IWxgo22lGxq-gP7_0p2bDJA_tbcc&v=3.exp&libraries=geometry,drawing,places',
+      googeMapURL: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyANa5oogYwmC9XtnHep09-JoU0Bjp13tWU&v=3.exp&libraries=geometry,drawing,places',
  leftPanelWidth: "50%", // Initial width of the left panel
       isDragging: false, // Flag to indicate if the splitter is being dragged
       startX: 0, // Initial position of the mouse pointer when dragging starts

@@ -103,7 +103,7 @@ export class App extends Component {
           <GoogleMapReact
             bootstrapURLKeys={{
               // remove the key if you want to fork
-              key: "AIzaSyAgLp4IWxgo22lGxq-gP7_0p2bDJA_tbcc",
+              key: "AIzaSyANa5oogYwmC9XtnHep09-JoU0Bjp13tWU",
               language: "en",
               region: "US"
             }}
@@ -145,5 +145,5 @@ export class App extends Component {
 }
 
 export default GoogleApiWrapper((props) => ({
-  apiKey: "AIzaSyAgLp4IWxgo22lGxq-gP7_0p2bDJA_tbcc",
+  apiKey: "AIzaSyANa5oogYwmC9XtnHep09-JoU0Bjp13tWU",
 }))(App);

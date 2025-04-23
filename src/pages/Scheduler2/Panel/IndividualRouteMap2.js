@@ -195,7 +195,7 @@
 //           {Object.keys(this.props.siteDetails).length > 0 &&
 //             <GoogleMapReact
 //               bootstrapURLKeys={{
-//                 key: "AIzaSyAgLp4IWxgo22lGxq-gP7_0p2bDJA_tbcc",
+//                 key: "AIzaSyANa5oogYwmC9XtnHep09-JoU0Bjp13tWU",
 //                 language: "en",
 //                 region: "US"
 //               }}
