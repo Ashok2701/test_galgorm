@@ -25,6 +25,7 @@ import {
   splitTime,
   convertHrToMin,
   secondsToDecimalHours,
+  convertMinToSec,
 } from "./converterFunctions/converterFunctions";
 import moment from "moment";
 import SideNav from "./Nav1/SideNav";
@@ -7506,8 +7507,8 @@ class Dashboard extends Component {
                 ? currTask.distance / 1000
                 : 0;
 
-              console.log(currDoc, "This is current doc checking");
-              currDoc.serTime = secondsToHms(currTask.service);
+              console.log( currTask.service,"servide time chekinggggggg 7509");
+              currDoc.serTime = secondsToHms(currTask.service)
       
 
                     const clientAddressKey = `${clientCode}_${currDoc.adrescode}`;
@@ -7533,19 +7534,16 @@ class Dashboard extends Component {
                 currDoc.serviceTime = secondsToHms(0);
                 currDoc.serTime = secondsToHms(0);
               } else {
-                console.log(
-                  clientAddressKey,
-                  "inside else condition clientAddressKey"
-                );
+                console.log(currTask.service, "inside else condition service time check",currDoc.serviceTime ,"this is current doc service time");
 
                 // First time → assign full service time
                 seenClientAddress.add(clientAddressKey);
                 currDoc.serTime = secondsToHms(currTask.service);
-                currDoc.serviceTime = secondsToDecimalHours(currTask.service);
+                // let diff =convertHrToSec((Number(currDoc.waitingTime)),currTask.service)
+                // console.log(secondsToHms(currTask.service-convertHrToSec(Number(currDoc.waitingTime))),"checking service time before sending")
+                currDoc.serviceTime = secondsToDecimalHours(currTask.service - convertHrToSec(Number(currDoc.waitingTime)));
                 currDoc.end = secondsToHms(currTask.arrival + currTask.service);
               }
-
-
 
               
               currDoc.startDate = newStartDate1;

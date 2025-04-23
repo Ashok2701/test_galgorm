@@ -875,6 +875,8 @@ class TripsList3 extends React.Component {
               totTime = formatTime(
                 tTime + convertHrToSec(serTime) + convertHrToSec(waitTime)
               );
+
+              console.log(totTime ,"this is total trip time checking 879")
               setTotalTime = totTime;
               setTotalDistance = totDistance / 1000;
               console.log("TotalDistaince =", totDistance);

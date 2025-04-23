@@ -207,3 +207,8 @@ export const convertDecimalToHHMM = (decimalHours) => {
   export function secondsToDecimalHours(seconds) {
     return seconds / 3600;
   }
+
+// get possitve difference
+  export function getPositiveDifference(a, b) {
+    return Math.abs(a - b);
+  }
