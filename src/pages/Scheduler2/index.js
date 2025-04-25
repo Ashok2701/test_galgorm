@@ -26,6 +26,7 @@ import {
   convertHrToMin,
   secondsToDecimalHours,
   convertMinToSec,
+  secondsToHmsAutoGen,
 } from "./converterFunctions/converterFunctions";
 import moment from "moment";
 import SideNav from "./Nav1/SideNav";
@@ -7500,7 +7501,8 @@ class Dashboard extends Component {
                 routeCodeArr1.push(currDoc.routeCodeDesc);
               }
               currDoc.vehicleCode = Veh;
-              currDoc.arrival = secondsToHms(currTask.arrival);
+              console.log(secondsToHms(currTask.arrival), secondsToHms(currTask.arrival + currTask.service) ,"this is current task start and end 7503")
+              currDoc.arrival = secondsToHmsAutoGen(currTask.arrival);
               currDoc.time = convertSecToMin(currTask.duration);
               // currDoc.distance = 0;
               currDoc.distance = currTask.distance
@@ -7508,7 +7510,7 @@ class Dashboard extends Component {
                 : 0;
 
               console.log( currTask.service,"servide time chekinggggggg 7509");
-              currDoc.serTime = secondsToHms(currTask.service)
+              currDoc.serTime = secondsToHmsAutoGen(currTask.service)
       
 
                     const clientAddressKey = `${clientCode}_${currDoc.adrescode}`;
@@ -7531,18 +7533,19 @@ class Dashboard extends Component {
                   currDoc.end = prevDoc.end;
                 }
 
-                currDoc.serviceTime = secondsToHms(0);
-                currDoc.serTime = secondsToHms(0);
+                currDoc.serviceTime = secondsToHmsAutoGen(0);
+                currDoc.serTime = secondsToHmsAutoGen(0);
               } else {
                 console.log(currTask.service, "inside else condition service time check",currDoc.serviceTime ,"this is current doc service time");
 
                 // First time → assign full service time
                 seenClientAddress.add(clientAddressKey);
-                currDoc.serTime = secondsToHms(currTask.service);
+                currDoc.serTime = secondsToHmsAutoGen(currTask.service);
                 // let diff =convertHrToSec((Number(currDoc.waitingTime)),currTask.service)
                 // console.log(secondsToHms(currTask.service-convertHrToSec(Number(currDoc.waitingTime))),"checking service time before sending")
                 currDoc.serviceTime = secondsToDecimalHours(currTask.service - convertHrToSec(Number(currDoc.waitingTime)));
-                currDoc.end = secondsToHms(currTask.arrival + currTask.service);
+                currDoc.end = secondsToHmsAutoGen(currTask.arrival + currTask.service);
+                
               }
 
               

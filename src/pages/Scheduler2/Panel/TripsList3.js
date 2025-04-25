@@ -778,6 +778,8 @@ class TripsList3 extends React.Component {
                 let waitTime = formatTime(
                   convertHrToSec(Number(waitingTime[index]))
                 );
+
+                console.log(serTime,waitTime ,"checking serv waiting 782")
                 serTime = serTime.split(":");
                 let serTimeHr = serTime[0];
                 let serTimeMin = serTime[1];
@@ -790,6 +792,7 @@ class TripsList3 extends React.Component {
                 waitTime =
                   formatHrMin(waitTimeHr) + ":" + formatHrMin(waitTimeMin);
 
+                  console.log(waitTime ,"this is waiting time")
                 let res = {
                   start: dateformatter(departure, index),
                   distance: length / 1000,
@@ -799,24 +802,42 @@ class TripsList3 extends React.Component {
                   tTime: time,
                   tDistance: length,
                 };
+                console.log(departure ,"this is end time route 805");
+                
                 departure.setSeconds(
                   departure.getSeconds() + time + sec + waitSec
                 );
+                console.log(departure ,"this is end time route 810");
+
                 //added sersec+wait sec+time
                 let endTimeRoute = dateformatter(departure);
+
+                console.log(endTimeRoute ,"this is end time route 811")
                 endTimeRoute = new Date(endTimeRoute);
+                console.log(endTimeRoute ,"this is end time route 813")
+
                 let endTimeHr = endTimeRoute.getHours();
                 let endTimeMin = endTimeRoute.getMinutes();
                 endTimeRoute = endTimeHr + ":" + endTimeMin;
+                console.log(endTimeRoute ,"this is end time route checking 814")
                 var a = endTimeRoute.split(":");
+                console.log(a ,"end route 812")
                 var endTimeSec = +a[0] * 60 * 60 + +a[1] * 60;
 
-                let servTimeCheck =  serviceTime[index] != "00:00" ? serviceTime[index] : 0
+                console.log(serviceTime[index], "814 checking for service time");
+
+                console.log(endTimeSec , serviceTime[index],waitingTime[index] ,"Endtime service time waiting time 816")
+                // let servTimeCheck =  serviceTime[index] != "00:00" ? serviceTime[index] : 0
                 var arrivalTime =
                   endTimeSec -
-                  Number(servTimeCheck) * 60 * 60 -
+                  Number(serviceTime[index]) * 60 * 60 -
                   Number(waitingTime[index]) * 60 * 60;
+                  console.log(formatTime(arrivalTime),arrivalTime ,"formatatted arrival time and arrival time 821")
                 arrivalTime = formatTime(arrivalTime);
+
+                console.log(endTimeRoute,splitTime(endTimeRoute), "    "+  + "    ", arrivalTime,splitTime(arrivalTime) ,"End route and arrival time 824")
+
+                console.log(endTimeRoute ,"this is end 832 check")
                 res.end = splitTime(endTimeRoute);
                 res.arrival = splitTime(arrivalTime);
 

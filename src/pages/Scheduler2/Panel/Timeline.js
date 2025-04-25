@@ -502,8 +502,7 @@ function Timeline(props) {
                                 endTimeRoute = (endTimeHr) + ':' + endTimeMin;
                                 var a = endTimeRoute.split(':');
                                 var endTimeSec = (+a[0]) * 60 * 60 + (+a[1]) * 60;
-                                var arrivalTime = endTimeSec -
-                                    (Number(serviceTime[index]) * 60 * 60) - (Number(waitingTime[index]) * 60 * 60);
+                                var arrivalTime = endTimeSec - (Number(serviceTime[index]) * 60 * 60) - (Number(waitingTime[index]) * 60 * 60);
                                 arrivalTime = formatTime(arrivalTime);
                                 res.end = splitTime(endTimeRoute);
                                 res.arrival = splitTime(arrivalTime);
