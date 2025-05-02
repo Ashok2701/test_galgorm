@@ -5890,6 +5890,8 @@ class Dashboard extends Component {
     var Lockcount = 0;
     var driverCount = 0;
 
+    var user = JSON.parse(localStorage.getItem("authUser"));
+
     for (let i = 0; i < tripsPanel.length; i++) {
       var trip = tripsPanel[i];
       if (!trip.lock && trip.optistatus === "Optimized") {
@@ -5899,7 +5901,9 @@ class Dashboard extends Component {
           let tripdate = moment.tz(trip.docdate, "").format("YYYY-MM-DD");
           trip.date = tripdate;
           trip.lock = true;
+          trip.loginUser = user.username;
           unlockedTrips.push(trip);
+          
         } else {
           driverCount = driverCount + 1;
         }
@@ -7344,14 +7348,14 @@ class Dashboard extends Component {
               if (matchedVehicles.length > 0) {
                 if (capacityFailedVehicles.size > 0) {
                   errorMessagesArray.push(
-                    `❌ ${doc.docnum} excluded: Weight Capacity exceeded on: ${[
+                    `${doc.docnum} excluded: Weight Capacity exceeded on: ${[
                       ...capacityFailedVehicles,
                     ].join(", ")}.`
                   );
                 }
                 if (volumeFailedVehicles.size > 0) {
                   errorMessagesArray.push(
-                    `❌ ${doc.docnum} excluded: Volume Capacity exceeded on: ${[
+                    `${doc.docnum} excluded: Volume Capacity exceeded on: ${[
                       ...volumeFailedVehicles,
                     ].join(", ")}.`
                   );
@@ -7359,7 +7363,7 @@ class Dashboard extends Component {
               } else {
                 // ❌ No vehicle matched, show skill mismatch error
                 errorMessagesArray.push(
-                  `❌ ${
+                  `${
                     doc.docnum
                   } excluded: No vehicle matched for provided Route code. Vehicles checked: ${unmatchedVehicles.join(
                     ", "
@@ -8491,13 +8495,13 @@ class Dashboard extends Component {
         // ✅ Check if adding this document exceeds capacity
         if (totalWeightIfAdded > remainingCapacity) {
           capacityFailedVehicles.add(
-            ` Cannot assign document! Document weight: ${doc.netweight} Vehicle: ${veh.name} is already loaded with ${assignedWeight} KG.Remaining capacity: ${remainingCapacity} KG, which is insufficient for this document.`
+            `${doc.docnum} Cannot assign document! Document weight: ${doc.netweight} Vehicle: ${veh.name} is already loaded with ${assignedWeight} KG.Remaining capacity: ${remainingCapacity} KG, which is insufficient for this document.`
           );
         }
         // ✅ Check if adding this document exceeds volume
         if (totalVolumeIfAdded > remainingVol) {
           volumeFailedVehicles.add(
-            `Cannot Assign Document Volume is ${doc.volume} Vehicle: ${veh.name} is alerady loaded with ${assignedVolume} Remaining Capacity Volume Remaining in the vehicle: ${remainingVol} which is insufficient for this document`
+            `${doc.docnum} Cannot Assign Document Volume is ${doc.volume} Vehicle: ${veh.name} is alerady loaded with ${assignedVolume} Remaining Capacity Volume Remaining in the vehicle: ${remainingVol} which is insufficient for this document`
           );
         } else {
           vehicleAssignedVolume[veh.name] += doc.volume;
@@ -8509,27 +8513,19 @@ class Dashboard extends Component {
       // ✅ If at least one vehicle matched skills, check weight/volume errors
       if (matchedVehicles.length > 0) {
         if (capacityFailedVehicles.size > 0) {
-          errorMessagesArray.push(`${[...capacityFailedVehicles].join(", ")}.`);
+          errorMessagesArray.push(...capacityFailedVehicles);
         }
         if (volumeFailedVehicles.size > 0) {
-          errorMessagesArray.push(`${[...volumeFailedVehicles].join(", ")}.`);
+          errorMessagesArray.push(...volumeFailedVehicles);
         }
       } else if(unmatchedVehicles.length>0) {
         // ❌ No vehicle matched, show skill mismatch error
         errorMessagesArray.push(
-          `❌ ${
-            doc.docnum
-          } excluded: No vehicle matched for provided Route code. Vehicles checked: ${unmatchedVehicles.join(
-            ", "
-          )}.`
-        );
+          `${doc.docnum} excluded: No vehicle matched for provided Route code. Vehicles checked: ${unmatchedVehicles.join(", ")}.`
+        )
       }else{
         errorMessagesArray.push(
-          `❌ ${
-            doc.docnum
-          } Vehicle has reached its maximum allowed travel distance or time: ${unmatchedVehicles.join(
-            ", "
-          )}.`
+          `${doc.docnum} Vehicle has reached its maximum allowed travel distance or time: ${unmatchedVehicles.join(", ")}.`
         );
 
       }
@@ -8541,7 +8537,7 @@ class Dashboard extends Component {
       }
     });
 
-    // console.log(varray,"this is varrayoutside loop")
+    console.log(errorbox,"this is varrayoutside loop")
 
     //   errorbox.push(glabalerrorOBject);
 

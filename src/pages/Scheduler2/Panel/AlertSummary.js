@@ -27,7 +27,8 @@ class AlertSummary extends React.Component {
         </Modal.Header>
         <Modal.Body className="bg-white">
           {errorSummartMessage.length > 0 ? (
-            errorSummartMessage.map((msg, index) => (
+          <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+              {errorSummartMessage.map((msg, index) => (
               <div
                 key={index}
                 style={{
@@ -38,14 +39,16 @@ class AlertSummary extends React.Component {
                   overflowWrap: "break-word",
                 }}
               >
-                {msg}
+                {msg.trim()}
               </div>
-            ))
+            ))}
+          </div>
           ) : (
             <div></div> // In case errorMessage is not an array
           )}
 
           <div
+        
             style={{
               color: "black",
               fontSize: "18px",
@@ -66,22 +69,19 @@ class AlertSummary extends React.Component {
                          )} */}
 
           {errorMessagesArray.length > 0 ? (
-            errorMessagesArray.map((msg, index) => (
+          <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+             { errorMessagesArray.map((msg, index) => (
               <div
                 key={index}
                 style={{
                   fontSize: "16px",
-                  marginBottom: "10px",
-                  whiteSpace: "pre-line",
-                  flexWrap: "wrap",
-                  wordWrap: "break-word", // Ensure text breaks when it exceeds the container width
-                  wordBreak: "break-word", // Break long words if necessary
                   overflow: "hidden", // Prevent horizontal overflow
                 }}
               >
-                {msg}
+             {msg.trim()}
               </div>
-            ))
+            ))}
+          </div>
           ) : (
             <div>No exceptions found</div> // In case errorMessage is not an array
           )}
