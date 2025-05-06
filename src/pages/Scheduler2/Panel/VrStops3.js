@@ -194,8 +194,36 @@ class VrStops3 extends React.Component {
                 }
             })
         }
-        console.log(this.props.vedetail, "vdetail i button")
+        // console.log(this.props.vedetail, "vdetail i button")
 
+        
+// console.log(trip.totalObject.selectedTripData  ,"this is total object selected trip data 200");
+
+const updatedVedetail = this.props.vedetail && this.props.vedetail.map(veItem => {
+    // Find the matching item in selectedTripData
+    const matchedTrip = trip.totalObject.selectedTripData.find(
+      tripItem => tripItem.docnum === veItem.sdhnum
+    );
+  
+
+    console.log(matchedTrip ,"209 matched trip")
+    // If there is a match and routeTag is INTER-PICK, update crynam
+    if (matchedTrip && matchedTrip.routeTag == 'INTER-PICK') {
+        console.log(matchedTrip && matchedTrip.routeTag == 'INTER-PICK' ,"212 if condition")
+      return {
+        ...veItem,
+        bprnam: matchedTrip.bpname,
+      };
+    }
+  
+    // No change if no match or routeTag is not INTER-PICK
+
+    console.log(veItem, "221 ve item check")
+    return veItem;
+  });
+
+
+  console.log(updatedVedetail ,"chekcing after modifiaiton 221")
         return (
             <Card className=''>
                 <CardTitle className="float-left h4 mb-0 pt-2" style={{ 'color': '#5664d2', 'paddingLeft': '20px' }}>
@@ -230,7 +258,7 @@ class VrStops3 extends React.Component {
                             </thead>
                             <tbody>
                                 {trip.lock ?
-                                    (this.props.vedetail || []).map((doc, i) => (
+                                    (updatedVedetail && updatedVedetail || []).map((doc, i) => (
                                         <tr class="bg-blue" key={i}>
                                             <td ></td>
                                             <td><span className="LS-default">{this.displayBadge(doc.xdoctyp, doc.sequence, i)}</span></td>

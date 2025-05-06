@@ -6541,6 +6541,7 @@ class Dashboard extends Component {
     var internalArr = [];
     var collectionArr = [];
     var ExternalArr = [];
+    let noneDocs=[];
 
     let temproutecodelistofdocs = [];
 
@@ -6591,6 +6592,12 @@ class Dashboard extends Component {
           ExternalArr.push(doc);
         }
       }
+
+
+      if(doc.routeCodeDesc == "None" && doc.carrier === "INTERNAL"){
+        noneDocs.push(doc.docnum)
+      }
+      
     }
 
     // console.log(internalArr, "this is internal arr");
@@ -7051,7 +7058,21 @@ class Dashboard extends Component {
               filteredVehArray,
               res
             );
-          } else {
+          }
+          
+      //     if(noneDocs.length>0){
+      //       let noneErr = `${noneDocs.join(", ")} are excluded because those having none route code`;
+      // this.setState({
+      //   errorMessage: noneErr,
+      //   loader: false,
+      //   addAlertShow: true,
+      // });
+
+
+      //     }
+          
+          
+          else {
             let errorbox = [];
 
             let selectedDate = this.state.documentPanel_date;
@@ -7360,7 +7381,9 @@ class Dashboard extends Component {
                     ].join(", ")}.`
                   );
                 }
-              } else {
+              }
+                
+                else {
                 // ❌ No vehicle matched, show skill mismatch error
                 errorMessagesArray.push(
                   `${
@@ -7371,6 +7394,9 @@ class Dashboard extends Component {
                 );
               }
 
+
+         
+
               // 🔹 Push errors only if there are any
               if (errorMessagesArray.length > 0) {
                 let globalErrorObject = errorMessagesArray.join("\n");
@@ -7378,6 +7404,27 @@ class Dashboard extends Component {
               }
             });
 
+
+            let errorMessagesArray = [];
+   
+
+
+            noneDocs.forEach((doc)=>{
+              errorMessagesArray.push(
+                `${
+                  doc
+                } have been excluded because document have None route code assigned`
+              );
+            })
+
+
+            if (errorMessagesArray.length > 0) {
+              let globalErrorObject = errorMessagesArray.join("\n");
+              errorbox.push(globalErrorObject);
+            }
+
+
+            
             const finalErrorMessage = errorbox.join("\n");
 
             console.log("TTT error box = ", errorbox);
@@ -7395,7 +7442,7 @@ class Dashboard extends Component {
             addAlertShow: true,
           });
         });
-    } else {
+    }else {
       this.setState({
         errorMessage: "No Documents are available for Trips creation",
         loader: false,
