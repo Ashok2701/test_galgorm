@@ -383,10 +383,10 @@ class Dashboard extends Component {
     });
   }
 
-  setTriplistSeqChange(flg){
+  setTriplistSeqChange(flg) {
     this.setState({
-      triplistSeqChange:flg
-    })
+      triplistSeqChange: flg,
+    });
   }
 
   setcurrentView(view) {
@@ -4849,41 +4849,48 @@ class Dashboard extends Component {
       }
     }
 
-
-    
     let selectedTripData = [...trip.totalObject.selectedTripData];
 
     // service time logic if we have service time in above document and below document having same client code and adresscode then this logic will apply
 
     removeDocsObject.forEach((deletedDoc) => {
       const { docnum, serviceTime, bpcode, adrescode } = deletedDoc;
-      console.log(docnum, serviceTime, bpcode, adrescode ,"checking params for deleted doc")
+      console.log(
+        docnum,
+        serviceTime,
+        bpcode,
+        adrescode,
+        "checking params for deleted doc"
+      );
       if (serviceTime !== "00:00") {
+        console.log(serviceTime, "Eneted in if");
+        const index = selectedTripData.findIndex(
+          (item) => item.docnum === docnum
+        );
 
-        console.log(serviceTime, "Eneted in if")
-        const index = selectedTripData.findIndex((item) => item.docnum === docnum);
-    
-        
-        console.log(index, "found index in  if")
+        console.log(index, "found index in  if");
 
         if (index !== -1 && index + 1 < selectedTripData.length) {
           const nextItem = selectedTripData[index + 1];
 
-          
-          console.log(nextItem, "inside nexted if next item")
+          console.log(nextItem, "inside nexted if next item");
 
-          console.log(nextItem.bpcode === bpcode, nextItem.adrescode === adrescode, "checking matching condition 4875")
-          if (
-            nextItem.bpcode === bpcode &&
-            nextItem.adrescode === adrescode
-          ) {
-            console.log(selectedTripData[index + 1].serviceTime ,"inside 2nd nested if getting that servide time",serviceTime)
+          console.log(
+            nextItem.bpcode === bpcode,
+            nextItem.adrescode === adrescode,
+            "checking matching condition 4875"
+          );
+          if (nextItem.bpcode === bpcode && nextItem.adrescode === adrescode) {
+            console.log(
+              selectedTripData[index + 1].serviceTime,
+              "inside 2nd nested if getting that servide time",
+              serviceTime
+            );
             selectedTripData[index + 1].serviceTime = serviceTime;
           }
         }
       }
     });
-
 
     trip.totalObject.selectedTripData = selectedTripData;
     var dropObject = [];
@@ -4921,8 +4928,7 @@ class Dashboard extends Component {
       }
     }
 
-
-    console.log(trip ,'this is trip checking on delte button 4879')
+    console.log(trip, "this is trip checking on delte button 4879");
 
     trips.push(trip);
 
@@ -5903,7 +5909,6 @@ class Dashboard extends Component {
           trip.lock = true;
           trip.loginUser = user.username;
           unlockedTrips.push(trip);
-          
         } else {
           driverCount = driverCount + 1;
         }
@@ -6541,7 +6546,7 @@ class Dashboard extends Component {
     var internalArr = [];
     var collectionArr = [];
     var ExternalArr = [];
-    let noneDocs=[];
+    let noneDocs = [];
 
     let temproutecodelistofdocs = [];
 
@@ -6593,11 +6598,9 @@ class Dashboard extends Component {
         }
       }
 
-
-      if(doc.routeCodeDesc == "None" && doc.carrier === "INTERNAL"){
-        noneDocs.push(doc.docnum)
+      if (doc.routeCodeDesc == "None" && doc.carrier === "INTERNAL") {
+        noneDocs.push(doc.docnum);
       }
-      
     }
 
     // console.log(internalArr, "this is internal arr");
@@ -6959,8 +6962,11 @@ class Dashboard extends Component {
           }
           let wtime = convertHrToSec(doc.waitingTime);
           let stime = convertHrToSec(doc.serviceTime);
-          console.log(wtime,stime,"watitin time and service time")
-          console.log(parseInt(wtime) + parseInt(stime),"watitin time and service time after parse int")
+          console.log(wtime, stime, "watitin time and service time");
+          console.log(
+            parseInt(wtime) + parseInt(stime),
+            "watitin time and service time after parse int"
+          );
 
           Doc.service = parseInt(wtime) + parseInt(stime);
 
@@ -7010,14 +7016,20 @@ class Dashboard extends Component {
         g: true,
       };
 
-      console.log(DocList ,"doc list before sending to osrm")
+      console.log(DocList, "doc list before sending to osrm");
+
+      console.log(VehList, "this is vehicle list");
 
       // for sending route code matched vehicles to OSRM
       let filteredVehArray = this.state.vehiclePanel.vehicles.filter((item1) =>
         VehList.some((item2) => item1.codeyve === item2.description)
       );
 
-      // console.log(filteredArray, "these are filtered vehicless sent to backend to process data")
+      console.log(
+        filteredVehArray,
+        "these are filtered vehicless sent to backend to process data"
+      );
+
       // latest - 34.171.208.219
       // v10   - 34.134.143.219
       //new frane  - 35.193.234.153
@@ -7059,19 +7071,16 @@ class Dashboard extends Component {
               res
             );
           }
-          
-      //     if(noneDocs.length>0){
-      //       let noneErr = `${noneDocs.join(", ")} are excluded because those having none route code`;
-      // this.setState({
-      //   errorMessage: noneErr,
-      //   loader: false,
-      //   addAlertShow: true,
-      // });
 
+          //     if(noneDocs.length>0){
+          //       let noneErr = `${noneDocs.join(", ")} are excluded because those having none route code`;
+          // this.setState({
+          //   errorMessage: noneErr,
+          //   loader: false,
+          //   addAlertShow: true,
+          // });
 
-      //     }
-          
-          
+          //     }
           else {
             let errorbox = [];
 
@@ -7381,9 +7390,7 @@ class Dashboard extends Component {
                     ].join(", ")}.`
                   );
                 }
-              }
-                
-                else {
+              } else {
                 // ❌ No vehicle matched, show skill mismatch error
                 errorMessagesArray.push(
                   `${
@@ -7394,9 +7401,6 @@ class Dashboard extends Component {
                 );
               }
 
-
-         
-
               // 🔹 Push errors only if there are any
               if (errorMessagesArray.length > 0) {
                 let globalErrorObject = errorMessagesArray.join("\n");
@@ -7404,27 +7408,19 @@ class Dashboard extends Component {
               }
             });
 
-
             let errorMessagesArray = [];
-   
 
-
-            noneDocs.forEach((doc)=>{
+            noneDocs.forEach((doc) => {
               errorMessagesArray.push(
-                `${
-                  doc
-                } have been excluded because document have None route code assigned`
+                `${doc} have been excluded because document have None route code assigned`
               );
-            })
-
+            });
 
             if (errorMessagesArray.length > 0) {
               let globalErrorObject = errorMessagesArray.join("\n");
               errorbox.push(globalErrorObject);
             }
 
-
-            
             const finalErrorMessage = errorbox.join("\n");
 
             console.log("TTT error box = ", errorbox);
@@ -7442,7 +7438,7 @@ class Dashboard extends Component {
             addAlertShow: true,
           });
         });
-    }else {
+    } else {
       this.setState({
         errorMessage: "No Documents are available for Trips creation",
         loader: false,
@@ -7464,7 +7460,7 @@ class Dashboard extends Component {
     var TripsfromRoutes = [];
     // let seenClients = new Set();
 
-    console.log(res.routes ,"routes checking 7365")
+    console.log(res.routes, "routes checking 7365");
     for (let k = 0; k < routes.length; k++) {
       var currRoute = routes[k];
       var Vehicle = {},
@@ -7552,7 +7548,11 @@ class Dashboard extends Component {
                 routeCodeArr1.push(currDoc.routeCodeDesc);
               }
               currDoc.vehicleCode = Veh;
-              console.log(secondsToHms(currTask.arrival), secondsToHms(currTask.arrival + currTask.service) ,"this is current task start and end 7503")
+              console.log(
+                secondsToHms(currTask.arrival),
+                secondsToHms(currTask.arrival + currTask.service),
+                "this is current task start and end 7503"
+              );
               currDoc.arrival = secondsToHmsAutoGen(currTask.arrival);
               currDoc.time = convertSecToMin(currTask.duration);
               // currDoc.distance = 0;
@@ -7560,11 +7560,10 @@ class Dashboard extends Component {
                 ? currTask.distance / 1000
                 : 0;
 
-              console.log( currTask.service,"servide time chekinggggggg 7509");
-              currDoc.serTime = secondsToHmsAutoGen(currTask.service)
-      
+              console.log(currTask.service, "servide time chekinggggggg 7509");
+              currDoc.serTime = secondsToHmsAutoGen(currTask.service);
 
-                    const clientAddressKey = `${clientCode}_${currDoc.adrescode}`;
+              const clientAddressKey = `${clientCode}_${currDoc.adrescode}`;
 
               if (seenClientAddress.has(clientAddressKey)) {
                 console.log(
@@ -7587,19 +7586,26 @@ class Dashboard extends Component {
                 currDoc.serviceTime = secondsToHmsAutoGen(0);
                 currDoc.serTime = secondsToHmsAutoGen(0);
               } else {
-                console.log(currTask.service, "inside else condition service time check",currDoc.serviceTime ,"this is current doc service time");
+                console.log(
+                  currTask.service,
+                  "inside else condition service time check",
+                  currDoc.serviceTime,
+                  "this is current doc service time"
+                );
 
                 // First time → assign full service time
                 seenClientAddress.add(clientAddressKey);
                 currDoc.serTime = secondsToHmsAutoGen(currTask.service);
                 // let diff =convertHrToSec((Number(currDoc.waitingTime)),currTask.service)
                 // console.log(secondsToHms(currTask.service-convertHrToSec(Number(currDoc.waitingTime))),"checking service time before sending")
-                currDoc.serviceTime = secondsToDecimalHours(currTask.service - convertHrToSec(Number(currDoc.waitingTime)));
-                currDoc.end = secondsToHmsAutoGen(currTask.arrival + currTask.service);
-                
+                currDoc.serviceTime = secondsToDecimalHours(
+                  currTask.service - convertHrToSec(Number(currDoc.waitingTime))
+                );
+                currDoc.end = secondsToHmsAutoGen(
+                  currTask.arrival + currTask.service
+                );
               }
 
-              
               currDoc.startDate = newStartDate1;
               currDoc.endDate = newStartDate1;
               ttime = currDoc.arrival;
@@ -8373,6 +8379,31 @@ class Dashboard extends Component {
     return timeString.split(" ");
   };
 
+  timeToMinutes = (timeStr) => {
+    if (!timeStr) return 0;
+
+    // Normalize format: insert colon if missing
+    if (!timeStr.includes(":")) {
+      // Make sure it's 4 digits, pad with leading zero if needed
+      timeStr = timeStr.padStart(4, "0");
+      timeStr = `${timeStr.slice(0, 2)}:${timeStr.slice(2)}`;
+    }
+
+    const [hours, minutes] = timeStr.split(":").map(Number);
+
+    return hours * 60 + minutes;
+  };
+
+  normalizeTimeFormat = (timeStr) => {
+    if (!timeStr) return "00:00";
+
+    if (!timeStr.includes(":")) {
+      timeStr = timeStr.padStart(4, "0"); // Ensure it's 4 digits
+      timeStr = `${timeStr.slice(0, 2)}:${timeStr.slice(2)}`;
+    }
+
+    return timeStr;
+  };
   // exceptional List
   Exceptionalanalysis = (
     selectedDocs,
@@ -8390,16 +8421,21 @@ class Dashboard extends Component {
     let assignedDocs = totalSelectedDocs - unassignedDocCount;
     let glabalSummaryOBject = "";
     let summarybox = [];
+    let noneDocs = [];
+    let allDocs = this.state.docsPanel;
 
     let selVeh = SelectedVehicles;
 
-    console.log(res.routes, "these are trips checking");
+    for (let i = 0; i < allDocs.length; i++) {
+      if (
+        allDocs[i].routeCodeDesc == "None" &&
+        allDocs[i].carrier === "INTERNAL"
+      ) {
+        noneDocs.push(allDocs[i].docnum);
+      }
+    }
 
-    console.log(
-      SelectedVehicles,
-      "these are generated trip checkinggg in exeptionalanaysis 8079"
-    );
-
+    console.log(noneDocs, "these are none docs checking");
     let tempselDocs = [];
     unassignedDocs.map((undoc, index) => {
       for (let tempdoc of selectedDocs) {
@@ -8415,7 +8451,9 @@ class Dashboard extends Component {
       ` ${trips} trips have been auto generated containing a total of  ${assignedDocs} documents  \n`
     );
     summarybox.push(
-      `${unassignedDocCount} out of ${totalSelectedDocs} documents have been excluded from the trip auto-generation process. \n`
+      `${
+        unassignedDocCount + noneDocs.length
+      } out of ${totalSelectedDocs} documents have been excluded from the trip auto-generation process. \n`
     );
 
     // summarybox.push(glabalSummaryOBject);
@@ -8450,6 +8488,8 @@ class Dashboard extends Component {
       let unmatchedVehicles = [];
       let capacityFailedVehicles = new Set(); // Use Set to prevent duplicates
       let volumeFailedVehicles = new Set(); // Use Set to prevent duplicates
+      // let maxDistanceFailure = new Set();
+      let timeWindowFailedDocuments = new Set();
 
       selVeh.forEach((veh) => {
         let varray = [];
@@ -8473,28 +8513,55 @@ class Dashboard extends Component {
             break;
         }
 
-        console.log("📌 Checking doc.skill:", docskill);
-        console.log("📌 Checking vehicle skills:", varray);
+        // console.log("📌 Checking doc.skill:", docskill);
+        // console.log("📌 Checking vehicle skills:", varray);
 
         // ✅ Check if at least one skill matches
         const isSkillMatched = docskill.some((skill) => varray.includes(skill));
 
-        console.log(isSkillMatched, "🔍 Skill Matched");
+        // console.log(isSkillMatched, "🔍 Skill Matched");
 
         if (isSkillMatched) {
           matchedVehicles.push(veh.name);
         } else {
           unmatchedVehicles.push(veh.name);
         }
+        console.log(doc, "this is doc timing checking 8516");
+        // checking time windo here
+        if (doc.fromTime && doc.toTime) {
+          let docTimeFrom = this.timeToMinutes(doc.fromTime);
+          let docTimeTo = this.timeToMinutes(doc.toTime);
 
+          console.log(
+            docTimeFrom,
+            docTimeTo,
+            doc.fromTime,
+            doc.toTime,
+            "documetn from to time"
+          );
 
-        console.log(unmatchedVehicles ,"these are unmatched vehicle")
-        // For total travel time checking here
-        const assignedDistance = tripsfromAuto
-          .filter((trip) => trip.code === veh.codeyve)
-          .reduce((sum, trip) => sum + Number(trip.totalDistance || 0), 0); // replace with your distance field
+          let isTimeWindowMatched = tripsfromAuto.some((trip) => {
+            if (!trip.startTime || !trip.endTime) return false;
 
-        console.log(assignedDistance, "this is trip assigned distance check");
+            let tripStart = this.timeToMinutes(trip.startTime);
+            let tripEnd = this.timeToMinutes(trip.endTime);
+
+            console.log(tripStart, tripEnd, "Trip from to time");
+
+            return docTimeFrom >= tripStart && docTimeTo <= tripEnd;
+          });
+
+          if (!isTimeWindowMatched) {
+            const from = this.normalizeTimeFormat(doc.fromTime);
+            const to = this.normalizeTimeFormat(doc.toTime);
+
+            timeWindowFailedDocuments.add(
+              `${doc.docnum} Cannot assign document! Delivery time window (${from} - ${to}) does not fit within any vehicle's trip schedule.`
+            );
+          }
+        }
+
+        // console.log(timeWindowFailedDocuments ,"error message for time window check")
 
         // for getting vehicle fulled weight
         const assignedWeight = tripsfromAuto
@@ -8526,18 +8593,9 @@ class Dashboard extends Component {
           vehicleAssignedWeight[veh.name] + doc.netweight;
         let totalVolumeIfAdded = vehicleAssignedVolume[veh.name] + doc.volume;
 
-        console.log(
-          `🚚 Vehicle: ${veh.name} | Max Weight: ${
-            veh.capacities
-          } | Assigned: ${
-            vehicleAssignedWeight[veh.name]
-          } | New Total: ${totalWeightIfAdded}`
-        );
-        console.log(
-          `📦 Vehicle: ${veh.name} | Max Volume: ${veh.vol} | Assigned: ${
-            vehicleAssignedVolume[veh.name]
-          } | New Total: ${totalVolumeIfAdded}`
-        );
+        // checking distance related validation
+
+        // if(assignedDistance)
 
         // ✅ Check if adding this document exceeds capacity
         if (totalWeightIfAdded > remainingCapacity) {
@@ -8555,26 +8613,49 @@ class Dashboard extends Component {
         }
       });
 
+      // total distance time logic
+
       let errorMessagesArray = [];
 
+      // for excluding capacity volume matched docs
+      let capacityFailed = false;
+      let volumeFailed = false;
+      let timeWindoFailed = false;
+
+      // none documents exceptional display
+
       // ✅ If at least one vehicle matched skills, check weight/volume errors
+
       if (matchedVehicles.length > 0) {
         if (capacityFailedVehicles.size > 0) {
           errorMessagesArray.push(...capacityFailedVehicles);
+          capacityFailed = true;
         }
         if (volumeFailedVehicles.size > 0) {
           errorMessagesArray.push(...volumeFailedVehicles);
+          volumeFailed = true;
         }
-      } else if(unmatchedVehicles.length>0) {
+
+        if (timeWindowFailedDocuments.size > 0) {
+          errorMessagesArray.push(...timeWindowFailedDocuments);
+          timeWindoFailed = true;
+        }
+
+        if (!capacityFailed && !volumeFailed && !timeWindoFailed) {
+          // console.log(veh,"checking vehicles here if nothing is matched capacity volume timewindow")
+          errorMessagesArray.push(
+            `${doc.docnum} could not be assigned due to travel time, time window, or distance constraints.`
+          );
+        }
+      } else {
         // ❌ No vehicle matched, show skill mismatch error
         errorMessagesArray.push(
-          `${doc.docnum} excluded: No vehicle matched for provided Route code. Vehicles checked: ${unmatchedVehicles.join(", ")}.`
-        )
-      }else{
-        errorMessagesArray.push(
-          `${doc.docnum} Vehicle has reached its maximum allowed travel distance or time: ${unmatchedVehicles.join(", ")}.`
+          `${
+            doc.docnum
+          } excluded: No vehicle matched for provided Route code ${doc.routeCodeDesc}. Vehicles checked: ${unmatchedVehicles.join(
+            ", "
+          )}.`
         );
-
       }
 
       // 🔹 Push errors only if there are any
@@ -8584,7 +8665,17 @@ class Dashboard extends Component {
       }
     });
 
-    console.log(errorbox,"this is varrayoutside loop")
+    // none docs checking and pushing here
+    noneDocs.forEach((docnum) => {
+      const isAlreadyHandled = tempselDocs.some((doc) => doc.docnum === docnum);
+      if (!isAlreadyHandled) {
+        errorbox.push(
+          `${docnum} have been excluded because document have None route code assigned`
+        );
+      }
+    });
+
+    console.log(errorbox, "this is varrayoutside loop");
 
     //   errorbox.push(glabalerrorOBject);
 
