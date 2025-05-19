@@ -6832,7 +6832,8 @@ class Dashboard extends Component {
           Veh.skills = vehSkill;
           if (veh.maxordercnt > 0) {
             Veh.max_tasks = veh.maxordercnt;
-          } else {
+          } 
+          else {
             Veh.max_tasks = 3;
           }
           // console.log("OSRM Vehicle details",Veh)
@@ -7392,13 +7393,26 @@ class Dashboard extends Component {
                 }
               } else {
                 // ❌ No vehicle matched, show skill mismatch error
-                errorMessagesArray.push(
-                  `${
-                    doc.docnum
-                  } excluded: No vehicle matched for provided Route code. Vehicles checked: ${unmatchedVehicles.join(
-                    ", "
-                  )}.`
+
+                let previousTripUsingRC = this.state.tripsPanel.find(
+                  (veh) => veh.allocatedRouteCodes == doc.routeCodeDesc
                 );
+                // checking if any trips are generated before for this day using this same matched route code vehicle
+
+                if (previousTripUsingRC) {
+                  errorMessagesArray.push(
+                    `${doc.docnum} excluded: Trip is already generated for route code '${doc.routeCodeDesc}' using vehicle '${previousTripUsingRC.vehicleObject.name}'.`
+                  );
+                } else {
+                  // ❌ No vehicle matched, show skill mismatch error
+                  errorMessagesArray.push(
+                    `${
+                      doc.docnum
+                    } excluded: No vehicle matched for provided Route code '${
+                      doc.routeCodeDesc
+                    }'. Vehicles checked: ${unmatchedVehicles.join(", ")}.`
+                  );
+                }
               }
 
               // 🔹 Push errors only if there are any
@@ -7412,7 +7426,7 @@ class Dashboard extends Component {
 
             noneDocs.forEach((doc) => {
               errorMessagesArray.push(
-                `${doc} have been excluded because document have None route code assigned`
+                `${doc} Document excluded: None route code assigned`
               );
             });
 
@@ -8423,6 +8437,7 @@ class Dashboard extends Component {
     let summarybox = [];
     let noneDocs = [];
     let allDocs = this.state.docsPanel;
+    let vehicleAssignedDocCount = {};
 
     let selVeh = SelectedVehicles;
 
@@ -8445,6 +8460,19 @@ class Dashboard extends Component {
         }
       }
     });
+
+
+
+// Initialize counts from tripsfromAuto or from previous calculation
+tripsfromAuto.forEach(trip => {
+   const vehicleCode = trip.vehicleObject.name;
+  const dropCount = trip.dropObject ? trip.dropObject.length : 0;
+  const pickupCount = trip.pickupObject ? trip.pickupObject.length : 0;
+
+  vehicleAssignedDocCount[vehicleCode] = dropCount + pickupCount
+})
+
+console.log(vehicleAssignedDocCount,"this is vehicle assigned doccounts")
 
     console.log(tempselDocs, "this is temseldocs list not assigned one");
     summarybox.push(
@@ -8472,6 +8500,8 @@ class Dashboard extends Component {
     let vehicleAssignedWeight = {};
     let vehicleAssignedVolume = {};
 
+
+
     tempselDocs.forEach((doc) => {
       let tempoptiError = {
         docnum: "",
@@ -8490,6 +8520,7 @@ class Dashboard extends Component {
       let volumeFailedVehicles = new Set(); // Use Set to prevent duplicates
       // let maxDistanceFailure = new Set();
       let timeWindowFailedDocuments = new Set();
+      let maxOrderCountFaildedDocuments = new Set();
 
       selVeh.forEach((veh) => {
         let varray = [];
@@ -8523,10 +8554,23 @@ class Dashboard extends Component {
 
         if (isSkillMatched) {
           matchedVehicles.push(veh.name);
+
+
+
+              const assignedCount = vehicleAssignedDocCount[veh.name] || 0;
+
+              console.log(assignedCount , veh.maxordercnt ,"vehicle max cnt conditon 8561" )
+               if (assignedCount >= veh.maxordercnt) {
+      // Exclude document due to max order count
+      maxOrderCountFaildedDocuments.add(`${doc.docnum} excluded: ${veh.name} has reached its max order limit of ${veh.maxordercnt==0 ? 3 :veh.maxordercnt}.`);
+      return; // Skip further checks for this vehicle
+    }
+
         } else {
           unmatchedVehicles.push(veh.name);
         }
-        console.log(doc, "this is doc timing checking 8516");
+        console.log(veh, "this is vehicle checking");
+        // maxordercnt
         // checking time windo here
         if (doc.fromTime && doc.toTime) {
           let docTimeFrom = this.timeToMinutes(doc.fromTime);
@@ -8556,10 +8600,17 @@ class Dashboard extends Component {
             const to = this.normalizeTimeFormat(doc.toTime);
 
             timeWindowFailedDocuments.add(
-              `${doc.docnum} Cannot assign document! Delivery time window (${from} - ${to}) does not fit within any vehicle's trip schedule.`
+              `${doc.docnum} Document excluded, Reason: Delivery time window for the customer (${from} - ${to}) does not fit within any vehicle's trip schedule.`
             );
           }
         }
+
+
+        console.log(maxOrderCountFaildedDocuments ,"max order count failed docs checking 8606")
+// CAT012501PIC00243 
+// CAT012503PIC00171 
+// CAT012503PIC00172 
+        //  checking max order count of the vehicle
 
         // console.log(timeWindowFailedDocuments ,"error message for time window check")
 
@@ -8600,13 +8651,13 @@ class Dashboard extends Component {
         // ✅ Check if adding this document exceeds capacity
         if (totalWeightIfAdded > remainingCapacity) {
           capacityFailedVehicles.add(
-            `${doc.docnum} Cannot assign document! Document weight: ${doc.netweight} Vehicle: ${veh.name} is already loaded with ${assignedWeight} KG.Remaining capacity: ${remainingCapacity} KG, which is insufficient for this document.`
+            `${doc.docnum} Document excluded: Vehicle ${veh.name} has only ${remainingCapacity} KG remaining, which is insufficient for the required ${doc.netweight} KG.`
           );
         }
         // ✅ Check if adding this document exceeds volume
         if (totalVolumeIfAdded > remainingVol) {
           volumeFailedVehicles.add(
-            `${doc.docnum} Cannot Assign Document Volume is ${doc.volume} Vehicle: ${veh.name} is alerady loaded with ${assignedVolume} Remaining Capacity Volume Remaining in the vehicle: ${remainingVol} which is insufficient for this document`
+            `${doc.docnum} Document excluded: Vehicle ${veh.name} has only ${remainingVol} L volume capacity remaining, which is insufficient for the required ${doc.volume} L.`
           );
         } else {
           vehicleAssignedVolume[veh.name] += doc.volume;
@@ -8627,7 +8678,11 @@ class Dashboard extends Component {
       // ✅ If at least one vehicle matched skills, check weight/volume errors
 
       if (matchedVehicles.length > 0) {
-        if (capacityFailedVehicles.size > 0) {
+
+        if(maxOrderCountFaildedDocuments.size>0){
+  errorMessagesArray.push(...maxOrderCountFaildedDocuments);
+        }else{
+if (capacityFailedVehicles.size > 0) {
           errorMessagesArray.push(...capacityFailedVehicles);
           capacityFailed = true;
         }
@@ -8644,18 +8699,52 @@ class Dashboard extends Component {
         if (!capacityFailed && !volumeFailed && !timeWindoFailed) {
           // console.log(veh,"checking vehicles here if nothing is matched capacity volume timewindow")
           errorMessagesArray.push(
-            `${doc.docnum} could not be assigned due to travel time, time window, or distance constraints.`
+            `${doc.docnum} Document excluded: Could not be assigned due to travel time or distance constraints.`
           );
         }
+        }
+        
       } else {
         // ❌ No vehicle matched, show skill mismatch error
-        errorMessagesArray.push(
-          `${
-            doc.docnum
-          } excluded: No vehicle matched for provided Route code ${doc.routeCodeDesc}. Vehicles checked: ${unmatchedVehicles.join(
-            ", "
-          )}.`
+
+        // doc routeCodeDesc
+        // veh allocatedRouteCodes
+
+        // let previousTripUsingRC = this.state.tripsPanel.find(
+        //   (veh) => veh.allocatedRouteCodes == doc.routeCodeDesc
+        // );
+
+        // console.log(
+        //   previousTripUsingRC,
+        //   "checking previous trip is present with this RC 8660"
+        // );
+        // errorMessagesArray.push(
+        //   `${doc.docnum} excluded: No vehicle matched for provided Route code ${
+        //     doc.routeCodeDesc
+        //   }. Vehicles checked: ${unmatchedVehicles.join(", ")}.`
+        // );
+
+        let previousTripUsingRC = this.state.tripsPanel.find(
+          (veh) => veh.allocatedRouteCodes == doc.routeCodeDesc
         );
+        // checking if any trips are generated before for this day using this same matched route code vehicle
+
+        if (previousTripUsingRC) {
+          errorMessagesArray.push(
+            `${doc.docnum} excluded: Trip is already generated for route code '${doc.routeCodeDesc}' using vehicle '${previousTripUsingRC.vehicleObject.name}'.`
+          );
+        } else {
+          // ❌ No vehicle matched, show skill mismatch error
+          errorMessagesArray.push(
+            `Document ${
+              doc.docnum
+            } excluded: No available vehicle matches the provided route code "${
+              doc.routeCodeDesc
+            }" for the selected day. Vehicles evaluated: ${unmatchedVehicles.join(
+              ", "
+            )}.`
+          );
+        }
       }
 
       // 🔹 Push errors only if there are any
@@ -8669,9 +8758,7 @@ class Dashboard extends Component {
     noneDocs.forEach((docnum) => {
       const isAlreadyHandled = tempselDocs.some((doc) => doc.docnum === docnum);
       if (!isAlreadyHandled) {
-        errorbox.push(
-          `${docnum} have been excluded because document have None route code assigned`
-        );
+        errorbox.push(`${docnum} Document excluded: None route code assigned`);
       }
     });
 
