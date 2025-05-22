@@ -381,6 +381,8 @@ class TripsList3 extends React.Component {
         }
       })
       .then((res) => {
+
+        console.log(res ,"checking res here 835");
     
         if (res && res.optimizedWaypoints) {
           optiindex.push(res.optimizedWaypoints);
@@ -756,16 +758,18 @@ class TripsList3 extends React.Component {
               let startTimeLocal =
                 formatHrMin(startTimeHr) + ":" + formatHrMin(startTimeMin);
               legs.forEach((data, index) => {
-                console.log("at legs ", data);
+                console.log("at legs", data);
                 let time = data.summary.travelTimeInSeconds;
                 let length = data.summary.lengthInMeters;
                 let sec = 0;
                 let waitSec = 0;
+                console.log(Number(serviceTime[index]),convertHrToSec(Number(serviceTime[index])),"checking service time index 766");
                 if (Number(serviceTime[index])) {
                   sec = sec + convertHrToSec(Number(serviceTime[index]));
                 } else {
                   sec = sec + 0;
                 }
+                console.log(Number(waitingTime[index]),convertHrToSec(Number(waitingTime[index])), "This is waiting time checking 772")
                 if (Number(waitingTime[index])) {
                   waitSec =
                     waitSec + convertHrToSec(Number(waitingTime[index]));
@@ -802,7 +806,7 @@ class TripsList3 extends React.Component {
                   tTime: time,
                   tDistance: length,
                 };
-                console.log(departure ,"this is end time route 805");
+                console.log(res ,"res before checking 805");
                 
                 departure.setSeconds(
                   departure.getSeconds() + time + sec + waitSec

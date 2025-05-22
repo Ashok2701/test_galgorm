@@ -6642,7 +6642,7 @@ class Dashboard extends Component {
         var Veh = {};
         let veh = filteredVehicle[i];
 
-        // console.log("OSRM veh count =",i);
+        console.log("OSRM veh count =",veh);
 
         switch (DayOnDate) {
           case "Monday":
@@ -6832,8 +6832,7 @@ class Dashboard extends Component {
           Veh.skills = vehSkill;
           if (veh.maxordercnt > 0) {
             Veh.max_tasks = veh.maxordercnt;
-          } 
-          else {
+          } else {
             Veh.max_tasks = 3;
           }
           // console.log("OSRM Vehicle details",Veh)
@@ -7374,10 +7373,12 @@ class Dashboard extends Component {
               });
 
               let errorMessagesArray = [];
-
+   let capacityFailed = false;
+      let volumeFailed = false;
               // ✅ If at least one vehicle matched skills, check weight/volume errors
               if (matchedVehicles.length > 0) {
                 if (capacityFailedVehicles.size > 0) {
+                  capacityFailed = true;
                   errorMessagesArray.push(
                     `${doc.docnum} excluded: Weight Capacity exceeded on: ${[
                       ...capacityFailedVehicles,
@@ -7385,12 +7386,21 @@ class Dashboard extends Component {
                   );
                 }
                 if (volumeFailedVehicles.size > 0) {
+                  volumeFailed=true;
                   errorMessagesArray.push(
                     `${doc.docnum} excluded: Volume Capacity exceeded on: ${[
                       ...volumeFailedVehicles,
                     ].join(", ")}.`
                   );
                 }
+
+
+                   if (!capacityFailed && !volumeFailed) {
+            // console.log(veh,"checking vehicles here if nothing is matched capacity volume timewindow")
+            errorMessagesArray.push(
+              `${doc.docnum} Document excluded: Could not be assigned due to travel time or distance constraints.`
+            );
+          }
               } else {
                 // ❌ No vehicle matched, show skill mismatch error
 
@@ -8461,18 +8471,16 @@ class Dashboard extends Component {
       }
     });
 
+    // Initialize counts from tripsfromAuto or from previous calculation
+    tripsfromAuto.forEach((trip) => {
+      const vehicleCode = trip.vehicleObject.name;
+      const dropCount = trip.dropObject ? trip.dropObject.length : 0;
+      const pickupCount = trip.pickupObject ? trip.pickupObject.length : 0;
 
+      vehicleAssignedDocCount[vehicleCode] = dropCount + pickupCount;
+    });
 
-// Initialize counts from tripsfromAuto or from previous calculation
-tripsfromAuto.forEach(trip => {
-   const vehicleCode = trip.vehicleObject.name;
-  const dropCount = trip.dropObject ? trip.dropObject.length : 0;
-  const pickupCount = trip.pickupObject ? trip.pickupObject.length : 0;
-
-  vehicleAssignedDocCount[vehicleCode] = dropCount + pickupCount
-})
-
-console.log(vehicleAssignedDocCount,"this is vehicle assigned doccounts")
+    console.log(vehicleAssignedDocCount, "this is vehicle assigned doccounts");
 
     console.log(tempselDocs, "this is temseldocs list not assigned one");
     summarybox.push(
@@ -8499,8 +8507,6 @@ console.log(vehicleAssignedDocCount,"this is vehicle assigned doccounts")
     // Track assigned weight and volume per vehicle
     let vehicleAssignedWeight = {};
     let vehicleAssignedVolume = {};
-
-
 
     tempselDocs.forEach((doc) => {
       let tempoptiError = {
@@ -8555,17 +8561,24 @@ console.log(vehicleAssignedDocCount,"this is vehicle assigned doccounts")
         if (isSkillMatched) {
           matchedVehicles.push(veh.name);
 
+          const assignedCount = vehicleAssignedDocCount[veh.name] || 0;
 
-
-              const assignedCount = vehicleAssignedDocCount[veh.name] || 0;
-
-              console.log(assignedCount , veh.maxordercnt ,"vehicle max cnt conditon 8561" )
-               if (assignedCount >= veh.maxordercnt) {
-      // Exclude document due to max order count
-      maxOrderCountFaildedDocuments.add(`${doc.docnum} excluded: ${veh.name} has reached its max order limit of ${veh.maxordercnt==0 ? 3 :veh.maxordercnt}.`);
-      return; // Skip further checks for this vehicle
-    }
-
+          console.log(
+            assignedCount,
+            veh.maxordercnt,
+            "vehicle max cnt conditon 8561"
+          );
+          if (assignedCount >= veh.maxordercnt) {
+            // Exclude document due to max order count
+            maxOrderCountFaildedDocuments.add(
+              `${doc.docnum} excluded: ${
+                veh.name
+              } has reached its max order limit of ${
+                veh.maxordercnt == 0 ? 3 : veh.maxordercnt
+              }.`
+            );
+            return; // Skip further checks for this vehicle
+          }
         } else {
           unmatchedVehicles.push(veh.name);
         }
@@ -8605,11 +8618,13 @@ console.log(vehicleAssignedDocCount,"this is vehicle assigned doccounts")
           }
         }
 
-
-        console.log(maxOrderCountFaildedDocuments ,"max order count failed docs checking 8606")
-// CAT012501PIC00243 
-// CAT012503PIC00171 
-// CAT012503PIC00172 
+        console.log(
+          maxOrderCountFaildedDocuments,
+          "max order count failed docs checking 8606"
+        );
+        // CAT012501PIC00243
+        // CAT012503PIC00171
+        // CAT012503PIC00172
         //  checking max order count of the vehicle
 
         // console.log(timeWindowFailedDocuments ,"error message for time window check")
@@ -8678,32 +8693,31 @@ console.log(vehicleAssignedDocCount,"this is vehicle assigned doccounts")
       // ✅ If at least one vehicle matched skills, check weight/volume errors
 
       if (matchedVehicles.length > 0) {
+        if (maxOrderCountFaildedDocuments.size > 0) {
+          errorMessagesArray.push(...maxOrderCountFaildedDocuments);
+        } else {
+          if (capacityFailedVehicles.size > 0) {
+            errorMessagesArray.push(...capacityFailedVehicles);
+            capacityFailed = true;
+          }
+          if (volumeFailedVehicles.size > 0) {
+            errorMessagesArray.push(...volumeFailedVehicles);
+            volumeFailed = true;
+          }
 
-        if(maxOrderCountFaildedDocuments.size>0){
-  errorMessagesArray.push(...maxOrderCountFaildedDocuments);
-        }else{
-if (capacityFailedVehicles.size > 0) {
-          errorMessagesArray.push(...capacityFailedVehicles);
-          capacityFailed = true;
-        }
-        if (volumeFailedVehicles.size > 0) {
-          errorMessagesArray.push(...volumeFailedVehicles);
-          volumeFailed = true;
-        }
+          if (timeWindowFailedDocuments.size > 0) {
+            errorMessagesArray.push(...timeWindowFailedDocuments);
+            timeWindoFailed = true;
+          }
 
-        if (timeWindowFailedDocuments.size > 0) {
-          errorMessagesArray.push(...timeWindowFailedDocuments);
-          timeWindoFailed = true;
+          console.log(capacityFailed,volumeFailed,timeWindoFailed ,"checking these conditions 8702")
+          if (!capacityFailed && !volumeFailed && !timeWindoFailed) {
+            // console.log(veh,"checking vehicles here if nothing is matched capacity volume timewindow")
+            errorMessagesArray.push(
+              `${doc.docnum} Document excluded: Could not be assigned due to travel time or distance constraints.`
+            );
+          }
         }
-
-        if (!capacityFailed && !volumeFailed && !timeWindoFailed) {
-          // console.log(veh,"checking vehicles here if nothing is matched capacity volume timewindow")
-          errorMessagesArray.push(
-            `${doc.docnum} Document excluded: Could not be assigned due to travel time or distance constraints.`
-          );
-        }
-        }
-        
       } else {
         // ❌ No vehicle matched, show skill mismatch error
 
