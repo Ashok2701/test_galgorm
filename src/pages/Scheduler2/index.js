@@ -5127,7 +5127,8 @@ class Dashboard extends Component {
       for (let t = 0; t < currRoute.steps.length; t++) {
         var ttime = "";
         var currTask = currRoute.steps[t];
-        // console.log("OSRM Auto  curr task are",currTask);
+        console.log("OSRM Auto  curr task are",currTask);
+
         if (currTask.type !== "start" && currTask.type !== "end") {
           var docno = currTask.description;
           // console.log("OSRM Auto  curr task is job");
@@ -5141,19 +5142,19 @@ class Dashboard extends Component {
             if (currDoc.docnum === docno) {
               //let time = data.summary.travelTimeInSeconds
               //currDoc.serviceTime = secondsToHms(currTask.service);
-              currDoc.serTime = secondsToHms(currTask.service);
+              currDoc.serTime = secondsToHmsAutoGen(currTask.service);
               currDoc.tDistance = currTask.distance
                 ? currTask.distance / 1000
                 : 0;
               currDoc.waitingTime = currTask.waiting_time / 3600;
               currDoc.tTime = currTask.duration;
               currDoc.vehicleCode = Veh;
-              currDoc.arrival = secondsToHms(currTask.arrival);
+              currDoc.arrival = secondsToHmsAutoGen(currTask.arrival);
               currDoc.startDate = newStartDate1;
               currDoc.endDate = newStartDate1;
               currDoc.time = convertSecToHr(currTask.duration).toFixed(3);
               currDoc.distance = 0;
-              currDoc.end = secondsToHms(currTask.arrival + currTask.service);
+              currDoc.end = secondsToHmsAutoGen(currTask.arrival + currTask.service);
               ttime = currDoc.arrival;
               if (currDoc.doctype === "PRECEIPT") {
                 pickups = pickups + 1;
@@ -5222,6 +5223,8 @@ class Dashboard extends Component {
       }
       var today = new Date();
       var execdate = today.getDate();
+
+      console.log(auto_service_time ,"this is auto service time checking here 5227");
 
       existingTrip.date = moment.tz(ddate, "").format("YYYY-MM-DD");
       existingTrip.docdate = moment.tz(ddate, "").format("YYYY-MM-DD");

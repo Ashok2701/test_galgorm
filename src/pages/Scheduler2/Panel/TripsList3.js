@@ -628,7 +628,11 @@ class TripsList3 extends React.Component {
           let serviceTime = summaryResult.serviceTime;
           let waitingTime = summaryResult.waitingTime;
           let results = summaryData[0];
-          console.log("T6565 2");
+          console.log(serviceTime,"serviceTime in line numer 631");
+
+          console.log(waitingTime,"waitingTime in line numer 633");
+
+
           if (results) {
             let legs = results[0].legs;
             if (data && legs && data.stops < results[0].legs.length) {
@@ -656,8 +660,10 @@ class TripsList3 extends React.Component {
               let currTripTimeMin = setMin;
               console.log("T6565 setHr", setHr);
               console.log("T6565 setMin", setMin);
+              console.log(currTripTimeHr,currTripTimeMin ,"checking setHours and setMuniutes")
               departure.setHours(Number(currTripTimeHr));
               departure.setMinutes(Number(currTripTimeMin));
+              console.log(departure ,"checking setHours and setMuniutes")
               let sameTrips = [];
               let startTimeInSec;
               if (optimisedTrips.length > 0) {
@@ -741,31 +747,45 @@ class TripsList3 extends React.Component {
                   convertHrToSec(departure.getHours());
               } else {
                 console.log("T6565 8");
+                console.log(departure ,"this is departure in else block same trips 750");
+                console.log(convertMinToSec(departure.getMinutes()),"minutes to seconds departure 751");
+                console.log(convertHrToSec(departure.getHours()),"minutes to seconds hrs 752")
                 startTimeInSec =
                   convertMinToSec(departure.getMinutes()) +
                   convertHrToSec(departure.getHours());
               }
+              console.log(startTimeInSec ,"this is start time sec 757 checking");
               startTimeInSec = formatTime(startTimeInSec);
               let startTimeHrs = startTimeInSec.split(":")[0];
               let startTimeMins = startTimeInSec.split(":")[1];
+              console.log(startTimeInSec ,"splitted time here start time 760")
               departure.setHours(startTimeHrs);
               departure.setMinutes(startTimeMins);
+
+              console.log(departure,"after setting hrs and mins 764");
 
               //  setHandleDateChange = departure;
 
               let startTimeHr = departure.getHours();
               let startTimeMin = departure.getMinutes();
+              
+              console.log(startTimeHr ,"this is start time hrs");
+              console.log(startTimeMins ,"this is start time minutes")
               let startTimeLocal =
                 formatHrMin(startTimeHr) + ":" + formatHrMin(startTimeMin);
+                console.log(startTimeLocal ,"this is start time local 776");
+
               legs.forEach((data, index) => {
                 console.log("at legs", data);
                 let time = data.summary.travelTimeInSeconds;
+                console.log(time,"this is time inside legs 778");
                 let length = data.summary.lengthInMeters;
                 let sec = 0;
                 let waitSec = 0;
                 console.log(Number(serviceTime[index]),convertHrToSec(Number(serviceTime[index])),"checking service time index 766");
                 if (Number(serviceTime[index])) {
                   sec = sec + convertHrToSec(Number(serviceTime[index]));
+                  console.log(sec ,"this is seconds 773")
                 } else {
                   sec = sec + 0;
                 }
@@ -773,6 +793,7 @@ class TripsList3 extends React.Component {
                 if (Number(waitingTime[index])) {
                   waitSec =
                     waitSec + convertHrToSec(Number(waitingTime[index]));
+                    console.log(waitSec,"waiting time seconds")
                 } else {
                   waitSec = waitSec + 0;
                 }
@@ -796,7 +817,10 @@ class TripsList3 extends React.Component {
                 waitTime =
                   formatHrMin(waitTimeHr) + ":" + formatHrMin(waitTimeMin);
 
-                  console.log(waitTime ,"this is waiting time")
+                  console.log(waitTime ,"this is waiting time");
+
+                  console.log(departure,index,"this is departure checking here 822")
+                  console.log(dateformatter(departure, index) ,"this is date formatter deperture 823")
                 let res = {
                   start: dateformatter(departure, index),
                   distance: length / 1000,
@@ -806,17 +830,27 @@ class TripsList3 extends React.Component {
                   tTime: time,
                   tDistance: length,
                 };
-                console.log(res ,"res before checking 805");
+                console.log(res ,"res before checking 809");
                 
+                console.log(departure, "this is again departure on line numer 818");
+                  console.log(departure.getSeconds() ,"this is end time route 811");
+
+                  console.log(time , sec , waitSec  ,"this is time sec waitsec 813");
+
+                    console.log(departure ,"this is end time route 810 before all the addition of time daperture 834");
                 departure.setSeconds(
                   departure.getSeconds() + time + sec + waitSec
                 );
+
+                //     departure.setSeconds(
+                //   departure.getSeconds() + time + sec + waitSec
+                // );
                 console.log(departure ,"this is end time route 810");
 
                 //added sersec+wait sec+time
                 let endTimeRoute = dateformatter(departure);
 
-                console.log(endTimeRoute ,"this is end time route 811")
+                console.log(endTimeRoute ,"this is end time route 821")
                 endTimeRoute = new Date(endTimeRoute);
                 console.log(endTimeRoute ,"this is end time route 813")
 
@@ -828,6 +862,7 @@ class TripsList3 extends React.Component {
                 console.log(a ,"end route 812")
                 var endTimeSec = +a[0] * 60 * 60 + +a[1] * 60;
 
+                console.log(endTimeSec, "this is end time seconds")
                 console.log(serviceTime[index], "814 checking for service time");
 
                 console.log(endTimeSec , serviceTime[index],waitingTime[index] ,"Endtime service time waiting time 816")
@@ -836,13 +871,48 @@ class TripsList3 extends React.Component {
                   endTimeSec -
                   Number(serviceTime[index]) * 60 * 60 -
                   Number(waitingTime[index]) * 60 * 60;
+
+                  console.log(arrivalTime ,"this is arrival time checking without any modificaiton 874")
                   console.log(formatTime(arrivalTime),arrivalTime ,"formatatted arrival time and arrival time 821")
                 arrivalTime = formatTime(arrivalTime);
 
                 console.log(endTimeRoute,splitTime(endTimeRoute), "    "+  + "    ", arrivalTime,splitTime(arrivalTime) ,"End route and arrival time 824")
 
+
+function addHoursToHHMM(arrivalTimeStr, serviceTime, waitingTime) {
+  const [hours, minutes] = arrivalTimeStr.split(":").map(Number);
+
+  // Convert HH:MM to seconds
+  let arrivalSeconds = (hours * 3600) + (minutes * 60);
+
+  // Convert service and wait time from hours to seconds
+  let serviceSecs = Number(serviceTime) * 3600;
+  let waitingSecs = Number(waitingTime) * 3600;
+
+  let totalSeconds = arrivalSeconds + serviceSecs + waitingSecs;
+
+  // Convert back to HH:MM:SS
+  const resultDate = new Date(0);
+  resultDate.setSeconds(totalSeconds);
+
+  const hh = String(resultDate.getUTCHours()).padStart(2, "0");
+  const mm = String(resultDate.getUTCMinutes()).padStart(2, "0");
+  const ss = String(resultDate.getUTCSeconds()).padStart(2, "0");
+
+  return `${hh}:${mm}`;
+}
+
+// let serWaiting =  Number(serviceTime[index]) +  Number(waitingTime[index])
+
+let finalEndTime=addHoursToHHMM(splitTime(arrivalTime),Number(serviceTime[index]),Number(waitingTime[index]))
+
+
+console.log(finalEndTime,"after added service time and waiting time endTimeCheck");
+
+                console.log(splitTime(arrivalTime) ,"this is arrival time here before assigning to key 881");
+
                 console.log(endTimeRoute ,"this is end 832 check")
-                res.end = splitTime(endTimeRoute);
+                res.end = finalEndTime;
                 res.arrival = splitTime(arrivalTime);
 
                 res.startDate = passedData.docdate;

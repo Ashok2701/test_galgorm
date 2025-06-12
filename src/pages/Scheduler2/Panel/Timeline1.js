@@ -359,8 +359,12 @@ function Timeline(props) {
           let serviceTime = summaryResult.serviceTime;
           let waitingTime = summaryResult.waitingTime;
           let results = summaryData[0];
+
+          console.log(serviceTime,waitingTime ,"this is service time and waiting time 363");
+
           if (results) {
             let legs = results[0].legs;
+            console.log(legs ,"checking legs here 364")
             if (
               props.data &&
               legs &&
@@ -487,12 +491,18 @@ function Timeline(props) {
                 formatHrMin(startTimeHr) + ":" + formatHrMin(startTimeMin);
               let prevDate = props.data.docdate;
               let prevDocTime = "00:00";
+console.log(serviceTime,waitingTime,"before loop checking service time here 494")
+// console.log(serviceTime[1],waitingTime[1],"before loop checking service time here 495")
 
               legs.forEach((data, index) => {
+console.log(serviceTime[index],waitingTime[index],"inside loop checking service time here 498")
+
+                console.log(data,index ,"these are legs checking here 500");
                 let time = data.summary.travelTimeInSeconds;
                 let length = data.summary.lengthInMeters;
                 let sec = 0;
                 let waitSec = 0;
+                console.log(serviceTime[index],waitingTime[index],"this is service time index and waitin gtime index 501")
                 if (Number(serviceTime[index])) {
                   sec = sec + convertHrToSec(Number(serviceTime[index]));
                 } else {
@@ -510,6 +520,7 @@ function Timeline(props) {
                 let waitTime = formatTime(
                   convertHrToSec(Number(waitingTime[index]))
                 );
+                console.log(serTime,waitTime ,"srevide time and waiting time in hr to seconds")
                 serTime = serTime.split(":");
                 let serTimeHr = serTime[0];
                 let serTimeMin = serTime[1];
@@ -532,17 +543,23 @@ function Timeline(props) {
                   tTime: time,
                   tDistance: length,
                 };
+                console.log(departure, "this is departure checking here")
+                console.log(departure.getSeconds(), time , sec, waitSec ,"time sec waitSec checking 546")
                 departure.setSeconds(
                   departure.getSeconds() + time + sec + waitSec
                 );
                 //added sersec+wait sec+time
+                console.log(departure ,"this is departure time checking 539")
                 let endTimeRoute = dateformatter(departure);
                 endTimeRoute = new Date(endTimeRoute);
                 let endTimeHr = endTimeRoute.getHours();
                 let endTimeMin = endTimeRoute.getMinutes();
                 endTimeRoute = endTimeHr + ":" + endTimeMin;
+                console.log(endTimeRoute ,"this is end time route 545")
                 var a = endTimeRoute.split(":");
+                console.log(a ,"checking here endTimeRoute 559")
                 var endTimeSec = +a[0] * 60 * 60 + +a[1] * 60;
+                console.log(endTimeSec ,"end time seconds 548")
                 console.log(serviceTime[index] ,waitTime[index] ,"this is service time and waiting time index checking 546")
 
                 let servTimeCheck =  serviceTime[index] != "00:00" ? serviceTime[index] : 0
@@ -553,10 +570,40 @@ function Timeline(props) {
                   Number(servTimeCheck) * 60 * 60 -
                   Number(waitingTime[index]) * 60 * 60;
 
-                  console.log(arrivalTime ,"this is arrival time checking 551");
+                  console.log(arrivalTime,formatTime(arrivalTime) ,"this is arrival time checking 573");
+                  
 
                 arrivalTime = formatTime(arrivalTime);
-                res.end = splitTime(endTimeRoute);
+
+
+                function addHoursToHHMM(arrivalTimeStr, serviceTime, waitingTime) {
+                  const [hours, minutes] = arrivalTimeStr.split(":").map(Number);
+                
+                  // Convert HH:MM to seconds
+                  let arrivalSeconds = (hours * 3600) + (minutes * 60);
+                
+                  // Convert service and wait time from hours to seconds
+                  let serviceSecs = Number(serviceTime) * 3600;
+                  let waitingSecs = Number(waitingTime) * 3600;
+                
+                  let totalSeconds = arrivalSeconds + serviceSecs + waitingSecs;
+                
+                  // Convert back to HH:MM:SS
+                  const resultDate = new Date(0);
+                  resultDate.setSeconds(totalSeconds);
+                
+                  const hh = String(resultDate.getUTCHours()).padStart(2, "0");
+                  const mm = String(resultDate.getUTCMinutes()).padStart(2, "0");
+                  const ss = String(resultDate.getUTCSeconds()).padStart(2, "0");
+                
+                  return `${hh}:${mm}`;
+                }
+                
+                // let serWaiting =  Number(serviceTime[index]) +  Number(waitingTime[index])
+                
+                let finalEndTime=addHoursToHHMM(splitTime(arrivalTime),Number(serviceTime[index]),Number(waitingTime[index]))
+                
+                res.end = finalEndTime;
                 res.arrival = splitTime(arrivalTime);
 
 

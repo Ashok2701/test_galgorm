@@ -282,9 +282,9 @@ function Timeline(props) {
 
     const optimizeRoute = (data) => {
 
-        // console.log("T000 data =",data);
+        console.log("T000 data =",data);
 
-        // console.log("T000 props data",props.data);
+        console.log("T000 props data",props.data);
 
         setLoader(true);
         let siteLat;
@@ -493,18 +493,60 @@ function Timeline(props) {
                                     tTime: time,
                                     tDistance: length
                                 };
+                                console.log(departure ,"departure before getting seconds 496");
                                 departure.setSeconds(departure.getSeconds() + time + sec + waitSec);
+
+                                console.log(departure ,"this is departure here 499");
+
+                                console.log(departure.setSeconds(),"after getting departure seconds 501");
+
+                                console.log(time ,"this is time 503");
+
+                                console.log(sec ,"these are seconds 505");
+
+                                console.log(waitSec ,"these are wait Sec 507");
+
                                 //added sersec+wait sec+time
                                 let endTimeRoute = dateformatter(departure);
+                                console.log(endTimeRoute ,"End time route 511")
                                 endTimeRoute = new Date(endTimeRoute);
                                 let endTimeHr = endTimeRoute.getHours();
                                 let endTimeMin = endTimeRoute.getMinutes();
                                 endTimeRoute = (endTimeHr) + ':' + endTimeMin;
                                 var a = endTimeRoute.split(':');
+                                console.log(a ,"End time split 517")
                                 var endTimeSec = (+a[0]) * 60 * 60 + (+a[1]) * 60;
+                                console.log(endTimeSec ,"this is end time sec 519");
                                 var arrivalTime = endTimeSec - (Number(serviceTime[index]) * 60 * 60) - (Number(waitingTime[index]) * 60 * 60);
                                 arrivalTime = formatTime(arrivalTime);
-                                res.end = splitTime(endTimeRoute);
+                                console.log(splitTime(endTimeRoute),"this is final departure time 522")
+
+                                function addHoursToHHMM(arrivalTimeStr, serviceTime, waitingTime) {
+  const [hours, minutes] = arrivalTimeStr.split(":").map(Number);
+
+  // Convert HH:MM to seconds
+  let arrivalSeconds = (hours * 3600) + (minutes * 60);
+
+  // Convert service and wait time from hours to seconds
+  let serviceSecs = Number(serviceTime) * 3600;
+  let waitingSecs = Number(waitingTime) * 3600;
+
+  let totalSeconds = arrivalSeconds + serviceSecs + waitingSecs;
+
+  // Convert back to HH:MM:SS
+  const resultDate = new Date(0);
+  resultDate.setSeconds(totalSeconds);
+
+  const hh = String(resultDate.getUTCHours()).padStart(2, "0");
+  const mm = String(resultDate.getUTCMinutes()).padStart(2, "0");
+  const ss = String(resultDate.getUTCSeconds()).padStart(2, "0");
+
+  return `${hh}:${mm}`;
+}
+
+
+let finalEndTime=addHoursToHHMM(splitTime(arrivalTime),Number(serviceTime[index]),Number(waitingTime[index]))
+                                res.end = finalEndTime;
                                 res.arrival = splitTime(arrivalTime);
 
                                 res.startDate = props.date;
