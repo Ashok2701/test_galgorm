@@ -53,7 +53,7 @@ class DisplayTripLogs extends React.Component {
     }
 
     render() {
-    console.log("T7 inside log window click",this.props.totObjects);
+    
     const logdetails  = this.props.totObjects.logData;
 
         return (

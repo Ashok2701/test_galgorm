@@ -25,7 +25,7 @@ export class App extends Component {
       activeMarker: {}, // Shows the active marker upon click
       selectedPlace: {}, // Shows the InfoWindow to the selected place upon a marker
     };
-    console.log("inside googlemaps -sites",this.props.sitelist);
+    
   }
 
   onMarkerClick = (props, marker, e) => {
@@ -53,12 +53,12 @@ export class App extends Component {
   }
 
   render() {
-   console.log("inside google map app");
+   
     let points = [];
     let TotalDistance = 0,TotalWeight = 0,TotalVolume = 0;
     this.props && this.props.tripList && this.props.tripList.map((trip) => {
 
-       console.log("inside map - triplist",trip);
+       
       if (trip.markers && trip.markers.length > 0 && !trip.eyeIcon) {
          let tdis = 0;
          if(trip.totalDistance !== "null"){
@@ -71,10 +71,10 @@ export class App extends Component {
 
        let twei = trip.totalWeight;
         TotalWeight = TotalWeight + parseFloat(twei);
-       console.log("inside map - trip- not eye icon- tdis",tdis);
-       console.log("inside map - trip- not eye icon",TotalDistance);
+       
+       
 
-         console.log("inside map - trip- not eye icon",trip);
+         
         trip.markers.map(item => { item.color = trip.color; return item; });
         trip.markers.map((marker, index) => {
           marker.itemCode = trip.itemCode
@@ -111,7 +111,7 @@ export class App extends Component {
             defaultZoom={0}
           >
             {points.map(({ lat, lng, id, title, color,status, type, sameTrip, position, custName, itemCode }, index) => {
-             console.log("inside map",points);
+             
               return (
                 <MyMarker key={index} lat={lat} lng={lng} id={id} tooltip={id}
                   index={index} color={color} type={type} sameTrip={sameTrip}

@@ -33,7 +33,7 @@
 //     let endmonthInNumber = moment().endOf("week").get("month");
 //     let EndMonth = moment().month(endmonthInNumber).format("MMMM");
 //     let EndDate = moment().endOf("week").get("date") + 1;
-//     console.log(EndDate,"End Date ")
+//     
 //     let fetchEndDate = moment().endOf("week").add(1, "days");
 
 //     let endFullDate = getFullDate(fetchEndDate);
@@ -54,9 +54,9 @@
 //     let increment = false;
 //     let flag = 0;
 
-//     console.log("TYYY WeekCalendar StartWeek", StartWeek);
-//     console.log("TYYY WeekCalendar startmonthInNumber", startmonthInNumber);
-//     console.log("TYYY WeekCalendar endmonth1", endmonthInNumber1);
+//     
+//     
+//     
 
 //     if (StartWeek == 30) {
 //       switch (startmonthInNumber) {
@@ -174,23 +174,23 @@
 //       }
 //     }
 
-//     console.log("TYYY WeekCalendar flag", flag);
+//     
 //     if (flag == 0) {
 //       StartMonth = date.month(startmonthInNumber).format("MMMM");
 
-//       console.log("TYYY WeekCalendar StartMonth", StartMonth);
+//       
 //       StartDate = date.startOf("week").get("date") + 1;
-//       console.log("TYYY WeekCalendar StartDAte", StartDate);
+//       
 //     }
 //     let endmonthInNumber = date.endOf("week").get("month");
 
-//     console.log("TYYY endmonthInNumber ", endmonthInNumber);
+//     
 //     let EndMonth = date.month(endmonthInNumber).format("MMMM");
 //     let EndDate = date.endOf("week").get("date") + 0;
 
-//     console.log("TYYY WeekCalendar EndDate", EndDate);
+//     
 
-//     console.log("TYYY WeekCalendar EndMonth", EndMonth);
+//     
 
 //     let actualValue =
 //       StartDate + " " + StartMonth + " - " + EndDate + " " + EndMonth;
@@ -200,28 +200,28 @@
 //       "isoWeek"
 //     );
 //     let startFullDate = getFullDate(fetchStartDate);
-//     console.log("startFullDate", startFullDate);
+//     
 //     let fetchEndDate = moment(new Date(props.calenderDate))
 //       .endOf("week")
 //       .add(1, "days");
 
 //     let endFullDate = getFullDate(fetchEndDate);
 
-//     console.log("TYYY WeekCalendar props.date", props.calenderDate);
-//     console.log("TYYY WeekCalendar StartDate", StartDate);
-//     console.log("TYYY WeekCalendar EndDate", EndDate);
-//     console.log("TYYY WeekCalendar fetchStartDate", fetchStartDate);
-//     console.log("TYYY WeekCalendar startFullDate", startFullDate);
-//     console.log("TYYY WeekCalendar fetchEndDate", fetchEndDate);
-//     console.log("TYYY WeekCalendar endFullDate", endFullDate);
+//     
+//     
+//     
+//     
+//     
+//     
+//     
 
 //     props.startEndDates(startFullDate, endFullDate);
 //     //  changeDate(startFullDate, endFullDate)
 //   }, [props.calenderDate]);
 
 //   const changeDate = (start, end) => {
-//     console.log("1 Start Date =", start);
-//     console.log("1 end Date =", start);
+//     
+//     
 //     let startDate = moment(week.weekObject).day(start);
 //     let endDate = moment(week.weekObject).day(end);
 //     let startFullDate = getFullDate(startDate);
@@ -230,15 +230,15 @@
 //     let StartMonth = moment().month(startmonthInNumber).format("MMMM");
 //     let StartDate = startDate.get("date");
 
-//     console.log("2 Start Date =", StartDate);
-//     console.log("2 end Date =", startmonthInNumber);
+//     
+//     
 
 //     let endmonthInNumber = endDate.get("month");
 //     let EndMonth = moment().month(endmonthInNumber).format("MMMM");
 //     let EndDate = endDate.get("date");
-//     console.log("3. end month no  =", endmonthInNumber);
-//     console.log("3 end month =", EndMonth);
-//     console.log("3 end Date =", EndDate);
+//     
+//     
+//     
 
 //     let actualValue =
 //       StartDate + " " + StartMonth + " - " + EndDate + " " + EndMonth;

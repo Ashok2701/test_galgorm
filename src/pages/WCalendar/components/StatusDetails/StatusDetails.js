@@ -58,17 +58,17 @@ export default function StatusDetails(props) {
   const theme = useTheme();
   let dates = [];
   var from = new Date(props.weekStartDate);
-  console.log("weekStartDate==>", props.weekStartDate);
-  console.log("weekStartDate==> from", from);
+  
+  
   var to = new Date(props.weekEndDate);
-  console.log("weekStartDate==>end", props.weekEndDate);
-  console.log("weekStartDate==>to ", to);
+  
+  
   for (var day = from; day < to; day.setDate(day.getDate() + 1)) {
-    console.log("weekStartDate==>day ", day);
+    
     dates.push(new Date(day));
   } 
   let vehicleList = [...new Set(props.tripDetails.map((item) => item.name))];
-  console.log("we are mapping vehileListtt", vehicleList);
+  
   return (
     <div>
       {/* <Table bordered className="mt-3">
@@ -83,7 +83,7 @@ export default function StatusDetails(props) {
                 const SelParsedate = moment
                   .tz(parseDate, "")
                   .format("YYYY/MM/DD");
-                console.log(SelParsedate, "This is selParsedate");
+                
                 return (
                   <th key={index} className="text-nowrap text-center">
                     {moment.tz(SelParsedate, "").format("ddd DD-MMM-YYYY")}
@@ -133,7 +133,7 @@ export default function StatusDetails(props) {
           const SelParsedate = moment
             .tz(parseDate, "")
             .format("YYYY/MM/DD");
-          console.log(SelParsedate, "This is selParsedate");
+          
           return (
             <th key={index} className="text-nowrap text-center">
               {moment.tz(SelParsedate, "").format("ddd DD-MMM-YYYY")}

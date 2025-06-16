@@ -45,15 +45,15 @@ class SideNav extends React.Component {
 
 
     onDateselection = (date) => {
-     console.log("T11 inside dateselection",date);
+     
      const Seldate = moment(date[0]).format('YYYY-MM-DD');
-     console.log("T11 inside dateselection",Seldate);
+     
          this.props.handleDateChange(Seldate);
     }
 
 
     render() {
-      console.log("inside sidnav",this.props.vehicleShow);
+      
         let optionItems = [];
         var optionSelected = {};
         var selectedSite = {};

@@ -47,12 +47,12 @@ class TableHeader extends Component  {
 
 
  setSelectedSites = (val) => {
-       console.log("selected sites are",val);
+       
         this.props.handleSiteChange(val);
     }
 
   selectedSitesArr = (val) => {
-     console.log("selectedSitesArr sites are",val);
+     
         this.props.sitesArr(val);
     }
 
@@ -69,7 +69,7 @@ class TableHeader extends Component  {
             var optionSelected = {};
             var selectedSite = {};
             var placeHolder = "All";
-            console.log("inside useEffect",this.props.sitelist);
+            
             this.props.sitelist && this.props.sitelist.length > 0 && this.props.sitelist.map((site) => {
                 if (site.id == this.props.selectedSite) {
                     selectedSite = site;
@@ -79,7 +79,7 @@ class TableHeader extends Component  {
                 }
                 optionItems.push({ value: site.id, label: (site.value + "(" + site.id + ")") })
             });
-      console.log("inside useEffect - optionItems",optionItems);
+      
 
 
   return (

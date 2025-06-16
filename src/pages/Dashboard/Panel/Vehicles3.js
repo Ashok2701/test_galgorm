@@ -85,7 +85,7 @@ class Vehicles3 extends React.Component {
   }
 
   SearchVehicle = e => {
-      console.log("search content= ",e.target.value);
+      
       this.props.updateVehSearchTerm(e);
   }
 

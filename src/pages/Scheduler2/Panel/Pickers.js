@@ -43,12 +43,12 @@
 //   }
 
 //   handleChange = (selected) => {
-//     console.log(selected, "selected state");
+//     
 //     this.setState({ selectedOptions: selected });
 //   };
 
 //   render() {
-//     console.log(this.state.selectedOptions, "these are selected options");
+//     
 //     return (
 //       <Modal
 //         {...this.props}
@@ -111,7 +111,7 @@
 //   }
 
 //   handleChange = (selected) => {
-//     console.log(selected, "selected state");
+//     
 //     this.setState({ selectedOptions: selected });
 //   };
 
@@ -125,8 +125,8 @@
 //   };
 
 //   render() {
-//     console.log(this.state.selectedOptions?.value, "these are selected options");
-//     console.log(this.props.currDropsPanel, "currdropspanellll");
+//     
+//     
 
 //     // Custom styles for the select component
 //     const customStyles = {
@@ -244,7 +244,7 @@ class Pickers extends React.Component {
   }
 
   handleChange = (selected) => {
-    console.log(selected, "selected state");
+    
     this.setState({ selectedOptions: selected });
   };
 
@@ -258,8 +258,8 @@ class Pickers extends React.Component {
   };
 
   render() {
-    console.log(this.state.selectedOptions?.value, "these are selected options");
-    console.log(this.props.currDropsPanel, "currDropsPanel");
+    
+    
 
     // Custom styles for the select component
     const customStyles = {

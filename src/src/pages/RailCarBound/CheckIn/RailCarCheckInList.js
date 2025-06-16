@@ -65,21 +65,21 @@ class RailCarCheckInList extends Component {
 
  dateFormatter = (cell, row)  =>
  { return
-    console.log("inside dateformater",cell +'---'+row)
+    
     ( <span>{moment(cell).format("DD-MM-YYYY")}</span> )
  }
 
 
  TimeFormatter = (cell, row)  =>
  { return
-    console.log("inside time formater",cell +'---'+row)
+    
     ( <span>{splitTime(cell)}</span> )
  }
 
 
   render() {
 
-   console.log("inside RailcarcheckI list,",this.props.railcarChecedInlist);
+   
     const routeData = {
       columns : this.state.columns,
       rows: this.props.railcarChecedInlist

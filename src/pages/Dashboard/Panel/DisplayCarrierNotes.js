@@ -21,7 +21,7 @@ class DisplayCarrierNotes extends React.Component {
     }
 
     render() {
-        console.log("insdie Displaycarrier",this.props.type);
+        
         return (
             <Modal
             {...this.props}

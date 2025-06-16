@@ -17,7 +17,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 // //   }
 
 // //   handleChange = (selected) => {
-// //     console.log(selected, "selected state");
+// //     
 // //     this.setState({ selectedOptions: selected });
 // //   };
 
@@ -75,7 +75,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 // //     // This will be triggered when the component mounts
 // //     // componentDidMount() {
 // //     //     const { currDropsPanel, docNum, pickersList } = this.props;
-// //     //     console.log(this.props.currDropsPanel ,"these are all docs")
+// //     //     
 // //     //     const matchedDoc = currDropsPanel?.find((panel) => panel.docnum === docNum);
 
 // //     //     if (matchedDoc && matchedDoc.picker) {
@@ -92,15 +92,11 @@ const apiUrl = process.env.REACT_APP_API_URL;
 // //     // componentDidMount(){
 // //     //     const { currDropsPanel, docNum, pickersList } = this.props;
 
-// //     //     console.log(currDropsPanel, docNum, pickersList ,"component didmount values")
+// //     //     
 // //     // }
 
 // //   render() {
-// //     console.log(
-// //       this.props.docNum,
-// //       this.props.doctype,
-// //       "this is productsssssss"
-// //     );
+
 
 // //      // Check if the component needs to set the default selected option from currDropsPanel and pickersList
 // //      const { currDropsPanel, docNum, pickersList } = this.props;
@@ -123,7 +119,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 // //        }
 // //      }
 
-// //     console.log(this.props.currDropsPanel ,"curr docs panel")
+// //     
 // //     // Custom styles for the select component
 // //     const customStyles = {
 // //       control: (provided) => ({
@@ -233,7 +229,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 //     }
 
 //     handleChange = (selected) => {
-//       console.log(selected, "selected state");
+//       
 //       this.setState({ selectedOptions: selected });
 //     };
 
@@ -288,7 +284,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 //     componentDidUpdate(prevProps) {
 //       const { currDropsPanel, docNum, pickersList } = this.props;
 
-//       console.log(currDropsPanel ,"this is curr drop panel")
+//       
 //       // Check if docNum or currDropsPanel has changed
 //       if (prevProps.docNum !== docNum || prevProps.currDropsPanel !== currDropsPanel) {
 //         // Reset selectedOptions if it's null or if the picker code has changed
@@ -310,13 +306,8 @@ const apiUrl = process.env.REACT_APP_API_URL;
 //     }
 
 //     render() {
-//       console.log(
-//         this.props.docNum,
-//         this.props.doctype,
-//         "this is productsssssss"
-//       );
 
-//       console.log(this.props.currDropsPanel, "curr docs panel");
+//       
 
 //       // Custom styles for the select component
 //       const customStyles = {
@@ -425,7 +416,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 //     }
 
 //     handleChange = (selected) => {
-//       console.log(selected, "selected state");
+//       
 //       this.setState({ selectedOptions: selected });
 //     };
 
@@ -461,12 +452,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 //     };
 
 //     onSavePickers = (picker) => {
-//         // console.log(
-//         //   "checking picker things",
-//         //   picker,
-//         //   this.state.selectedDocNumber,
-//         //   this.state.doctype
-//         // );
+
 
 //         const pickerObj = {
 //           docnum: this.props.docNum,
@@ -488,7 +474,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 //             // this.props.fetchDocumentPanelDateChange(this.props.documentPanel_date);
 //           })
 //           .catch((err) => {
-//             console.log(err.message);
+//             
 //           });
 //       };
 
@@ -543,7 +529,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 //     render() {
 //       const { currDropsPanel, docNum, pickersList, products } = this.props;
-//       console.log(this.props.docNum, this.props.doctype, "this is productsssssss");
+//       
 
 //       // Custom styles for the select component
 //       const customStyles = {
@@ -649,7 +635,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 //     }
 
 //     handleChange = (selected) => {
-//       console.log(selected, "selected state");
+//       
 //       this.setState({ selectedOptions: selected });
 //     };
 
@@ -702,7 +688,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 //           this.props.onHide()
 //         })
 //         .catch((err) => {
-//           console.log(err.message);
+//           
 //         });
 //     };
 
@@ -776,7 +762,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 //     render() {
 //       const { currDropsPanel, docNum, pickersList, products } = this.props;
-//       console.log(this.state.selectedOptions ,"these are selected optionssss")
+//       
 //       // Custom styles for the select component
 //       const customStyles = {
 //         control: (provided) => ({
@@ -885,12 +871,12 @@ class DisplayProducts extends React.Component {
   }
 
   handleChange = (selected) => {
-    console.log(selected, "selected state");
+    
     this.setState({ selectedOptions: selected,pickerChangeFlg:true });
   };
 
   setSelectedRouteCode = (routeCode) => {
-    console.log(routeCode, "selected route code check");
+    
     this.setState({
       selectedRouteCode: routeCode,
       routeCodeChangeFlg:true
@@ -985,7 +971,7 @@ class DisplayProducts extends React.Component {
     //     this.props.onHide();
     //   })
     //   .catch((err) => {
-    //     console.log(err.message);
+    //     
     //   });
 
     // updates.forEach((updatePayload) => {
@@ -1005,7 +991,7 @@ class DisplayProducts extends React.Component {
     //       this.props.onHide();
     //     })
     //     .catch((err) => {
-    //       console.log(err.message);
+    //       
     //     });
     // });
 
@@ -1029,7 +1015,7 @@ class DisplayProducts extends React.Component {
         this.setState({pickerChangeFlg:false})
       })
       .catch((err) => {
-        console.log(err.message);
+        
       });
     
   };
@@ -1073,7 +1059,7 @@ class DisplayProducts extends React.Component {
         this.setState({routeCodeChangeFlg:false})
       })
       .catch((err) => {
-        console.log(err.message);
+        
       });
   };
   
@@ -1100,15 +1086,15 @@ class DisplayProducts extends React.Component {
   //       (panel) => panel.docnum === docNum
   //     );
 
-  //     console.log(matchedDoc.routeCodeDesc ,"this is route code description from doc")
+  //     
   //     if(matchedDoc.routeCodeDesc!=""){
   //       this.setState({ selectedRouteCode: matchedDoc.routeCodeDesc });
   //     }
 
-  //     console.log(matchedDoc ,"this is matched documentttt")
+  //     
 
-  //     console.log(matchedDoc && matchedDoc.picker, "matched document");
-  //     console.log(matchedDoc && matchedDoc.picker && matchedDoc.picker !== "");
+  //     
+  //     
   //     if (matchedDoc && matchedDoc.picker && matchedDoc.picker !== "") {
   //       // If there's a picker assigned, set it as the selected option
   //       const defaultOption = pickersList.find(
@@ -1116,13 +1102,13 @@ class DisplayProducts extends React.Component {
   //       );
 
   //       if (defaultOption) {
-  //         console.log("enereted in if condition", defaultOption);
+  //         
   //         this.setState({ selectedOptions: defaultOption });
   //       } else {
-  //         console.log("enereted in else condition");
+  //         
   //         // No picker assigned, select the first option from pickersList
   //         if (pickersList.length > 0 && !this.state.selectedOptions) {
-  //           console.log("enereted in if else condition");
+  //           
   //           this.setState({ selectedOptions: pickersList[0] });
   //         }
   //       }
@@ -1144,15 +1130,15 @@ class DisplayProducts extends React.Component {
         });
       }
 
-      console.log(matchedDoc, "this is matched documentttttt");
+      
 
       if (matchedDoc && matchedDoc.routeCodeDesc) {
-        console.log(routeCodes, "route codessssssssssssssss find");
+        
         const routeCode = routeCodes?.find(
           (route) => route.routeDesc === matchedDoc.routeCodeDesc
         );
 
-        console.log(routeCode, "route code after matched");
+        
         if (routeCode) {
           this.setState({
             selectedRouteCode: {
@@ -1196,10 +1182,7 @@ class DisplayProducts extends React.Component {
   notifySucess = (message) => toast.success(message, { autoClose: 3000 });
 
   render() {
-    console.log(
-      this.props.selectedDocs,
-      "selected document in product details"
-    );
+   
     const { currDropsPanel, docNum, pickersList, products } = this.props;
 
     const customStyles = {
@@ -1226,14 +1209,11 @@ class DisplayProducts extends React.Component {
 
     // let optionRouteCodeItems = [];
 
-    // console.log(
-    //   this.props.routeCodes,
-    //   "these are route codes in display products popup"
-    // );
+  
 
     const { routeCodes } = this.props;
 
-    console.log(routeCodes, "these are all route codes i display products");
+    
     if (!Array.isArray(routeCodes) || routeCodes.length === 0) {
       return <div>No routes available</div>;
     }
@@ -1246,9 +1226,9 @@ class DisplayProducts extends React.Component {
 
     // let detaultSelectRC=this.state.selectedRouteCode ? this.state.selectedRouteCode :""
 
-    // console.log(this., "show proppp");
+    // 
 
-    console.log(this.props.products, "these are options for route codes");
+    
     return (
       <Modal
         {...this.props}

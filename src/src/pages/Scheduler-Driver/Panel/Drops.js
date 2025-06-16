@@ -252,7 +252,7 @@ this.onDocClick = this.onDocClick.bind(this)
   }
 
  onDocClick = (params) => {
-        console.log("inside onDocClick",params);
+        
         const products = params.data.products;
         const docNum = params.data.docnum;
         const doctype= params.data.doctype;
@@ -266,7 +266,7 @@ this.onDocClick = this.onDocClick.bind(this)
 
 
   static Doclink (params) {
-     console.log("params =",params);
+     
      const docnum = params.data.docnum;
      const products = params.data.products;
      const doctype= params.data.doctype;
@@ -275,7 +275,7 @@ this.onDocClick = this.onDocClick.bind(this)
 
 
   static clicked (params) {
-    console.log("doc clicked",params);
+    
       const products = params.data.products;
             const docNum = params.data.docnum;
             const doctype= params.data.doctype;
@@ -289,7 +289,7 @@ this.onDocClick = this.onDocClick.bind(this)
 
 
   static dlvyStatusCss(params) {
-  console.log("T31 inside drop- dlvystatus ",params);
+  
   const dropStatus = params.data.type;
                                   const dlvyStatus = params.data.dlvystatus;
                                  if (dropStatus == 'open'&& (dlvyStatus == '0' || dlvyStatus == '8') ) {
@@ -372,7 +372,7 @@ this.onDocClick = this.onDocClick.bind(this)
                                }
 
  static onCellClicked(params ) {
-  console.log('Cell was clicked');
+  
   const products = params.data.product;
   const docNum = params.data.docNum;
   const doctype = params.data.doctype;
@@ -431,7 +431,7 @@ this.onDocClick = this.onDocClick.bind(this)
     let addProductsClose = () => this.setState({ addProductShow: false });
 
      function customStyle(params){
-        console.log("T31 inside customStyle", params);
+        
          if (params.data.type === 'open'  && (params.data.dlvystatus == '0' || params.data.dlvystatus == '8' )) {
              return 'custom-enable';
          }
@@ -440,8 +440,8 @@ this.onDocClick = this.onDocClick.bind(this)
 
 
      const  onRowID = (params) => {
-        console.log("T31 inside RowID",params);
-        //console.log("T31 inside Api",api);
+        
+        //
          return  'drops'+params.rowNode;
      }
 
@@ -449,12 +449,12 @@ this.onDocClick = this.onDocClick.bind(this)
 
   const onRowDrag = (params)  => {
 
-  console.log("inside onRowDrag",params);
+  
   var rowNode = params.rowNode;
   var e = params.dragEvent;
-  console.log("inside onRowDrag - e",e);
+  
    this.props.handleDragStart(e, rowNode.data, 'drops',rowNode.rowIndex);
-   console.log("inside onRowDrag - e",e);
+   
 }
 
 
@@ -504,7 +504,7 @@ this.onDocClick = this.onDocClick.bind(this)
                                    <AgGridColumn field="bpname"  headerName= {this.props.t("Client")}  width= '200' />
                                    <AgGridColumn  headerName= {this.props.t("Postal City")}  width= '200'
                                     valueGetter = {(data) => {
-                                      console.log("insdie drop - data",data);
+                                      
                                        return `${data.data.poscode}, ${data.data.city}`
                                     }}
                                    />

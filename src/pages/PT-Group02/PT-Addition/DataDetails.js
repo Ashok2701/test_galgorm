@@ -5,7 +5,7 @@ const DataDetails = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
  const [selectedRows, setSelectedRows] = useState([]);
 
-  console.log("data at table =", props.OpendocsList)
+  
 
   const totalPages =  props.OpendocsList && Math.ceil(props.OpendocsList.length / 10);
   const startIndex = props.OpendocsList && (currentPage - 1) * 10;
@@ -72,8 +72,8 @@ const DataDetails = (props) => {
     const handleCheckboxChange = (item) => {
     /*
       const isSelected = this.props.selectedOpenDocs.includes(item.docnum);
-        console.log(" selected item  - ", item )
-         console.log("selected item doc  - ", item.docnum)
+        
+         
       if (isSelected) {
         setSelectedRows(selectedRows.filter((rowId) => rowId !== item.docnum));
       } else {
@@ -83,7 +83,7 @@ const DataDetails = (props) => {
 
       props.DocumentSelectionProcess(item)
 
-       console.log("selected rows are  - ", selectedRows)
+       
     };
 
 
@@ -94,12 +94,12 @@ const DataDetails = (props) => {
         if (allSelected) {
           // If all are selected, unselect all
           setSelectedRows([]);
-            console.log(" un select All - " )
+            
         } else {
           // If not all are selected, select all
           const allIds = currentItems.map((item) => item.id);
           setSelectedRows(allIds);
-          console.log("All Ids are selected  - ",allIds )
+          
         }
         */
         props.handleSelectAll();

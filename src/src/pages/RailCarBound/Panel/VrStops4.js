@@ -86,7 +86,7 @@ class VrStops3 extends React.Component {
     render() {
         var lang = localStorage.getItem("i18nextLng");
         var trip = this.props.tripdetails;
-        console.log("trip", trip)
+        
         let distunts = "Miles";
         let Productlist_win_Close = () => this.setState({ ShowDetailList: false });
          let print_win_Close = () => this.setState({ ShowCompoentToPrint: false });
@@ -174,7 +174,7 @@ class VrStops3 extends React.Component {
 
                                          trip && trip.totalObject && trip.totalObject.selectedTripData &&
                                                                                  trip.totalObject.selectedTripData.map((doc, i) => {
-                                                                                     console.log("doccccc", doc)
+                                                                                     
                                                                                      return (
                                                         <tr class="bg-blue" key={i}>
 

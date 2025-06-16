@@ -334,7 +334,7 @@ xmlhttp.onreadystatechange=function(){
     if(xmlhttp.readyState == 4){
         if(xmlhttp.status== 200){
 
-            console.log("soap xample =",xmlhttp.responseXML.getElementsByTagName('resultXml')[0].innerHTML);
+            
 
         }
 
@@ -352,7 +352,7 @@ try
 {
 xmlhttp.send(src);
 }catch(error){
-    console.log(error);
+    
 }
 
 }
@@ -393,7 +393,7 @@ xmlhttp.onreadystatechange=function(){
     if(xmlhttp.readyState == 4){
         if(xmlhttp.status== 200){
 
-            console.log(xmlhttp.responseXML.getElementsByTagName('resultXml')[0].innerHTML);
+            
 
         }
 
@@ -410,7 +410,7 @@ try
 {
 xmlhttp.send(src);
 }catch(error){
-    console.log(error);
+    
 }
 
 }
@@ -453,21 +453,21 @@ xmlhttp.onreadystatechange=function(){
     if(xmlhttp.readyState == 4){
         if(xmlhttp.status== 200){
           // let object =  JSON.parse(xmlhttp.response);
-          // console.log("response =",object);
+          // 
           // return object;
 
             let responeData = xmlhttp.responseXML.getElementsByTagName('resultXml')[0].innerHTML;
-            console.log("soap xample =",responeData);
+            
             let extractxmldata = responeData.slice(9, responeData.length-3)
-            console.log("soap xample extractxmldata=",extractxmldata);
+            
           var xml = new XMLParser().parseFromString(extractxmldata);
        //  const completeResult = return xml;
 
-          console.log("soap xample inside service",xml);
+          
           var PO =  xml.children[1].children[1].value;
           var PreReceipt = xml.children[1].children[2].value;
-          console.log("soap PO",PO);
-          console.log("soap PreReceipt =",PreReceipt);
+          
+          
           return extractxmldata;
         }
 
@@ -485,7 +485,7 @@ try
 {
 xmlhttp.send(src);
 }catch(error){
-    console.log(error);
+    
 }
 
 }
@@ -533,21 +533,21 @@ xmlhttp.onreadystatechange = (e) => {
     if(xmlhttp.readyState == 4){
         if(xmlhttp.status== 200){
           // let object =  JSON.parse(xmlhttp.response);
-          // console.log("response =",object);
+          // 
           // return object;
 
             let responeData = xmlhttp.responseXML.getElementsByTagName('resultXml')[0].innerHTML;
-            console.log("soap xample =",responeData);
+            
             let extractxmldata = responeData.slice(9, responeData.length-3)
-            console.log("soap xample extractxmldata=",extractxmldata);
+            
           var xml = new XMLParser().parseFromString(extractxmldata);
        //  const completeResult = return xml;
 
-          console.log("soap xample inside service",xml);
+          
           var PO =  xml.children[1].children[1].value;
           var PreReceipt = xml.children[1].children[2].value;
-          console.log("soap PO",PO);
-          console.log("soap PreReceipt =",PreReceipt);
+          
+          
           resolve (xml);
 
         }
@@ -566,7 +566,7 @@ try
 {
 xmlhttp.send(src);
 }catch(error){
-    console.log(error);
+    
 }
   });
 }
@@ -610,17 +610,17 @@ xmlhttp.onreadystatechange = (e) => {
     if(xmlhttp.readyState == 4){
         if(xmlhttp.status== 200){
           // let object =  JSON.parse(xmlhttp.response);
-          // console.log("response =",object);
+          // 
           // return object;
 
             let responeData = xmlhttp.responseXML.getElementsByTagName('resultXml')[0].innerHTML;
-            console.log("soap xample =",responeData);
+            
             let extractxmldata = responeData.slice(9, responeData.length-3)
-            console.log("soap xample extractxmldata=",extractxmldata);
+            
           var xml = new XMLParser().parseFromString(extractxmldata);
        //  const completeResult = return xml;
 
-          console.log("soap xample inside service",xml);
+          
           resolve (xml);
 
         }
@@ -639,7 +639,7 @@ try
 {
 xmlhttp.send(src);
 }catch(error){
-    console.log(error);
+    
 }
   });
 }

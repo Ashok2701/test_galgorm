@@ -58,61 +58,61 @@ class DocumentsPanel extends React.Component {
   }
 
   checkBoxChange = () => {
-    // console.log("T222 docpanel - to plan change");
+    // 
     this.setState({ ToPlanchecked: !this.state.ToPlanchecked });
     this.props.checkedToPlan(!this.state.ToPlanchecked);
   };
 
   LockcheckBoxChange = () => {
-    // console.log("T222 docpanel - LockcheckBoxChange");
+    // 
     this.setState({ LockedRecords: !this.state.LockedRecords });
     this.props.OnCheckedToLock(!this.state.LockedRecords);
   };
 
   ValidatecheckBoxChange = () => {
-    // console.log("T222 docpanel - ValidatecheckBoxChange");
+    // 
     this.setState({ ValidateRecords: !this.state.ValidateRecords });
     this.props.OnCheckedToValidate(!this.state.ValidateRecords);
   };
 
   OnShowMapcheckBoxChange = () => {
-    // console.log("T222 docpanel - Showin Map");
+    // 
     this.setState({ ToShowinMap: !this.state.ToShowinMap });
     this.props.OnCheckedToShowoverMap(!this.state.ToShowinMap);
   };
 
   OpencheckBoxChange = () => {
-    // console.log("T222 docpanel - OpencheckBoxChange");
+    // 
     this.setState({ openRecords: !this.state.openRecords });
     this.props.OnCheckedToOpen(!this.state.openRecords);
   };
 
   OptimisecheckBoxChange = () => {
-    // console.log("T222 docpanel - OptimisecheckBoxChange");
+    // 
     this.setState({ OptimisedRecords: !this.state.OptimisedRecords });
     this.props.OnCheckedToOptimise(!this.state.OptimisedRecords);
   };
 
   OnDropscheckBoxChange = () => {
-    // console.log("T222 docpanel - to plan change");
+    // 
     this.setState({ Todropchecked: !this.state.Todropchecked });
     this.props.OncheckedTodropList(!this.state.Todropchecked);
   };
 
   OnPickupscheckBoxChange = () => {
-    // console.log("T222 docpanel - to plan change");
+    // 
     this.setState({ ToPickchecked: !this.state.ToPickchecked });
     this.props.OncheckedToPickupList(!this.state.ToPickchecked);
   };
 
   OnDelierablecheckBoxChange = () => {
-    // console.log("T222 docpanel - to plan change");
+    // 
     this.setState({ ToDeliverable: !this.state.ToDeliverable });
     this.props.OncheckedToDeliverableList(!this.state.ToDeliverable);
   };
 
   OnNotDeliverablecheckBoxChange = () => {
-    // console.log("T222 docpanel - to plan change");
+    // 
     this.setState({ ToNotDeliverable: !this.state.ToNotDeliverable });
     this.props.OncheckedToNotDeliverableList(!this.state.ToNotDeliverable);
   };
@@ -127,7 +127,7 @@ class DocumentsPanel extends React.Component {
   }
 
   dayscheckBoxChange = () => {
-    // console.log("T222 docpanel - dayscheckbox change");
+    // 
     this.setState({ Todayschecked: !this.props.documentPanel_5dayscheck });
     this.props.checked5daysfromDocumentPanel(
       !this.props.documentPanel_5dayscheck
@@ -179,7 +179,7 @@ class DocumentsPanel extends React.Component {
 
   SearchDrops = (e) => {
  
-    // console.log("search drop",e)
+    // 
     this.props.updateDropSearchTerm(e);
   };
 
@@ -190,7 +190,7 @@ class DocumentsPanel extends React.Component {
 
   render() {
     const site = "";
-    // console.log("T6 inside docpanel - flag",this.props.daysCheckedIn)
+    // 
     //const currDate = moment(this.props.selectedDate).format('YYYY-MM-DD');
     const currDate = moment
       .tz(this.props.selectedDate, "")
@@ -201,12 +201,12 @@ class DocumentsPanel extends React.Component {
 
     if (this.props.currentView != "TimelineWorkWeek") {
       if (this.props.documentPanel_dateflg) {
-        // console.log("TkTk date flag", this.props.documentPanel_dateflg);
-        // console.log("TkTk date flag", this.props.documentPanel_date);
-        // console.log("TkTk date flag", this.props.documentPanel_dateflg);
+        // 
+        // 
+        // 
         SelectedDate = this.props.documentPanel_date;
 
-        // console.log(SelectedDate ,"this is selected date in doc panel")
+        // 
       } else {
         SelectedDate = today
       }
@@ -217,10 +217,10 @@ class DocumentsPanel extends React.Component {
     
 
     if (this.props.tripsList) {
-      // console.log("T11 inside triplist",this.props.tripsList);
+      // 
       filterTrips = this.props.tripsList.filter((trip) => {
-        // console.log("T11 inside trip",trip);
-        // console.log("T11 state of open ",this.state.openRecords);
+        // 
+        // 
         if (
           this.state.openRecords &&
           this.state.LockedRecords &&
@@ -411,7 +411,7 @@ class DocumentsPanel extends React.Component {
               .indexOf(this.props.searchTrip.toLowerCase()) !== -1
           );
 
-          // console.log("inside search and filter trips",trip);
+          // 
         });
       }
     }
@@ -521,9 +521,9 @@ class DocumentsPanel extends React.Component {
 
       // if (this.props.searchDrp.length > 1) {
 
-      //   console.log("this is search drop while checking search", this.props.searchDrp)
+      //   
       //   filterDrops = filterDrops.filter((drop) => {
-      //     // console.log(drop ,"this is droppppp")
+      //     // 
       //     if (site === "") {
       //       return (
       //         drop.docnum
@@ -642,7 +642,7 @@ class DocumentsPanel extends React.Component {
     }
 
 
-    // console.log("Trips count =", filterTrips);
+    // 
 
 
 
@@ -659,7 +659,7 @@ class DocumentsPanel extends React.Component {
     // }
 
     // filterDrops.forEach(item => {
-    //   // console.log(item.docnum ,this.props.selectedTripData.docnum ,"thisssssssssssssssssss")
+    //   // 
 
     //     if (item.docnum === this.props.selectedTripData.docnum) {
     //       item.dlvystatus = "1";  // Update dlvyStatus to "1"
@@ -680,12 +680,12 @@ class DocumentsPanel extends React.Component {
 
 
 
-    // console.log(this.props.selectedTripData ,"this is selected trip data inside docspanel")
+    // 
 
 
     // end of the toplain status for active tour
 
-    // console.log("filter trips")
+    // 
 
 
 
@@ -788,8 +788,8 @@ class DocumentsPanel extends React.Component {
       });
 
 
-    // console.log(this.props.dropsPanel, "this is toplancounttttt")
-console.log(filterDrops ,"these are filtered drops checking")
+    // 
+
 
 let externalCount = filterDrops?.filter((doc)=>doc.carrier== "EXTERNAL"|| doc.carrier == "DPD" || doc.carrier == "MONTGOMERY").length || 0;
 
@@ -798,6 +798,7 @@ let collectionCount =  filterDrops?.filter((doc)=>doc.carrier== "COLLECTIONS").l
 let internalCount = filterDrops?.filter((doc)=>doc.carrier== "INTERNAL").length || 0;
 
 
+console.log(this.props.dropsPanel ,"this is drops panel checking")
     return (
       <>
         <div class="documentPanel" style={{ height: "100%" }}>

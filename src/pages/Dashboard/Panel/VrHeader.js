@@ -59,7 +59,7 @@ class VrHeader extends React.Component {
   }
 
   validateTrip = (i, type) => {
-    console.log("inside valdiateTRip from header");
+    
     this.props.validateonly(i, type)
   }
 
@@ -85,9 +85,9 @@ class VrHeader extends React.Component {
     var trip = this.props.tripdetails;
     let addAlertClose = () => this.setState({ addAlertShow: false });
     const op_status = this.props.vrdata.optimsta;
-    console.log("op status =", op_status);
+    
     const dis_status = this.props.vrdata.dispstat;
-    console.log("dis_status =", dis_status);
+    
     const BL_createdDate = moment(trip.credattim).format('YYYY-MM-DD');
     const TExecutionDate = moment(this.props.vrdata.datexec).format('YYYY-MM-DD');
     const ScheduledDate = moment(this.props.vrdata.datliv).format('YYYY-MM-DD');

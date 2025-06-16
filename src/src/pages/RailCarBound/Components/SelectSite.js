@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SelectSite = (props) => {
-   console.log("inside SElectSite - selected site",props.selectedSite);
+   
     const [seletedsite, setseletedsite] = React.useState(props.selectedSite);
     const [seletedVehicle, setseletedVehicle] = React.useState('');
 

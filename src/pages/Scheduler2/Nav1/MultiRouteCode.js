@@ -108,32 +108,32 @@
 // import Select from "react-select";
 
 // const MultiRouteCode = (props) => {
-//   console.log(props.options);
+//   
 //   const [selectedCode, setSelectedCode] = useState([]);
 
 
-//   console.log(selectedCode ,"thiese are selected route codes")
+//   
 //   const handleChange = (selectedOptions) => {
 
 //     setSelectedCode(selectedOptions);
-//     // console.log(selectedOptions, "selected option")
+//     // 
 
 //     // if(selectedOptions.length<1){
 
 //     // }
 //     const selectedValues = selectedOptions.map((option) => option.label);
-//     console.log(selectedValues.toString());
+//     
 //     props.setSelectedRouteCodes(selectedValues.toString());
-// // console.log(selectedValues ,"after selecting")
+// // 
 //     props.selectedRouteCodeArr(selectedValues);
-//     // console.log(selectedValues)
+//     // 
 //   };
 
 //   useEffect(() => {
 //     if (!selectedCode) {
 //       const AllCodes = props.options.map((option) => option.label);
-//       // console.log(selectedValues.toString())
-//       console.log(AllCodes, "these are all code inside useeffect");
+//       // 
+//       
 //       props.setSelectedRouteCodes(AllCodes.toString());
 
 //       props.selectedRouteCodeArr(AllCodes);
@@ -162,7 +162,7 @@ import { useEffect } from "react";
 import Select from "react-select";
 
 const MultiRouteCode = (props) => {
-  console.log(props.options);
+  
   // const [selectedCode, setSelectedCode] = useState([]);
 
   const handleChange = (selectedOptions) => {
@@ -170,12 +170,12 @@ const MultiRouteCode = (props) => {
 
     if (!selectedOptions) {
       // Execute your function here when the clear button is clicked
-      console.log("Clear button clicked!");
+      
       props.ClearRouteCodes();
     }
     else {
       props.updateselectedRCode(selectedOptions);
-      console.log("1111 multiplle route codes", selectedOptions)
+      
     }
 
     // if(selectedOptions.length<1){
@@ -183,27 +183,27 @@ const MultiRouteCode = (props) => {
     // }
     const selectedValues = selectedOptions && selectedOptions.label;
 
-    // console.log(selectedValues.toString());
+    // 
     {
       selectedOptions &&
       props.setSelectedRouteCodes(selectedValues.toString());
 
       props.selectedRouteCodeArr(selectedValues);
     }
-    // console.log(selectedValues)
+    // 
   };
 
   useEffect(() => {
     if (!props.selectedRCode) {
       const AllCodes = props.options.map((option) => option.label);
-      console.log(AllCodes, "these are allo codes")
+      
       props.setSelectedRouteCodes(AllCodes.toString());
 
       props.selectedRouteCodeArr(AllCodes);
     }
   }, [props.selectedRCode]);
 
-  console.log("selected rotue codes are", props.selectedRCode);
+  
   return (
     <div >
       <Select

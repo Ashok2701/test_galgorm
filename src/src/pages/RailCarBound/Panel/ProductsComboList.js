@@ -13,7 +13,7 @@ constructor(props)
 
 
 getData = (type, prodList) => {
-  console.log("inside getData,type",type);
+  
 if(type === 'COMBO1' || type === 'COMBO2' || type === 'NONCOMBO') {
 
 return(
@@ -50,7 +50,7 @@ return(
 )
 }else if (type === 'TOTECOMBO1' || type === 'TOTECOMBO2' || type === 'TOTENONCOMBO')
 {
-   console.log("inside Tote club");
+   
 return(
   <>
    <h6>{type}</h6>
@@ -104,8 +104,8 @@ else {
                         let tote2flg = false;
                         let totnon = false;
                         let noncombo = false;
-            console.log("props data",this.props.vedetail);
-            console.log("props combodata", this.props.comboData);
+            
+            
            return (
               <Modal
 
@@ -221,7 +221,7 @@ else {
                        }
                       else if(doc.combotype === 'TOTECOMBO1')
                       {
-                         console.log("props combodata",doc);
+                         
                        // this.getData(doc.combotype, doc.prodList);
                       //  tote1flg = true;
                       return(
@@ -266,7 +266,7 @@ else {
                         }
 
                       else if(doc.combotype === 'TOTECOMBO2') {
-                       console.log("props combodata",doc);
+                       
                          return(
                                              <>
                                              <h6>{doc.combotype}</h6>
@@ -312,7 +312,7 @@ else {
                       }
                       else if(doc.combotype === 'TOTENONCOMBO')
                       {
-                               console.log("props combodata",doc);
+                               
                           return(
                                               <>
                                               <h6>{doc.combotype}</h6>

@@ -38,13 +38,13 @@ class RailCarCheckOut extends Component {
 
 
   OnRailCarCheckOut = selectedRailCar => {
-      console.log("onCheckInClikced",selectedRailCar);
+      
       fetch('http://tmsportal.tema-systems.com:8082//api/v1/rail/Checkout/railcar', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(selectedRailCar)
       }).then((response) => {
-        console.log("inside after Railcarcheckin - response",response);
+        
        this.handleErrors(response);
       }).then(function (response) {
 

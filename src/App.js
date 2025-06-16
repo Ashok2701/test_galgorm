@@ -63,7 +63,7 @@ class App extends Component {
 
   render() {
     const Layout = this.getLayout();
-  console.log("T1 insdie app");
+  // console.log("T1 insdie app");
     return (
       <React.Fragment>
         <Router>

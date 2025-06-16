@@ -72,11 +72,11 @@ class WCalendar extends React.Component {
 
   componentDidMount() {
     var user = JSON.parse(localStorage.getItem("authUser"));
-    console.log("inside componentDidmount");
-    console.log("inside componentDidmount - user", user);
+    
+    
     var selSites = sessionStorage.getItem("sites");
     var listSites = [];
-    console.log("Thhh componentDidMount selSites", selSites);
+    
     if (selSites != null && selSites.length > 0) {
       listSites = selSites.split(",");
     }
@@ -110,57 +110,54 @@ class WCalendar extends React.Component {
         });
 
         if (listSites.length > 0) {
-          console.log("default site in list if", sites);
+          
           this.AlreadySelectedSites(sites, selSites, listSites);
           this.OnSiteSelection(selSites, "ComponentDidMount");
         } else {
-          console.log("default site in list else", sites);
+          
           this.DefaultSite(sites);
-          console.log(
-            "default site in selected site = ",
-            this.state.selectedSite
-          );
+         
           // this.OnSiteSelection(this.state.selectedSite)
         }
 
-        console.log("inside componentDidmount after success call");
+        
         //  this.OnSiteSelection(selSites, 'ComponentDidMount');
       });
-    console.log("inside componentDidmount before onsitechagne");
+    
     // this.OnSiteSelection(this.state.selectedSite);
   }
 
   AlreadySelectedSites = (totsites, selSites, arrayList) => {
-    // console.log("AlreadySelected Site",sites );
-    console.log("AlreadySelected total sites", totsites);
+    // 
+    
     this.handleSiteChange(selSites);
     this.sitesArr(arrayList);
   };
 
   DefaultSite = (sites) => {
-    console.log("default site =", sites);
+    
     let flg = false;
     let initialSite = "";
     let defSite = "";
     sites.length > 0 &&
       sites.map((site, Index) => {
-        console.log("T333 first index", Index);
+        
         if (Index == 0) {
           initialSite = site.id;
-          console.log("T333 first index if", Index);
+          
         }
 
-        console.log("T226 inside defaulsite- site", site);
+        
         if (site.defflg === "Yes") {
-          console.log("T226 inside defaulsite- yes", site.id);
+          
           defSite = site.id;
         }
       });
     if (defSite == "") {
-      console.log("T333 inside if no default site", defSite);
+      
       defSite = initialSite;
     }
-    console.log("T226 inside defaulsite- after prcoess", defSite);
+    
 
     this.handleSiteChange(defSite);
     let tempsitearr = [];
@@ -196,10 +193,10 @@ class WCalendar extends React.Component {
 
   setCurrentSite = (selectedOption) => {
     var currSelected = {};
-    console.log("1 set currentsite", selectedOption);
+    
     this.state.sites &&
       this.state.sites.map((site) => {
-        console.log("1 set sites", site);
+        
         if (selectedOption[0] === site.id) {
           currSelected = site;
           currSelected.city = site.value;
@@ -216,19 +213,19 @@ class WCalendar extends React.Component {
   };
 
   onDaysChanged = (days) => {
-    console.log("T1 inside onDaysChanged", days);
+    
     var currDate = moment(this.state.calenderMapDate, "YYYY-MM-DD").add(
       days,
       "days"
     );
     var newDate = moment(currDate).format("YYYY-MM-DD");
-    console.log("T1 inside onDaysChanged", newDate);
+    
     this.onMapDateChange(newDate);
   };
 
   sitesArr = (val) => {
-    console.log("seleted site array =", val);
-    console.log("selectedSitesArr", this.state.selectedSitesArr);
+    
+    
     this.setCurrentSite(val);
     this.setState({ selectedSitesArr: val });
   };
@@ -259,24 +256,15 @@ class WCalendar extends React.Component {
   };
 
   onMapDateChange = (seldate, camefrom) => {
-    console.log("T1 inside MApChanged", seldate);
+    
     this.setState({ calenderMapDate: seldate });
     seldate = moment(new Date(seldate)).format("YYYY-MM-DD");
-    console.log(
-      "T1 inside MApChanged site arraylist",
-      this.state.selectedSitesArr
-    );
+   
     if (this.state.selectedSitesArr.length > 0 && camefrom !== "uncheck") {
-      console.log(
-        "T1 inside MApChanged site arraylist if",
-        this.state.selectedSitesArr
-      );
+    
       this.onMapDateAndSiteChange(seldate, this.state.selectedSitesArr);
     } else {
-      console.log(
-        "T1 inside MApChanged site arraylist else",
-        this.state.selectedSitesArr
-      );
+      
       Promise.all([
         fetch(
           `http://routeplanner-galgorm.cpio.cloud:8084/api/v1/report/tripslist?date=${seldate}`
@@ -303,8 +291,8 @@ class WCalendar extends React.Component {
   };
 
   OnSiteSelection = (selSite, from) => {
-    console.log("def inside onSiteSelection - selSite", selSite);
-    // console.log("inside onSiteSelection - selSite from",from);
+    
+    // 
     this.setState({ selectedSite: selSite });
     const sdate = moment(this.state.weekStartDate).add(1, "days");
     const edate = moment(this.state.weekEndDate).add(0, "days");
@@ -326,12 +314,12 @@ class WCalendar extends React.Component {
           vehiclesList: vehicles,
           tripDetails: data,
         });
-        console.log(data)
+        
       });
   };
 
   OnVehicleSelection = (selVehicle) => {
-    console.log("selected selVehicle", selVehicle);
+    
   };
 
   handleSiteChange = (selectedOption) => {
@@ -339,28 +327,25 @@ class WCalendar extends React.Component {
       var currdate = moment(this.state.calenderMapDate).format("YYYY-MM-DD");
       sessionStorage.setItem("sites", selectedOption);
       this.onMapDateAndSiteChange(currdate, selectedOption);
-      console.log(
-        "inside handleSite Change selected sites are ",
-        selectedOption
-      );
+   
     } else {
       var currdate = moment(this.state.calenderMapDate).format("YYYY-MM-DD");
       this.onMapDateChange(currdate, "uncheck");
-      console.log("inside handleSite no sites exist ", selectedOption);
+      
     }
   };
 
   RefreshDataforWeek = () => {
-    console.log("TYYY Inside refresh at Home");
+    
     let startDate = moment(new Date(this.state.weekStartDate)).format(
       "YYYY-MM-DD"
     );
     let endDate = moment(new Date(this.state.weekEndDate)).format("YYYY-MM-DD");
 
-    console.log(endDate, "from index file");
-    console.log("Inside refresh at Home- startdate", startDate);
-    console.log("Inside refresh at Home- endDate", endDate);
-    console.log("Inside refresh at Home- site", this.state.selectedSitesArr);
+    
+    
+    
+    
     if (this.state.selectedSite) {
       Promise.all([
         fetch(
@@ -372,7 +357,7 @@ class WCalendar extends React.Component {
         })
         .then(([data]) => {
 
-          console.log(data,"this is data checkinggg in console")
+          
           this.setState({
             tripDetails: data,
           });
@@ -381,12 +366,12 @@ class WCalendar extends React.Component {
   };
 
   handleDateChange = (date) => {
-    console.log("at handle change", date);
+    
   };
 
   startEndDates = (startDate, endDate) => {
-    console.log("TYYY at startEndDAtes - start, EndDate", startDate);
-    console.log("TYYY at startEndDAtes - start, EndDate", endDate);
+    
+    
     this.setState({ weekStartDate: startDate, weekEndDate: endDate });
     startDate = moment
       .tz(new Date(Date.parse(startDate)).toString(), "")
@@ -394,8 +379,8 @@ class WCalendar extends React.Component {
     endDate = moment
       .tz(new Date(Date.parse(endDate) - 1).toString(), "")
       .format("YYYY-MM-DD");
-    console.log("TYYY at startEndDAtes - final startDate", startDate);
-    console.log("TYYY at startEndDAtes - final endDate", endDate);
+    
+    
     if (this.state.selectedSite) {
       Promise.all([
         fetch(
@@ -417,14 +402,14 @@ class WCalendar extends React.Component {
             });
           }
 
-          console.log(data, "data 410")
+          
           
         });
     }
   };
 
   render() {
-    console.log("inside App component");
+    
     const { classes } = this.props;
     return (
       <React.Fragment>

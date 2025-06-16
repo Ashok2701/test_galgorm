@@ -37,7 +37,7 @@ class Layout extends Component {
   };
 
   componentDidUpdate(prevProps) {
-     console.log("index componentDidUpdate");
+     
 
 
 
@@ -64,9 +64,9 @@ class Layout extends Component {
 }
 
   onDateselection = (date) => {
-     console.log("T11 inside dateselection",date);
+     
      const Seldate = moment(date).format('YYYY-MM-DD');
-     console.log("T11 inside dateselection",Seldate);
+     
           localStorage.setItem('Date', Seldate);
         //  this.props.handleDateChange(Seldate);
           this.setState = {
@@ -76,7 +76,7 @@ class Layout extends Component {
 
        selectedSitesArr = (val) => {
                //    this.props.sitesArr(val);
-      console.log("selected site array =",val);
+      
     //this.setCurrentSite(val);
         //  localStorage.setItem('sites', val);
        this.setState({ selectedSitesArr: val })
@@ -85,12 +85,12 @@ class Layout extends Component {
 
         handleSiteChange = (val) => {
                 // this.props.handleSiteChange(val);
-              console.log("selected site value =",val);
+              
             //  this.setCurrentSite(val);
           //   var selSitesArr = [];
            //  var existingsite = JSON.parse(localStorage.getItem("sites"));
-             console.log("val =",val);
-           //  console.log("existing site are",existingsite);
+             
+           //  
 
              }
 

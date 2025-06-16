@@ -56,61 +56,61 @@ class DocumentsPanel extends React.Component {
   }
 
   checkBoxChange = () => {
-    // console.log("T222 docpanel - to plan change");
+    // 
     this.setState({ ToPlanchecked: !this.state.ToPlanchecked });
     this.props.checkedToPlan(!this.state.ToPlanchecked);
   };
 
   LockcheckBoxChange = () => {
-    // console.log("T222 docpanel - LockcheckBoxChange");
+    // 
     this.setState({ LockedRecords: !this.state.LockedRecords });
     this.props.OnCheckedToLock(!this.state.LockedRecords);
   };
 
   ValidatecheckBoxChange = () => {
-    // console.log("T222 docpanel - ValidatecheckBoxChange");
+    // 
     this.setState({ ValidateRecords: !this.state.ValidateRecords });
     this.props.OnCheckedToValidate(!this.state.ValidateRecords);
   };
 
   OnShowMapcheckBoxChange = () => {
-    // console.log("T222 docpanel - Showin Map");
+    // 
     this.setState({ ToShowinMap: !this.state.ToShowinMap });
     this.props.OnCheckedToShowoverMap(!this.state.ToShowinMap);
   };
 
   OpencheckBoxChange = () => {
-    // console.log("T222 docpanel - OpencheckBoxChange");
+    // 
     this.setState({ openRecords: !this.state.openRecords });
     this.props.OnCheckedToOpen(!this.state.openRecords);
   };
 
   OptimisecheckBoxChange = () => {
-    // console.log("T222 docpanel - OptimisecheckBoxChange");
+    // 
     this.setState({ OptimisedRecords: !this.state.OptimisedRecords });
     this.props.OnCheckedToOptimise(!this.state.OptimisedRecords);
   };
 
   OnDropscheckBoxChange = () => {
-    // console.log("T222 docpanel - to plan change");
+    // 
     this.setState({ Todropchecked: !this.state.Todropchecked });
     this.props.OncheckedTodropList(!this.state.Todropchecked);
   };
 
   OnPickupscheckBoxChange = () => {
-    // console.log("T222 docpanel - to plan change");
+    // 
     this.setState({ ToPickchecked: !this.state.ToPickchecked });
     this.props.OncheckedToPickupList(!this.state.ToPickchecked);
   };
 
   OnDelierablecheckBoxChange = () => {
-    // console.log("T222 docpanel - to plan change");
+    // 
     this.setState({ ToDeliverable: !this.state.ToDeliverable });
     this.props.OncheckedToDeliverableList(!this.state.ToDeliverable);
   };
 
   OnNotDeliverablecheckBoxChange = () => {
-    // console.log("T222 docpanel - to plan change");
+    // 
     this.setState({ ToNotDeliverable: !this.state.ToNotDeliverable });
     this.props.OncheckedToNotDeliverableList(!this.state.ToNotDeliverable);
   };
@@ -125,7 +125,7 @@ class DocumentsPanel extends React.Component {
   }
 
   dayscheckBoxChange = () => {
-    // console.log("T222 docpanel - dayscheckbox change");
+    // 
     this.setState({ Todayschecked: !this.props.documentPanel_5dayscheck });
     this.props.checked5daysfromDocumentPanel(
       !this.props.documentPanel_5dayscheck
@@ -133,17 +133,17 @@ class DocumentsPanel extends React.Component {
   };
 
   onDateselection = (date, event) => {
-    console.log("Tktk1 inside dateselection", date);
-    console.log("Tktk1 inside dateselection -event", event);
+    
+    
 
     const parseDate = new Date(Date.parse(date)).toString();
-    console.log("Tktk1 inside parseDate =", parseDate);
+    
 
     const SelParsedate = moment.tz(parseDate, "").format("YYYY/MM/DD");
-    console.log("Tktk1 inside parseDate after moment =", SelParsedate);
+    
 
     const Seldate = moment(date[0]).format("YYYY-MM-DD");
-    // console.log("T11 inside dateselection",Seldate);
+    // 
     this.props.documentPanelDateChange(SelParsedate);
   };
 
@@ -177,44 +177,44 @@ class DocumentsPanel extends React.Component {
   }
 
   SearchDrops = (e) => {
-    // console.log("search content= ",e.target.value);
+    // 
     this.props.updateDropSearchTerm(e);
   };
 
   SearchTrips = (e) => {
-    // console.log("search content= ",e.target.value);
+    // 
     this.props.updateTripsSearchTerm(e);
   };
 
   render() {
     const site = "";
-    // console.log("T6 inside docpanel - flag",this.props.daysCheckedIn)
+    // 
     //const currDate = moment(this.props.selectedDate).format('YYYY-MM-DD');
     const currDate = moment
       .tz(this.props.selectedDate, "")
       .format("YYYY-MM-DD");
     let SelectedDate = "";
     if (this.props.documentPanel_dateflg) {
-      console.log("TkTk date flag", this.props.documentPanel_dateflg);
-      console.log("TkTk date flag", this.props.documentPanel_date);
-      console.log("TkTk date flag", this.props.documentPanel_dateflg);
+      
+      
+      
       SelectedDate = this.props.documentPanel_date;
     }
 
     let filterTrips;
 
     if (this.props.tripsList) {
-      console.log("T11 inside triplist", this.props.tripsList);
+      
       filterTrips = this.props.tripsList.filter((trip) => {
-        // console.log("T11 inside trip",trip);
-        // console.log("T11 state of open ",this.state.openRecords);
+        // 
+        // 
         if (
           this.state.openRecords &&
           this.state.LockedRecords &&
           this.state.ValidateRecords &&
           this.state.OptimisedRecords
         ) {
-          // console.log("T11 inside triplist - openRecrods");
+          // 
           return (
             trip.optistatus === "Open" ||
             trip.optistatus === "Optimized" ||
@@ -228,7 +228,7 @@ class DocumentsPanel extends React.Component {
           this.state.ValidateRecords &&
           this.state.OptimisedRecords
         ) {
-          // console.log("T11 inside triplist - openRecrods");
+          // 
           return (
             trip.optistatus === "Optimized" ||
             trip.lock === true ||
@@ -241,7 +241,7 @@ class DocumentsPanel extends React.Component {
           this.state.ValidateRecords &&
           this.state.OptimisedRecords
         ) {
-          // console.log("T11 inside triplist - openRecrods");
+          // 
           return (
             trip.optistatus === "Open" ||
             trip.optistatus === "Optimized" ||
@@ -254,7 +254,7 @@ class DocumentsPanel extends React.Component {
           !this.state.ValidateRecords &&
           this.state.OptimisedRecords
         ) {
-          // console.log("T11 inside triplist - openRecrods");
+          // 
           return (
             trip.optistatus === "Open" ||
             trip.optistatus === "Optimized" ||
@@ -267,7 +267,7 @@ class DocumentsPanel extends React.Component {
           this.state.ValidateRecords &&
           !this.state.OptimisedRecords
         ) {
-          // console.log("T11 inside triplist - openRecrods");
+          // 
           return (
             trip.optistatus === "Open" ||
             trip.lock === true ||
@@ -281,7 +281,7 @@ class DocumentsPanel extends React.Component {
           !this.state.ValidateRecords &&
           !this.state.OptimisedRecords
         ) {
-          // console.log("T11 inside triplist - openRecrods");
+          // 
           return trip.optistatus === "Open" || trip.lock === true;
         }
         if (
@@ -290,7 +290,7 @@ class DocumentsPanel extends React.Component {
           this.state.ValidateRecords &&
           !this.state.OptimisedRecords
         ) {
-          // console.log("T11 inside triplist - openRecrods");
+          // 
           return trip.optistatus === "Open" || trip.tmsValidated === true;
         }
         if (
@@ -299,7 +299,7 @@ class DocumentsPanel extends React.Component {
           !this.state.ValidateRecords &&
           this.state.OptimisedRecords
         ) {
-          // console.log("T11 inside triplist - openRecrods");
+          // 
           return trip.optistatus === "Open" || trip.optistatus === "Optimized";
         }
         if (
@@ -308,7 +308,7 @@ class DocumentsPanel extends React.Component {
           this.state.ValidateRecords &&
           !this.state.OptimisedRecords
         ) {
-          // console.log("T11 inside triplist - openRecrods");
+          // 
           return trip.lock === true || trip.tmsValidated === true;
         }
         if (
@@ -317,7 +317,7 @@ class DocumentsPanel extends React.Component {
           !this.state.ValidateRecords &&
           this.state.OptimisedRecords
         ) {
-          // console.log("T11 inside triplist - openRecrods");
+          // 
           return trip.optistatus === "Optimized" || trip.lock === true;
         }
         if (
@@ -326,7 +326,7 @@ class DocumentsPanel extends React.Component {
           this.state.ValidateRecords &&
           this.state.OptimisedRecords
         ) {
-          // console.log("T11 inside triplist - openRecrods");
+          // 
           return trip.optistatus === "Optimized" || trip.tmsValidated === true;
         }
 
@@ -337,7 +337,7 @@ class DocumentsPanel extends React.Component {
           !this.state.ValidateRecords &&
           !this.state.OptimisedRecords
         ) {
-          // console.log("T11 inside triplist - openRecrods");
+          // 
           return trip.optistatus === "Open";
         }
         if (
@@ -346,7 +346,7 @@ class DocumentsPanel extends React.Component {
           !this.state.ValidateRecords &&
           !this.state.OptimisedRecords
         ) {
-          // console.log("T11 inside triplist - openRecrods");
+          // 
           return trip.lock === true;
         }
         if (
@@ -355,7 +355,7 @@ class DocumentsPanel extends React.Component {
           this.state.ValidateRecords &&
           !this.state.OptimisedRecords
         ) {
-          // console.log("T11 inside triplist - openRecrods");
+          // 
           return trip.tmsValidated === true;
         }
         if (
@@ -364,10 +364,10 @@ class DocumentsPanel extends React.Component {
           !this.state.ValidateRecords &&
           this.state.OptimisedRecords
         ) {
-          // console.log("T11 inside triplist - openRecrods");
+          // 
           return trip.optistatus === "Optimized";
         } else {
-          // console.log("T11 inside else - openRecrods");
+          // 
           return trip;
         }
       });
@@ -385,7 +385,7 @@ class DocumentsPanel extends React.Component {
               .indexOf(this.props.searchTrip.toLowerCase()) !== -1
           );
 
-          // console.log("inside search and filter trips",trip);
+          // 
         });
       }
     }

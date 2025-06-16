@@ -89,7 +89,7 @@ class Header extends Component {
 
 
      setCurrentSite(selectedOption) {
-        console.log("selected sites are ",selectedOption);
+        
         var currSelected = {};
         this.state.sites && this.state.sites.map((site) => {
           if (selectedOption[0] === site.id) {
@@ -97,8 +97,8 @@ class Header extends Component {
             currSelected.city = site.value;
           }
         });
-        console.log("selected option =",selectedOption);
-        console.log("currentSelection option =",currSelected);
+        
+        
         this.setState({
          // selectedSite: currSelected,
           selectedMultipleSites: selectedOption
@@ -108,18 +108,18 @@ class Header extends Component {
 
      setSelectedSites = (val) => {
            // this.props.handleSiteChange(val);
-         console.log("selected site value =",val);
+         
        //  this.setCurrentSite(val);
      //   var selSitesArr = [];
       //  var existingsite = JSON.parse(localStorage.getItem("sites"));
-        console.log("val =",val);
-      //  console.log("existing site are",existingsite);
+        
+      //  
 
         }
 
       selectedSitesArr = (val) => {
            //    this.props.sitesArr(val);
-  console.log("selected site array =",val);
+  
 //this.setCurrentSite(val);
     //  localStorage.setItem('sites', val);
  //   this.setState({ selectedSitesArr: val })

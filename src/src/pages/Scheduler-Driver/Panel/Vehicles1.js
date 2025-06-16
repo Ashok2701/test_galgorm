@@ -139,7 +139,7 @@ class Vehicles1 extends React.Component {
 
 
     rowDragLeavefunction = (event) => {
-       console.log("4  inside rowdragging after leave",event);
+       
        this.props.handleDragStart(event, event.node.data, 'vehicle',event.node.rowIndex,event.node.data.codeyve );
     }
 
@@ -156,12 +156,12 @@ class Vehicles1 extends React.Component {
                       defaultColDef : defaultColDef
                     };
        const onFilterTextChange = (e) => {
-             console.log("search value",e.target.value);
+             
             gridOptions.api.setQuickFilter(e.target.value);
           }
 
      function changeRowColor(params){
-       console.log("T21 color",params.data.color);
+       
      var myStr = params.data.color;
     var subStr = myStr.match("background-color:(.*)");
     var s = subStr[1];
@@ -179,10 +179,10 @@ class Vehicles1 extends React.Component {
 
 
   const onRowDrag = (params)  => {
-  console.log("inside onRowDrag 1",params);
+  
   var rowNode = params.rowNode;
   var e = params.dragEvent;
-  console.log("inside onRowDrag - e",e);
+  
    this.props.handleDragStart(e, rowNode.data, 'vehicle',rowNode.rowIndex, rowNode.data.codeyve);
  /*
   var jsonObject = {
@@ -201,7 +201,7 @@ class Vehicles1 extends React.Component {
     e.dataTransfer.setData('text/plain', jsonData);
   }
   */
-   console.log("inside onRowDrag - e",e);
+   
 }
 
 

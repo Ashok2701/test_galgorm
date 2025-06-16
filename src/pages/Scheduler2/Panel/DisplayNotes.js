@@ -17,7 +17,7 @@ class DisplayNotes extends React.Component {
   };
 
   render() {
-    console.log(this.props.notes, "these are notes");
+    
     return (
       <Modal
         {...this.props}

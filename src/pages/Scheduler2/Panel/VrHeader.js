@@ -33,7 +33,7 @@ class VrHeader extends React.Component {
   }
   getlvsstatus = (x) => {
 
-    console.log(x ,"this is switch case based on that reurning status")
+    
     switch (x) {
       case 1: return ("To Load");
       case 2: return ("To Load");
@@ -65,7 +65,7 @@ class VrHeader extends React.Component {
   }
 
   confirmLVS = (lvscode) => {
-    console.log("T444 inside VR header - LVS");
+    
     this.props.confirmLVSbyCode(this.props.loadvehstck.vcrnum, this.props.selectedVrIndex, 'vrHeader')
   }
 
@@ -80,14 +80,14 @@ class VrHeader extends React.Component {
   displayVehicleName  = (code) => {
      let vehcode = code, vehName = '';
 
-console.log("data insdie vehname =", vehcode)
+
  if (this.props.vehiclePanel && this.props.vehiclePanel.vehicles  && this.props.vehiclePanel.vehicles.length > 0) {
-       console.log("data insdie vehname if=")
+       
             this.props.vehiclePanel.vehicles.map((veh) => {
-               console.log("data insdie vehname if=", veh)
+               
               if (veh.codeyve === vehcode) {
                  vehName = veh.name;
-                  console.log("data insdie vehname matched", vehName)
+                  
               }
             });
   }
@@ -132,7 +132,7 @@ let vr_url = `${x3Url}/$sessions?f=GESXX10CPLC/2//M/${this.props.vrdata.xnumpc}`
 // Constructing the URL for loadvehstock_url
 let loadvehstock_url = `${x3Url}/$sessions?f=GESXX10CS/2//M/${this.props.loadvehstck.vcrnum}`
 
-    console.log(this.props.vrdata.xnumpc  , "vr_url")
+    
     let lvs_number = "";
     let confirmlvsflg = 0;
     if (this.props.loadvehstck.vcrnum == null) {

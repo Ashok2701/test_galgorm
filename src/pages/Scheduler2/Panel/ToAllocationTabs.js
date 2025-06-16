@@ -158,17 +158,17 @@ class LVSToAllocationTabs extends React.Component {
 
 
   getLotDetailsbyProdSite = (prod) => {
-    console.log("inside to Allication tab");
+    
     this.props.getLotDetailsbyProdSite(this.props.vrdata.fcy, prod, this.props.vrdata.xnumpc)
   }
 
 
   changedAllocationStatus = (event, newvalue) => {
-    console.log("STatus change =", event)
-    console.log("STatus change new value=", newvalue)
+    
+    
 
     var selectedOption = document.getElementById("mySelect").value;
-    console.log("STatus change selected option value=", selectedOption)
+    
     this.setState({
       allocatedStatus: selectedOption
     })
@@ -176,9 +176,9 @@ class LVSToAllocationTabs extends React.Component {
   }
 
   OnStaggingFromLocChanged = (event, newValue) => {
-    console.log("stagging event =", event);
-    //   console.log("stagging index =", index);
-    console.log("stagging newvalue =", newValue);
+    
+    //   
+    
     let index = -1;
 
     //  this.props.toStaggingLocationList && this.props.toStaggingLocationList
@@ -206,7 +206,7 @@ class LVSToAllocationTabs extends React.Component {
 
 
   OnStaggingFromLocChanged2 = (event, newValue) => {
-    //console.log("stagging newvalue =", newValue);
+    //
 
     let index = -1;
 
@@ -249,7 +249,7 @@ class LVSToAllocationTabs extends React.Component {
       })
     }
 
-    console.log("stagging newvalue =", newValue);
+    
     if (newValue == null) {
     }
     else {
@@ -262,7 +262,7 @@ class LVSToAllocationTabs extends React.Component {
 
 
   OnStaggingToLocChanged2 = (event, newValue) => {
-    console.log("stagging newvalue =", newValue);
+    
 
     let index = -1;
 
@@ -290,7 +290,7 @@ class LVSToAllocationTabs extends React.Component {
 
 
   getAllocationStatusColor = (data) => {
-    console.log("passed data =", data);
+    
     let Astatus = 1, dcount = 0, gcount = 0;
     const statusCounts = {};
     data.forEach(item => {
@@ -312,7 +312,7 @@ class LVSToAllocationTabs extends React.Component {
       }
     });
 
-    console.log("after processed passed data", statusCounts)
+    
     if (gcount > 0 && dcount === 0) {
       return '#ffb09c'
     }
@@ -326,7 +326,7 @@ class LVSToAllocationTabs extends React.Component {
 
 
   getAllocationStatus = (data) => {
-    console.log("passed data =", data);
+    
     let Astatus = 1, dcount = 0, gcount = 0, shortageQtyFlg = 0;
     const statusCounts = {};
     data.forEach(item => {
@@ -359,7 +359,7 @@ class LVSToAllocationTabs extends React.Component {
 
 
     if (data.length > 0) {
-      console.log("after processed passed data", statusCounts)
+      
       if (gcount > 0 && dcount === 0) {
         return 'NOT ALLOCATED'
       }
@@ -389,7 +389,7 @@ class LVSToAllocationTabs extends React.Component {
 
 
   render() {
-    console.log("allocation stagging location", this.props.toStaggingLocationList);
+    
 
     let filterDetailedProd;
     let filterGlobalProd;
@@ -400,24 +400,24 @@ class LVSToAllocationTabs extends React.Component {
     //let addAlertClose = () => this.setState({ addAlertShow: false });
 
     if (this.props.toPickDataList) {
-      // console.log("T11 inside triplist",this.props.tripsList);
+      // 
       filterDetailedProd = this.props.toPickDataList.filter(
         (docs) => {
-          console.log("T222 inside docs", docs);
-          console.log("T11 state of docs ", docs.children[9].value);
-          // console.log("T11 inside triplist - openRecrods");
-          console.log("T222 inside allocatedStatus", this.state.allocatedStatus);
+          
+          
+          // 
+          
 
           if (this.state.allocatedStatus === '2') {
-            console.log("T222 inside allocatedStatus - 2");
+            
             return (docs.children[9].value === "Detailed");
           }
           else if (this.state.allocatedStatus === '3') {
-            console.log("T222 inside allocatedStatus - 3");
+            
             return (docs.children[9].value === "Global");
           }
           else {
-            console.log("T222 inside allocatedStatus - 1");
+            
             return (docs.children[9].value === "Detailed" || docs.children[9].value === "Global");
           }
 
@@ -486,12 +486,12 @@ class LVSToAllocationTabs extends React.Component {
 
 
     if (this.props.toPickDataList) {
-      // console.log("T11 inside triplist",this.props.tripsList);
+      // 
       this.props.toPickDataList && this.props.toPickDataList.length > 0 && this.props.toPickDataList.map((docs) => {
-        console.log("T222 inside docs", docs);
+        
         let tempglobaldoc = {};
-        console.log("T11 state of docs ", docs.children[9].value);
-        // console.log("T11 inside triplist - openRecrods");
+        
+        // 
 
 
         tempglobaldoc.prod = docs.children[3].value;
@@ -505,7 +505,7 @@ class LVSToAllocationTabs extends React.Component {
         tempglobaldoc.unit = docs.children[13].value;
         tempglobaldoc.lotflg = docs.children[14].value;
         tempglobaldoc.bcount = docs.children[15].value;
-        console.log("global temp", tempglobaldoc)
+        
 
         if (this.state.allocatedStatus === '3') {
 
@@ -525,9 +525,9 @@ class LVSToAllocationTabs extends React.Component {
         }
 
       })
-      console.log("global temparray", Arraytempglobaldoc)
+      
       // filterGlobalProd = this.groupAndSumData(Arraytempglobaldoc);
-      console.log("global temparray fitler ", filterGlobalProd)
+      
     }
 
     if (Arraytempglobaldoc) {

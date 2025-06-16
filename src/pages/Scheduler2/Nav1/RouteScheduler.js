@@ -50,7 +50,7 @@ function RouteScheduler(props) {
     const [modalTimeMessage, setModalTimeMessage] = React.useState('');
     const [autooptimise, setAutooptimise] = React.useState(false);
 
-    console.log("2 Routeshc",props.data);
+    
 
 
 
@@ -82,7 +82,7 @@ function RouteScheduler(props) {
 
     const onchangeSwitch =() => {
        let autoop = autooptimise;
-       console.log("auto op",autooptimise);
+       
        setAutooptimise(!autooptimise);
     }
 
@@ -257,7 +257,7 @@ function RouteScheduler(props) {
                     setOptimizationFailedStatus(true)
                 }
             }).then((res) => {
-                console.log("auto - opti result",res);
+                
                     if(res && res.optimizedWaypoints){
                        optiindex.push(res.optimizedWaypoints);
                     }
@@ -543,7 +543,7 @@ function RouteScheduler(props) {
     };
 
     useEffect(() => {
-      console.log("2 inside useEffect");
+      
         let hr;
         let min;
         let loadingHrs;
@@ -579,9 +579,9 @@ function RouteScheduler(props) {
 
         //unit setting
         props.sites.map((site) => {
-                  console.log("2 set sites",site);
+                  
               if (props.data.depSite === site.id) {
-                 console.log("2 inside site match")
+                 
                   m = site.massunit;
                   v = site.volunit;
                   d = site.distunit;
@@ -627,7 +627,7 @@ function RouteScheduler(props) {
         })
         hr = loadingTime.split(':')[0];
         min = loadingTime.split(':')[1];
-        console.log("2 after assign",c+"-"+m+"-"+d+"-"+v);
+        
         setCurrency(c);
         setMassunit(m);
         setVolunits(v);

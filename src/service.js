@@ -134,7 +134,7 @@ export async function fetchSchedulerAPI(param, sdate, edate) {
       return Promise.all([res1.json(), res2.json(), res3.json(), res4.json(),res5.json()])
     });
 
-    console.log(completeResult, "this is complete result");
+    // console.log(completeResult, "this is complete result");
   return completeResult;
 }
 
@@ -160,7 +160,11 @@ export async function fetchSchedulerDropsPanelwithRange(site, sdate, edate) {
 
 //Scheduler
 export async function fetchSchedulerAPIOneDate(param, sdate) {
-  const completeResult = Promise.all([fetch(`${apiUrl}/api/v1/scheduler/vehicle/panel?site=` + param + '&date=' + sdate), fetch(`${apiUrl}/api/v1/scheduler/docs/panelwithSelDate?site=` + param + '&seldate=' + sdate), fetch(`${apiUrl}/api/v1/scheduler/trips?site=` + param + '&date=' + sdate), fetch(`${apiUrl}/api/v1/scheduler/routecodes`),fetch(`${apiUrl}/api/v1/transport/getpickerlist`)])
+  const completeResult = Promise.all([fetch(`${apiUrl}/api/v1/scheduler/vehicle/panel?site=` + param + '&date=' + sdate), 
+    fetch(`${apiUrl}/api/v1/scheduler/docs/panelwithSelDate?site=` + param + '&seldate=' + sdate), 
+    fetch(`${apiUrl}/api/v1/scheduler/trips?site=` + param + '&date=' + sdate), 
+    fetch(`${apiUrl}/api/v1/scheduler/routecodes`),
+    fetch(`${apiUrl}/api/v1/transport/getpickerlist`)])
     .then(([res1, res2, res3, res4,res5]) => {
       return Promise.all([res1.json(), res2.json(), res3.json(), res4.json(), res5.json()])
     });
@@ -168,6 +172,40 @@ export async function fetchSchedulerAPIOneDate(param, sdate) {
     console.log(completeResult, "this is complete result");
   return completeResult;
 }
+
+// export async function fetchSchedulerAPIOneDate(param, sdate) {
+//   const urls = [
+//     `${apiUrl}/api/v1/scheduler/vehicle/panel?site=${param}&date=${sdate}`,
+//     `${apiUrl}/api/v1/scheduler/docs/panelwithSelDate3?site=${param}&seldate=${sdate}`,
+//     `${apiUrl}/api/v1/scheduler/trips?site=${param}&date=${sdate}`,
+//     `${apiUrl}/api/v1/scheduler/routecodes`,
+//     `${apiUrl}/api/v1/transport/getpickerlist`
+//   ];
+
+//   // Step 1: Fetch all URLs
+//   const fetchPromises = urls.map(url => fetch(url));
+
+//   const responses = await Promise.allSettled(fetchPromises);
+
+//   // Step 2: Convert fulfilled responses to JSON, handle failures gracefully
+//   const jsonPromises = responses.map((result, index) => {
+//     if (result.status === 'fulfilled') {
+//       return result.value.json().catch(err => {
+//         console.error(`JSON parsing failed for request ${index + 1}:`, err);
+//         return null;
+//       });
+//     } else {
+//       console.error(`Request ${index + 1} failed:`, result.reason);
+//       return Promise.resolve(null); // use null for failed responses
+//     }
+//   });
+
+//   const completeResult = await Promise.all(jsonPromises);
+
+//   console.log(completeResult, "this is complete result");
+
+//   return completeResult;
+// }
 
 
 
@@ -234,9 +272,9 @@ export async function ConfirmLVS(num) {
           // return object;
 
           let responeData = xmlhttp.responseXML.getElementsByTagName('resultXml')[0].innerHTML;
-          console.log("soap xample =", responeData);
+          // console.log("soap xample =", responeData);
           let extractxmldata = responeData.slice(9, responeData.length - 3)
-          console.log("soap xample extractxmldata=", extractxmldata);
+          // console.log("soap xample extractxmldata=", extractxmldata);
           var xml = new XMLParser().parseFromString(extractxmldata);
           //  const completeResult = return xml;
 
@@ -305,9 +343,9 @@ export async function ToPickData(vrnum) {
           // return object;
 
           let responeData = xmlhttp.responseXML.getElementsByTagName('resultXml')[0].innerHTML;
-          console.log("soap xample =", responeData);
+          // console.log("soap xample =", responeData);
           let extractxmldata = responeData.slice(9, responeData.length - 3)
-          console.log("soap xample extractxmldata=", extractxmldata);
+          // console.log("soap xample extractxmldata=", extractxmldata);
           var xml = new XMLParser().parseFromString(extractxmldata);
           //  const completeResult = return xml;
 
@@ -378,9 +416,9 @@ export async function ToAllocationFetchData(vrnum, floctyp, tloctyp, floc, tloc)
           // return object;
 
           let responeData = xmlhttp.responseXML.getElementsByTagName('resultXml')[0].innerHTML;
-          console.log("soap xample =", responeData);
+          // console.log("soap xample =", responeData);
           let extractxmldata = responeData.slice(9, responeData.length - 3)
-          console.log("soap xample extractxmldata=", extractxmldata);
+          // console.log("soap xample extractxmldata=", extractxmldata);
           var xml = new XMLParser().parseFromString(extractxmldata);
           //  const completeResult = return xml;
 
@@ -447,9 +485,9 @@ export async function ToAllocationSubmitData(vrnum) {
           // return object;
 
           let responeData = xmlhttp.responseXML.getElementsByTagName('resultXml')[0].innerHTML;
-          console.log("soap xample =", responeData);
+          // console.log("soap xample =", responeData);
           let extractxmldata = responeData.slice(9, responeData.length - 3)
-          console.log("soap xample extractxmldata=", extractxmldata);
+          // console.log("soap xample extractxmldata=", extractxmldata);
           var xml = new XMLParser().parseFromString(extractxmldata);
           //  const completeResult = return xml;
 
@@ -519,9 +557,9 @@ export async function ToLotDetailsFetchData(prodnum, site, vrnum) {
           // return object;
 
           let responeData = xmlhttp.responseXML.getElementsByTagName('resultXml')[0].innerHTML;
-          console.log("soap xample =", responeData);
+          // console.log("soap xample =", responeData);
           let extractxmldata = responeData.slice(9, responeData.length - 3)
-          console.log("soap xample extractxmldata=", extractxmldata);
+          // console.log("soap xample extractxmldata=", extractxmldata);
           var xml = new XMLParser().parseFromString(extractxmldata);
           //  const completeResult = return xml;
 
@@ -592,9 +630,9 @@ export async function AllocatedDataByStaggingLocations(vrnum, fromloc, toloc, fl
           // return object;
 
           let responeData = xmlhttp.responseXML.getElementsByTagName('resultXml')[0].innerHTML;
-          console.log("soap xample =", responeData);
+          // console.log("soap xample =", responeData);
           let extractxmldata = responeData.slice(9, responeData.length - 3)
-          console.log("soap xample extractxmldata=", extractxmldata);
+          // console.log("soap xample extractxmldata=", extractxmldata);
           var xml = new XMLParser().parseFromString(extractxmldata);
           //  const completeResult = return xml;
 
@@ -662,9 +700,9 @@ export async function ToStaggingLocationFetchData(site) {
           // return object;
 
           let responeData = xmlhttp.responseXML.getElementsByTagName('resultXml')[0].innerHTML;
-          console.log("soap xample =", responeData);
+          // console.log("soap xample =", responeData);
           let extractxmldata = responeData.slice(9, responeData.length - 3)
-          console.log("soap xample extractxmldata=", extractxmldata);
+          // console.log("soap xample extractxmldata=", extractxmldata);
           var xml = new XMLParser().parseFromString(extractxmldata);
           //  const completeResult = return xml;
 
@@ -733,9 +771,9 @@ export async function ToLocationsFetchData(site, floctyp, tloctyp) {
           // return object;
 
           let responeData = xmlhttp.responseXML.getElementsByTagName('resultXml')[0].innerHTML;
-          console.log("soap xample =", responeData);
+          // console.log("soap xample =", responeData);
           let extractxmldata = responeData.slice(9, responeData.length - 3)
-          console.log("soap xample extractxmldata=", extractxmldata);
+          // console.log("soap xample extractxmldata=", extractxmldata);
           var xml = new XMLParser().parseFromString(extractxmldata);
           //  const completeResult = return xml;
 
@@ -764,8 +802,8 @@ export async function ToLocationsFetchData(site, floctyp, tloctyp) {
 
 export async function DeleteDocument(num, count) {
 
-  console.log("at service num", num)
-  console.log("at service count", count)
+  // console.log("at service num", num)
+  // console.log("at service count", count)
   let passeddata = '';
   for (let ii = 0; ii < count; ii++) {
     let doc = num[ii]
@@ -814,9 +852,9 @@ export async function DeleteDocument(num, count) {
           // return object;
 
           let responeData = xmlhttp.responseXML.getElementsByTagName('resultXml')[0].innerHTML;
-          console.log("soap xample =", responeData);
+          // console.log("soap xample =", responeData);
           let extractxmldata = responeData.slice(9, responeData.length - 3)
-          console.log("soap xample extractxmldata=", extractxmldata);
+          // console.log("soap xample extractxmldata=", extractxmldata);
           var xml = new XMLParser().parseFromString(extractxmldata);
           //  const completeResult = return xml;
 

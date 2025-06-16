@@ -58,7 +58,7 @@ const WeekCalender = (props) => {
 
         let fetchStartDate = moment(new Date(props.calenderDate)).startOf('isoWeek');
         let startFullDate = getFullDate(fetchStartDate);
-        console.log("startFullDate",startFullDate)
+        
         let fetchEndDate = moment(new Date(props.calenderDate)).endOf('week').add(1, 'days');
 
         let endFullDate = getFullDate(fetchEndDate);

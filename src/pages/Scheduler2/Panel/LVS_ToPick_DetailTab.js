@@ -29,7 +29,7 @@ constructor(props)
 
 
     render() {
-                console.log("To Pick data  =", this.props.toPickDataList)
+                
            return (
           <TabPane className="tripstab" tabId="Detailed">
           <Card>

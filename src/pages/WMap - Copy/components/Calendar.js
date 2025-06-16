@@ -29,10 +29,10 @@ const Calendar = (props) => {
                else {
 
                setselectedDate(props.weekStartDate)
-               console.log("inside calendar",props.weekStartDate);
+               
         }
     }, [props])
-console.log("props.weekStartDate",props.weekStartDate)
+
     return (
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDatePicker

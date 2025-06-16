@@ -64,11 +64,11 @@ class WMap extends React.Component {
   componentDidMount() {
 
     var user = JSON.parse(localStorage.getItem("authUser"));
-    console.log("inside componentDidmount");
+    
     let date = moment(new Date()).format('YYYY-MM-DD');
     var selSites = sessionStorage.getItem('sites');
     var listSites = [];
-    console.log("Thhh componentDidMount selSites", selSites);
+    
     if (selSites != null) {
       listSites = selSites.split(',');
     }
@@ -108,16 +108,16 @@ class WMap extends React.Component {
         else {
           this.DefaultSite(sites);
         }
-        console.log("inside componentDidmount after success call");
+        
         this.OnSiteSelection(this.state.selectedSite);
       })
-    console.log("inside componentDidmount before onsitechagne");
+    
     // this.OnSiteSelection(this.state.selectedSite); ramana
   }
 
   AlreadySelectedSites = (totsites, selSites, arrayList) => {
-    // console.log("AlreadySelected Site",sites );
-    console.log("AlreadySelected total sites", totsites);
+    // 
+    
     this.handleSiteChange(selSites);
     this.sitesArr(arrayList);
   }
@@ -131,18 +131,18 @@ class WMap extends React.Component {
     sites.length > 0 && sites.map((site, Index) => {
       if (Index == 0) {
         initialSite = site.id;
-        console.log("T333 first index if", Index);
+        
       }
 
-      console.log("T226 inside defaulsite- site", site);
+      
       if (site.defflg === "Yes") {
-        console.log("T226 inside defaulsite- yes", site.id);
+        
         defSite = site.id
       }
     });
 
     if (defSite == "") {
-      console.log("T333 inside if no default site", defSite);
+      
       defSite = initialSite;
     }
     this.setState({
@@ -172,9 +172,9 @@ class WMap extends React.Component {
 
   setCurrentSite = selectedOption => {
     var currSelected = {};
-    console.log("1 set currentsite", selectedOption);
+    
     this.state.sites && this.state.sites.map((site) => {
-      console.log("1 set sites", site);
+      
       if (selectedOption[0] === site.id) {
         currSelected = site;
         currSelected.city = site.value;
@@ -194,10 +194,10 @@ class WMap extends React.Component {
 
 
   onDaysChanged = (days) => {
-    console.log("T1 inside onDaysChanged", days);
+    
     var currDate = moment(this.state.calenderMapDate, 'YYYY-MM-DD').add(days, 'days');
     var newDate = moment(currDate).format('YYYY-MM-DD');
-    console.log("T1 inside onDaysChanged", newDate);
+    
     this.onMapDateChange(newDate);
   }
 
@@ -251,16 +251,16 @@ class WMap extends React.Component {
 
 
   onMapDateChange = (seldate, camefrom) => {
-    console.log("T1 inside MApChanged", seldate);
+    
     this.setState({ calenderMapDate: seldate })
     seldate = moment(new Date(seldate)).format('YYYY-MM-DD')
-    console.log("T1 inside MApChanged site arraylist", this.state.selectedSitesArr);
+    
     if (this.state.selectedSitesArr.length > 0 && camefrom !== 'uncheck') {
-      console.log("T1 inside MApChanged site arraylist if", this.state.selectedSitesArr);
+      
       this.onMapDateAndSiteChange(seldate, this.state.selectedSitesArr)
     }
     else {
-      console.log("T1 inside MApChanged site arraylist else", this.state.selectedSitesArr);
+      
       Promise.all([fetch(`${apiUrl}/api/v1/report/tripslist?date=${seldate}`),
         fetch(`${apiUrl}/api/v1/scheduler/trips?site=${this.state.selectedSitesArr}&date=${seldate}`)
       ])
@@ -292,7 +292,7 @@ class WMap extends React.Component {
   }
 
   OnSiteSelection = (selSite) => {
-    console.log("inside onSiteSelection - selSite", selSite);
+    
     this.setState({ selectedSite: selSite })
     let startDate = moment(this.state.weekStartDate).format('YYYY-MM-DD');
     let endDate = moment(this.state.weekEndDate).format('YYYY-MM-DD');
@@ -312,7 +312,7 @@ class WMap extends React.Component {
   }
 
   OnVehicleSelection = (selVehicle) => {
-    console.log("selected selVehicle", selVehicle)
+    
   }
 
   handleSiteChange = selectedOption => {
@@ -320,13 +320,13 @@ class WMap extends React.Component {
       var currdate = moment(this.state.calenderMapDate).format('YYYY-MM-DD');
       sessionStorage.setItem('sites', selectedOption);
       this.onMapDateAndSiteChange(currdate, selectedOption);
-      console.log("inside handleSite Change selected sites are ", selectedOption);
+      
 
     }
     else {
       var currdate = moment(this.state.calenderMapDate).format('YYYY-MM-DD');
       this.onMapDateChange(currdate, 'uncheck');
-      console.log("inside handleSite no sites exist ", selectedOption);
+      
     }
 
   }
@@ -352,7 +352,7 @@ class WMap extends React.Component {
   }
 
   render() {
-    console.log("inside App component");
+    
     const { classes } = this.props;
     return (
       <React.Fragment>

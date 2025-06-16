@@ -6,7 +6,7 @@ import history from './History';
 function IdleTimerContainer (props) {
 
    const onIdle = () => {
-    console.log("User is Idle");
+    
      localStorage.clear();
      sessionStorage.clear();
       history.push('/login');

@@ -43,7 +43,7 @@ class DocumentsPanel extends React.Component {
 
 
       dayscheckBoxChange = () => {
-           console.log("T222 docpanel - dayscheckbox change");
+           
            this.setState({ Todayschecked: !this.props.daysCheckedIn });
            this.props.checked5days(!this.props.daysCheckedIn)
 
@@ -96,7 +96,7 @@ toggleTab(tab) {
 
     render() {
      const site = this.props.deliverySite;
-     console.log("T21 inside doc panel");
+     
  const currDate = moment(this.props.selectedDate).format('YYYY-MM-DD');
      let filterDrops;
      let filterPickups;
@@ -111,8 +111,8 @@ toggleTab(tab) {
 
 
                  if(this.props.railcarIsChecked) {
-                     console.log("inside Dpanel - true",this.props.CheckedRailcardetails);
-                     console.log("inside Dpanel - drop",drop);
+                     
+                     
                        return (this.props.CheckedRailcardetails && this.props.CheckedRailcardetails.railcarid ===drop.railcar);
                    //  if(this.props.CheckedRailcardetails.railcarid === drop.)
 

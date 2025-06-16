@@ -102,7 +102,7 @@ class EditorTemp extends React.PureComponent {
               }
 
     getDocink = (tripData) => {
-        console.log("getDoclink = ",tripData);
+        
        var url = "";
                    var content;
                       url = "https://tmsX3.tema-systems.com/syracuse-main/html/main.html?url=/trans/x3/erp/TMSDEVN/$sessions?f=GESITN/2//M/" + tripData.docnum;
@@ -128,7 +128,7 @@ class EditorTemp extends React.PureComponent {
        let addProductsClose = () => this.setState({ addProductShow: false });
 
      var tripData = this.props.SelectedDocData;
-     console.log("data inside edtiort = ",this.props.SelectedTripData);
+     
      const vr_url = "httpss://tms.tema-systems.com/syracuse-main/html/main.html?url=/trans/x3/erp/DEMOTMSFR/$sessions?f=GESXX10CPLC/2//M/" + tripData.vrcode;
 
 

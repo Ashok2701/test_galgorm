@@ -18,7 +18,7 @@ class RevenueByLocations extends Component {
 
          componentDidUpdate(prevProps) {
             if (prevProps.dash !== this.props.dash) {
-              console.log("Some props changed. Rendering...");
+              
             //  ApexCharts.exec('routestatus-pie')
 
                 this.setState({
@@ -29,7 +29,7 @@ class RevenueByLocations extends Component {
           }
 
     render() {
-         console.log("asdfasdfs" ,this.state.count)
+         
         return (
             <React.Fragment>
                 <Col lg={4}>

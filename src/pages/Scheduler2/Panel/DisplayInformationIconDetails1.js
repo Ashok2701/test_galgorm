@@ -28,7 +28,7 @@ const DisplayInformationIconDetails1 = (props) => {
 
 
 
-console.log(props.data , "this is data for vehicle")
+
 
 
 

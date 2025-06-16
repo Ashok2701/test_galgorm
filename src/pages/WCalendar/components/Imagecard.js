@@ -27,7 +27,7 @@ const useStyles = makeStyles({
 
 const Imagecard = (props) => {
 
-    console.log(props.vehicleNumber, "this is insdiee image card")
+    
     const classes = useStyles();
     return (
         <Card className={classes.root}>

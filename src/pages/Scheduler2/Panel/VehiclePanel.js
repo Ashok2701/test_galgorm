@@ -37,7 +37,7 @@ class VehiclePanel extends React.Component {
          this.state = {
               activeTab: "Vehicles"
               }
-           console.log("T22 inside Vehicle panel - conc",props);
+           
 
           this.toggleTab = this.toggleTab.bind(this);
     }
@@ -79,7 +79,7 @@ class VehiclePanel extends React.Component {
      const site = this.props.updatedArrSite;
             let filterVehicles = this.props.curVehiclePanel && this.props.curVehiclePanel.vehicles.filter(
                 (vehicle) => {
-                  console.log(vehicle,"abx xyz")
+                  
                   return (
                     (vehicle.codeyve != null && vehicle.codeyve.toLowerCase().indexOf(this.props.searchVeh.toLowerCase()) !== -1) ||
                     (vehicle.trailer != null && vehicle.trailer.toLowerCase().indexOf(this.props.searchVeh.toLowerCase()) !== -1) ||

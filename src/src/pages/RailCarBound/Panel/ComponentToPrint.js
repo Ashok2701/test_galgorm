@@ -38,7 +38,7 @@ class ComponentToPrint extends React.Component {
 
               prodlists.prodName = prod.productName;
               prodlists.prodmass = prod.combo1 +" "+ prod.uom;
-              console.log("print - inside combo1",prodlists);
+              
               comp1.push(prodlists);
            }
            if(prod.combo2 > 0 ) {
@@ -50,16 +50,16 @@ class ComponentToPrint extends React.Component {
 
               prodlists.prodName = prod.productName;
               prodlists.prodmass = prod.combo2 +" "+ prod.uom;
-              console.log("print - inside combo2",prodlists);
+              
              comp2.push(prodlists);
            }
 
       })}
      })}
-         console.log("count of components - print final prodList - comp1",comp1);
-         console.log("count of components - print final prodList - comp2",comp2);
-      console.log("count of components =",boldata);
-     console.log("count of combo data on image =",this.props.comboData);
+         
+         
+      
+     
 
        if(boldata.combCount == 2) {
         return(
@@ -309,7 +309,7 @@ class ComponentToPrint extends React.Component {
                        }
                       else if(doc.combotype === 'TOTECOMBO1')
                       {
-                         console.log("props combodata",doc);
+                         
                        // this.getData(doc.combotype, doc.prodList);
                       //  tote1flg = true;
                       return(
@@ -345,7 +345,7 @@ class ComponentToPrint extends React.Component {
                         }
 
                       else if(doc.combotype === 'TOTECOMBO2') {
-                       console.log("props combodata",doc);
+                       
                          return(
                                              <>
                                               <div class="comboh">
@@ -382,7 +382,7 @@ class ComponentToPrint extends React.Component {
                       }
                       else if(doc.combotype === 'TOTENONCOMBO')
                       {
-                               console.log("props combodata",doc);
+                               
                           return(
                                               <>
                                               <h6>{doc.combotype}</h6>

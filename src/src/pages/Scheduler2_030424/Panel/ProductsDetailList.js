@@ -29,8 +29,8 @@ constructor(props)
     }
 
     render() {
-      console.log("props data  = ", this.props.Datalist)
-      console.log("props trips data  = ", this.props.tripDetails)
+      
+      
            return (
               <Modal
                      {...this.props}

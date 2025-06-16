@@ -96,29 +96,29 @@ class Home extends React.Component {
     };
   }
   onCalenderDateChage = (date) => {
-    console.log("TYYY date =", date);
+    
     this.props.handleDateChange(date);
     this.setState({ calenderDate: date });
   };
 
   setSelectedSites = (val) => {
-    console.log("selected sites are", val);
+    
     this.props.handleSiteChange(val);
   };
 
   refreshData = () => {
-    console.log("isndie refresh button");
+    
     this.props.refreshDataforWeek();
   };
 
   selectedSitesArr = (val) => {
-    console.log("selectedSitesArr sites are", val);
+    
     this.props.sitesArr(val);
   };
 
   render() {
     const { classes } = this.props;
-    console.log("inside Home - props-selectedSite", this.props.selectedSite);
+    
     let sites = this.props.sitelist;
     let optionItems = [];
     var optionSelected = {};
@@ -128,7 +128,7 @@ class Home extends React.Component {
     var optionSelected = {};
     var selectedSite = {};
     var placeHolder = "All";
-    console.log("inside useEffect", this.props.sitelist);
+    
     this.props.sitelist &&
       this.props.sitelist.length > 0 &&
       this.props.sitelist.map((site) => {

@@ -214,7 +214,7 @@ const DataTable = (props) => {
     }
   }, [props])
 
-  console.log("ASDRFTGJKAJDUHAUKEJIS", props.tripList)
+  
   return (
     <>
       <div style={{}}>

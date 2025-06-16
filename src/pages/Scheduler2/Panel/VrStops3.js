@@ -142,7 +142,7 @@ class VrStops3 extends React.Component {
     // }
 
     documentBadgeLink = (docno, dtype) => {
-        console.log(docno,dtype ,"this is badge link")
+        
         const docmvt = dtype;
         let url;
 
@@ -194,10 +194,10 @@ class VrStops3 extends React.Component {
                 }
             })
         }
-        // console.log(this.props.vedetail, "vdetail i button")
+        // 
 
         
-// console.log(trip.totalObject.selectedTripData  ,"this is total object selected trip data 200");
+// 
 
 const updatedVedetail = this.props.vedetail && this.props.vedetail.map(veItem => {
     // Find the matching item in selectedTripData
@@ -206,10 +206,10 @@ const updatedVedetail = this.props.vedetail && this.props.vedetail.map(veItem =>
     );
   
 
-    console.log(matchedTrip ,"209 matched trip")
+    
     // If there is a match and routeTag is INTER-PICK, update crynam
     if (matchedTrip && matchedTrip.routeTag == 'INTER-PICK') {
-        console.log(matchedTrip && matchedTrip.routeTag == 'INTER-PICK' ,"212 if condition")
+        
       return {
         ...veItem,
         bprnam: matchedTrip.bpname,
@@ -218,12 +218,12 @@ const updatedVedetail = this.props.vedetail && this.props.vedetail.map(veItem =>
   
     // No change if no match or routeTag is not INTER-PICK
 
-    console.log(veItem, "221 ve item check")
+    
     return veItem;
   });
 
 
-  console.log(updatedVedetail ,"chekcing after modifiaiton 221")
+  
         return (
             <Card className=''>
                 <CardTitle className="float-left h4 mb-0 pt-2" style={{ 'color': '#5664d2', 'paddingLeft': '20px' }}>

@@ -22,10 +22,10 @@ class IndividualRouteMap1 extends React.Component {
   }
 
   render() {
-    console.log("inside indiv map1, site details",this.props.siteDetails);
-        console.log("inside indiv map1, tripsList",this.props.tripsList);
-            console.log("inside indiv map1, markers",this.props.markers);
-                console.log("inside indiv map1, bl_tripsList",this.props.bl_tripsList);
+    
+        
+            
+                
     let points = [
       // { id: 1, title: "Round Pond", lat: 51.506, lng: -0.184 },
     ];
@@ -33,7 +33,7 @@ class IndividualRouteMap1 extends React.Component {
     let arrDetails = {};
     if (this.props.tripsList && this.props.vrdata && this.props.triplock == true)
     {
-    console.log("inside IndividualMap , lock");
+    
       this.props.tripsList.map((tripList) => {
         if (tripList.code === this.props.vrdata.codeyve && this.props.vrdata.xnumpc === tripList.itemCode) {
           // points.push({})
@@ -56,8 +56,8 @@ class IndividualRouteMap1 extends React.Component {
       })
     }
     else if(this.props.bl_tripsList && this.props.bl_tripsList.lock == false) {
-      console.log("inside IndividualMap , unlock");
-      console.log("inside IndividualMap , unlock",this.props.bl_tripsList);
+      
+      
          this.props.sites.map((site) => {
             if (this.props.bl_tripsList.depSite === site.id) {
               depDetails.id = 0;

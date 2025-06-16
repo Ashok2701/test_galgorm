@@ -84,10 +84,10 @@ class Equipments extends React.Component {
 
 
   const onRowDrag = (params)  => {
-  console.log("inside onRowDrag",params);
+  
   var rowNode = params.rowNode;
   var e = params.dragEvent;
-  console.log("inside onRowDrag - e",e);
+  
    this.props.handleDragStart(e, rowNode.data, 'equipment',rowNode.rowIndex,rowNode.data.xequipid);
  }
 

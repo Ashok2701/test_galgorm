@@ -354,7 +354,7 @@ this.googleMapRef = React.createRef();
 
    checked30daysRailtrips = (checked) => {
 
-      console.log("T222 inside checked30daystriplist",checked);
+      
          this.setState({ checked30daysRailtrips : checked});
          this.RailTriplistforCheckedindays(checked);
      }
@@ -366,15 +366,15 @@ this.googleMapRef = React.createRef();
                    var newDate = moment(currDate).format('YYYY-MM-DD');
                  var newStartDate = moment(sdate).format('YYYY-MM-DD');
                  var newEndDate = moment(edate).format('YYYY-MM-DD');
-                  console.log("T222 inside changeDate - 30daysflag",this.state.checked30daystrips);
+                  
                  if(dayflag) {
-                    console.log("T222 inside checked and true");
+                    
                     fetchRailTripsPanelwithRange(this.state.selectedMultipleSites, newStartDate,newEndDate)
                                         .then(([res1]) => {
                                           var dropsP = res1;
-                                          console.log("drops panel after result",dropsP);
+                                          
                                          // this.filterDropsDiv(newDate, dropsP);
-                                          console.log("drops panel after filter",dropsP);
+                                          
                                           this.setState({
                                             tripsPanel: dropsP,
                                           });
@@ -383,13 +383,13 @@ this.googleMapRef = React.createRef();
                                         });
                }
                else {
-                  console.log("T222 inside unchecked and false");
+                  
                    fetchRailTripsPanel(this.state.selectedMultipleSites, newDate)
                              .then(([res1]) => {
                                var dropsP = res1;
-                               console.log("drops panel after result",dropsP);
+                               
                               // this.filterDropsDiv(newDate, dropsP);
-                               console.log("drops panel after filter",dropsP);
+                               
                                this.setState({
                                  tripsPanel: dropsP,
                                });
@@ -423,7 +423,7 @@ this.googleMapRef = React.createRef();
               }
 
       colourDivs = (allDrivers, dlist, allTrailers, tlist) => {
-         console.log("T22 - inside  index, change colorDivs");
+         
         this.setState({
           allAllowedDrivers: allDrivers,
           allAllowedTrailers: allTrailers,
@@ -432,7 +432,7 @@ this.googleMapRef = React.createRef();
           allowedTrailers: tlist
         });
 
-        console.log("T22 after assiging -vehicleDropped",this.state.vehicleDropped);
+        
       }
       colourDocDivs = (drpTrailer) => {
            if (drpTrailer !== null || drpTrailer !== '') {
@@ -892,9 +892,9 @@ this.googleMapRef = React.createRef();
   }
 
   disableDivs = (index, type, docNum) => {
-    console.log("T31  inside disableDivs ", index);
-    console.log("T31  inside disableDivs type", type);
-    console.log("T31  inside disableDivs docnum", docNum);
+    
+    
+    
     var currVehPanel = this.state.vehiclePanel;
     var currDropsPanel = this.state.dropsPanel;
 
@@ -941,11 +941,11 @@ this.googleMapRef = React.createRef();
       currDropsPanel.pickUps = currVeh;
     }
     if (type === 'drops') {
-      console.log("T31 inside drop - disable");
+      
       var currVeh = currDropsPanel.drops;
-      console.log("T31 inside drop - disable CurrVel",currVeh);
+      
       if (this.state.checkedToPlan || this.state.searchPanel) {
-          console.log("T31 inside drop - disable if");
+          
         if (currDropsPanel.drops && currDropsPanel.drops.length > 0) {
           currDropsPanel.drops.map((drops, i) => {
             if (drops.docnum === docNum) {
@@ -955,7 +955,7 @@ this.googleMapRef = React.createRef();
           })
         }
       } else {
-          console.log("T31 inside drop - disable else");
+          
         currVeh[index].isDropped = true;
         currVeh[index].type = 'selected';
       }
@@ -985,20 +985,20 @@ this.googleMapRef = React.createRef();
       sealnoBydlvyno : sealDetails
       });
 
-      console.log("save seal - sealnumbers",sealnumbers);
-      console.log("save seal - dlvno",dlvno);
+      
+      
 
       fetch('http://tmsportal.tema-systems.com:8082/api/v1/rail/seal/doc', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(sealDetails)
             }).then((response) => {
-              console.log("inside after trip - response",response);
+              
               this.handleErrors(response);
             }).then(function (response) {
 
             }).then(() => {
-               console.log("inside submit Trips",this.state.date);
+               
               this.handleDateChange(this.state.date);
             }).then(() => {
               this.setState({ loading: false, checkedTrip: false, isDetail:false });
@@ -1009,7 +1009,7 @@ this.googleMapRef = React.createRef();
               this.notifyError("Please add proper Sealnumbers to the delviery");
             });
 
-      console.log("sealsave =",this.state.sealnoBydlvyno);
+      
 
   }
 
@@ -1021,12 +1021,12 @@ this.googleMapRef = React.createRef();
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(trips)
       }).then((response) => {
-        console.log("inside after trip - response",response);
+        
         this.handleErrors(response);
       }).then(function (response) {
 
       }).then(() => {
-         console.log("inside submit Trips",this.state.date);
+         
         this.handleDateChange(this.state.date);
       }).then(() => {
         this.setState({ loading: false, checkedTrip: false, isDetail:false });
@@ -1115,7 +1115,7 @@ this.googleMapRef = React.createRef();
       }
       else {
         trip.date = moment(this.state.date).format("YYYY-MM-DD");
-        console.log("inside index - trip date",moment(this.state.date).format("YYYY-MM-DD"));
+        
         trip.endDate = "";
         trip.optistatus = "Open";
         trip.route = false;
@@ -1279,14 +1279,14 @@ filterTrans_depSite = (site) => {
 
   var flagconsider = false;
   if(from == 'checked') {
-    console.log("T222 from checked ",from);
+    
     flagconsider = dayflag;
-     console.log("T222 from flagconsider ",flagconsider);
+     
   }
   else if (from == 'buttons') {
-   console.log("T222 from button",from);
+   
    flagconsider = this.state.checked5days;
-     console.log("T222 from flagconsider",flagconsider);
+     
   }
 
  var currDate = moment(this.state.dropDate).add(day, 'days');
@@ -1295,16 +1295,16 @@ filterTrans_depSite = (site) => {
     var newDate = moment(currDate).format('YYYY-MM-DD');
   var newStartDate = moment(sdate).format('YYYY-MM-DD');
   var newEndDate = moment(edate).format('YYYY-MM-DD');
-   console.log("T222 inside changeDate - 5daysflag",this.state.checked5days);
+   
      if(flagconsider) {
 
-         console.log("T222 inside changeDAte checked5days true");
+         
          fetchRailDropsPanelwithRange(this.state.selectedMultipleSites, newStartDate,newEndDate)
                .then(([res1]) => {
                  var dropsP = res1;
-                 console.log("drops panel after result",dropsP);
+                 
                 // this.filterDropsDiv(newDate, dropsP);
-                 console.log("drops panel after filter",dropsP);
+                 
                  this.setState({
                    dropDate: new Date(newDate),
                    dropsPanel: dropsP,
@@ -1315,13 +1315,13 @@ filterTrans_depSite = (site) => {
 
      }
      else {
-    console.log("T21 inside chageDAte");
+    
     fetchRailDropsPanel(this.state.selectedMultipleSites, newDate)
       .then(([res1]) => {
         var dropsP = res1;
-        console.log("drops panel after result",dropsP);
+        
        // this.filterDropsDiv(newDate, dropsP);
-        console.log("drops panel after filter",dropsP);
+        
         this.setState({
           dropDate: new Date(newDate),
           dropsPanel: dropsP,
@@ -1385,7 +1385,7 @@ filterTrans_depSite = (site) => {
 
 
       checked5days = (checked) => {
-           console.log("T222 inside checked5days",checked);
+           
           this.setState({ checked5days: checked })
           this.changeDate(0, checked, 'checked');
         }
@@ -1514,8 +1514,8 @@ refreshAllPanels = () => {
          trips: emptyTrip,
 
         });
-      console.log("T11 inside refreshAllpanels",this.state.trips);
-      console.log("T11 inside refreshAllpanels",this.state.date);
+      
+      
         this.handleDateChange(this.state.date);
     }
 
@@ -1552,8 +1552,8 @@ refreshAllPanels = () => {
 
       var user = JSON.parse(localStorage.getItem("authUser"));
        const currDate = moment(new Date()).format('YYYY-MM-DD');
-       console.log("T11 component did mount", currDate);
-        console.log("T11 component did mount", this.state.date);
+       
+        
        Promise.all([fetch('http://tmsportal.tema-systems.com:8082/api/v1/transport/usrsites?user='+ user.username)])
       .then(([res1]) => {
         return Promise.all([res1.json()])
@@ -1575,11 +1575,11 @@ refreshAllPanels = () => {
      }
 
      handleSiteChange = selectedOption => {
-        console.log("site change",selectedOption);
-        console.log("date =",this.state.date);
+        
+        
         this.setCurrentSite(selectedOption);
        const currDate = moment(this.state.date).format('YYYY-MM-DD');
-       console.log("after assign current date =",currDate);
+       
        fetchRailCarOutBoundAPI(selectedOption, currDate)
          .then(([res1, res2, res3]) => {
            this.setState({
@@ -1600,7 +1600,7 @@ refreshAllPanels = () => {
 refreshSite = () => {
   //  this.updateGeoLocations();
   //  this.enableDroppedDiv();
-    console.log("inside refreshSite");
+    
     this.removeTrips();
   }
 
@@ -1689,9 +1689,9 @@ addSelectedTrips = (count) => {
   }
 
   handleDateChange = (date) => {
-    console.log("T11 sync,inside handleDatechagne",date);
+    
     const currDate = moment(date).format('YYYY-MM-DD');
-    console.log("T11 sync,inside handleDatechagne",currDate);
+    
 
     let value = this.state.selectedMultipleSites
     fetchRailCarOutBoundAPI(value, currDate)
@@ -1727,7 +1727,7 @@ addSelectedTrips = (count) => {
           tripsPanel: res3
         });
       }).then(() => {
-        console.log("inside handlechange after response before refresh site");
+        
 
         this.refreshSite();
       }).catch(error => {
@@ -1751,7 +1751,7 @@ addSelectedTrips = (count) => {
 /*
   updateTripsGeoLocations = (index , status) => {
    // var checkboxes = document.getElementsByName("tripsCheckBox");
-    console.log("inside updateTripgeo");
+    
    var checkboxes = this.state.tripsPanel;
     const currMarkers = [];
     const currGeoData = [];
@@ -1768,14 +1768,14 @@ addSelectedTrips = (count) => {
     }
 
     if (status) {
-       console.log("inside updateTripgeo if",status);
+       
       this.removeTrips();
 //      checkboxes[index].checked = true;
 
       this.updateTripsPanel(currMarkers, currGeoData, index);
       this.setState({ selectedIndex: index, checkedTrip: true, RouteoptiShow:'block' })
     } else {
-     console.log("inside updateTripgeo else",status);
+     
       this.removeTrips();
       let marker = [];
       marker.push(currMarkers[0])
@@ -1798,7 +1798,7 @@ addSelectedTrips = (count) => {
 updateTripsPanel = (currMarkers, currGeoData, i) => {
 
 
-   console.log("inside updateTripsPanel - 1");
+   
     var tripsPanels = this.state.tripsPanel;
     var selectedTrip = [];
     var selectedTrips = [];
@@ -1811,10 +1811,10 @@ updateTripsPanel = (currMarkers, currGeoData, i) => {
     quantities = slectTrip.quantities;
     selectedTrip.push(tripsPanels[i]);
 
-   console.log("inside updateTripsPanel - 2");
+   
     for (var j = 0; j < tripsPanels[i].dropObject.length; j++) {
 
-   console.log("inside updateTripsPanel - 3");
+   
       tripsPanels[i].dropObject[j].itemCode = tripsPanels[i].itemCode;
       tripsPanels[i].dropObject[j].lock = tripsPanels[i].lock;
       currMarkers.push(tripsPanels[i].dropObject[j]);
@@ -1831,7 +1831,7 @@ updateTripsPanel = (currMarkers, currGeoData, i) => {
       "#e0e0e0",
       "#e0e0e0"
     ];
-    console.log("inside updateTripsPanel - 4",selectedTrips.length);
+    
     var count = selectedTrips.length;
     for (var i = 0; i < selectedTrips.length; i++) {
 
@@ -1844,7 +1844,7 @@ updateTripsPanel = (currMarkers, currGeoData, i) => {
         currGeoData.push(selectedTrips[i]);
       }
     }
-    console.log("inside index - updateTripspanel - 5");
+    
     this.setState({
       trips: selectedTrip,
       guageTrip: gTrip,
@@ -1863,7 +1863,7 @@ updateTripsPanel = (currMarkers, currGeoData, i) => {
 
   removeTrips = () => {
    // this.clearAllCheckBoxes();
-   console.log("remove trips 1");
+   
     this.setState({
       trips: [],
       guageTrip: {},
@@ -1890,10 +1890,10 @@ updateTripsPanel = (currMarkers, currGeoData, i) => {
 
 
   handleDragStart = (event, valueObj, type, index, id) => {
-    console.log("3 inside handldragStart at index - event",event);
-     console.log("3 inside handldragStart at index - valueobj",valueObj);
-      console.log("3 inside handldragStart at index - type",type);
-        console.log("3 inside handldragStart at index - index",index);
+    
+     
+      
+        
 
 
       if (type === "vehicle") {
@@ -1902,14 +1902,14 @@ updateTripsPanel = (currMarkers, currGeoData, i) => {
             .then(function (response) {
               return response.json()
             }).then((res) => {
-           //  console.log("after vehicle drag",res);
+           //  
           });
 
           }
 
 
 /*
-    console.log("3 inside handleDragStart",event)
+    
  let draggedData = {};
     draggedData.currentCard = JSON.stringify(valueObj);
     draggedData.type = type;
@@ -1926,8 +1926,8 @@ updateTripsPanel = (currMarkers, currGeoData, i) => {
     event.dataTransfer.setData("row-id", id);
     event.dataTransfer.setData("index", index);
 
-   console.log("3 inside handledrag - dataTranser after",event);
-   console.log("3 inside handledrag - is dragged after",event.dataTransfer);
+   
+   
 
   }
 
@@ -2081,7 +2081,7 @@ updateTrip = (trip) => {
   }
 
   removeTrips = () => {
-    console.log("remove trips 2");
+    
     this.clearAllCheckBoxes();
     this.setState({
       trips: [],
@@ -2122,13 +2122,13 @@ updateTrip = (trip) => {
 
 
   disableDroppedDiv = (divTag) => {
-   console.log("T31 inside disable Drooped Div",divTag);
+   
    var temp = "[row-id="+divTag+"]";
   //  var htmlDiv = document.getElementById(divTag);
-   console.log("T31 inside disable Drooped Div temp",temp);
+   
   var htmlDiv = document.querySelectorAll(temp);
     var { droppedDivs } = this.state;
-     console.log("T31 inside disable Drooped Div htmldiv",htmlDiv);
+     
     droppedDivs.push(temp);
     this.setState({ droppedDivs });
   }
@@ -2252,7 +2252,7 @@ onValidateAll = ()=>{
 
 
    validate = (i) => {
-       console.log("s1 - inside validate");
+       
        var tripsPanels = this.state.tripsPanel;
        var ClickedTrip = tripsPanels[i];
        let trips = ClickedTrip;
@@ -2299,7 +2299,7 @@ onValidateAll = ()=>{
 
 
   railcarStatus_Change = (code, status) => {
-   console.log("s1 - inside validate");
+   
     let StatusupdateDetail = {
            "code" : code,
            "status" : status
@@ -2333,7 +2333,7 @@ onValidateAll = ()=>{
 
 
  validateonly = (i,pageType) => {
-     console.log("s1 - inside validate");
+     
      var tripsPanels = this.state.tripsPanel;
      var ClickedTrip = tripsPanels[i];
      let trips = ClickedTrip;
@@ -2386,7 +2386,7 @@ onValidateAll = ()=>{
   }
 
 updateTripsGeolocationbeforelock = (index) => {
-   console.log("inside updateTRipGeolocations")
+   
   const currMarkers_bl = [];
       const currGeoData_bl = [];
    if (typeof (this.state.selectedSite) === "string") {
@@ -2408,7 +2408,7 @@ updateTripsGeolocationbeforelock = (index) => {
 
 
   updateTripsGeoLocations = (index) => {
-    console.log("inside updateTripGeolocations",index);
+    
     var checkboxes = document.getElementsByName("tripsCheckBox1");
     const currMarkers = [];
     const currGeoData = [];
@@ -2423,9 +2423,9 @@ updateTripsGeolocationbeforelock = (index) => {
     } else if (this.state.selectedSite.lat != undefined) {
       currMarkers.push(this.state.selectedSite);
     }
-    console.log("inside updateTripsGelLocations - ",checkboxes[index].checked);
-    console.log("inside updateTripsGelLocations - ",checkboxes[index].checked);
-    console.log("inside updateTripsGelLocations - ",checkboxes[index].checked);
+    
+    
+    
 
 
     if (checkboxes[index].checked) {
@@ -2473,10 +2473,10 @@ updateTripsGeolocationbeforelock = (index) => {
   }
 
   updateTripsPanel_beforeLocking(currMarkers_bl,i){
-  console.log("beforelocking=",this.state.tripsPanel);
+  
     var tripsPanels = this.state.tripsPanel;
     var tripsList_bl = tripsPanels[i];
-  //  console.log("beforelocking=",tripsPanels[i].totalObject);
+  //  
     var slectTrip_bl = tripsPanels[i].totalObject;
     var selectedTrip_bl = slectTrip_bl.selectedTripData;
     for (var j = 0; j < tripsPanels[i].dropObject.length; j++) {
@@ -2724,14 +2724,14 @@ updateTripsGeolocationbeforelock = (index) => {
       var tripsList_loader = tripsPanels[tripindex];
       tripsList_loader.loaderInfo = msg;
 
-      console.log("loader msg - trip",tripsList_loader);
+      
       this.confirmTrip(tripsList_loader, "loaderMsg");
 
   }
 
   onForcesequnceCheck = (tripindex,msg) => {
 
-  console.log("foced check msg - trip",msg);
+  
    var tripsPanels = this.state.tripsPanel;
    var trips = []
    var tripsList_force = tripsPanels[tripindex];
@@ -2779,7 +2779,7 @@ updateTripsGeolocationbeforelock = (index) => {
 
         if(TripData.docnum && TripData.docnum === docNum) {
           if(Msgtype === 'doc') {
-           console.log("inside doc type at app",Msgtype);
+           
           TripData.noteMessage = msg
           }
           else if(Msgtype === 'carrier') {
@@ -2807,10 +2807,10 @@ updateTripsGeolocationbeforelock = (index) => {
 
 
   onTripDelete = (index, docnum, vtype, vcode) => {
-   console.log("T222 inside app after delete button clicked- index",index);
-     console.log("T222 inside app after delete button clicked- docnum",docnum);
-       console.log("T222 inside app after delete button clicked- vtype",vtype);
-         console.log("T222 inside app after delete button clicked- vcode",vcode);
+   
+     
+       
+         
     var currentGeoData = this.state.geoData;
     var currentMarkers = this.state.markers;
     var geoData = [];
@@ -2822,10 +2822,10 @@ updateTripsGeolocationbeforelock = (index) => {
     var trip = this.state.trips[0];
     var removeDocs = [];
 
-  console.log("T222 inside app after delete button clicked- currentGeoData",currentGeoData);
-  console.log("T222 inside app after delete button clicked- currentMarkers",currentMarkers);
-  console.log("T222 inside app after delete button clicked- currDropsPanel",currDropsPanel);
-  console.log("T222 inside app after delete button clicked- trip",trip);
+  
+  
+  
+  
     if (currentGeoData[index].panelType == 'pickup') {
       var pickCount = trip.pickups;
       trip.pickups = pickCount - 1;
@@ -2902,7 +2902,7 @@ updateTripsGeolocationbeforelock = (index) => {
     }
     var currSelectedTrips = this.state.slectedTrips;
     var selectedTrips = [];
-    console.log("T222 insdie Delete - selectedTrip",currSelectedTrips);
+    
     for (var i = 0; i < currSelectedTrips.length; i++) {
       if (!removeDocs.includes(currSelectedTrips[i].docnum)) {
         selectedTrips.push(currSelectedTrips[i]);
@@ -2924,7 +2924,7 @@ updateTripsGeolocationbeforelock = (index) => {
     trip.pickupObject = pickupObject;
     trip.dropObject = dropObject;
 
-    console.log("T222 inside delte- trip",trip);
+    
     var tripColor = [
       "#e0e0e0",
       "#e0e0e0",
@@ -2946,7 +2946,7 @@ updateTripsGeolocationbeforelock = (index) => {
       }
     }
     trips.push(trip);
-    console.log("T222 inside delete - after push",trips);
+    
     this.setState({
       markers: currMarkers,
       geoData: geoData,
@@ -2963,7 +2963,7 @@ updateTripsGeolocationbeforelock = (index) => {
   }
   // end of onTrip Delete
   lockTrip = (trips, index) => {
-     console.log("inside final lock tripp");
+     
     var tripsPanel = this.state.tripsPanel;
     tripsPanel[index].lock = true;
     fetch('http://tmsportal.tema-systems.com:8082/api/v1/rail/lock/trips', {
@@ -2986,10 +2986,10 @@ updateTripsGeolocationbeforelock = (index) => {
 
      var checkboxes = document.getElementsByName("railcarCheckBox");
 
-    console.log("inside railcarChecked - ",checkboxes[i].checked);
+    
     if(checkboxes[i].checked) {
 
-     console.log("Inside railCar Checked at index");
+     
      var carlist = this.state.railcarCheckInList;
 
      var CheckedRailcar = carlist[i];

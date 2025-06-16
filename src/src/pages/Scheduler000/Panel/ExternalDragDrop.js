@@ -63,7 +63,7 @@ class ExternalDragDrop extends Component {
              }
 
      showModal = (e) => {
-       console.log("e =",e)
+       
         this.setState({
         showEditorTemplate: true,
         EditorData : e
@@ -108,7 +108,7 @@ class ExternalDragDrop extends Component {
         }
     }
     onActionBegin(event) {
-         console.log("action begin event",event);
+         
 
         if (event.requestType === 'eventCreate' && this.isTreeItemDropped) {
             let treeViewData = this.treeObj.fields.dataSource;
@@ -122,15 +122,15 @@ class ExternalDragDrop extends Component {
     }
 
     onSchActionBegin(event) {
-                             console.log("action begin sch event",event);
+                             
 
                         }
 
     onSchActionComplete(event) {
-                                 console.log("action compltes sch event",event);
+                                 
              if (event.requestType === 'dateNavigate') {
 
-                     console.log("schduler object =",this.scheduleObj);
+                     
                      this.props.handleDateRangeChange();
 
 
@@ -152,7 +152,7 @@ class ExternalDragDrop extends Component {
 
 
      onPopupOpen = (args) => {
-       console.log("popuo args =",args);
+       
         if (args.type === 'Editor') {
           args.cancel = true;
           this.data = args.data;
@@ -196,14 +196,14 @@ class ExternalDragDrop extends Component {
 
 
     drop(event, eventType, args : DragAndDropEventArgs) {
-            console.log("T111 inside drop event, add ExternalDragDrop");
+            
 
-            console.log("T111 inside drop event, ",event);
+            
              var data;
              var doctype;
             data = JSON.parse(event.dataTransfer.getData("currentCard"));
-            console.log("T111 inside args",args);
-            console.log("T111 inside data",data);
+            
+            
             if(data.doctype === 'DLV' || data.doctype === 'PICK')
             {
                doctype = 'Drop';
@@ -214,10 +214,10 @@ class ExternalDragDrop extends Component {
 
 
             let cellData : CellClickEventArgs = this.scheduleObj.getCellDetails(event.target);
-             console.log("T111 inside cellData = ",cellData);
+             
                                 let resourceDetails = this.scheduleObj.getResourcesByIndex(cellData.groupIndex);
 
-                                 console.log("T111 inside resourceDetails = ",resourceDetails);
+                                 
                                 let eventData : {[key: string]: Object} = {
                                     itemCode : data.docnum,
                                     subject: data.docnum,
@@ -232,7 +232,7 @@ class ExternalDragDrop extends Component {
                                     VehicleObject : resourceDetails.resourceData
                                 };
 
-                                 console.log("T111 inside eventData = ",eventData);
+                                 
                                 // this.scheduleObj.openEditor(eventData,"Add",true);
                                 this.scheduleObj.addEvent(eventData);
 
@@ -251,8 +251,8 @@ class ExternalDragDrop extends Component {
 
 
     render() {
-        console.log("vehicle - panel",this.props.vehiclePanel);
-        console.log("selected date =", this.props.selectedDate);
+        
+        
         const vehicles = this.props.vehicles;
         const drivers = this.props.drivers;
         const TripsData  = this.props.tripsList;

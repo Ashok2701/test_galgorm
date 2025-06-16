@@ -374,7 +374,7 @@ class Dashboard extends Component {
 
 
   onDocmessage = (docNum, msg, Msgtype) => {
-    console.log("inside at app", docNum + "-" + msg + "-" + Msgtype);
+    // console.log("inside at app", docNum + "-" + msg + "-" + Msgtype);
     var currentGeoData = this.state.geoData;
     var currentMarkers = this.state.markers;
     var trips = [];
@@ -406,15 +406,15 @@ class Dashboard extends Component {
 
       if (TripData.docnum && TripData.docnum === docNum) {
         if (Msgtype === 'doc') {
-          console.log("inside doc type at app", Msgtype);
+          // console.log("inside doc type at app", Msgtype);
           TripData.noteMessage = msg
         }
         else if (Msgtype === 'carrier') {
-          console.log("inside car type at app", Msgtype);
+          // console.log("inside car type at app", Msgtype);
           TripData.CarrierMessage = msg
         }
         else {
-          console.log("inside loader type at app", Msgtype);
+          // console.log("inside loader type at app", Msgtype);
           TripData.LoaderMessage = msg
         }
       }
@@ -433,7 +433,7 @@ class Dashboard extends Component {
 
 
   colourDivs = (allDrivers, dlist, allTrailers, tlist) => {
-    console.log("T22 - inside  index, change colorDivs");
+    // console.log("T22 - inside  index, change colorDivs");
     this.setState({
       allAllowedDrivers: allDrivers,
       allAllowedTrailers: allTrailers,
@@ -442,7 +442,7 @@ class Dashboard extends Component {
       allowedTrailers: tlist
     });
 
-    console.log("T22 after assiging -vehicleDropped", this.state.vehicleDropped);
+    // console.log("T22 after assiging -vehicleDropped", this.state.vehicleDropped);
   }
   colourDocDivs = (drpTrailer) => {
     if (drpTrailer !== null || drpTrailer !== '') {
@@ -928,9 +928,9 @@ class Dashboard extends Component {
 
 
   disableDivs = (index, type, docNum) => {
-    console.log("T31  inside disableDivs ", index);
-    console.log("T31  inside disableDivs type", type);
-    console.log("T31  inside disableDivs docnum", docNum);
+    // console.log("T31  inside disableDivs ", index);
+    // console.log("T31  inside disableDivs type", type);
+    // console.log("T31  inside disableDivs docnum", docNum);
     var currVehPanel = this.state.vehiclePanel;
     var currDropsPanel = this.state.dropsPanel;
 
@@ -977,10 +977,10 @@ class Dashboard extends Component {
       currDropsPanel.pickUps = currVeh;
     }
     if (type === 'drops') {
-      console.log("T31 inside drop - disable");
+      // console.log("T31 inside drop - disable");
       var currVeh = currDropsPanel.drops;
-      console.log("T31 inside drop - disable CurrVel", currVeh);
-      console.log("T31 inside drop - disable if");
+      // console.log("T31 inside drop - disable CurrVel", currVeh);
+      // console.log("T31 inside drop - disable if");
       if (currDropsPanel.drops && currDropsPanel.drops.length > 0) {
         currDropsPanel.drops.map((drops, i) => {
           if (drops.docnum === docNum) {
@@ -1009,12 +1009,12 @@ class Dashboard extends Component {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(trips)
     }).then((response) => {
-      console.log("inside after trip - response", response);
+      // console.log("inside after trip - response", response);
       this.handleErrors(response);
     }).then(function (response) {
 
     }).then(() => {
-      console.log("inside submit Trips", this.state.date);
+      // console.log("inside submit Trips", this.state.date);
       this.handleDateChange(this.state.date);
     }).then(() => {
       this.setState({ loader: false, checkedTrip: false, isDetail: false });
@@ -1482,39 +1482,39 @@ class Dashboard extends Component {
   }
 
   changeDate = (day, dayflag, from) => {
-    console.log("T444 inside chagneDAte-day", day);
+    // console.log("T444 inside chagneDAte-day", day);
 
     var flagconsider = false;
     if (from == 'checked') {
-      console.log("T222 from checked ", from);
+      // console.log("T222 from checked ", from);
       flagconsider = dayflag;
-      console.log("T222 from flagconsider ", flagconsider);
+      // console.log("T222 from flagconsider ", flagconsider);
     }
     else if (from == 'buttons') {
-      console.log("T222 from button", from);
+      // console.log("T222 from button", from);
       flagconsider = this.state.checked5days;
-      console.log("T222 from flagconsider", flagconsider);
+      // console.log("T222 from flagconsider", flagconsider);
     }
 
 
-    console.log("T21 inside chageDAte");
+    // console.log("T21 inside chageDAte");
     var currDate = moment(this.state.dropDate).add(day, 'days');
     var newDate = moment(currDate).format('YYYY-MM-DD');
     var sdate = moment(currDate).add(-5, 'days');
     var edate = moment(currDate).add(5, 'days');
     var newStartDate = moment(sdate).format('YYYY-MM-DD');
     var newEndDate = moment(edate).format('YYYY-MM-DD');
-    console.log("T444 inside chagneDAte-currdate", currDate);
+    // console.log("T444 inside chagneDAte-currdate", currDate);
 
     if (flagconsider) {
 
-      console.log("T222 inside changeDAte checked5days true");
+      // console.log("T222 inside changeDAte checked5days true");
       fetchDropsPanelwithRange(this.state.selectedMultipleSites, newStartDate, newEndDate)
         .then(([res1]) => {
           var dropsP = res1;
-          console.log("drops panel after result", dropsP);
+          // console.log("drops panel after result", dropsP);
           // this.filterDropsDiv(newDate, dropsP);
-          console.log("drops panel after filter", dropsP);
+          // console.log("drops panel after filter", dropsP);
           this.setState({
             dropDate: new Date(newDate.replace(/-/g, '\/')).toDateString(),
             dropsPanel: dropsP,
@@ -1525,14 +1525,14 @@ class Dashboard extends Component {
 
     }
     else {
-      console.log("T222 inside changeDAte checked5days false");
+      // console.log("T222 inside changeDAte checked5days false");
 
       fetchDropsPanel(this.state.selectedMultipleSites, newDate)
         .then(([res1]) => {
           var dropsP = res1;
-          console.log("drops panel after result", dropsP);
+          // console.log("drops panel after result", dropsP);
           // this.filterDropsDiv(newDate, dropsP);
-          console.log("drops panel after filter", dropsP);
+          // console.log("drops panel after filter", dropsP);
           this.setState({
             dropDate: new Date(newDate.replace(/-/g, '\/')).toDateString(),
             dropsPanel: dropsP,
@@ -1545,7 +1545,7 @@ class Dashboard extends Component {
 
 
   checked5days = (checked) => {
-    console.log("T222 inside checked5days", checked);
+    // console.log("T222 inside checked5days", checked);
     this.setState({ checked5days: checked })
     this.changeDate(0, checked, 'checked');
   }
@@ -1736,8 +1736,8 @@ class Dashboard extends Component {
       loader: true,
       trips: emptyTrip
     });
-    console.log("T11 inside refreshAllpanels", this.state.trips);
-    console.log("T11 inside refreshAllpanels", this.state.date);
+    // console.log("T11 inside refreshAllpanels", this.state.trips);
+    // console.log("T11 inside refreshAllpanels", this.state.date);
     this.handleDateChange(this.state.date);
   }
 
@@ -1774,8 +1774,8 @@ class Dashboard extends Component {
 
     var user = JSON.parse(localStorage.getItem("authUser"));
     const currDate = moment.tz(new Date().toDateString().replace(/-/g, '\/')).format('YYYY-MM-DD');
-    console.log("T11 component did mount", currDate);
-    console.log("T11 component did mount", this.state.date);
+    // console.log("T11 component did mount", currDate);
+    // console.log("T11 component did mount", this.state.date);
     Promise.all([fetch({ apiUrl } + '/api/v1/transport/usrsites?user=' + user.username)])
       .then(([res1]) => {
         return Promise.all([res1.json()])
@@ -1798,11 +1798,11 @@ class Dashboard extends Component {
 
   handleSiteChange = selectedOption => {
     this.setState({ loader: true });
-    console.log("site change", selectedOption);
-    console.log("date =", this.state.date);
+    // console.log("site change", selectedOption);
+    // console.log("date =", this.state.date);
     this.setCurrentSite(selectedOption);
     const currDate = moment.tz(this.state.date, '').format('YYYY-MM-DD');
-    console.log("after assign current date =", currDate);
+    // console.log("after assign current date =", currDate);
     fetchAPI(selectedOption, currDate)
       .then(([res1, res2, res3, res4]) => {
         this.setState({
@@ -1916,9 +1916,9 @@ class Dashboard extends Component {
   handleDateChange = (date) => {
 
     this.setState({ loader: true });
-    console.log("T11 sync,inside handleDatechagne", date);
+    // console.log("T11 sync,inside handleDatechagne", date);
     const currDate = moment.tz(date, '').format('YYYY-MM-DD');
-    console.log("T11 sync,inside handleDatechagne", currDate);
+    // console.log("T11 sync,inside handleDatechagne", currDate);
 
     let value = this.state.selectedMultipleSites
     fetchAPI(value, currDate)
@@ -1978,8 +1978,8 @@ class Dashboard extends Component {
 
 
   onVRClick = (i, tmsValidated) => {
-    console.log("inside onVRclieck at index", i);
-    console.log("inside onVRclieck at index - tmsvalida", tmsValidated);
+    // console.log("inside onVRclieck at index", i);
+    // console.log("inside onVRclieck at index - tmsvalida", tmsValidated);
     var tripsPanels = this.state.tripsPanel;
     var selectedTrip = [];
     var selectedTrips = [];
@@ -2001,9 +2001,9 @@ class Dashboard extends Component {
       }).catch(error => {
         //  history.push('/');
       });
-    console.log("inside VR click", this.state.markers);
+    // console.log("inside VR click", this.state.markers);
     if (this.state.markers && this.state.markers.length == 0) {
-      console.log("inside VR click inside if");
+      // console.log("inside VR click inside if");
       this.state.sites.map((site) => {
         if (this.state.selectedSite === site.id) {
           let marker = [];
@@ -2171,12 +2171,12 @@ class Dashboard extends Component {
 
 
   handleDragStart = (event, valueObj, type, index, id) => {
-    console.log("3 inside handldragStart at index - event", event);
-    console.log("3 inside handldragStart at index - valueobj", valueObj);
-    console.log("3 inside handldragStart at index - type", type);
-    console.log("3 inside handldragStart at index - index", index);
+    // console.log("3 inside handldragStart at index - event", event);
+    // console.log("3 inside handldragStart at index - valueobj", valueObj);
+    // console.log("3 inside handldragStart at index - type", type);
+    // console.log("3 inside handldragStart at index - index", index);
     if (type === "vehicle") {
-      console.log("selected Date =", this.state.date);
+      // console.log("selected Date =", this.state.date);
       const currDate = moment.tz(this.state.date, '').format('YYYY-MM-DD');
       const url = { apiUrl } + '/api/v1/transport/prevtrpsite?veh=' + valueObj.codeyve + '&date=' + currDate;
       fetch(url)
@@ -2242,8 +2242,8 @@ class Dashboard extends Component {
     event.dataTransfer.setData("row-id", id);
     event.dataTransfer.setData("index", index);
 
-    console.log("3 inside handledrag - dataTranser after", event);
-    console.log("3 inside handledrag - is dragged after", event.dataTransfer);
+    // console.log("3 inside handledrag - dataTranser after", event);
+    // console.log("3 inside handledrag - is dragged after", event.dataTransfer);
 
   }
 
@@ -2437,13 +2437,13 @@ class Dashboard extends Component {
 
 
   disableDroppedDiv = (divTag) => {
-    console.log("T31 inside disable Drooped Div", divTag);
+    // console.log("T31 inside disable Drooped Div", divTag);
     var temp = "[row-id=" + divTag + "]";
     //  var htmlDiv = document.getElementById(divTag);
-    console.log("T31 inside disable Drooped Div temp", temp);
+    // console.log("T31 inside disable Drooped Div temp", temp);
     var htmlDiv = document.querySelectorAll(temp);
     var { droppedDivs } = this.state;
-    console.log("T31 inside disable Drooped Div htmldiv", htmlDiv);
+    // console.log("T31 inside disable Drooped Div htmldiv", htmlDiv);
     droppedDivs.push(temp);
     this.setState({ droppedDivs });
   }
@@ -2550,7 +2550,7 @@ class Dashboard extends Component {
       var trip = tripsPanel[i];
       if (trip.lock && !trip.tmsValidated) {
         Validatecount = Validatecount + 1;
-        console.log("OSRM docdate =", trip.docdate);
+        // console.log("OSRM docdate =", trip.docdate);
         ValidateTrips.push(trip);
       }
     }
@@ -2588,7 +2588,7 @@ class Dashboard extends Component {
 
   validate = (i) => {
     this.setState({ loader: true });
-    console.log("s1 - inside validate");
+    // console.log("s1 - inside validate");
     var tripsPanels = this.state.tripsPanel;
     var ClickedTrip = tripsPanels[i];
     let trips = ClickedTrip;
@@ -2618,7 +2618,7 @@ class Dashboard extends Component {
 
   validateonly = (i, pageType) => {
     this.setState({ loader: true });
-    console.log("s1 - inside validate");
+    // console.log("s1 - inside validate");
     var tripsPanels = this.state.tripsPanel;
     var ClickedTrip = tripsPanels[i];
     let trips = ClickedTrip;
@@ -3013,14 +3013,14 @@ class Dashboard extends Component {
     var tripsList_loader = tripsPanels[tripindex];
     tripsList_loader.loaderInfo = msg;
 
-    console.log("loader msg - trip", tripsList_loader);
+    // console.log("loader msg - trip", tripsList_loader);
     this.confirmTrip(tripsList_loader, "loaderMsg");
 
   }
 
   onForcesequnceCheck = (tripindex, msg) => {
 
-    console.log("foced check msg - trip", msg);
+    // console.log("foced check msg - trip", msg);
     var tripsPanels = this.state.tripsPanel;
     var trips = []
     var tripsList_force = tripsPanels[tripindex];
@@ -3072,7 +3072,7 @@ class Dashboard extends Component {
 
       if (TripData.docnum && TripData.docnum === docNum) {
         if (Msgtype === 'doc') {
-          console.log("inside doc type at app", Msgtype);
+          // console.log("inside doc type at app", Msgtype);
           TripData.noteMessage = msg
         }
         else if (Msgtype === 'carrier') {
@@ -3100,7 +3100,7 @@ class Dashboard extends Component {
 
 
   onTripDelete = (index, docnum, vtype, vcode) => {
-    console.log("inside app after delete button clicked");
+    // console.log("inside app after delete button clicked");
     var currentGeoData = this.state.geoData;
     var currentMarkers = this.state.markers;
     var geoData = [];
@@ -3248,7 +3248,7 @@ class Dashboard extends Component {
   // end of onTrip Delete
   lockTrip = (trips, index) => {
     this.setState({ loader: true });
-    console.log("inside final lock tripp");
+    // console.log("inside final lock tripp");
     var tripsPanel = this.state.tripsPanel;
     tripsPanel[index].lock = true;
     fetch({ apiUrl } + '/api/v1/transport/lock/trips', {
@@ -3424,7 +3424,7 @@ class Dashboard extends Component {
       var trip = tripsPanel[i];
       if (!trip.lock) {
         Lockcount = Lockcount + 1;
-        console.log("OSRM docdate =", trip.docdate);
+        // console.log("OSRM docdate =", trip.docdate);
         let tripdate = moment.tz(trip.docdate, '').format("YYYY-MM-DD");
         trip.date = tripdate;
         trip.lock = true;
@@ -3471,7 +3471,7 @@ class Dashboard extends Component {
 
 
   autoResetTrips = () => {
-    console.log("T333 inside auto reset Trips");
+    // console.log("T333 inside auto reset Trips");
     this.setState({ loader: true });
     var tripsPanel = this.state.tripsPanel;
     var unlockedTrips = [];
@@ -3487,7 +3487,7 @@ class Dashboard extends Component {
 
     if (deletecount > 0) {
 
-      console.log("Trips are reeadyy to delete =", unlockedTrips);
+      // console.log("Trips are reeadyy to delete =", unlockedTrips);
       fetch({ apiUrl } + '/api/v1/transport/delete/trips', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -3516,11 +3516,11 @@ class Dashboard extends Component {
     //filter the trips panle and sort it
     var tempTripPanel = this.state.tripsPanel;
     var orginalTripOrder = this.state.tripsPanel;
-    console.log("OSRM trip before trip", tempTripPanel);
+    // console.log("OSRM trip before trip", tempTripPanel);
 
     tempTripPanel.sort((a, b) => (b.code.localeCompare(a.code) || b.trips - a.trips));
 
-    console.log("OSRM trip after trip", tempTripPanel);
+    // console.log("OSRM trip after trip", tempTripPanel);
 
     const key = "code"
 
@@ -3560,16 +3560,16 @@ class Dashboard extends Component {
 
     if (DocCount > 0) {
 
-      console.log("OSRM");
-      console.log("OSRM- vehicles", this.state.vehiclePanel.vehicles);
-      console.log("OSRM- drivers", this.state.vehiclePanel.vehicles);
+      // console.log("OSRM");
+      // console.log("OSRM- vehicles", this.state.vehiclePanel.vehicles);
+      // console.log("OSRM- drivers", this.state.vehiclePanel.vehicles);
       //  console.log("OSRM- documents", this.state.docsPanel);
-      console.log("OSRM- site", this.state.selectedMultipleSites);
+      // console.log("OSRM- site", this.state.selectedMultipleSites);
       var VehList = [], DocList = [];
       var siteLat, siteLang;
       var doc = {};
       var selSite = this.state.selectedMultipleSites[0];
-      console.log("OSRM- sel site", selSite);
+      // console.log("OSRM- sel site", selSite);
       this.state.sites.map((site) => {
         if (selSite === site.id) {
           siteLat = site.lat;
@@ -3581,8 +3581,8 @@ class Dashboard extends Component {
       for (let i = 0; i < this.state.vehiclePanel.vehicles.length; i++) {
         var Veh = {};
         let veh = this.state.vehiclePanel.vehicles[i];
-        console.log("OSRM veh count =", i);
-        console.log("OSRM veh info", veh);
+        // console.log("OSRM veh count =", i);
+        // console.log("OSRM veh info", veh);
         var sflag = false; var prevEndTime = 0;
 
         for (let t = 0; t < resArr.length; t++) {
@@ -3593,7 +3593,7 @@ class Dashboard extends Component {
             var endTime = splitTimeAndConv2Sec(currtrip.endTime);
             var unloadingtime = convertHrToSec(veh.enddepotserv);
             prevEndTime = endTime + unloadingtime;
-            console.log("OSRM incre PrevEndtime", prevEndTime);
+            // console.log("OSRM incre PrevEndtime", prevEndTime);
             break;
           }
         }
@@ -3610,7 +3610,7 @@ class Dashboard extends Component {
           let starttime = splitTimeAndConv2Sec(veh.starttime);
           let loadingHrs = convertHrToSec(veh.startdepots);
           let stime = starttime + loadingHrs;
-          console.log("loading hrs =", loadingHrs);
+          // console.log("loading hrs =", loadingHrs);
           let etime = splitTimeAndAddtimeAndConv2Sec(veh.starttime, veh.overtimestar);
           let timew = [stime, etime];
           let geo = [siteLang, siteLat];
@@ -3625,7 +3625,7 @@ class Dashboard extends Component {
           else {
             Veh.max_tasks = 3;
           }
-          console.log("OSRM Vehicle details", Veh)
+          // console.log("OSRM Vehicle details", Veh)
           VehList.push(Veh);
           VehEndTime = etime;
           VehStartTime = stime;
@@ -3635,8 +3635,8 @@ class Dashboard extends Component {
           let starttime = prevEndTime;
           let loadingHrs = convertHrToSec(veh.startdepots);
           let stime = starttime + loadingHrs;
-          console.log("OSRM incre loading loadinghrs =", loadingHrs);
-          console.log("OSRM incre loading stime hrs =", stime);
+          // console.log("OSRM incre loading loadinghrs =", loadingHrs);
+          // console.log("OSRM incre loading stime hrs =", stime);
           let etime = splitTimeAndAddtimeAndConv2Sec(veh.starttime, veh.overtimestar);
 
           if (stime < etime) {
@@ -3649,7 +3649,7 @@ class Dashboard extends Component {
 
 
 
-            console.log("OSRM incre etime  hrs =", etime);
+            // console.log("OSRM incre etime  hrs =", etime);
             let timew = [stime, etime];
             let geo = [siteLang, siteLat];
             Veh.time_window = timew;
@@ -3664,7 +3664,7 @@ class Dashboard extends Component {
               Veh.max_tasks = 3;
             }
 
-            console.log("OSRM Vehicle details", Veh)
+            // console.log("OSRM Vehicle details", Veh)
             VehList.push(Veh);
             VehEndTime = etime;
             VehStartTime = stime;
@@ -3673,7 +3673,7 @@ class Dashboard extends Component {
         }
 
       }
-      console.log("OSRM Vehicle Final List", VehList);
+      // console.log("OSRM Vehicle Final List", VehList);
       let maxDoc = this.state.defaultdocprocess;
       let docprocessedCount = 0;
       for (let j = 0; j < docsPanel.length; j++) {
@@ -3681,8 +3681,8 @@ class Dashboard extends Component {
         if ((doc.type === 'open') && (doc.dlvystatus === '0' || doc.dlvystatus === '8') && docprocessedCount < maxDoc) {
 
           var Doc = {};
-          console.log("OSRM doc count =", j);
-          console.log("OSRM doc info", doc);
+          // console.log("OSRM doc count =", j);
+          // console.log("OSRM doc info", doc);
           Doc.id = j + 1;
           Doc.description = doc.docnum;
 
@@ -3701,22 +3701,22 @@ class Dashboard extends Component {
           }
 
 
-          console.log("OSRM doc from", FromArr);
-          console.log("OSRM doc to", ToArr);
+          // console.log("OSRM doc from", FromArr);
+          // console.log("OSRM doc to", ToArr);
 
           var timeWindw = [];
 
           fromflag && FromArr.map((ft, index) => {
             var tt = []
-            console.log("OSRM doc ft", ft);
+            // console.log("OSRM doc ft", ft);
             tt.push(splitTimeAndConv2Sec(ft));
-            console.log("OSRM doc tt", ToArr[index]);
+            // console.log("OSRM doc tt", ToArr[index]);
             tt.push(splitTimeAndConv2Sec(ToArr[index]));
 
             timeWindw.push(tt);
           });
 
-          console.log("OSRM doc Final Time Window", timeWindw);
+          // console.log("OSRM doc Final Time Window", timeWindw);
 
 
           var DocLat, DocLang;
@@ -3753,12 +3753,12 @@ class Dashboard extends Component {
                 }
           */
 
-          console.log("OSRM Document details", Doc);
+          // console.log("OSRM Document details", Doc);
           DocList.push(Doc);
           docprocessedCount = docprocessedCount + 1;
         }
       }
-      console.log("OSRM Document Final List", DocList);
+      // console.log("OSRM Document Final List", DocList);
 
 
 
@@ -3771,7 +3771,7 @@ class Dashboard extends Component {
       }
 
 
-      console.log("OSRM proccessed data =", processedData)
+      // console.log("OSRM proccessed data =", processedData)
       // latest - 34.171.208.219
       // v10   - 34.134.143.219
       //new frane  - 35.193.234.153
@@ -3783,14 +3783,14 @@ class Dashboard extends Component {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(processedData)
       }).then((response) => {
-        console.log("OSRM inside after OSRM - response", response);
+        // console.log("OSRM inside after OSRM - response", response);
         if (response.status === 200) {
           return response.json()
         }
       }).then((res) => {
-        console.log("OSRM - opti result", res);
+        // console.log("OSRM - opti result", res);
         if (res.routes.length > 0) {
-          console.log("OSRM - opti route count", res.routes.length);
+          // console.log("OSRM - opti route count", res.routes.length);
           this.submitRoutesforTripsCreation(res.routes, selSite, docsPanel);
         }
         else {
@@ -3817,11 +3817,11 @@ class Dashboard extends Component {
     var RouteprocessedData = [];
     var sameProcessUsedDriversList = [];
     var TripsfromRoutes = [];
-    console.log("OSRM Auto Routes data are", routes);
+    // console.log("OSRM Auto Routes data are", routes);
     for (let k = 0; k < routes.length; k++) {
       var currRoute = routes[k];
       var Vehicle = {}, Veh = routes[k].description;
-      console.log("OSRM Auto Routes veh are", routes[k].description);
+      // console.log("OSRM Auto Routes veh are", routes[k].description);
       for (let i = 0; i < this.state.vehiclePanel.vehicles.length; i++) {
 
 
@@ -3831,7 +3831,7 @@ class Dashboard extends Component {
         }
       }
 
-      console.log("OSRM Auto  veh are", Vehicle);
+      // console.log("OSRM Auto  veh are", Vehicle);
       var dropObject = [], pickupObject = [], drops = 0, pickups = 0;
       var startTime = '', endTime = '';
       var totalWeight = 0;
@@ -3866,14 +3866,14 @@ class Dashboard extends Component {
       for (let t = 0; t < currRoute.steps.length; t++) {
         var ttime = "";
         var currTask = currRoute.steps[t];
-        console.log("OSRM Auto  curr task are", currTask);
+        // console.log("OSRM Auto  curr task are", currTask);
         if (currTask.type !== 'start' && currTask.type !== 'end') {
           var docno = currTask.description;
-          console.log("OSRM Auto  curr task is job");
+          // console.log("OSRM Auto  curr task is job");
           for (let d = 0; d < docsPanel.length; d++) {
 
             var currDoc = docsPanel[d];
-            console.log("OSRM Auto  curr doc is job,", currDoc);
+            // console.log("OSRM Auto  curr doc is job,", currDoc);
             var SelectedDoc = [];
             if (currDoc.docnum === docno) {
 
@@ -3904,21 +3904,21 @@ class Dashboard extends Component {
 
         } // end of if, task
         else if (currTask.type === 'start') {
-          console.log("OSRM start task", currTask.arrival);
+          // console.log("OSRM start task", currTask.arrival);
           startTime = secondsToHms(currTask.arrival);
           ttime = startTime;
         }
         else if (currTask.type === 'end') {
           endTime = secondsToHms(currTask.arrival);
           ttime = endTime;
-          console.log("OSRM end task", currTask.arrival);
+          // console.log("OSRM end task", currTask.arrival);
         }
         //for timeline
         var index = t * 12;
         timelneInterval.push(
           { value: index, label: ttime });
 
-        console.log("OSRM timline data  =", timelneInterval);
+        // console.log("OSRM timline data  =", timelneInterval);
       } // end of steps
       totalWeight = 0 //totalWeight + parseInt(docItem.obbject.netweight);
       totalVolume = 0 //totalVolume + parseInt(docItem.obbject.volume);
@@ -3941,9 +3941,9 @@ class Dashboard extends Component {
         var sflag = false;
         var dflag = false;
 
-        console.log("T1212 active drivers =", activeDrivers);
+        // console.log("T1212 active drivers =", activeDrivers);
 
-        console.log("T1212 active trips =", tempTripPanel);
+        // console.log("T1212 active trips =", tempTripPanel);
         var resArr1 = [], UsedDriversList = [];
         tempTripPanel.filter(function (item) {
           var i = resArr1.findIndex(x => (x.code == item.code));
@@ -3954,7 +3954,7 @@ class Dashboard extends Component {
         });
 
 
-        console.log("T1212 active res trips =", resArr1);
+        // console.log("T1212 active res trips =", resArr1);
         for (let t = 0; t < resArr1.length; t++) {
           var currtrip = resArr1[t];
 
@@ -3969,59 +3969,59 @@ class Dashboard extends Component {
               defaultDrivername = currtrip.driverName;
               dflag = true;
 
-              console.log("T1212 active same driver assigned =", defaultDriver);
+              // console.log("T1212 active same driver assigned =", defaultDriver);
             }
             break;
           }
         }
 
-        console.log("T1212 active usedDriverlist =", UsedDriversList);
+        // console.log("T1212 active usedDriverlist =", UsedDriversList);
 
-        console.log("T1212 same pricess used Drivers =", sameProcessUsedDriversList);
-        console.log("T1212 Routeprocessed - Trips Data =", RouteprocessedData);
-        console.log("T1212 dfalg =", dflag);
+        // console.log("T1212 same pricess used Drivers =", sameProcessUsedDriversList);
+        // console.log("T1212 Routeprocessed - Trips Data =", RouteprocessedData);
+        // console.log("T1212 dfalg =", dflag);
         // Veh  -  vehicle
         //check already vehicle is used , and assign same driver
         //loop all the drivers list and assigned not used driver
         if (!dflag) {
-          console.log("T1212 - 0");
+          // console.log("T1212 - 0");
           for (let dl = 0; dl < activeDrivers.length; dl++) {
-            console.log("T1212 - 1");
+            // console.log("T1212 - 1");
             if (UsedDriversList.length > 0) {
               if (!UsedDriversList.includes(activeDrivers[dl].driverid)) {
-                console.log("T1212 - 2");
+                // console.log("T1212 - 2");
                 if (sameProcessUsedDriversList.length > 0) {
-                  console.log("T1212 - 2 - 1");
+                  // console.log("T1212 - 2 - 1");
                   if (!sameProcessUsedDriversList.includes(activeDrivers[dl].driverid)) {
-                    console.log("T1212 active randon unused driver assigned =", defaultDriver);
-                    console.log("T1212 - 2 - 2");
+                    // console.log("T1212 active randon unused driver assigned =", defaultDriver);
+                    // console.log("T1212 - 2 - 2");
                     defaultDriver = activeDrivers[dl].driverid;
                     defaultDrivername = activeDrivers[dl].driver;
                     sameProcessUsedDriversList.push(activeDrivers[dl].driverid);
                     break;
                   }
                   else {
-                    console.log("T1212 - 2 - 3");
+                    // console.log("T1212 - 2 - 3");
                   }
                 }
                 else {
-                  console.log("T1212 - 3");
+                  // console.log("T1212 - 3");
                   defaultDriver = activeDrivers[dl].driverid;
                   defaultDrivername = activeDrivers[dl].driver;
                   sameProcessUsedDriversList.push(activeDrivers[dl].driverid);
                   break;
                 }
 
-                console.log("T1212 active randon driver assigned =", defaultDriver);
+                // console.log("T1212 active randon driver assigned =", defaultDriver);
               }
             }
             else {
-              console.log("T1212 - 5");
+              // console.log("T1212 - 5");
               if (sameProcessUsedDriversList.length > 0) {
-                console.log("T1212 - 5 - 1");
+                // console.log("T1212 - 5 - 1");
                 if (!sameProcessUsedDriversList.includes(activeDrivers[dl].driverid)) {
-                  console.log("T1212 - 5 - 2");
-                  console.log("T1212 active randon first driver assigned =", defaultDriver);
+                  // console.log("T1212 - 5 - 2");
+                  // console.log("T1212 active randon first driver assigned =", defaultDriver);
                   defaultDriver = activeDrivers[dl].driverid;
                   defaultDrivername = activeDrivers[dl].driver;
                   sameProcessUsedDriversList.push(activeDrivers[dl].driverid);
@@ -4029,11 +4029,11 @@ class Dashboard extends Component {
 
                 }
                 else {
-                  console.log("T1212 - 5 - 3");
+                  // console.log("T1212 - 5 - 3");
                 }
               }
               else {
-                console.log("T1212 - 7");
+                // console.log("T1212 - 7");
                 defaultDriver = activeDrivers[dl].driverid;
                 defaultDrivername = activeDrivers[dl].driver;
                 sameProcessUsedDriversList.push(activeDrivers[dl].driverid);
@@ -4046,15 +4046,15 @@ class Dashboard extends Component {
 
       }
       else {
-        console.log("T1212 - 8");
+        // console.log("T1212 - 8");
         defaultDriver = VehicleObject.driverid;
         if (VehicleObject.drivername != null || VehicleObject.drivername != "") {
           defaultDrivername = VehicleObject.drivername;
         }
 
-        console.log("T1212 active default driver assigned =", defaultDriver);
+        // console.log("T1212 active default driver assigned =", defaultDriver);
       }
-      console.log("OSRM Vehicle Object =", VehicleObject);
+      // console.log("OSRM Vehicle Object =", VehicleObject);
       var volume = VehicleObject.vol;
       //  var StartTime = VehicleObject.timelineInterval[0].label;
       vehobj = VehicleObject;
@@ -4071,7 +4071,7 @@ class Dashboard extends Component {
       var today = new Date;
       var execdate = today.getDate();
 
-      console.log("OSRM Auto Routes data are", routes[k]);
+      // console.log("OSRM Auto Routes data are", routes[k]);
       var trip = {
         arrSite: site,
         code: Veh,
@@ -4145,9 +4145,9 @@ class Dashboard extends Component {
 
       RouteprocessedData.push(trip);
     }
-    console.log("OSRM Final TripsList =", RouteprocessedData);
+    // console.log("OSRM Final TripsList =", RouteprocessedData);
     TripsfromRoutes = RouteprocessedData;
-    console.log(TripsfromRoutes);
+    // console.log(TripsfromRoutes);
     this.ConfirmScheduledTrips(TripsfromRoutes);
   }
 
@@ -4161,12 +4161,12 @@ class Dashboard extends Component {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(trips)
     }).then((response) => {
-      console.log("inside after trip - response", response);
+      // console.log("inside after trip - response", response);
       this.handleErrors(response);
     }).then(function (response) {
 
     }).then(() => {
-      console.log("inside submit Trips", this.state.date);
+      // console.log("inside submit Trips", this.state.date);
       this.handleDateChange(this.state.date);
     }).then(() => {
       this.setState({ laoder: false, checkedTrip: false, isDetail: false });

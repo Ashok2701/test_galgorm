@@ -118,7 +118,7 @@ class TripsList3 extends React.Component {
   onGroupValidateYes = () => {
 
       this.props.onValidateAll();
-      console.log("GV - Yes confirm for group Valdiation");
+      
         this.setState({
             addvalidateconfirmShow: false
         })
@@ -203,7 +203,7 @@ class TripsList3 extends React.Component {
 
 
     onTriplogClick = (totobject) => {
-       console.log("T7 inside trip click",totobject);
+       
        this.setState({
            showLogs : true,
            logs :totobject
@@ -267,11 +267,11 @@ class TripsList3 extends React.Component {
 
     getVRdetailBtnClick(lock,i,tmsValidated) {
         if(lock){
-             console.log("Trip is locked");
+             
             this.props.onVRClick(i, tmsValidated);
         }
         else{
-            console.log("Trip is unlocked");
+            
              this.props.updateTripsGeolocationbeforelock(i);
         }
     }
@@ -382,24 +382,24 @@ class TripsList3 extends React.Component {
 
 
     ForcedSequnce = (i,event) => {
-        console.log("inside forced",i+"-"+event);
+        
         //this.props.ForcedSequnce(i);
     }
 
     checkForceSeq = (index,check) => {
            let updatedflg;
-            console.log("inside checkForceSeq",check);
+            
             if(check){
-              console.log("inside checkForceSeq true");
+              
               updatedflg = false;
 
             }
             else {
-              console.log("inside checkForceSeq false");
+              
               updatedflg = true;
             }
            //
-             console.log("inside checkForceSeq updatedflg", updatedflg);
+             
           //  this.props.onForceseq(this.state.Seletedtripindex, updatedflg);
     }
 
@@ -416,7 +416,7 @@ class TripsList3 extends React.Component {
         }
 
      onSaveloaderNotes = (note) => {
-            console.log("inside onsaveloadernotes");
+            
             this.props.onloaderMsg(this.state.Seletedtripindex, note);
             this.setState({ enableloaderMsgWindow: false })
         }
@@ -464,7 +464,7 @@ class TripsList3 extends React.Component {
     */
     render() {
 
-     console.log("T6 data in trips",this.props.tripsList);
+     
         const currDate = moment(this.props.date).format('YYMMDD');
         let addEquipmentClose = () => this.setState({ addEquipmentShow: false });
         let addTrailClose = () => this.setState({ addTrailShow: false });

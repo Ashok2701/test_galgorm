@@ -56,14 +56,14 @@ else {
 
 
          SearchTrailer = e => {
-              console.log("search content= ",e.target.value);
+              
               this.props.updateTrailSearchTerm(e);
           }
 
 
 
     render() {
-  console.log("T22 inside Trailer",this.props);
+  
         return (
         <TabPane tabId="Trailers">
                                              <Row className="my-2">

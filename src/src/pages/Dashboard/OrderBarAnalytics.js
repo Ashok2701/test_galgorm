@@ -34,8 +34,8 @@ class OrderBarAnalytics extends Component {
 
 
     render() {
-     console.log("ORderbar Anal options=", this.state.options);
-           console.log("ORderbar Anal series =", this.state.series);
+     
+           
         return (
             <React.Fragment>
                 <Card>

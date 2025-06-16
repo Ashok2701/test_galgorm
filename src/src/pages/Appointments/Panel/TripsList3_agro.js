@@ -85,14 +85,14 @@ class TripsList3 extends React.Component {
 
 
 	    daysforTripsCheckbox = () => {
-           console.log("T222 trippanel - dayscheckbox change", );
+           
            this.setState({ daysforTrips: !this.props.daysforTripsCheckedIn });
            this.props.checked30daystrips(!this.props.daysforTripsCheckedIn)
 
         }
 
 		  alltripsCheckbox = () => {
-        console.log("T222 trippanel - dayscheckbox change", );
+        
                 this.setState({ allTrips: !this.props.allTripsCheckedIn });
                 this.props.checkedalltrips(!this.props.allTripsCheckedIn)
      }
@@ -137,7 +137,7 @@ class TripsList3 extends React.Component {
   onGroupValidateYes = () => {
 
       this.props.onValidateAll();
-      console.log("GV - Yes confirm for group Valdiation");
+      
         this.setState({
             addvalidateconfirmShow: false
         })
@@ -240,7 +240,7 @@ class TripsList3 extends React.Component {
 
 
     onTriplogClick = (totobject) => {
-       console.log("T7 inside trip click",totobject);
+       
        this.setState({
            showLogs : true,
            logs :totobject
@@ -304,11 +304,11 @@ class TripsList3 extends React.Component {
 
     getVRdetailBtnClick(lock,i,tmsValidated) {
         if(lock){
-             console.log("T555 Trip is locked");
+             
             this.props.onVRClick(i, tmsValidated);
         }
         else{
-            console.log("T555 Trip is unlocked");
+            
              this.props.updateTripsGeolocationbeforelock(i);
         }
     }
@@ -316,7 +316,7 @@ class TripsList3 extends React.Component {
 
 
     getVrDetailsLink(x, i, tmsValidated, itemcode) {
-        console.log("T555 inside getVrDetailsLink", itemcode, i);
+        
        // if (x == 1) {
             return (
                 <a href="#"
@@ -420,24 +420,24 @@ class TripsList3 extends React.Component {
 
 
     ForcedSequnce = (i,event) => {
-        console.log("inside forced",i+"-"+event);
+        
         //this.props.ForcedSequnce(i);
     }
 
     checkForceSeq = (index,check) => {
            let updatedflg;
-            console.log("inside checkForceSeq",check);
+            
             if(check){
-              console.log("inside checkForceSeq true");
+              
               updatedflg = false;
 
             }
             else {
-              console.log("inside checkForceSeq false");
+              
               updatedflg = true;
             }
            //
-             console.log("inside checkForceSeq updatedflg", updatedflg);
+             
           //  this.props.onForceseq(this.state.Seletedtripindex, updatedflg);
     }
 
@@ -454,7 +454,7 @@ class TripsList3 extends React.Component {
         }
 
      onSaveloaderNotes = (note) => {
-            console.log("inside onsaveloadernotes");
+            
             this.props.onloaderMsg(this.state.Seletedtripindex, note);
             this.setState({ enableloaderMsgWindow: false })
         }
@@ -502,11 +502,11 @@ class TripsList3 extends React.Component {
     */
 
      OnVRDetailBtnClicked = (x,index,tmsValidated, Itemcode) => {
-             console.log("T555 filtered trip index",index);
-           console.log("T555 filtered trips",Itemcode);
-           console.log("T555 Total tripspanel =", this.props.tripsList);
+             
+           
+           
            for(let i= 0;i<this.props.tripsList.length;i++) {
-                console.log("inside checkbox =",i)
+                
                 if(this.props.tripsList[i].itemCode === Itemcode) {
                    this.getVRdetailBtnClick(x,i, tmsValidated)
                     break;
@@ -516,11 +516,11 @@ class TripsList3 extends React.Component {
         }
 
      OnLockClicked = (index,opti,lock, Itemcode) => {
-             console.log("TT filtered trip index",index);
-           console.log("TT filtered trips",Itemcode);
-           console.log("TT Total tripspanel =", this.props.tripsList);
+             
+           
+           
            for(let i= 0;i<this.props.tripsList.length;i++) {
-                console.log("inside checkbox =",i)
+                
                 if(this.props.tripsList[i].itemCode === Itemcode) {
                   this.onConfirmClick(i, opti, lock)
                     break;
@@ -530,11 +530,11 @@ class TripsList3 extends React.Component {
 
 
    OnValidateClicked = (index,Itemcode) => {
-             console.log("TT filtered trip index",index);
-           console.log("TT filtered trips",Itemcode);
-           console.log("TT Total tripspanel =", this.props.tripsList);
+             
+           
+           
            for(let i= 0;i<this.props.tripsList.length;i++) {
-                console.log("inside checkbox =",i)
+                
                 if(this.props.tripsList[i].itemCode === Itemcode) {
                   this.CheckValiationStatus(i);
                     break;
@@ -544,11 +544,11 @@ class TripsList3 extends React.Component {
 
 
 	 OnCheckBoxClicked = (index, Itemcode) => {
-         console.log("TT filtered trip index",index);
-       console.log("TT filtered trips",Itemcode);
-       console.log("TT Total tripspanel =", this.props.tripsList);
+         
+       
+       
        for(let i= 0;i<this.props.tripsList.length;i++) {
-            console.log("inside checkbox =",i)
+            
             if(this.props.tripsList[i].itemCode === Itemcode) {
               this.props.updateTripsGeoLocations(i,index);
                 break;
@@ -557,11 +557,11 @@ class TripsList3 extends React.Component {
     }
 
  OnDeletebtnClicked = (index, Itemcode) => {
-         console.log("TT filtered trip index",index);
-       console.log("TT filtered trips",Itemcode);
-       console.log("TT Total tripspanel =", this.props.tripsList);
+         
+       
+       
        for(let i= 0;i<this.props.tripsList.length;i++) {
-            console.log("inside checkbox =",i)
+            
             if(this.props.tripsList[i].itemCode === Itemcode) {
              	this.onConfirmDeleteClick(i, Itemcode);
                 break;
@@ -573,7 +573,7 @@ class TripsList3 extends React.Component {
 
     render() {
 
-     console.log("T6 data in trips",this.props.tripsList);
+     
 	  let filteringTrips
      if(this.props.allTripsCheckedIn) {
            filteringTrips = this.props.tripsList

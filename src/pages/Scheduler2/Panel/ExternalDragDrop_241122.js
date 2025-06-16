@@ -320,7 +320,7 @@ class ExternalDragDrop extends Component {
 
 
     getConsultantName(value) {
-        console.log("inside T444 value =",value);
+        
         return value.resourceData[value.resource.textField];
     }
      getConsultantImage(value) {
@@ -331,7 +331,7 @@ class ExternalDragDrop extends Component {
              }
 
     showModal = (e) => {
-         console.log("e =",e)
+         
           this.setState({
           showEditorTemplate: true,
           EditorData : e
@@ -360,9 +360,9 @@ class ExternalDragDrop extends Component {
 
 
   onConfirmPreparationListNo = () => {
-          console.log("T000 inside confirm No");
+          
            this.addcontenttoScheduler(this.state.PredroppedData , this.state.preEvent, this.state.PreIndex,this.state.PreCellData);
-         console.log("T111 after addallCall No");
+         
          this.setState({
              addConfirmPreListShow: false,
              PredroppedData : [],
@@ -373,10 +373,10 @@ class ExternalDragDrop extends Component {
      }
 
 onConfirmPreparationListYes = (droppedData) => {
-console.log("T000 inside confirm yes")
+
 
    this.addAllthePreparationListDocuments();
-   console.log("T111 after addallCall Yes");
+   
 this.setState({
             addConfirmPreListShow: false,
              PredroppedData : [],
@@ -388,16 +388,16 @@ this.setState({
 
 
 addAllthePreparationListDocuments =() => {
-     console.log("222 inside addAllthepreparationList doc")
-     console.log("222 predroppedData =",this.state.PredroppedData);
-     console.log("222 dropsPanel =",this.props.dropsPanel);
+     
+     
+     
 
 
      if (this.state.PredroppedData != undefined && this.state.PredroppedData  != '') {
                                                               for (var i = 0; i < this.props.dropsPanel.length; i++) {
 
                                                                                          if (this.state.PredroppedData.prelistCode === this.props.dropsPanel[i].prelistCode && this.props.dropsPanel[i].type === 'open' && (this.props.dropsPanel[i].dlvystatus === '8' || this.props.dropsPanel[i].dlvystatus === '0')) {
-                                                                                            console.log("T000 inside docnum =",this.props.dropsPanel[i].docnum+'--'+this.props.dropsPanel[i].type)
+                                                                                            
                                                                                             // currentTrip = this.props.trips;
                                                                                               this.addcontenttoScheduler(this.props.dropsPanel[i] , this.state.preEvent ,this.state.PreIndex, this.state.PreCellData);
 
@@ -413,17 +413,17 @@ addAllthePreparationListDocuments =() => {
 
 
     getConsultantDesignation(value) {
-        console.log("T444 value at designation =",value);
+        
         return value.resourceData.drivername;
     }
 
      getConsultantclass(value) {
-            console.log("T444 value at designation =",value);
+            
            // return 'class2'
             return value.resourceData.className;
         }
       getConsultantskill(value) {
-                 console.log("T444 value at designation =",value);
+                 
                //  return 'John'
                  return value.resourceData.skills;
              }
@@ -501,7 +501,7 @@ addAllthePreparationListDocuments =() => {
     }
 
     onPopupOpen = (args) => {
-         console.log("popuo args =",args);
+         
           var buttonElement = args.type === "QuickInfo" ? ".e-event-popup .e-delete" : ".e-schedule-dialog .e-event-delete";
              var deleteButton = document.querySelector(buttonElement);
              deleteButton.ej2_instances[0].disabled = true;
@@ -545,15 +545,15 @@ addAllthePreparationListDocuments =() => {
 
 
         onSchActionBegin(event) {
-                                 console.log("action begin sch event",event);
+                                 
 
                             }
 
         onSchActionComplete(event) {
-                                     console.log("action compltes sch event",event);
+                                     
                  if (event.requestType === 'dateNavigate') {
 
-                         console.log("schduler object =",this.scheduleObj);
+                         
                          this.props.handleDateRangeChange();
 
 
@@ -562,8 +562,8 @@ addAllthePreparationListDocuments =() => {
 
 
          addcontenttoScheduler = (passeddata , event , index, cellData) => {
-                      console.log("T333 at drop event - schduler_data =",passeddata);
-                      console.log("T333 at drop event - schduler_data- index =",index);
+                      
+                      
                       var data = passeddata;
                          var doctype;
 
@@ -578,10 +578,10 @@ addAllthePreparationListDocuments =() => {
 
 
                     //  let cellData : CellClickEventArgs = this.scheduleObj.getCellDetails(event.target);
-                       console.log("T1111 inside cellData = ",cellData);
+                       
                        let resourceDetails = this.scheduleObj.getResourcesByIndex(cellData.groupIndex);
                        let droppedDay = cellData.startTime.getDay();
-                       console.log("T1111 inside celldata- droppedday =",droppedDay);
+                       
 
 
                     // add validation for the dropped document
@@ -594,8 +594,8 @@ addAllthePreparationListDocuments =() => {
 if(dropCompatability) {
       let MyArray = (data.availDays).split(",");
       let [sunday,monday,Tuesday,Wednesday,Thursday, Friday, Satday] =  MyArray;
-      console.log("at day check- monday",monday);
-      console.log("at day check= Friday",Friday);
+      
+      
       let ValidDay  = true;
       switch(droppedDay) {
       case 1 :
@@ -657,29 +657,29 @@ if(dropCompatability) {
     }
 
 
-    console.log("at day check resouce data =",resourceDetails);
+    
 }
 
 
  //To check VehicleClass  at Vehicle & Veh class association from customer Address level
 
  if(dropCompatability) {
-    console.log("T666 resource details =",resourceDetails);
-    console.log("T666 dragged data = ",data);
+    
+    
 
     if(data.allVehClass === "2") {
-           console.log("T666  data anything is fine = ",data.vehClassAssoc);
+           
            dropCompatability = true;
     }
     else {
       if(data.vehClassList.length > 0) {
 
                if (data.vehClassList.includes(resourceDetails.resourceData.className)) {
-                  console.log("T666  data match vehclass Assoc = ",data.vehClassAssoc);
+                  
                   dropCompatability = true;
                }
                else {
-                   console.log("T666 inside vehclass  doesn't match = ");
+                   
                             dropCompatability = false;
                             error = "VehClass";
                             this.setState({
@@ -717,10 +717,10 @@ if(dropCompatability) {
 
  // To check vehicle and product category
  if(dropCompatability) {
-   console.log("T666 resource details =",resourceDetails);
-   console.log("T666 dragged data = ",data);
+   
+   
   if (resourceDetails.resourceData.tclcod === '') {
-              console.log("T1111 inside tclcod is empty = ");
+              
             dropCompatability = true;
           }
            else {
@@ -731,7 +731,7 @@ if(dropCompatability) {
                     dropCompatability = true;
                 }
                 else {
-                  console.log("T1111 inside prod doesn't cat = ");
+                  
                     dropCompatability = false;
                     error = "product";
                     this.setState({
@@ -747,16 +747,16 @@ if(dropCompatability) {
         if (dropCompatability == true) {
 
             if (resourceDetails.resourceData.allcustomers === 2) {
-                  console.log("T1111 inside all customers ");
+                  
                         dropCompatability = true;
             }
             else {
-             console.log("T1111 inside few customers ");
+             
 
                         // need to check the venicle and products category compatability;
                 if (resourceDetails.resourceData.customerlist && !resourceDetails.resourceData.customerlist.includes(data.bpcode)) {
                        dropCompatability = false;
-                        console.log("T1111 inside customer doesn't match");
+                        
                         error = 'customer';
                        this.setState({
                                                   errorType : 'customer',
@@ -776,7 +776,7 @@ if(dropCompatability) {
 
         if(dropCompatability) {
 
-                                           console.log("T111 inside resourceDetails = ",resourceDetails);
+                                           
                                           let eventData : {[key: string]: Object} = {
                                               docnum : data.docnum,
                                               subject: data.docnum,
@@ -801,8 +801,8 @@ if(dropCompatability) {
             confirmMessage: 'Are you sure you want  to create the trip',
         })
 */
-                              console.log("T333 after eventdata prep", eventData);
-                               console.log("T333 after ScheduleObj", this.scheduleObj);
+                              
+                               
                                 this.scheduleObj.addEvent(eventData);
                               //  this.props.SelectedDocumentEvent(data.docnum);
                                 this.props.disableDivs(index, "doc", data.docnum);
@@ -812,10 +812,10 @@ if(dropCompatability) {
 
 
     drop(event, eventType, args : DragAndDropEventArgs) {
-            console.log("T111 inside drop event, add ExternalDragDrop");
+            
 
 
-             console.log("T111 type pf type =", event.dataTransfer.getData("type"));
+             
 
 
 
@@ -825,21 +825,21 @@ if(dropCompatability) {
                       var transferedData = event.dataTransfer;
                       var index = event.dataTransfer.getData("index");
 
-                      console.log("T111 inside transferdata",transferedData);
-                      console.log("T111 inside - index",index);
+                      
+                      
 
-                      console.log("T333 at drop event - data",data);
+                      
                      let cellData : CellClickEventArgs = this.scheduleObj.getCellDetails(event.target);
-                     console.log("before checking = cellData date =",cellData.startTime);
+                     
 
                      if(moment(data.docdate).format('YYYY-MM-DD')  === moment(cellData.startTime).format('YYYY-MM-DD')){
-                        console.log("same date");
+                        
 
                         this.draggingProcessedFurther(data, event, index, cellData);
 
                      }
                       else {
-                                              console.log("Different Date");
+                                              
                                               this.setState({
                                                           droppedData : data,
                                                           droppedIndex : index,
@@ -855,9 +855,9 @@ if(dropCompatability) {
             draggingProcessedFurther = (data, event, index, cellData) => {
 
             if(data.miscpickflg == 2){
-                                      console.log("T333 at drop event - misc data",data);
+                                      
                                      if (data.pairedDoc != undefined && data.pairedDoc != '') {
-                                       console.log("T333 at drop event -   misc data with pair",data);
+                                       
                                                                                                                         for (var i = 0; i < this.props.dropsPanel.length; i++) {
                                                                                                                             if (data.pairedDoc === this.props.dropsPanel[i].docnum) {
                                                                                                                                 //currentTrip = this.props.trips;
@@ -886,15 +886,15 @@ if(dropCompatability) {
 
 
 
-                                        console.log("T333 at drop event - not  misc data",data);
+                                        
                                         this.addcontenttoScheduler(data , event, index,cellData);
                                          if (data.pairedDoc != undefined && data.pairedDoc != '') {
-                                         console.log("T333 at drop event - not  misc data WITH PAIR",data);
+                                         
                                                                                                                                                     for (var i = 0; i < this.props.dropsPanel.length; i++) {
-                                                                                                                                                        console.log("T333 index of i =",i);
+                                                                                                                                                        
                                                                                                                                                         if (data.pairedDoc === this.props.dropsPanel[i].docnum) {
                                                                                                                                                             //currentTrip = this.props.trips;
-                                                                                                                                                            console.log("T333 index of i data =",this.props.dropsPanel[i].docnum);
+                                                                                                                                                            
                                                                                                                                                             this.addcontenttoScheduler(this.props.dropsPanel[i] , event , i, cellData);
                                                                                                                                                             break;
                                                                                                                                                         }
@@ -937,7 +937,7 @@ if(dropCompatability) {
 
 
         bgcolor = (type) => {
-           console.log("at becolor",type);
+           
            if(type === 'DLV') {
              return '#008000		';
 
@@ -1016,7 +1016,7 @@ if(dropCompatability) {
 
 
       eventTemplate (props: {[key: string] : Object}) :  JSX.Element {
-            console.log("inside props -",props);
+            
          return (
              <div className="template-wrap" style={{fontSize: "14px",width:"450px",height:"105px", background : this.bgcolor(props.doctype)}} >
                {props.doctype === 'PRECEIPT' ?
@@ -1059,9 +1059,9 @@ if(dropCompatability) {
        else {
            loc = "fr";
        }
-       console.log("T000 inside at ExternalDragnDrop- SelDoc",this.props.selectedDocumentList);
-       console.log("vehicle - panel",this.props.vehicles);
-            console.log("selected drops =", this.props.dropsPanel);
+       
+       
+            
                let addAlertClose = () => this.setState({ addAlertShow: false });
             const vehicles = this.props.vehicles;
             const drivers = this.props.drivers;

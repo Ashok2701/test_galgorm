@@ -342,13 +342,13 @@ class RouteMap extends React.Component {
     }
 
     displayDeliverableStatus = (docnum) => {
-        console.log("inside RouteMap - dropspanel", this.props.currDropsPanel);
+        
         var matched = false;
         var status = '';
         this.props.currDropsPanel.drops.length > 0 && this.props.currDropsPanel.drops.map((drop) => {
-            console.log("inside RouteMap - 3- drop", drop);
-            console.log("inside RouteMap - 3- docnum", docnum);
-            console.log("inside RouteMap - 3- status", status);
+            
+            
+            
             if (drop.docnum === docnum) {
                 matched = true;
                 if (drop.dlvflg === '1') {
@@ -362,7 +362,7 @@ class RouteMap extends React.Component {
                 }
             }
         });
-        console.log("inside RouteMap - 3- final status", status);
+        
 
         return (<h5>
             <td width="3%" ><span class='badge badge-success text-uppercase'>{status}</span></td>
@@ -373,8 +373,8 @@ class RouteMap extends React.Component {
 
 
     displayRouteTag = (drop, lang) => {
-        console.log("T888 language =", lang);
-        console.log("T888 drop =", drop);
+        
+        
         var myStr = drop.routeColor;
         var subStr = myStr.match("background-color:(.*)");
         var s = subStr[1];
@@ -507,7 +507,7 @@ class RouteMap extends React.Component {
 
     onConfirmYes = (index, docnum) => {
         let type;
-        console.log("inside confirm yes");
+        
         if (this.state.confirmMessage.includes("Delete")) {
             type = "Delete";
             this.props.onTripDelete(index, docnum, type, this.state.vehicleCode);
@@ -541,13 +541,13 @@ class RouteMap extends React.Component {
     }
 
     onSaveNotes = (note) => {
-        console.log("inside onsavenotes");
+        
         this.props.onDocMsg(this.state.selectedDocNumber, note, 'doc');
         this.setState({ enableDocumnetMsgWindow: false })
     }
 
     onSaveCarrierNotes = (note, type) => {
-        console.log("inside onsaveCarrierNotes");
+        
 
         if (type === 'carrier') {
             this.props.onDocMsg(this.state.selectedDocNumber, note, 'carrier');
@@ -566,7 +566,7 @@ class RouteMap extends React.Component {
     };
 
     render() {
-        console.log("inside addupdateTrip", this.props.geoData);
+        
         let lang = localStorage.getItem("i18nextLng");
         let addProductsClose = () => this.setState({ addProductShow: false });
         let Productlist_win_Close = () => this.setState({ ShowDetailList: false });

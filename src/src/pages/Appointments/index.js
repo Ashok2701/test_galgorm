@@ -403,7 +403,7 @@ updateSiteSearchTerm = (event) => {
               }
 
       colourDivs = (allDrivers, dlist, allTrailers, tlist) => {
-         console.log("T22 - inside  index, change colorDivs");
+         
         this.setState({
           allAllowedDrivers: allDrivers,
           allAllowedTrailers: allTrailers,
@@ -412,7 +412,7 @@ updateSiteSearchTerm = (event) => {
           allowedTrailers: tlist
         });
 
-        console.log("T22 after assiging -vehicleDropped",this.state.vehicleDropped);
+        
       }
       colourDocDivs = (drpTrailer) => {
            if (drpTrailer !== null || drpTrailer !== '') {
@@ -908,9 +908,9 @@ updateSiteSearchTerm = (event) => {
 
 
   disableDivs = (index, type, docNum) => {
-    console.log("T31  inside disableDivs ", index);
-    console.log("T31  inside disableDivs type", type);
-    console.log("T31  inside disableDivs docnum", docNum);
+    
+    
+    
     var currVehPanel = this.state.vehiclePanel;
     var currDropsPanel = this.state.dropsPanel;
 
@@ -957,11 +957,11 @@ updateSiteSearchTerm = (event) => {
       currDropsPanel.pickUps = currVeh;
     }
     if (type === 'drops') {
-      console.log("T224 inside drop - disable");
+      
       var currVeh = currDropsPanel.drops;
-      console.log("T224 inside drop - disable CurrVel",currVeh);
+      
       if (this.state.checkedToPlan || this.state.searchPanel) {
-          console.log("T224 inside drop - disable if");
+          
         if (currDropsPanel.drops && currDropsPanel.drops.length > 0) {
           currDropsPanel.drops.map((drops, i) => {
             if (drops.docnum === docNum) {
@@ -971,7 +971,7 @@ updateSiteSearchTerm = (event) => {
           })
         }
       } else {
-          console.log("T224 inside drop - disable else");
+          
         currVeh[index].isDropped = true;
         currVeh[index].type = 'selected';
       }
@@ -995,12 +995,12 @@ updateSiteSearchTerm = (event) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(trips)
       }).then((response) => {
-        console.log("inside after trip - response",response);
+        
         this.handleErrors(response);
       }).then(function (response) {
 
       }).then(() => {
-         console.log("inside submit Trips",this.state.date);
+         
         this.handleDateChange(this.state.date);
       }).then(() => {
         this.setState({ checkedTrip: false, isDetail:false });
@@ -1026,11 +1026,11 @@ updateSiteSearchTerm = (event) => {
 
   confirmTrip = (trip, route, routesSchedule, newGeoData) => {
      // this.setState({ loader: true });
-    console.log("T555 inside confirm trip =", routesSchedule);
-       console.log("T555 inside routeSchedule  =", route);
+    
+       
     if ((trip.timelineInterval != undefined && trip.timelineInterval.length > 0) || route === 'unlock' || route=== 'loaderMsg' || route === 'ForceSeq' || route === 'Open') {
       // trip.site = this.state.selectedSite.id;
-      console.log("T555 inside if, confirm trip =");
+      
       this.setState({ selectedSite: trip.site })
       this.setState({ selectedSiteValue: trip.site })
         var today = new Date();
@@ -1096,13 +1096,13 @@ updateSiteSearchTerm = (event) => {
          trip.route = false;
       }
       else {
-        console.log("T55 route else ")
+        
         trip.date = moment(this.state.date).format("YYYY-MM-DD");
         trip.endDate = "";
         trip.optistatus = "Open";
         trip.generatedBy = "RoutePlanner";
         trip.route = false;
-         console.log("T55 route else ",trip.optistatus);
+         
       }
       var totalWeight = 0;
       var totalVolume = 0;
@@ -1156,8 +1156,8 @@ updateSiteSearchTerm = (event) => {
 
         if (route === "route") {
           if (routesSchedule) {
-           console.log("T333 insdie conf,routesc",this.state.tripsPanel);
-           console.log("T333 insdie conf,routesc",this.state.selectedIndex);
+           
+           
             while (this.state.tripsPanel[this.state.selectedIndex].timelineInterval.length > 0) {
               this.state.tripsPanel[this.state.selectedIndex].timelineInterval.pop();
             }
@@ -1173,7 +1173,7 @@ updateSiteSearchTerm = (event) => {
           itemTrip.timelineInterval = this.state.tripsPanel[this.state.selectedIndex].timelineInterval;
           itemTrip.selectedTripData = newGeoData;
         } else {
-          console.log("T00 inside cofirm and else ",this.state.slectedTrips);
+          
           var tempSlectedTrips = [];
 
          for (var l = 0; l < this.state.slectedTrips.length; l++) {
@@ -1181,7 +1181,7 @@ updateSiteSearchTerm = (event) => {
                   tempDoc.vehicleCode = trip.code;
                   tempSlectedTrips.push(tempDoc);
                 }
-                console.log("T00 after vehicle change-",tempSlectedTrips);
+                
           itemTrip.selectedTripData = tempSlectedTrips;
           itemTrip.timelineInterval = trip.timelineInterval;
 
@@ -1298,34 +1298,34 @@ filterTrans_depSite = (site) => {
 
   var flagconsider = false;
   if(from == 'checked') {
-    console.log("T222 from checked ",from);
+    
     flagconsider = dayflag;
-     console.log("T222 from flagconsider ",flagconsider);
+     
   }
   else if (from == 'buttons') {
-   console.log("T222 from button",from);
+   
    flagconsider = this.state.checked5days;
-     console.log("T222 from flagconsider",flagconsider);
+     
   }
-  console.log("T222 days", day);
+  
  var currDate = moment(this.state.dropDate).add(day, 'days');
  var sdate = moment(currDate).add(-5, 'days');
   var edate = moment(currDate).add(5, 'days');
     var newDate = moment(currDate).format('YYYY-MM-DD');
-     console.log("T222 from currdate",currDate);
-      console.log("T222 from newDate",newDate);
+     
+      
   var newStartDate = moment(sdate).format('YYYY-MM-DD');
   var newEndDate = moment(edate).format('YYYY-MM-DD');
-   console.log("T222 inside changeDate - 5daysflag",this.state.checked5days);
+   
      if(flagconsider) {
 
-         console.log("T222 inside changeDAte checked5days true");
+         
          fetchDropsPanelwithRange(this.state.selectedMultipleSites, newStartDate,newEndDate)
                .then(([res1]) => {
                  var dropsP = res1;
-                 console.log("drops panel after result",dropsP);
+                 
                 // this.filterDropsDiv(newDate, dropsP);
-                 console.log("drops panel after filter",dropsP);
+                 
                  this.setState({
                    dropDate: new Date(newDate.replace(/-/g, '\/')).toDateString(),
                    dropsPanel: dropsP,
@@ -1336,16 +1336,16 @@ filterTrans_depSite = (site) => {
 
      }
      else {
-       console.log("T222 inside changeDAte checked5days false");
+       
 
 
-    console.log("T21 inside chageDAte");
+    
     fetchDropsPanel(this.state.selectedMultipleSites, newDate)
       .then(([res1]) => {
         var dropsP = res1;
-        console.log("drops panel after result",dropsP);
+        
        // this.filterDropsDiv(newDate, dropsP);
-        console.log("drops panel after filter",dropsP);
+        
         this.setState({
           dropDate: new Date(newDate.replace(/-/g, '\/')).toDateString(),
           dropsPanel: dropsP,
@@ -1354,9 +1354,9 @@ filterTrans_depSite = (site) => {
 
       });
 
-      console.log("T222 after newDate",newDate);
-      console.log("T222 after fun date",new Date(newDate));
-      console.log("T222 after dropDate",this.state.dropDate);
+      
+      
+      
 
       }
   };
@@ -1409,14 +1409,14 @@ filterTrans_depSite = (site) => {
   }
 
     checkedToPlan = (checked) => {
-     console.log("T22 inside app checkedToPlan");
+     
       this.setState({ checkedToPlan: checked })
     }
 
 
 
       checked5days = (checked) => {
-           console.log("T222 inside checked5days",checked);
+           
           this.setState({ checked5days: checked })
           this.changeDate(0, checked, 'checked');
         }
@@ -1424,7 +1424,7 @@ filterTrans_depSite = (site) => {
 
      checked30daystrips = (checked) => {
 
-      console.log("T222 inside checked30daystriplist",checked);
+      
          this.setState({ checked30daystrips : checked});
          this.TriplistforCheckedin(checked);
      }
@@ -1461,15 +1461,15 @@ filterTrans_depSite = (site) => {
               var newDate = moment(currDate).format('YYYY-MM-DD');
             var newStartDate = moment(sdate).format('YYYY-MM-DD');
             var newEndDate = moment(edate).format('YYYY-MM-DD');
-             console.log("T222 inside changeDate - 30daysflag",this.state.checked30daystrips);
+             
             if(dayflag) {
-               console.log("T222 inside checked and true");
+               
                fetchTripsPanelwithRange(this.state.selectedMultipleSites, newStartDate,newEndDate)
                                    .then(([res1]) => {
                                      var dropsP = res1;
-                                     console.log("drops panel after result",dropsP);
+                                     
                                     // this.filterDropsDiv(newDate, dropsP);
-                                     console.log("drops panel after filter",dropsP);
+                                     
                                      this.setState({
                                        tripsPanel: dropsP,
                                      });
@@ -1478,13 +1478,13 @@ filterTrans_depSite = (site) => {
                                    });
           }
           else {
-             console.log("T222 inside unchecked and false");
+             
               fetchTripsPanel(this.state.selectedMultipleSites, newDate)
                         .then(([res1]) => {
                           var dropsP = res1;
-                          console.log("drops panel after result",dropsP);
+                          
                          // this.filterDropsDiv(newDate, dropsP);
-                          console.log("drops panel after filter",dropsP);
+                          
                           this.setState({
                             tripsPanel: dropsP,
                           });
@@ -1620,8 +1620,8 @@ refreshAllPanels = () => {
         selectedDocuments : [],
          trips: emptyTrip
         });
-      console.log("T11 inside refreshAllpanels",this.state.trips);
-      console.log("T11 inside refreshAllpanels",this.state.date);
+      
+      
         this.handleDateChange(this.state.date);
         this.setState({
               loader: true
@@ -1666,10 +1666,10 @@ refreshAllPanels = () => {
         });
         //change end depo lan n lat below siteLat + ',' + siteLang
         lanLat = lanLat + ':' + arrSiteLat + ',' + arrSiteLang
-        console.log("lanlat =",lanLat);
+        
       //  let url = apiurl + encodeURIComponent(lanLat) + jsonUrl;
           let url = apiurl + lanLat + jsonUrl;
-  console.log("url =",url);
+  
     var item = {};
        item.query = url;
        return item;
@@ -1684,11 +1684,11 @@ var finalBatchbody = {}
 var BatchItems = [];
 var ProccesedTrips = [];
 var Batchitem
-    console.log("inside Main group optimsation");
+    
     var currTripsPanel = this.state.tripsPanel;
     for (var i = 0; i < currTripsPanel.length; i++) {
            let trip = currTripsPanel[i]
-        console.log("trip is",trip);
+        
         if(trip.optistatus === 'Open') {
           ProccesedTrips.push(trip);
           Batchitem =   this.OptimisePreparation(trip);
@@ -1697,8 +1697,8 @@ var Batchitem
     }
     finalBatchbody.batchItems = BatchItems
 
-console.log("final BatchItems are",finalBatchbody);
-console.log("Processed Trips =",ProccesedTrips);
+
+
 
 
 }
@@ -1719,7 +1719,7 @@ console.log("Processed Trips =",ProccesedTrips);
                           // setLoader(false);
                        }
                    }).then((res) => {
-                                     console.log("bulk - opti result",res);
+                                     
                             var strips = res.summary.successfulRequests;
                             var ttrips = res.summary.totalRequests;
                            this.notifySucess(`${strips} Trips are optimized out of ${ttrips}`);
@@ -1737,7 +1737,7 @@ console.log("Processed Trips =",ProccesedTrips);
 updateDataAfterOptimisation = (result , proccessedTrips) => {
      var OptmizedTrips = [];
      var data =
-     console.log("inside updateAfterop - result", result);
+     
      for(let i=0; i< result.batchItems.length;i++) {
          var data = proccessedTrips[i];
           let prevTripsDist = 0;
@@ -1749,8 +1749,8 @@ updateDataAfterOptimisation = (result , proccessedTrips) => {
          var currentTrip  = result.batchItems[i];
          var res = currentTrip.response;
          if(currentTrip.statusCode === 200) {
-              console.log("Trip ",currentTrip)
-              console.log("Reponse of Trip =",res);
+              
+              
                if(res && res.optimizedWaypoints){
                                      optiindex.push(res.optimizedWaypoints);
                                   }
@@ -2069,12 +2069,12 @@ updateDataAfterOptimisation = (result , proccessedTrips) => {
 
    componentDidMount() {
 
-console.log("DAsh index-  this.props.location.state.date",this.props.location.state);
+
 
       var user = JSON.parse(localStorage.getItem("authUser"));
        const currDate = moment(new Date().toDateString().replace(/-/g, '\/')).format('YYYY-MM-DD');
-       console.log("T11 component did mount", currDate);
-        console.log("T11 component did mount", this.state.date);
+       
+        
        Promise.all([fetch('http://localhost:3001/api/v1/transport/usrsites?user='+ user.username)])
       .then(([res1]) => {
         return Promise.all([res1.json()])
@@ -2097,11 +2097,11 @@ console.log("DAsh index-  this.props.location.state.date",this.props.location.st
      }
 
      handleSiteChange = selectedOption => {
-        console.log("site change",selectedOption);
-        console.log("date =",this.state.date);
+        
+        
         this.setCurrentSite(selectedOption);
        const currDate = moment(this.state.date).format('YYYY-MM-DD');
-       console.log("after assign current date =",currDate);
+       
        fetchAppointmentAPI(selectedOption, currDate)
          .then(([res1, res2, res3]) => {
            this.setState({
@@ -2121,7 +2121,7 @@ console.log("DAsh index-  this.props.location.state.date",this.props.location.st
 
 
 refreshSite = () => {
-   console.log("inside refreshsite");
+   
     this.updateGeoLocations();
     this.enableDroppedDiv();
     this.removeTrips();
@@ -2154,8 +2154,8 @@ refreshSite = () => {
 
         currMarkers.push(this.state.selectedSite);
 
-        console.log("inside  - addStateMarker 1",currMarkers);
-        console.log("inside  - addStateMarker 1",this.state.dropsPanel);
+        
+        
 
         //add pointer to the map
          let currDropsPanel = this.state.dropsPanel;
@@ -2229,9 +2229,9 @@ addSelectedTrips = (count) => {
 
   handleDateChange = (date) => {
    // this.setState({loader : true});
-   console.log("T11 sync,inside handleDatechagne",date);
+   
     const currDate = moment(date).format('YYYY-MM-DD');
-    console.log("T11 sync,inside handleDatechagne",currDate);
+    
 
     let value = this.state.selectedMultipleSites
     fetchAppointmentAPI(value, currDate)
@@ -2289,8 +2289,8 @@ addSelectedTrips = (count) => {
   }
 
   onVRClick = (i, tmsValidated) => {
-     console.log("inside onVRclieck at index",i);
-     console.log("inside onVRclieck at index - tmsvalida",tmsValidated);
+     
+     
     var tripsPanels = this.state.tripsPanel;
     var selectedTrip = [];
     var selectedTrips = [];
@@ -2312,9 +2312,9 @@ addSelectedTrips = (count) => {
       }).catch(error => {
       //  history.push('/');
       });
-      console.log("inside VR click",this.state.markers);
+      
     if (this.state.markers && this.state.markers.length == 0) {
-       console.log("inside VR click inside if");
+       
       this.state.sites.map((site) => {
         if (this.state.selectedSite === site.id) {
           let marker = [];
@@ -2340,7 +2340,7 @@ addSelectedTrips = (count) => {
 /*
   updateTripsGeoLocations = (index , status) => {
    // var checkboxes = document.getElementsByName("tripsCheckBox");
-    console.log("inside updateTripgeo");
+    
    var checkboxes = this.state.tripsPanel;
     const currMarkers = [];
     const currGeoData = [];
@@ -2357,14 +2357,14 @@ addSelectedTrips = (count) => {
     }
 
     if (status) {
-       console.log("inside updateTripgeo if",status);
+       
       this.removeTrips();
 //      checkboxes[index].checked = true;
 
       this.updateTripsPanel(currMarkers, currGeoData, index);
       this.setState({ selectedIndex: index, checkedTrip: true, RouteoptiShow:'block' })
     } else {
-     console.log("inside updateTripgeo else",status);
+     
       this.removeTrips();
       let marker = [];
       marker.push(currMarkers[0])
@@ -2386,7 +2386,7 @@ addSelectedTrips = (count) => {
 
 updateTripsPanel = (currMarkers, currGeoData, i) => {
 
-   console.log("T00 inside updateTripsPanel - 1");
+   
     var tripsPanels = this.state.tripsPanel;
     var selectedTrip = [];
     var selectedTrips = [];
@@ -2428,14 +2428,14 @@ updateTripsPanel = (currMarkers, currGeoData, i) => {
     ];
     var count = selectedTrips.length;
     var tempSelectedDocs = [];
-    console.log("T00 inside ",selectedTrips);
+    
     for (var i = 0; i < selectedTrips.length; i++) {
       if (Object.keys(selectedTrips[i]).length != 0) {
         if (selectedTrips[i].panelType === 'drop') {
-          console.log("T00 inside updategeo- drop",selectedTrips[i]);
+          
           tripColor[i] = '#7ace4c';
         } else if (selectedTrips[i].panelType === 'pickup') {
-         console.log("T00 inside updategeo- pickup",selectedTrips[i]);
+         
           tripColor[i] = '#09aaed';
         }
         currGeoData.push(selectedTrips[i]);
@@ -2461,7 +2461,7 @@ updateTripsPanel = (currMarkers, currGeoData, i) => {
 
 
   removeTrips = () => {
-    console.log("inside removeTrips 1");
+    
    // this.clearAllCheckBoxes();
     this.setState({
       trips: [],
@@ -2489,12 +2489,12 @@ updateTripsPanel = (currMarkers, currGeoData, i) => {
 
 
   handleDragStart = (event, valueObj, type, index, id) => {
-    console.log("3 inside handldragStart at index - event",event);
-     console.log("3 inside handldragStart at index - valueobj",valueObj);
-      console.log("3 inside handldragStart at index - type",type);
-        console.log("3 inside handldragStart at index - index",index);
+    
+     
+      
+        
     if (type === "vehicle") {
-      console.log("selected Date =",this.state.date);
+      
       const currDate = moment(this.state.date).format('YYYY-MM-DD');
       const url = 'http://localhost:3001/api/v1/transport/prevtrpsite?veh=' + valueObj.codeyve + '&date=' + currDate;
       fetch(url)
@@ -2543,7 +2543,7 @@ updateTripsPanel = (currMarkers, currGeoData, i) => {
     }
 
 /*
-    console.log("3 inside handleDragStart",event)
+    
  let draggedData = {};
     draggedData.currentCard = JSON.stringify(valueObj);
     draggedData.type = type;
@@ -2560,8 +2560,8 @@ updateTripsPanel = (currMarkers, currGeoData, i) => {
     event.dataTransfer.setData("row-id", id);
     event.dataTransfer.setData("index", index);
 
-   console.log("3 inside handledrag - dataTranser after",event);
-   console.log("3 inside handledrag - is dragged after",event.dataTransfer);
+   
+   
 
   }
 
@@ -2682,10 +2682,10 @@ dropResetObj = (trip) => {
 
 updateTrip = (trip) => {
   var SelectedDocs = [];
-   console.log("T00 inside updateTrip ",trip);
-   console.log("T00 inside updateTrip dropObjects ",trip[0].dropObject);
+   
+   
     for (var j = 0; j < trip[0].dropObject.length; j++) {
-         console.log("T00 inside drop j =", j);
+         
          SelectedDocs.push(trip[0].dropObject[j].docnum);
          }
        for (var k = 0; k < trip[0].pickupObject.length; k++) {
@@ -2727,7 +2727,7 @@ updateTrip = (trip) => {
   }
 
   removeTrips = () => {
-    console.log("inside removeTrips 2");
+    
     this.clearAllCheckBoxes();
     this.setState({
       trips: [],
@@ -2768,13 +2768,13 @@ updateTrip = (trip) => {
 
 
   disableDroppedDiv = (divTag) => {
-   console.log("T31 inside disable Drooped Div",divTag);
+   
    var temp = "[row-id="+divTag+"]";
   //  var htmlDiv = document.getElementById(divTag);
-   console.log("T31 inside disable Drooped Div temp",temp);
+   
   var htmlDiv = document.querySelectorAll(temp);
     var { droppedDivs } = this.state;
-     console.log("T31 inside disable Drooped Div htmldiv",htmlDiv);
+     
     droppedDivs.push(temp);
     this.setState({ droppedDivs });
   }
@@ -2875,7 +2875,7 @@ onValidateAll = ()=>{
 
 
    validate = (i) => {
-       console.log("s1 - inside validate");
+       
        var tripsPanels = this.state.tripsPanel;
        var ClickedTrip = tripsPanels[i];
        let trips = ClickedTrip;
@@ -2905,7 +2905,7 @@ onValidateAll = ()=>{
 
  validateonly = (i,pageType) => {
     // this.setState({ loader : true});
-     console.log("s1 - inside validate");
+     
      var tripsPanels = this.state.tripsPanel;
      var ClickedTrip = tripsPanels[i];
      let trips = ClickedTrip;
@@ -2976,8 +2976,8 @@ updateTripsGeolocationbeforelock = (index) => {
 
 
   updateTripsGeoLocations = (i , index) => {
-     console.log("i", i);
-     console.log("index =",index);
+     
+     
     var checkboxes = document.getElementsByName("tripsCheckBox");
     const currMarkers = [];
     const currGeoData = [];
@@ -2992,13 +2992,13 @@ updateTripsGeolocationbeforelock = (index) => {
     } else if (this.state.selectedSite.lat != undefined) {
       currMarkers.push(this.state.selectedSite);
     }
- console.log("T00 inside index - updategeo",checkboxes[index].checked);
+ 
     if (checkboxes[index].checked) {
       this.removeTrips();
       checkboxes[index].checked = true;
-console.log("T00 inside index ",checkboxes[index].checked);
+
       this.updateTripsPanel(currMarkers, currGeoData, i);
-      console.log("selected index", index);
+      
       this.setState({ selectedIndex: i, checkedTrip: true })
     } else {
       this.removeTrips();
@@ -3068,7 +3068,7 @@ console.log("T00 inside index ",checkboxes[index].checked);
 
 
   updateTripsPanel = (currMarkers, currGeoData, i) => {
-    console.log("T00 insdie updateTripsPanel");
+    
     var tripsPanels = this.state.tripsPanel;
     var selectedTrip = [];
     var selectedTrips = [];
@@ -3114,11 +3114,11 @@ console.log("T00 inside index ",checkboxes[index].checked);
 
       if (Object.keys(selectedTrips[i]).length != 0) {
         if (selectedTrips[i].panelType === 'drop') {
-           console.log("T000 Inside drop ",selectedTrips[i]);
+           
            selectedDocs.push(selectedTrips[i].docnum);
           tripColor[i] = '#7ace4c';
         } else if (selectedTrips[i].panelType === 'pickup') {
-        console.log("T000 Inside pickup ",selectedTrips[i]);
+        
          selectedDocs.push(selectedTrips[i].docnum);
           tripColor[i] = '#09aaed';
         }
@@ -3291,9 +3291,9 @@ console.log("T00 inside index ",checkboxes[index].checked);
 
   documentPanelDateChange = (date) => {
      // this.setState({loader : true});
-     console.log("T11 sync,inside handleDatechagne",date);
+     
       const currDate = moment(date).format('YYYY-MM-DD');
-      console.log("T11 sync,inside handleDatechagne",currDate);
+      
 
       let value = this.state.selectedMultipleSites
       fetchAppointmentAPI(value, currDate)
@@ -3339,14 +3339,14 @@ console.log("T00 inside index ",checkboxes[index].checked);
       var tripsList_loader = tripsPanels[tripindex];
       tripsList_loader.loaderInfo = msg;
 
-      console.log("loader msg - trip",tripsList_loader);
+      
       this.confirmTrip(tripsList_loader, "loaderMsg");
 
   }
 
   onForcesequnceCheck = (tripindex,msg) => {
 
-  console.log("foced check msg - trip",msg);
+  
    var tripsPanels = this.state.tripsPanel;
    var trips = []
    var tripsList_force = tripsPanels[tripindex];
@@ -3395,7 +3395,7 @@ console.log("T00 inside index ",checkboxes[index].checked);
 
         if(TripData.docnum && TripData.docnum === docNum) {
           if(Msgtype === 'doc') {
-           console.log("inside doc type at app",Msgtype);
+           
           TripData.noteMessage = msg
           }
           else if(Msgtype === 'carrier') {
@@ -3423,10 +3423,10 @@ console.log("T00 inside index ",checkboxes[index].checked);
 
 
   onTripDelete = (index, docnum, vtype, vcode) => {
-   console.log("T222 inside app after delete button clicked- index",index);
-     console.log("T222 inside app after delete button clicked- docnum",docnum);
-       console.log("T222 inside app after delete button clicked- vtype",vtype);
-         console.log("T222 inside app after delete button clicked- vcode",vcode);
+   
+     
+       
+         
     var currentGeoData = this.state.geoData;
     var currentMarkers = this.state.markers;
     var geoData = [];
@@ -3438,10 +3438,10 @@ console.log("T00 inside index ",checkboxes[index].checked);
     var trip = this.state.trips[0];
     var removeDocs = [];
 
-  console.log("T222 inside app after delete button clicked- currentGeoData",currentGeoData);
-  console.log("T222 inside app after delete button clicked- currentMarkers",currentMarkers);
-  console.log("T222 inside app after delete button clicked- currDropsPanel",currDropsPanel);
-  console.log("T222 inside app after delete button clicked- trip",trip);
+  
+  
+  
+  
     if (currentGeoData[index].panelType == 'pickup') {
       var pickCount = trip.pickups;
       trip.pickups = pickCount - 1;
@@ -3518,7 +3518,7 @@ console.log("T00 inside index ",checkboxes[index].checked);
     }
     var currSelectedTrips = this.state.slectedTrips;
     var selectedTrips = [];
-    console.log("T222 insdie Delete - selectedTrip",currSelectedTrips);
+    
     for (var i = 0; i < currSelectedTrips.length; i++) {
       if (!removeDocs.includes(currSelectedTrips[i].docnum)) {
         selectedTrips.push(currSelectedTrips[i]);
@@ -3540,7 +3540,7 @@ console.log("T00 inside index ",checkboxes[index].checked);
     trip.pickupObject = pickupObject;
     trip.dropObject = dropObject;
 
-    console.log("T222 inside delte- trip",trip);
+    
     var tripColor = [
       "#e0e0e0",
       "#e0e0e0",
@@ -3562,7 +3562,7 @@ console.log("T00 inside index ",checkboxes[index].checked);
       }
     }
     trips.push(trip);
-    console.log("T222 inside delete - after push",trips);
+    
     this.setState({
       markers: currMarkers,
       geoData: geoData,
@@ -3580,7 +3580,7 @@ console.log("T00 inside index ",checkboxes[index].checked);
   // end of onTrip Delete
   lockTrip = (trips, index) => {
       // this.setState({loader : true});
-     console.log("inside final lock tripp");
+     
     var tripsPanel = this.state.tripsPanel;
     tripsPanel[index].lock = true;
     fetch('http://localhost:3001/api/v1/transport/lock/trips', {
@@ -3617,7 +3617,7 @@ console.log("T00 inside index ",checkboxes[index].checked);
 
 
   updateSelectedDocList = (docnum) => {
-     console.log("T00 insdie updatedseletedDocList =",docnum);
+     
       var currentSelectedDocs  = this.state.selectedDocuments;
       currentSelectedDocs.push(docnum);
       this.setState = {
@@ -3688,7 +3688,7 @@ console.log("T00 inside index ",checkboxes[index].checked);
     });
   }
   getRouteSchedulerApp = (routesSchedule, optimisedindex , auto) => {
-      console.log("inside getRouteshcler App - opti index",optimisedindex);
+      
      var data = [];
      var newGeoData = [];
     if(auto) {
@@ -3737,8 +3737,8 @@ console.log("T00 inside index ",checkboxes[index].checked);
       newGeoData.push(data)
     });
     }
-    console.log("geodata ,after process",newGeoData);
-    console.log("geodata ,after process routesSchedule",routesSchedule);
+    
+    
     this.setState({ geoData: newGeoData })
     this.setState({ routeSchedulerTime: routesSchedule });
     this.confirmTrip(routesSchedule.trips, "route", routesSchedule, newGeoData);

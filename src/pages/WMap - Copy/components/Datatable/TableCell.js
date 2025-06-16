@@ -148,7 +148,7 @@ const TimeLines = (props) => {
                   .on("mouseover", (event, i) => {
                     setMouseMoveData({ pageX: event.pageX, pageY: event.pageY });
                     setToolTipData(i);
-                    console.log("at mouse over",i)
+                    
                   })
                   .on("mouseout", () => {
                     setToolTipData(null);
@@ -188,12 +188,12 @@ const TimeLines = (props) => {
 
     const ConvtMill2Hm = (i) => {
 
-       console.log("inside convt",i);
+       
         var d = new Date(parseFloat(i));
-         console.log("inside convt",d);
+         
         var timess = d.toTimeString();
         var hm = timess.substr(0,5);
-          console.log("inside convt",hm);
+          
         return hm;
     }
 

@@ -54,7 +54,7 @@ class Dashboard extends Component {
 
 
     render() {
-       console.log("DAsh -", this.state.dashboardData)
+       
         return (
             <React.Fragment>
                 <div className="page-content">

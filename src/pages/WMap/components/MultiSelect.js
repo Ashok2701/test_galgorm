@@ -41,40 +41,40 @@ function MultiSelect(props) {
     props.setSelectedSites(value.toString());
     props.selectedSitesArr(value)
     setSelected(value);
-      console.log("value =",value);
+      
   };
 
 
   const handledefaultSite = (site) => {
-     console.log("inside multiselect handledefaultsite",props.defaultSelected);
+     
      // const value = [];
     //  value.push(site);
       props.setSelectedSites(site);
       props.selectedSitesArr(site)
       setSelected(site);
-        console.log("value =",site);
+        
     };
 
 
      useEffect(() => {
-           console.log("inside multiselect use effect props",props.defaultPropsSelected);
+           
           if(props.defaultPropsSelected.length > 0){
-                    console.log("inside multiselect use effect props if",props.defaultPropsSelected);
+                    
 
                     handledefaultSite(props.defaultPropsSelected);
                  }
-            console.log("inside multiselect use effect",selected);
+            
 
         },[props.defaultPropsSelected]);
 
 /*
   useEffect(() => {
-     console.log("inside multiselect use effect props",props.defaultSelected);
+     
        if(props.defaultSelected != ''){
-          console.log("inside multiselect use effect props if",props.defaultSelected);
+          
           handledefaultSite(props.defaultSelected);
        }
-      console.log("inside multiselect use effect",selected);
+      
 
   },[props.defaultSelected]);
 */

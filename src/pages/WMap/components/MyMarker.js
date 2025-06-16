@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function MyMarker(props) {
-  console.log("inside mymarkers", props);
+  
   const classes = useStyles(props);
   const [enableModelWindow, setEnableModelWindow] = useState(false);
 

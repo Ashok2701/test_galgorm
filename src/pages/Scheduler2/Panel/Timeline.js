@@ -87,12 +87,12 @@ function Timeline(props) {
     const [modalTimeMessage, setModalTimeMessage] = React.useState('');
     const [autooptimise, setAutooptimise] = React.useState(false);
 
-    // console.log("2 Routeshc",props.data);
-    // console.log("T223  Routeshc timeline",props.data.docdate);
+    // 
+    // 
 
     if (props.optimisedClickedTrip) {
-        // console.log("TSSS at Timeline - true");
-        // console.log("TSSS at Trips - optimise ",props.data);
+        // 
+        // 
         CheckedOptimisationRoute(props.data);
     }
 
@@ -100,7 +100,7 @@ function Timeline(props) {
 
     // var date = new Date();
     var date = props.data.docdate;
-    // console.log("T223 inside Timeline-Date =",date);
+    // 
     let distanceCost = 0;
     let timeCost = 0;
     let totalCost = 0;
@@ -113,21 +113,21 @@ function Timeline(props) {
 
     const onchangeSwitch = () => {
         let autoop = autooptimise;
-        // console.log("auto op",autooptimise);
+        // 
         setAutooptimise(!autooptimise);
     }
 
 
     const displayVehicleName = (code) => {
         let vehcode = code, vehName = '';
-        console.log("data insdie vehname =", vehcode)
+        
         if (props.vehiclePanel && props.vehiclePanel.vehicles && props.vehiclePanel.vehicles.length > 0) {
-            console.log("data insdie vehname if=")
+            
             props.vehiclePanel.vehicles.map((veh) => {
-                console.log("data insdie vehname if=", veh)
+                
                 if (veh.codeyve === vehcode) {
                     vehName = veh.name;
-                    console.log("data insdie vehname matched", vehName)
+                    
                 }
             });
         }
@@ -199,7 +199,7 @@ function Timeline(props) {
     }
 
     const handleDateChange = (date) => {
-        // console.log("T223 inside Timeine- date ",date);
+        // 
         let hr = Number(formatHrMin(date.getHours()));
         let min = Number(formatHrMin(date.getMinutes()));
         let loadingTime = loadingSecs(hr, min, loadHrs)
@@ -264,8 +264,8 @@ function Timeline(props) {
 
 
     const CheckedOptimisationRoute = (data) => {
-        // console.log("T000 data =",data);
-        // console.log("T000 props data =",props.data);
+        // 
+        // 
 
         optimizeRoute(data);
         /* if(data.driverId === '') {
@@ -273,7 +273,7 @@ function Timeline(props) {
            setErrorMessage("Driver is not assigned for the Trip, please assign then proceed for Optimisation");
          }
          else {
-          // console.log("T000 inside else");
+          // 
           optimizeRoute(data);
          }
          */
@@ -282,9 +282,9 @@ function Timeline(props) {
 
     const optimizeRoute = (data) => {
 
-        console.log("T000 data =",data);
+        
 
-        console.log("T000 props data",props.data);
+        
 
         setLoader(true);
         let siteLat;
@@ -348,7 +348,7 @@ function Timeline(props) {
                     setLoader(false);
                 }
             }).then((res) => {
-                // console.log("T6565 auto - opti result",res);
+                // 
                 if (res && res.optimizedWaypoints) {
                     optiindex.push(res.optimizedWaypoints);
                 }
@@ -381,8 +381,8 @@ function Timeline(props) {
                             });
                             let currTripTimeHr = getHr;
                             let currTripTimeMin = getMin;
-                            // console.log("T6565 getHr",getHr);
-                            // console.log("T6565 getMin",getMin);
+                            // 
+                            // 
                             departure.setHours(Number(currTripTimeHr));
                             departure.setMinutes(Number(currTripTimeMin));
                             let sameTrips = [];
@@ -493,33 +493,33 @@ function Timeline(props) {
                                     tTime: time,
                                     tDistance: length
                                 };
-                                console.log(departure ,"departure before getting seconds 496");
+                                
                                 departure.setSeconds(departure.getSeconds() + time + sec + waitSec);
 
-                                console.log(departure ,"this is departure here 499");
+                                
 
-                                console.log(departure.setSeconds(),"after getting departure seconds 501");
+                                
 
-                                console.log(time ,"this is time 503");
+                                
 
-                                console.log(sec ,"these are seconds 505");
+                                
 
-                                console.log(waitSec ,"these are wait Sec 507");
+                                
 
                                 //added sersec+wait sec+time
                                 let endTimeRoute = dateformatter(departure);
-                                console.log(endTimeRoute ,"End time route 511")
+                                
                                 endTimeRoute = new Date(endTimeRoute);
                                 let endTimeHr = endTimeRoute.getHours();
                                 let endTimeMin = endTimeRoute.getMinutes();
                                 endTimeRoute = (endTimeHr) + ':' + endTimeMin;
                                 var a = endTimeRoute.split(':');
-                                console.log(a ,"End time split 517")
+                                
                                 var endTimeSec = (+a[0]) * 60 * 60 + (+a[1]) * 60;
-                                console.log(endTimeSec ,"this is end time sec 519");
+                                
                                 var arrivalTime = endTimeSec - (Number(serviceTime[index]) * 60 * 60) - (Number(waitingTime[index]) * 60 * 60);
                                 arrivalTime = formatTime(arrivalTime);
-                                console.log(splitTime(endTimeRoute),"this is final departure time 522")
+                                
 
                                 function addHoursToHHMM(arrivalTimeStr, serviceTime, waitingTime) {
   const [hours, minutes] = arrivalTimeStr.split(":").map(Number);
@@ -619,7 +619,7 @@ let finalEndTime=addHoursToHHMM(splitTime(arrivalTime),Number(serviceTime[index]
                             prevTripsDist = prevTripsDist + (totDistance / 1000)
                             let totTimeSec = convertHrToSec(Number(totTime.split(':')[0])) + convertMinToSec(Number(totTime.split(':')[1]));
                             let maxTotTimeSec = convertHrToSec(Number(props.data.vehicleObject.maxtotaltime));
-                            console.log("T11 max total time in sec", maxTotTimeSec);
+                            
                             if (prevTripsDist >= props.data.vehicleObject.maxtotaldist
                                 || prevTripsTime >= maxTotTimeSec
                                 || optimizationStatus
@@ -641,11 +641,11 @@ let finalEndTime=addHoursToHHMM(splitTime(arrivalTime),Number(serviceTime[index]
                             } else {
                                 let loadingHrs = convertHrToSec(loadHrs);
 
-                                console.log("T11 travel total time in sec", tTime);
-                                console.log("T11 travel total time in sec format", formatTime(tTime));
-                                console.log("T11 total dist", totDistance);
-                                console.log("T11 total dist / 1000", totDistance / 1000);
-                                console.log("T11 max total dist", props.data.vehicleObject.maxtotaldist);
+                                
+                                
+                                
+                                
+                                
                                 // to check total travel time
                                 if (tTime > maxTotTimeSec) {
                                     setTimeErrorMessage(`The vehicle cannot perform trip ${formatTime(tTime)} HH:MM more than ${formatTime(maxTotTimeSec)} HH:MM , please review trip documents.`)
@@ -686,7 +686,7 @@ let finalEndTime=addHoursToHHMM(splitTime(arrivalTime),Number(serviceTime[index]
                                         latestEndDate = date1;
                                     }
                                     routesSchedule.endDate = latestEndDate;
-                                    // console.log("T6565 final data routeScheduler",routesSchedule);
+                                    // 
                                     props.getValues(routesSchedule, optiindex, autooptimise);
                                 }
                             }
@@ -697,7 +697,7 @@ let finalEndTime=addHoursToHHMM(splitTime(arrivalTime),Number(serviceTime[index]
     };
 
     useEffect(() => {
-        // console.log("T223 inside loading useEffect",props);
+        // 
         let hr;
         let min;
         let loadingHrs;
@@ -705,10 +705,10 @@ let finalEndTime=addHoursToHHMM(splitTime(arrivalTime),Number(serviceTime[index]
         let loadingTime;
         let tripEndTime = [];
         let date = new Date();
-        // console.log("T223 inside loading - vehiclepanel",props.vehiclePanel);
+        // 
         props.vehiclePanel && props.vehiclePanel.vehicles.length > 0 && props.vehiclePanel.vehicles.map((vehicle) => {
             if (vehicle.codeyve === props.data.code) {
-                // console.log("T223 inside loading - vehiclepanel - matched",vehicle.codeyve);
+                // 
                 if (vehicle.starttime.includes(':')) {
                     hr = vehicle.starttime.split(':')[0];
                     min = vehicle.starttime.split(':')[1];
@@ -716,7 +716,7 @@ let finalEndTime=addHoursToHHMM(splitTime(arrivalTime),Number(serviceTime[index]
                     hr = vehicle.starttime.substring(0, 2);
                     min = vehicle.starttime.substring(2, 4);
                 }
-                // console.log("T223 inside use effct",hr+' -'+min);
+                // 
                 loadingHrs = vehicle.startdepots;
                 unloadHrs = vehicle.enddepotserv;
                 setLoadHrs(vehicle.startdepots);
@@ -729,17 +729,17 @@ let finalEndTime=addHoursToHHMM(splitTime(arrivalTime),Number(serviceTime[index]
             hr = props.data.startTime.split(':')[0];
             min = props.data.startTime.split(':')[1];
             loadingTime = loadingSecs(hr, min)
-            // console.log("T223 inside loading use effct not opti",loadingTime);
+            // 
         } else {
             loadingTime = loadingSecs(hr, min, loadingHrs);
-            // console.log("T223 inside loading use effct opti",loadingTime);
+            // 
         }
 
         //unit setting
         props.sites && props.sites.length > 0 && props.sites.map((site) => {
-            // console.log("2 set sites",site);
+            // 
             if (props.data.depSite === site.id) {
-                // console.log("T223 inside loading site match")
+                // 
 
 
                 m = site.massunit;
@@ -774,22 +774,22 @@ let finalEndTime=addHoursToHHMM(splitTime(arrivalTime),Number(serviceTime[index]
                         hr = time.split(':')[0];
                         min = time.split(':')[1];
                         loadingTime = loadingSecs(hr, min)
-                        // console.log("T223 inside loading time if",loadingTime);
+                        // 
                     } else {
                         let startTime = new Date();
                         startTime.setHours((props.data.startTime.split(":")[0]), (props.data.startTime.split(":")[1]));
                         hr = startTime.getHours();
                         min = startTime.getMinutes();
                         loadingTime = loadingSecs(hr, min)
-                        // console.log("T223 inside loading time else",loadingTime);
+                        // 
                     }
                 }
             }
         })
         hr = loadingTime.split(':')[0];
         min = loadingTime.split(':')[1];
-        // console.log("T223 inside loading time",loadingTime);
-        // console.log("2 after assign",c+"-"+m+"-"+d+"-"+v);
+        // 
+        // 
         setCurrency(c);
         setMassunit(m);
         setVolunits(v);
@@ -798,7 +798,7 @@ let finalEndTime=addHoursToHHMM(splitTime(arrivalTime),Number(serviceTime[index]
         setMin(min);
         date.setHours(hr);
         date.setMinutes(parseInt(min));
-        // console.log("T223 inside loading - after loading",date);
+        // 
         setHandleDateChange(date);
     }, [props])
 
@@ -869,7 +869,7 @@ let finalEndTime=addHoursToHHMM(splitTime(arrivalTime),Number(serviceTime[index]
         setTomTomNotification(true)
     }
 
-    // console.log("insdei timeline",props.date);
+    // 
     return (
         <Card className="mb-3">
             <CardBody className="p-0">

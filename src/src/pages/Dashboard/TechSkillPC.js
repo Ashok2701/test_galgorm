@@ -23,7 +23,7 @@ class TechSkillPC extends Component {
 
       componentDidUpdate(prevProps) {
         if (prevProps.data !== this.props.data) {
-          console.log("Some props changed. Rendering...");
+          
         //  ApexCharts.exec('routestatus-pie')
            let tempoptions = {...this.state.options};
            tempoptions.labels = this.props.data.techStatusVO && this.props.data.techStatusVO.labels;

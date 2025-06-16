@@ -39,7 +39,7 @@ constructor(props)
 
   onLotDetailsClick = (data) => {
       //  const logisticDetails = logisticData;
-      console.log("lot inside onlot detail button clicked")
+      
       this.props.getLotDetailsbyProdSite(data.prod);
         this.setState({
             lotInfoShow: true,
@@ -66,7 +66,7 @@ this.setState({ lotInfoShow : false });
 }
 
     render() {
-      console.log("at global tab", this.props.toPickDataList);
+      
        //  let
            return (
           <TabPane className="tripstab" tabId="Global">

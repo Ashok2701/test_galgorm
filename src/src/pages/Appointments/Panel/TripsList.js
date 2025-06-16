@@ -93,7 +93,7 @@ class TripsList extends React.Component {
                  headerName : "",
                  width: 50,
                  cellRendererFramework : (params) => {
-                     console.log("inside delte header",params);
+                     
                     if(!params.data.lock) {
                    return(
                          <button className="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"
@@ -136,7 +136,7 @@ class TripsList extends React.Component {
                                field: "lock",
                                width: 70,
                                cellRendererFramework: (params) => {
-                                 console.log("inside delte header",params);
+                                 
                                    let lock =params.data.lock;
                                        let i = params.node.rowIndex;
                                        let opti = params.data.opti;
@@ -297,7 +297,7 @@ class TripsList extends React.Component {
                         headerName : "",
                         width: 50,
                         cellRendererFramework : (params) => {
-                            console.log("inside delte header",params);
+                            
                            if(!params.data.lock) {
                           return(
                                 <button className="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"
@@ -340,7 +340,7 @@ class TripsList extends React.Component {
                                       field: "lock",
                                       width: 70,
                                       cellRendererFramework: (params) => {
-                                        console.log("inside delte header",params);
+                                        
                                           let lock =params.data.lock;
                                               let i = params.node.rowIndex;
                                               let opti = params.data.opti;
@@ -502,12 +502,12 @@ onConfirmDeleteNo = () => {
 
  onVRClick = (clickeddata) => {
 
-      console.log("inside Triplist details clicked",clickeddata);
+      
       this.props.onVRClick(clickeddata.rowIndex , clickeddata.data.tmsValidated);
      }
 
     onConfirmClick = (params) => {
-       console.log("inside lock click",params);
+       
        let index = params.node.rowIndex;
        let opti = params.data.optistatus;
         if (params.data.lock) {
@@ -556,7 +556,7 @@ onConfirmDeleteNo = () => {
 
 
     onConfirmYes = (index) => {
-       console.log("inside after confirm yes");
+       
         this.props.onLockRecord(index);
         this.setState({
             addConfirmShow: false
@@ -626,7 +626,7 @@ onConfirmDeleteNo = () => {
       onGroupValidateYes = () => {
 
           this.props.onValidateAll();
-          console.log("GV - Yes confirm for group Valdiation");
+          
             this.setState({
                 addvalidateconfirmShow: false
             })
@@ -695,7 +695,7 @@ onConfirmDeleteNo = () => {
 
 
   onConfirmDeleteClick = (index, tripcode) => {
-     console.log("Inside Confirm Delte");
+     
          this.setState({
              addDeleteconfirmShow: true,
              confirmMessage: 'Do you confirm the deletion of this tour?',
@@ -706,7 +706,7 @@ onConfirmDeleteNo = () => {
 
 
   onRowSelected = event => {
-     console.log("T02 inside onRowSelected",event);
+     
 
      if(event.node.selected) {
      this.props.updateTripsGeoLocations(event.rowIndex ,event.node.selected);
@@ -715,13 +715,13 @@ onConfirmDeleteNo = () => {
   };
 
   onSelectionChanged = event => {
-     console.log("T02 inside onSelectionChanged",event);
+     
   };
 
 
   render(){
-  console.log("i18 -",i18n);
-  console.log("i18 namespace -",withNamespaces);
+  
+  
   let ColumnLAngdef = this.state.columnDefs;
   const language = i18n.language;
   if(language === 'fr' ){
@@ -734,10 +734,10 @@ onConfirmDeleteNo = () => {
         let addLoaderClose = () => this.setState({ enableloaderMsgWindow: false });
  const TripsList = this.props.tripsList;
    const  defaultColDef = {sortable:true}
-   console.log("T21 inside TripsLIst",this.props.tripsList)
+   
    const rowSelection = "single";
   function changeRowColor(params){
-       console.log("T21 color",params.data.color);
+       
      var myStr = params.data.vehicleObject.color;
     var subStr = myStr.match("background-color:(.*)");
     var s = subStr[1];

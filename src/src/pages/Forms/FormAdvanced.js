@@ -142,7 +142,7 @@ class FormAdvanced extends Component {
 	onSwatchHover_RGBA = (color) => {
 		const format = "rgba(" + color.rgb.r + "," + color.rgb.g + "," + color.rgb.b + "," + color.rgb.a + ")";
 		this.setState({ colorRGBA: format });
-		// console.log(color.rgb)
+		// 
 	}
 
 	//DatePicker

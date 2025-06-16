@@ -85,7 +85,7 @@ class RoutesAnalytics extends Component {
 /*
     componentDidUpdate(prevProps) {
        if (prevProps.dash !== this.props.dash) {
-         console.log("Some props changed. Analystics Rendering...");
+         
        //  ApexCharts.exec('routestatus-pie')
           let tempoptions = {...this.state.series};
           let updtempoptions = []
@@ -113,8 +113,8 @@ class RoutesAnalytics extends Component {
              tempcategxaxis.categories = this.props.dash.routeAnalticsVO.categ
              tempcategoptions.xaxis = tempcategxaxis;
 
- console.log("Some props changed. series", tempoptions);
-  console.log("Some props changed. options =", tempcategoptions);
+ 
+  
 
            this.setState({
                options : tempcategoptions,
@@ -128,8 +128,8 @@ class RoutesAnalytics extends Component {
 */
 
     render() {
-      console.log("Route Anal options=", this.state.options);
-       console.log("Route Anal series =", this.state.series);
+      
+       
         return (
             <React.Fragment>
                 <Card>

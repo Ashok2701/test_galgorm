@@ -31,7 +31,7 @@ import classnames from "classnames";
 class Trailers extends React.Component {
   constructor(props) {
     super(props);
-    console.log("T22 inside Trailer  - conc",props);
+    
     this.state = {
       addInfoShow: false,
       speciality: '',
@@ -74,10 +74,10 @@ class Trailers extends React.Component {
                     },
                   ],
            getRowStyle : (params) => {
-             console.log("T22 inside trailer cons= params",params);
-             console.log("T22 inside trailer const= props", props);
+             
+             
   if(this.props.allAllowedTrailers === "Yes"){
-       console.log("T22 inside const allAllowed");
+       
       return { 'background-color' :'#feff99 !important' };
      }else{
   if (this.props.vehicleDropped) {
@@ -95,7 +95,7 @@ class Trailers extends React.Component {
 }
 else
            {
-              console.log("T22 color else",params.data.color);
+              
                   var myStr = params.data.color;
                  var subStr = myStr.match("background-color:(.*)");
                  var s = subStr[1];
@@ -129,26 +129,26 @@ else
       }
 
     getBgcolor = (params) => {
-  console.log("T22 inside bgcolo- props",this.props);
-  console.log("T22 inside bgcoolor- patams", params)
+  
+  
     if(this.props.allAllowedTrailers === "Yes"){
-      console.log("T22 inside allAllowed");
+      
      return { background :'#feff99 !important' };
     }else{
            if (this.props.vehicleDropped) {
 
                if (this.props.allowedTrailers && !this.props.allowedTrailers.includes(params.data.typ)) {
-                     console.log("T22 inside no match");
+                     
                      return { background:'white !important '};;
                }
                else {
-                  console.log("T22 inside match found");
+                  
                   return { background:'#feff99 !important' };
                }
    }
 
    else {
-            console.log("T22 color - default colours",params.data.color);
+            
                var myStr = params.data.color;
               var subStr = myStr.match("background-color:(.*)");
               var s = subStr[1];
@@ -168,7 +168,7 @@ else
 
                     };
        const onFilterTextChange = (e) => {
-             console.log("search value",e.target.value);
+             
             gridOptions.api.setQuickFilter(e.target.value);
           }
 
@@ -180,7 +180,7 @@ else
 
 
 
-       console.log("T22 color else",params.data.color);
+       
      var myStr = params.data.color;
     var subStr = myStr.match("background-color:(.*)");
     var s = subStr[1];
@@ -196,10 +196,10 @@ else
    }
 
   const onRowDrag = (params)  => {
-  console.log("inside onRowDrag",params);
+  
   var rowNode = params.rowNode;
   var e = params.dragEvent;
-  console.log("inside onRowDrag - e",e);
+  
    this.props.handleDragStart(e, rowNode.data, 'trailer',rowNode.rowIndex,rowNode.data.trailer );
  }
 

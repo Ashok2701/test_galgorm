@@ -129,15 +129,15 @@ import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 
 const MultiSelect = (props) => {
-  // console.log(props.options)
+  // 
   const [selectedOptions, setSelectedOptions] = useState([]);
   const animatedComponents = makeAnimated();
-  // console.log(selectedOptions)
+  // 
   // const handleChange = (selectedOptions) => {
-  //   // console.log(selectedOptions)
+  //   // 
   //   setSelectedOptions(selectedOptions);
   //   const selectedValues = selectedOptions.map(option => option.value);
-  //   // console.log(selectedValues);
+  //   // 
   //   props.setSelectedSites(selectedValues.toString());
   //   props.selectedSitesArr(selectedValues);
   // };
@@ -148,8 +148,8 @@ const MultiSelect = (props) => {
     }
     setSelectedOptions(selectedOptions);
     const selectedValues = selectedOptions.map(option => option.value);
-    // console.log(selectedValues.toString())
-    console.log(selectedValues)
+    // 
+    
 
     props.setSelectedSites(selectedValues.toString());
     props.selectedSitesArr(selectedValues);
@@ -161,7 +161,7 @@ const MultiSelect = (props) => {
       const defaultOptions = props.options.filter(option =>
         props.defaultSelected.includes(option.value)
       );
-      // console.log(defaultOptions);
+      // 
       setSelectedOptions(defaultOptions);
     }
   }, [props.defaultSelected, props.options]);

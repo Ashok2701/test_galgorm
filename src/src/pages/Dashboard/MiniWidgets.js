@@ -34,7 +34,7 @@ class MiniWidgets extends Component {
 
 
     render() {
-      console.log("DAsh -", this.props.reports)
+      
         return (
             <React.Fragment>
                 {

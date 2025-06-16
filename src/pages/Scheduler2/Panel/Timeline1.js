@@ -88,18 +88,18 @@ function Timeline(props) {
   const [modalTimeMessage, setModalTimeMessage] = React.useState("");
   const [autooptimise, setAutooptimise] = React.useState(false);
 
-  // console.log("2 Routeshc",props.data);
-  // console.log("T223  Routeshc timeline",props.data.docdate);
+  // 
+  // 
 
   if (props.optimisedClickedTrip) {
-    // console.log("TSSS at Timeline - true");
-    // console.log("TSSS at Trips - optimise ",props.data);
+    // 
+    // 
     CheckedOptimisationRoute(props.data);
   }
 
   // var date = new Date();
   var date = props.data.docdate;
-  // console.log("T223 inside Timeline-Date =",date);
+  // 
   let distanceCost = 0;
   let timeCost = 0;
   let totalCost = 0;
@@ -111,7 +111,7 @@ function Timeline(props) {
 
   const onchangeSwitch = () => {
     let autoop = autooptimise;
-    // console.log("auto op",autooptimise);
+    // 
     setAutooptimise(!autooptimise);
   };
 
@@ -175,7 +175,7 @@ function Timeline(props) {
   };
 
   const handleDateChange = (date) => {
-    // console.log("T223 inside Timeine- date ",date);
+    // 
     let hr = Number(formatHrMin(date.getHours()));
     let min = Number(formatHrMin(date.getMinutes()));
     let loadingTime = loadingSecs(hr, min, loadHrs);
@@ -244,25 +244,25 @@ function Timeline(props) {
   };
 
   const CheckedOptimisationRoute = (data) => {
-    // console.log("T000 data =",data);
-    // console.log("T000 props data =",props.data);
+    // 
+    // 
 
-    console.log(data, "before optimize data is here");
+    
     if (data.driverId === "") {
       setAddAlertShow(true);
       setErrorMessage(
         "Driver is not assigned for the Trip, please assign then proceed for Optimisation"
       );
     } else {
-      // console.log("T000 inside else");
+      // 
       optimizeRoute(data);
     }
   };
 
   const optimizeRoute = (data) => {
-    // console.log("T000 data =",data);
+    // 
 
-    // console.log("T000 props data",props.data);
+    // 
 
     setLoader(true);
     let siteLat;
@@ -333,9 +333,9 @@ function Timeline(props) {
       })
       .then((res) => {
 
-        console.log(data ,"this is trip checking")
+        
 
-        console.log("T6565 auto - opti result",res);
+        
 
         if (res && res.optimizedWaypoints) {
           optiindex.push(res.optimizedWaypoints);
@@ -360,11 +360,11 @@ function Timeline(props) {
           let waitingTime = summaryResult.waitingTime;
           let results = summaryData[0];
 
-          console.log(serviceTime,waitingTime ,"this is service time and waiting time 363");
+          
 
           if (results) {
             let legs = results[0].legs;
-            console.log(legs ,"checking legs here 364")
+            
             if (
               props.data &&
               legs &&
@@ -390,8 +390,8 @@ function Timeline(props) {
               });
               let currTripTimeHr = getHr;
               let currTripTimeMin = getMin;
-              // console.log("T6565 getHr",getHr);
-              // console.log("T6565 getMin",getMin);
+              // 
+              // 
               departure.setHours(Number(currTripTimeHr));
               departure.setMinutes(Number(currTripTimeMin));
               let sameTrips = [];
@@ -491,18 +491,18 @@ function Timeline(props) {
                 formatHrMin(startTimeHr) + ":" + formatHrMin(startTimeMin);
               let prevDate = props.data.docdate;
               let prevDocTime = "00:00";
-console.log(serviceTime,waitingTime,"before loop checking service time here 494")
-// console.log(serviceTime[1],waitingTime[1],"before loop checking service time here 495")
+
+// 
 
               legs.forEach((data, index) => {
-console.log(serviceTime[index],waitingTime[index],"inside loop checking service time here 498")
 
-                console.log(data,index ,"these are legs checking here 500");
+
+                
                 let time = data.summary.travelTimeInSeconds;
                 let length = data.summary.lengthInMeters;
                 let sec = 0;
                 let waitSec = 0;
-                console.log(serviceTime[index],waitingTime[index],"this is service time index and waitin gtime index 501")
+                
                 if (Number(serviceTime[index])) {
                   sec = sec + convertHrToSec(Number(serviceTime[index]));
                 } else {
@@ -520,7 +520,7 @@ console.log(serviceTime[index],waitingTime[index],"inside loop checking service 
                 let waitTime = formatTime(
                   convertHrToSec(Number(waitingTime[index]))
                 );
-                console.log(serTime,waitTime ,"srevide time and waiting time in hr to seconds")
+                
                 serTime = serTime.split(":");
                 let serTimeHr = serTime[0];
                 let serTimeMin = serTime[1];
@@ -533,7 +533,7 @@ console.log(serviceTime[index],waitingTime[index],"inside loop checking service 
                 waitTime =
                   formatHrMin(waitTimeHr) + ":" + formatHrMin(waitTimeMin);
 
-                  console.log(serviceTime[index] ,"checking service time 525")
+                  
                 let res = {
                   start: dateformatter(departure, index),
                   distance: length / 1000,
@@ -543,24 +543,24 @@ console.log(serviceTime[index],waitingTime[index],"inside loop checking service 
                   tTime: time,
                   tDistance: length,
                 };
-                console.log(departure, "this is departure checking here")
-                console.log(departure.getSeconds(), time , sec, waitSec ,"time sec waitSec checking 546")
+                
+                
                 departure.setSeconds(
                   departure.getSeconds() + time + sec + waitSec
                 );
                 //added sersec+wait sec+time
-                console.log(departure ,"this is departure time checking 539")
+                
                 let endTimeRoute = dateformatter(departure);
                 endTimeRoute = new Date(endTimeRoute);
                 let endTimeHr = endTimeRoute.getHours();
                 let endTimeMin = endTimeRoute.getMinutes();
                 endTimeRoute = endTimeHr + ":" + endTimeMin;
-                console.log(endTimeRoute ,"this is end time route 545")
+                
                 var a = endTimeRoute.split(":");
-                console.log(a ,"checking here endTimeRoute 559")
+                
                 var endTimeSec = +a[0] * 60 * 60 + +a[1] * 60;
-                console.log(endTimeSec ,"end time seconds 548")
-                console.log(serviceTime[index] ,waitTime[index] ,"this is service time and waiting time index checking 546")
+                
+                
 
                 let servTimeCheck =  serviceTime[index] != "00:00" ? serviceTime[index] : 0
 
@@ -570,7 +570,7 @@ console.log(serviceTime[index],waitingTime[index],"inside loop checking service 
                   Number(servTimeCheck) * 60 * 60 -
                   Number(waitingTime[index]) * 60 * 60;
 
-                  console.log(arrivalTime,formatTime(arrivalTime) ,"this is arrival time checking 573");
+                  
                   
 
                 arrivalTime = formatTime(arrivalTime);
@@ -616,18 +616,18 @@ console.log(serviceTime[index],waitingTime[index],"inside loop checking service 
                 let latestStartDate = prevDate;
 
                 let prevdocsplittime = prevDocTime.split(":");
-                //  console.log("T2222 11 arrive time ", curtime);
-                console.log("T2222 11 prev time", prevdocsplittime);
+                //  
+                
 
                 let currartsec = time;
-                console.log("T2222 11 travel time ", currartsec);
+                
                 let prevdocsec =
                   +prevdocsplittime[0] * 60 * 60 + +prevdocsplittime[1] * 60;
                 let temptotsec = currartsec + prevdocsec;
                 let temptothrs = convertSecToHr(temptotsec);
                 let daysfromtemphrs = temptothrs / 24;
-                console.log("T2222 12 hrs ", temptothrs);
-                console.log("T2222 12 days", daysfromtemphrs);
+                
+                
 
                 if (daysfromtemphrs > 1) {
                   let tempdate = moment(prevDate).add(
@@ -731,7 +731,7 @@ console.log(serviceTime[index],waitingTime[index],"inside loop checking service 
               );
 
 
-              console.log(totTimeSec,maxTotTimeSec ,"state total time checking")
+              
               if (
                 prevTripsDist >= props.data.vehicleObject.maxtotaldist ||
                 prevTripsTime >= maxTotTimeSec ||
@@ -802,10 +802,10 @@ console.log(serviceTime[index],waitingTime[index],"inside loop checking service 
                 let latestEndDate = props.data.docdate;
                 let totaltimeforcal =
                   Number(startTimeLocal.split(":")[0]) + tripData.tripTotalTime;
-                console.log("T2222 at last Trip Total time", totaltimeforcal);
+                
 
                 let dayscal = totaltimeforcal / 24;
-                console.log("T2222 at last cal days", dayscal);
+                
                 let dateNew = new Date(props.data.docdate);
                 if (dayscal > 0) {
                   let date1 = new Date(
@@ -816,7 +816,7 @@ console.log(serviceTime[index],waitingTime[index],"inside loop checking service 
                   latestEndDate = dateNew;
                 }
                 routesSchedule.endDate = latestEndDate;
-                // console.log("T6565 final data routeScheduler",routesSchedule);
+                // 
                 props.getValues(routesSchedule, optiindex, autooptimise);
               }
             }
@@ -826,7 +826,7 @@ console.log(serviceTime[index],waitingTime[index],"inside loop checking service 
   };
 
   useEffect(() => {
-    // console.log("T223 inside loading useEffect",props);
+    // 
     let hr;
     let min;
     let loadingHrs;
@@ -834,12 +834,12 @@ console.log(serviceTime[index],waitingTime[index],"inside loop checking service 
     let loadingTime;
     let tripEndTime = [];
     let date = new Date();
-    // console.log("T223 inside loading - vehiclepanel",props.vehiclePanel);
+    // 
     props.vehiclePanel &&
       props.vehiclePanel.vehicles.length > 0 &&
       props.vehiclePanel.vehicles.map((vehicle) => {
         if (vehicle.codeyve === props.data.code) {
-          // console.log("T223 inside loading - vehiclepanel - matched",vehicle.codeyve);
+          // 
           if (vehicle.starttime.includes(":")) {
             hr = vehicle.starttime.split(":")[0];
             min = vehicle.starttime.split(":")[1];
@@ -847,7 +847,7 @@ console.log(serviceTime[index],waitingTime[index],"inside loop checking service 
             hr = vehicle.starttime.substring(0, 2);
             min = vehicle.starttime.substring(2, 4);
           }
-          // console.log("T223 inside use effct",hr+' -'+min);
+          // 
           loadingHrs = vehicle.startdepots;
           unloadHrs = vehicle.enddepotserv;
           setLoadHrs(vehicle.startdepots);
@@ -863,19 +863,19 @@ console.log(serviceTime[index],waitingTime[index],"inside loop checking service 
       hr = props.data.startTime.split(":")[0];
       min = props.data.startTime.split(":")[1];
       loadingTime = loadingSecs(hr, min);
-      // console.log("T223 inside loading use effct not opti",loadingTime);
+      // 
     } else {
       loadingTime = loadingSecs(hr, min, loadingHrs);
-      // console.log("T223 inside loading use effct opti",loadingTime);
+      // 
     }
 
     //unit setting
     props.sites &&
       props.sites.length > 0 &&
       props.sites.map((site) => {
-        // console.log("2 set sites",site);
+        // 
         if (props.data.depSite === site.id) {
-          // console.log("T223 inside loading site match")
+          // 
 
           m = site.massunit;
           v = site.volunit;
@@ -892,7 +892,7 @@ console.log(serviceTime[index],waitingTime[index],"inside loop checking service 
           tripPanel.optistatus === "Optimized" &&
           tripPanel.docdate === props.data.docdate
         ) {
-          console.log("inside useeffect - tripPanel 822", tripPanel);
+          
           tripEndTime.push({
             hr: nullAndNanChecking(tripPanel.endTime?.split(":")[0], "time"),
             min: nullAndNanChecking(tripPanel.endTime?.split(":")[1], "time"),
@@ -925,7 +925,7 @@ console.log(serviceTime[index],waitingTime[index],"inside loop checking service 
               hr = time.split(":")[0];
               min = time.split(":")[1];
               loadingTime = loadingSecs(hr, min);
-              // console.log("T223 inside loading time if",loadingTime);
+              // 
             } else {
               let startTime = new Date();
               startTime.setHours(
@@ -935,15 +935,15 @@ console.log(serviceTime[index],waitingTime[index],"inside loop checking service 
               hr = startTime.getHours();
               min = startTime.getMinutes();
               loadingTime = loadingSecs(hr, min);
-              // console.log("T223 inside loading time else",loadingTime);
+              // 
             }
           }
         }
       });
     hr = loadingTime.split(":")[0];
     min = loadingTime.split(":")[1];
-    // console.log("T223 inside loading time",loadingTime);
-    // console.log("2 after assign",c+"-"+m+"-"+d+"-"+v);
+    // 
+    // 
     setCurrency(c);
     setMassunit(m);
     setVolunits(v);
@@ -952,7 +952,7 @@ console.log(serviceTime[index],waitingTime[index],"inside loop checking service 
     setMin(min);
     date.setHours(hr);
     date.setMinutes(parseInt(min));
-    // console.log("T223 inside loading - after loading",date);
+    // 
     setHandleDateChange(date);
   }, [props]);
 
@@ -1024,7 +1024,7 @@ console.log(serviceTime[index],waitingTime[index],"inside loop checking service 
     setTomTomNotification(true);
   };
 
-  // console.log("insdei timeline",props.date);
+  // 
   return (
     <Card className="mb-3">
       <CardBody className="p-0">

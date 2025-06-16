@@ -37,7 +37,7 @@ class VehiclePanel extends React.Component {
          this.state = {
               activeTab: "RailCars"
               }
-           console.log("T22 inside Vehicle panel - conc",props);
+           
 
           this.toggleTab = this.toggleTab.bind(this);
     }

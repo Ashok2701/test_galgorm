@@ -124,7 +124,7 @@ class IndividualRouteMap3 extends React.Component {
     }
 
     updateMap = () => {
-        console.log("insdie updatemap of indiv map3")
+        
         document.getElementById('google-map1').innerHTML = "";
         if (this.props.markers !== undefined && this.props.markers.length > 0) {
             var centerLocation = this.props.markers[0];
@@ -179,7 +179,7 @@ class IndividualRouteMap3 extends React.Component {
             this.customControl(centerControlDiv, map1);
             map1.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(centerControlDiv);
             markerArray.map((place) => {
-                console.log("inside map", place);
+                
                 var marker = null;
                 if (place.id !== undefined) {
                     DepartureSite = place.id;
@@ -320,7 +320,7 @@ class IndividualRouteMap3 extends React.Component {
 
 
     render() {
-        console.log("inside addupdateTrip", this.props.geoData);
+        
         let addProductsClose = () => this.setState({ addProductShow: false });
         let Productlist_win_Close = () => this.setState({ ShowDetailList: false });
         let addNotesClose = () => this.setState({ enableDocumnetMsgWindow: false });

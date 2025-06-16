@@ -106,7 +106,7 @@ class AddUpdateTrip1 extends React.Component {
 
   drop(event, eventType) {
 
-    // console.log("T111 inside drop event, add updateTrip");
+    // 
     /*
             if(this.props.trips && (this.props.trips[0].lock || this.props.trips[0].tmsValidated))
             {
@@ -132,7 +132,7 @@ class AddUpdateTrip1 extends React.Component {
     // if (currentCardData) {
     //   let doc = JSON.parse(currentCardData);
 
-    //   // console.log(doc.carrier ,"this is dragged document");
+    //   // 
     //   // if (["MONTGOMERY", "DPD", "EXTERNAL"].includes(doc.carrier)) {
     //   //   doc.carrier = "EXTERNAL";
     //   // }
@@ -155,15 +155,15 @@ class AddUpdateTrip1 extends React.Component {
     //   // let excludeCurrentTrip = allTrips.filter((trip) => (
     //   //   trip.itemCode !== currentSelectedTrip.itemCode
     //   // ))
-    //   //   console.log(allTrips ,"These are all trips inside drag")
-    //   // console.log(dataaa ,"this is current card dataa")
+    //   //   
+    //   // 
 
     //   /*
-    //               console.log(excludeCurrentTrip ,"this is filtering current trip excluding")
+    //               
     //                 let alradyAssignedDriver = excludeCurrentTrip.filter((trip) => (
     //                   trip.driverId === dataaa.driverid
     //                 ));
-    //                 console.log(alradyAssignedDriver ,"this is already assigned driver vehicle")
+    //                 
 
     //                 if (!isEmpty(alradyAssignedDriver)) {
     //                   this.setState({
@@ -189,7 +189,7 @@ class AddUpdateTrip1 extends React.Component {
       });
   
     } else {
-      // console.log("inside not createdVehicle");
+      // 
   
       if (
         !(
@@ -217,9 +217,9 @@ class AddUpdateTrip1 extends React.Component {
           type = event.dataTransfer.getData("type");
         
         }
-        // console.log("T8 inside if");
+        // 
         var currentTrip = this.props.trips;
-        // console.log("T8 inside current trip",currentTrip);
+        // 
 
         var trip = {
           code: "",
@@ -257,10 +257,10 @@ class AddUpdateTrip1 extends React.Component {
         var data;
         var tempCurrentData;
         if (!(eventType === "updateVehicle")) {
-          // console.log("updateVehicleData if");
+          // 
           data = JSON.parse(event.dataTransfer.getData("currentCard"));
-          // console.log(data.codeyve, "this is data on dragging vehicle")
-          // console.log(this.props.geoData[0].vehicleCode, "this is geodata after clicking on update vehicle");
+          // 
+          // 
 
           // this.props.setUpdatedGeoData({
           //   geoData
@@ -278,10 +278,10 @@ class AddUpdateTrip1 extends React.Component {
          
           this.props.setUpdatedGeoData(updatedGeoData);
           // }
-          // console.log(updatedGeoData,"updatttttteeeeddddgggeeoooodaaatttaa")
+          // 
 
         } else {
-          console.log("updateVehicleData", this.state.updateVehicleData);
+          
           type = "vehicle";
           data = this.state.updateVehicleData;
           tempCurrentData = currentTrip;
@@ -294,7 +294,7 @@ class AddUpdateTrip1 extends React.Component {
           if (currentTrip.length > 0) {
             currentTrip = [];
           }
-          // console.log("T444 Inside App- vehicle",data);
+          // 
           if (this.props.checkedTrip && !(eventType === "updateVehicle")) {
             this.setState({
               checkedTripShow: true,
@@ -370,7 +370,7 @@ class AddUpdateTrip1 extends React.Component {
               }
 
               if (data.trailer !== "" || data.trailer !== null) {
-                // console.log("T11 inside vehicle - data trailer=",data.trailer);
+                // 
                 //  this.props.colourDocDivs(data.trailer);
                 var trails = this.props.curVehiclePanel.trails;
 
@@ -400,7 +400,7 @@ class AddUpdateTrip1 extends React.Component {
               trip.vehicleObject = data;
               trip.vol = data.vol;
 
-              // console.log("T11 data before push",trip);
+              // 
               currentTrip.push(trip);
 
               /*
@@ -485,7 +485,7 @@ class AddUpdateTrip1 extends React.Component {
           if (currentCardData) {
             let doc = JSON.parse(currentCardData);
 
-            // console.log(doc.carrier ,"this is dragged document");
+            // 
             if (["MONTGOMERY", "DPD", "EXTERNAL"].includes(doc.carrier)) {
               doc.carrier = "EXTERNAL";
             }
@@ -533,7 +533,7 @@ class AddUpdateTrip1 extends React.Component {
           if (currentCardData) {
             let doc = JSON.parse(currentCardData);
 
-            // console.log(doc.carrier ,"this is dragged document");
+            // 
             if (["MONTGOMERY", "DPD", "EXTERNAL"].includes(doc.carrier)) {
               doc.carrier = "EXTERNAL";
             }
@@ -575,13 +575,13 @@ class AddUpdateTrip1 extends React.Component {
 
           // driver validation code starts from here
 
-          // console.log(data.driverid,"Driver validation starts from here 578")
+          // 
 
 
           // driverId
 
 
-// console.log(this.props.tripsPanel ,"these are trips 582 check")
+// 
 
 
 
@@ -787,35 +787,35 @@ class AddUpdateTrip1 extends React.Component {
               }
             }
 
-            console.log(erroralert,"774")
+            
 
-            console.log(trip.vehicleObject, "vehicle object checking 776")
+            
 
 
             if (erroralert === false) {
-              console.log(erroralert,"778")
+              
            
               if (trip.vehicleObject.alldrivers === 2) {
-                console.log(erroralert,"781")
+                
                 trip.driverId = data.driverid;
                 trip.driverName = data.driver;
                 currentTrip.push(trip);
                 this.props.updateTrip(currentTrip);
                 status = false;
               } else {
-                console.log(erroralert,"788")
+                
 
                 trip.driverId = data.driverid;
                 trip.driverName = data.driver;
                 currentTrip.push(trip);
-                console.log(trip,"this is trip updated 795")
+                
                 this.props.updateTrip(currentTrip);
                 status = false;
 
               }
             }
 
-            console.log(this.state.siteValueTripList, "796")
+            
 
             if (this.state.siteValueTripList.length > 0) {
               this.setState({
@@ -823,7 +823,7 @@ class AddUpdateTrip1 extends React.Component {
               });
             }
 
-            console.log(this.state.siteStartValue,"804")
+            
             if (this.state.siteStartValue.length > 0) {
               this.setState({ siteStartValue: this.state.siteStartValue });
             }
@@ -839,15 +839,15 @@ class AddUpdateTrip1 extends React.Component {
             }
           }
         } else if (type === "trailer") {
-          // console.log("T111 inside trailer");
-          // console.log("T111 inside trailer- currentTrip",currentTrip[0]);
-          // console.log("T111 inside trailer- trip",trip);
+          // 
+          // 
+          // 
 
           if (currentTrip.length > 0) {
             trip = currentTrip[0];
             currentTrip = [];
           }
-          // console.log("T111 inside trailer- trip",trip);
+          // 
           let docsCompatability = false;
           let errorflag = false;
 
@@ -863,7 +863,7 @@ class AddUpdateTrip1 extends React.Component {
             });
           } else {
             if (trip.stops > 0) {
-              // console.log("T111 inside trailer- trip- stops > 0",trip);
+              // 
               // trailer and document relation
 
               if (trip.drops > 0) {
@@ -959,7 +959,7 @@ class AddUpdateTrip1 extends React.Component {
                 }
               }
             } else {
-              // console.log("T111 inside trailer- trip ,stop else",trip);
+              // 
               docsCompatability = true;
             }
           }
@@ -991,7 +991,7 @@ class AddUpdateTrip1 extends React.Component {
               !trip.trailerList.includes(data.typ)
             ) {
               status = false;
-              // console.log("T111 inside trailer- else if trailerlist");
+              // 
               this.setState({
                 errorMessage:
                   "Trailer Type & Vehicle Class association doesnt exist",
@@ -999,7 +999,7 @@ class AddUpdateTrip1 extends React.Component {
                 error: true,
               });
             } else {
-              // console.log("T111 inside last else trailer");
+              // 
               this.props.colourDocDivs(data.trailer);
               let code = currentTrip[0] && currentTrip[0].code;
               this.addTrailer(trip, data, trip.code, "Trailer");
@@ -1059,7 +1059,7 @@ class AddUpdateTrip1 extends React.Component {
         }
         if (status) {
           if (!(eventType === "updateVehicle")) {
-            // console.log("T31 inside status");
+            // 
             //  this.props.disableDroppedDiv(event.dataTransfer.getData("row-id"));
             this.props.disableDivs(
               event.dataTransfer.getData("index"),
@@ -1083,17 +1083,17 @@ class AddUpdateTrip1 extends React.Component {
   handleConfirmYes = () => {
     const { selectedDriver } = this.state;
   
-    console.log(selectedDriver ,"this is current trip checking")
+    
     // Proceed with assigning the driver
     let currentTrip = [...this.props.trips]; // Clone current trip array
     let trip = currentTrip[0] || {}; // Get the current trip
   
-    console.log(trip ,"this is current trip checking")
+    
     trip.driverId = selectedDriver.driverid;
     trip.driverName = selectedDriver.driver;
     currentTrip.push(trip);
 
-    console.log(trip ,"checking after driver addition")
+    
     this.props.updateTrip([trip]);
   
     // Hide the confirmation popup
@@ -1445,8 +1445,8 @@ class AddUpdateTrip1 extends React.Component {
       }
     }
 
-    // console.log("T11  trip object ",trip);
-    // console.log("T11  data ",data);
+    // 
+    // 
     //to check trailr & prodcut category
     if (trip.trailers > 0) {
       if (pickupCompatability === true) {
@@ -1582,11 +1582,11 @@ class AddUpdateTrip1 extends React.Component {
   };
 
   addTrailer = (trip, data, code, from) => {
-    // console.log("T11 trailer comes from", from);
+    // 
     let trailer = this.state.trailers;
-    // console.log("T11 add trailer",this.state.trailers);
+    // 
     if (from === "Vehicle") {
-      // console.log("T11 trailer comes from inside vehicle");
+      // 
       if (
         this.props.curVehiclePanel &&
         this.props.curVehiclePanel.vehicles &&
@@ -1600,7 +1600,7 @@ class AddUpdateTrip1 extends React.Component {
             ) {
               this.props.curVehiclePanel.trails.map((trail) => {
                 if (vehicle.trailer === trail.trailer) {
-                  // console.log("T11 add trailer if",trail);
+                  // 
                   trailer = [];
                   trailer.push(trail);
                 }
@@ -1610,7 +1610,7 @@ class AddUpdateTrip1 extends React.Component {
         });
       }
     }
-    // console.log("T11 add trailer data =",data);
+    // 
     trailer.push(data);
     let trailerData = [
       ...new Map(trailer.map((obj) => [JSON.stringify(obj), obj])).values(),
@@ -1628,7 +1628,7 @@ class AddUpdateTrip1 extends React.Component {
       */
     this.props.updateTrialers(currentTrails);
     this.setState({ trailers: currentTrails });
-    // console.log("T11 final trailers =",currentTrails);
+    // 
     if (this.state.siteValue.length > 0) {
       this.setState({ siteValue: this.state.siteValue });
     }
@@ -1748,14 +1748,14 @@ class AddUpdateTrip1 extends React.Component {
   };
 
   deleteTrailer = (i) => {
-    // console.log("T11 inside deleteTrailer");
-    // console.log("T11 inside deleted Trailer",i);
+    // 
+    // 
     let trailer = this.state.trailers;
     let removedTrailer = trailer.splice(i, 1);
-    // console.log("T11 inside removed Trailer",removedTrailer);
-    // console.log("T11 inside after removed Trailer",trailer);
+    // 
+    // 
     this.props.enableDivs(removedTrailer);
-    // console.log("T11 inside finalized Trailer",trailer);
+    // 
     this.setState({ trailers: trailer });
   };
 
@@ -1847,10 +1847,10 @@ class AddUpdateTrip1 extends React.Component {
     
 
 
-    // console.log("this is actual trip after confirm",trip.vehicleObject.driverslist ,trip.vehicleObject.driverid,trip.driverId)
+    // 
 
     // if(trip.vehicleObject.alldrivers==1){
-    //   // console.log(trip.vehicleObject.driverid,trip.vehicleObject.driverslist,trip.driverId ,"this is inner if equals to 1")
+    //   // 
 
 
     //   if(trip.vehicleObject.driverslist != " " && !trip.vehicleObject.driverslist.includes(trip.driverId) && trip.vehicleObject.driverid != trip.driverId){
@@ -1867,7 +1867,7 @@ class AddUpdateTrip1 extends React.Component {
 
     this.setState({ isValidPassword: "" });
     var message = "";
-    // console.log(trip.dropObject[0].routeCodeDesc ,"this is route code description")
+    // 
     // trip.allocatedRouteCodes=trip.dropObject[0]?.routeCodeDesc || trip.pickupObject[0]?.routeCodeDesc;
 
 
@@ -2104,14 +2104,14 @@ class AddUpdateTrip1 extends React.Component {
   //  } else {
 
   onConfirmNo = () => {
-    // console.log("inside confirm No");
+    // 
     this.setState({
       addConfirmShow: false,
     });
   };
 
   onConfirmYes = (trip) => {
-    // console.log("inside confirm YEs");
+    // 
     this.props.confirmTrip(this.state.currentTrip, "Open");
     this.setState({
       addConfirmShow: false,
@@ -2209,16 +2209,16 @@ class AddUpdateTrip1 extends React.Component {
   };
 
   getTotalQty = (prodList) => {
-    // console.log("T555 insdie getTotlQty prodlist",prodList);
+    // 
     let prods = prodList;
     let TotQty = 0;
     prods &&
       prods.length > 0 &&
       prods.map((prod) => {
         TotQty += +prod.quantity;
-        // console.log("T555 insdie prod qty prodlist",prod.quantity);
+        // 
       });
-    // console.log("total qty =",TotQty)
+    // 
     return TotQty;
   };
 
@@ -2292,29 +2292,29 @@ class AddUpdateTrip1 extends React.Component {
     let sameTrips = [];
     let loadHrs;
     let time = label;
-    // console.log("Trr time 1 =",time);
+    // 
     if (trip.optistatus === "Optimized") {
-      // console.log("Trr time 2 optimised trip =",time);
+      // 
       return time;
     } else {
       if (this.props.tripsPanel && this.props.tripsPanel.length > 0) {
         this.props.tripsPanel.map((tripsPanel) => {
-          // console.log("Trr time 3 tripsPanel =",tripsPanel);
+          // 
           if (
             tripsPanel.code === trip.code &&
             tripsPanel.optistatus === "Optimized" &&
             tripsPanel.docdate === trip.docdate
           ) {
-            // console.log("Trr time 4 trip =",trip);
-            // console.log("Trr time 4 tripsPanel =",tripsPanel);
+            // 
+            // 
             loadHrs =
               tripsPanel.vehicleObject.enddepotserv +
               tripsPanel.vehicleObject.startdepots;
-            // console.log("Trr time 5 trip =",loadHrs);
+            // 
             sameTrips.push(tripsPanel);
           }
           if (sameTrips.length > 0) {
-            // console.log("Trr time 6 sameTrips =",sameTrips);
+            // 
             let timeHr = sameTrips[sameTrips.length - 1].endTime.split(":")[0];
             let timeMin = sameTrips[sameTrips.length - 1].endTime.split(":")[1];
             if (Number(timeHr) + i >= 23) {
@@ -2469,7 +2469,7 @@ class AddUpdateTrip1 extends React.Component {
       tq = 0,
       wu = "",
       vu = "";
-    // console.log("T666 inside getTotalData =",selectedTrips);
+    // 
 
     selectedTrips &&
       selectedTrips.length > 0 &&
@@ -2499,7 +2499,7 @@ class AddUpdateTrip1 extends React.Component {
     let addProductsClose = () => this.setState({ addProductShow: false });
     let addNotesClose = () => this.setState({ addNotesShow: false });
     var currTrips = this.props.trips;
-    // console.log("TTT inside render - add update",this.props.trips);
+    // 
     if ((this.props.clearTrips !== undefined) & this.props.clearTrips) {
       currTrips = [];
     }
@@ -2630,7 +2630,7 @@ class AddUpdateTrip1 extends React.Component {
                   </thead>
                   <tbody>
                     {(currTrips || []).map((trip, i) => {
-                      // console.log("inside Addupdate return map",trip);
+                      // 
                       actualTrip = trip;
                       trip.trailers = this.state.trailers.length;
                       trip.equipments = this.state.equipments.length;

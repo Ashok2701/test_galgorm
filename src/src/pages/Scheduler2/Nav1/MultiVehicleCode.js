@@ -30,12 +30,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function MultiVehicleCode(props) {
-   console.log("props are", props.options);
+   
   const classes = useStyles();
   const theme = useTheme();
   const [selected, setSelected] = useState([]);
   const handleChange = (event) => {
-    console.log("Inside handle chagne", event)
+    
     const value = event.target.value;
     props.setSelectedVehicleCodes(value.toString());
     props.selectedVehicleCodeArr(value)

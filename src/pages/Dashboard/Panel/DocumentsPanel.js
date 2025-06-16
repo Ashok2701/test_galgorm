@@ -64,7 +64,7 @@ class DocumentsPanel extends React.Component {
 
 
   dayscheckBoxChange = () => {
-    console.log("T222 docpanel - dayscheckbox change");
+    
     this.setState({ Todayschecked: !this.props.daysCheckedIn });
     this.props.checked5days(!this.props.daysCheckedIn)
 
@@ -112,12 +112,12 @@ class DocumentsPanel extends React.Component {
 
   render() {
     const site = this.props.deliverySite;
-    console.log("T21 inside doc panel");
+    
     //const currDate = moment(this.props.selectedDate).format('YYYY-MM-DD');
 
     const currDate = moment(this.props.selectedDate).format('YYYY-MM-DD');
-    console.log("T444 inside doc panel - propsdate", this.props.selectedDate);
-    console.log("T444 inside doc panel - currdate", currDate);
+    
+    
     let filterDrops;
     let filterPickups;
     if (this.props.dropsPanel && (this.props.dropsPanel.drops || this.props.dropsPanel.pickUps)) {

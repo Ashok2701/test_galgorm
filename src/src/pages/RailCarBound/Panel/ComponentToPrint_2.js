@@ -184,7 +184,7 @@ class ComponentToPrint extends React.Component {
                        }
                       else if(doc.combotype === 'TOTECOMBO1')
                       {
-                         console.log("props combodata",doc);
+                         
                        // this.getData(doc.combotype, doc.prodList);
                       //  tote1flg = true;
                       return(
@@ -229,7 +229,7 @@ class ComponentToPrint extends React.Component {
                         }
 
                       else if(doc.combotype === 'TOTECOMBO2') {
-                       console.log("props combodata",doc);
+                       
                          return(
                                              <>
                                              <h6>{doc.combotype}</h6>
@@ -275,7 +275,7 @@ class ComponentToPrint extends React.Component {
                       }
                       else if(doc.combotype === 'TOTENONCOMBO')
                       {
-                               console.log("props combodata",doc);
+                               
                           return(
                                               <>
                                               <h6>{doc.combotype}</h6>

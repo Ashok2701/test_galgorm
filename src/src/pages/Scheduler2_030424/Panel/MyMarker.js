@@ -102,7 +102,7 @@ export default function MyMarker(props) {
       setHomeError(false)
     }
   }
-  console.log("markers ", props)
+  
   return (
     <div>
       <div>

@@ -35,13 +35,13 @@ class VrTotals extends React.Component {
 
          this.props.sites && this.props.sites.map((site) => {
              if (trip.depSite === site.id) {
-                 console.log("2 site matched");
+                 
                   wu = site.massunit;
                   vu = site.volunit;
                   distunts = site.distunit;
                   currency = site.cur;
                                              }
-              console.log("2 after assigning",massunit);
+              
 
         })
 

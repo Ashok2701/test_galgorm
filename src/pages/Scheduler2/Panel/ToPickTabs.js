@@ -92,11 +92,11 @@ class LVSToPickTabs extends React.Component {
     let filterGlobalProd;
 
     if (this.props.toPickDataList) {
-      // console.log("T11 inside triplist",this.props.tripsList);
+      // 
       filterDetailedProd = this.props.toPickDataList.filter((docs) => {
-        console.log("T222 inside docs", docs);
-        console.log("T11 state of docs ", docs.children[8].value);
-        // console.log("T11 inside triplist - openRecrods");
+        
+        
+        // 
         return (
           docs.children[8].value === "Detailed" ||
           docs.children[8].value === "Global"
@@ -107,14 +107,14 @@ class LVSToPickTabs extends React.Component {
     let Arraytempglobaldoc = [];
 
     if (this.props.toPickDataList) {
-      // console.log("T11 inside triplist",this.props.tripsList);
+      // 
       this.props.toPickDataList &&
         this.props.toPickDataList.length > 0 &&
         this.props.toPickDataList.map((docs) => {
-          console.log("T222 inside docs", docs);
+          
           let tempglobaldoc = {};
-          console.log("T11 state of docs ", docs.children[8].value);
-          // console.log("T11 inside triplist - openRecrods");
+          
+          // 
 
           tempglobaldoc.prod = docs.children[2].value;
           tempglobaldoc.prodDesc = docs.children[3].value;
@@ -126,12 +126,12 @@ class LVSToPickTabs extends React.Component {
           tempglobaldoc.unit = docs.children[10].value;
           tempglobaldoc.bcount = docs.children[11].value;
           tempglobaldoc.currloc = docs.children[12].value;
-          console.log("global temp", tempglobaldoc);
+          
           Arraytempglobaldoc.push(tempglobaldoc);
         });
-      console.log("global temparray", Arraytempglobaldoc);
+      
       // filterGlobalProd = this.groupAndSumData(Arraytempglobaldoc);
-      console.log("global temparray fitler ", filterGlobalProd);
+      
     }
 
     if (Arraytempglobaldoc) {

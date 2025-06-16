@@ -41,14 +41,14 @@ class RailRoutes extends React.Component {
 
 
          SearchTrailer = e => {
-              console.log("search content= ",e.target.value);
+              
               this.props.updateTrailSearchTerm(e);
           }
 
 
 
     render() {
-  console.log("T22 inside Trailer",this.props);
+  
         return (
         <TabPane tabId="RailRoutes">
                                              <Row className="my-2">

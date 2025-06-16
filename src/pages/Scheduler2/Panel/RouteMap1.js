@@ -106,7 +106,7 @@ class RouteMap extends React.Component {
   }
 
   // componentDidMount() {
-  //   console.log(this.props.sites, "this is from route map 1");
+  //   
   //   this.updateMap();
   //   //Make diagnosis table sortable
   //   $("#diagnosis_list tbody").sortable({
@@ -183,14 +183,14 @@ class RouteMap extends React.Component {
   };
 
   displayDeTMSPILOTrableStatus = (docnum) => {
-    console.log("inside RouteMap - dropspanel", this.props.currDropsPanel);
+    
     var matched = false;
     var status = "";
     this.props.currDropsPanel.length > 0 &&
       this.props.currDropsPanel.map((drop) => {
-        console.log("inside RouteMap - 3- drop", drop);
-        console.log("inside RouteMap - 3- docnum", docnum);
-        console.log("inside RouteMap - 3- status", status);
+        
+        
+        
         if (drop.docnum === docnum) {
           matched = true;
           if (drop.dlvflg === "1") {
@@ -202,7 +202,7 @@ class RouteMap extends React.Component {
           }
         }
       });
-    console.log("inside RouteMap - 3- final status", status);
+    
 
     return (
       <h5>
@@ -278,7 +278,7 @@ class RouteMap extends React.Component {
   //     var markerArray;
 
   //     markerArray = this.props.markers;
-  //     console.log("inside update place markersArray", markerArray);
+  //     
   //     if (this.props.selectedTrips && this.props.selectedTrips[0]) {
   //       if (this.props.selectedTrips[0].depSite) {
   //         let depatureSite = {};
@@ -326,7 +326,7 @@ class RouteMap extends React.Component {
   //       centerControlDiv
   //     );
   //     markerArray.map((place) => {
-  //       console.log("inside update place", place);
+  //       
   //       var marker = null;
   //       if (place.id !== undefined) {
   //         DepartureSite = place.id;
@@ -549,7 +549,7 @@ class RouteMap extends React.Component {
       };
       var markerArray = [...this.props.markers];
 
-      console.log("inside update place markersArray", markerArray);
+      
 
       if (this.props.selectedTrips && this.props.selectedTrips[0]) {
         if (this.props.selectedTrips[0].depSite) {
@@ -610,7 +610,7 @@ class RouteMap extends React.Component {
         };
 
 
-        console.log(this.props.selectedTrips,"612")
+        
 
         if(this.props.selectedTrips && this.props.selectedTrips[0] && (this.props.selectedTrips[0].routeStatus !== "Open" || this.props.selectedTrips[0].optistatus !== "Open")){
           directionsService.route(request, function (result, status) {
@@ -633,14 +633,14 @@ class RouteMap extends React.Component {
            var SiteCode = "";
 
       markerArray.forEach((place) => {
-        console.log(place, "checking doctype of the place 629");
+        
 
-        console.log(place.panelType, "checking doctype of the place 631");
+        
         // let iconUrl = "/asse
         // ts/img/address.png"; // Default icon
         let iconUrl = "";
 
-        console.log(place, "624");
+        
 
 
 
@@ -822,18 +822,7 @@ class RouteMap extends React.Component {
   };
 
   onConfirmClick = (index, docnum, vehicleCode, document) => {
-    console.log(
-      "T222 inside RouteMAp after onConfirmClick clicked- index",
-      index
-    );
-    console.log(
-      "T222 inside RouteMAp after onConfirmClick clicked- docnum",
-      document
-    );
-    console.log(
-      "T222 inside RouteMAp after onConfirmClick clicked- vehicleCode",
-      vehicleCode
-    );
+ 
     this.setState({
       addConfirmShow: true,
       confirmMessage: "Are you sure you want to Delete?",
@@ -956,7 +945,7 @@ class RouteMap extends React.Component {
   };
 
   displayDocumentMessage = (docNum, msg) => {
-    console.log(msg, "this is message");
+    
     this.setState({
       enableDocumnetMsgWindow: true,
 
@@ -967,7 +956,7 @@ class RouteMap extends React.Component {
   };
 
   displayPickerWindow = (data) => {
-    console.log(data, "this is message");
+    
     this.setState({
       pickerWindow: true,
       selectedDocNumber: data.docnum,
@@ -986,8 +975,8 @@ class RouteMap extends React.Component {
   };
 
   displayRouteTag = (drop, lang) => {
-    console.log("T888 language =", lang);
-    console.log("T888 drop =", drop);
+    
+    
     var myStr = drop.routeColor;
     var subStr = myStr.match("background-color:(.*)");
     var s = subStr[1];
@@ -1008,22 +997,22 @@ class RouteMap extends React.Component {
   };
 
   displayVehicleName = (code) => {
-    console.log(code, "this is vehicle name displayyyyy");
+    
     let vehcode = code,
       vehName = "";
 
-    console.log("data insdie vehname =", vehcode);
+    
     if (
       this.props.vehiclePanel &&
       this.props.vehiclePanel.vehicles &&
       this.props.vehiclePanel.vehicles.length > 0
     ) {
-      console.log("data insdie vehname if=");
+      
       this.props.vehiclePanel.vehicles.map((veh) => {
-        console.log("data insdie vehname if=", veh);
+        
         if (veh.codeyve === vehcode) {
           vehName = veh.name;
-          console.log("data insdie vehname matched", vehName);
+          
         }
       });
     }
@@ -1084,10 +1073,10 @@ class RouteMap extends React.Component {
 
   onConfirmYes = (index, docnum) => {
     let type;
-    console.log("T222 inside confirm yes");
+    
     if (this.state.confirmMessage.includes("Delete")) {
       type = "Delete";
-      console.log("T222 inside confirm Yes - if");
+      
       this.props.onTripDelete(
         index,
         docnum,
@@ -1096,7 +1085,7 @@ class RouteMap extends React.Component {
         this.state.deletedDocument
       );
     } else {
-      console.log("T222 inside confirm Yes - else");
+      
       this.props.onTripDelete(index, docnum);
     }
 
@@ -1114,7 +1103,7 @@ class RouteMap extends React.Component {
       docNumber: docNum,
       doctype: doctype,
     });
-    // console.log(this.state.addProductShow ,"this is doc clickkkk")
+    // 
   };
 
   getBgcolor(qtyflage) {
@@ -1126,18 +1115,13 @@ class RouteMap extends React.Component {
   }
 
   onSaveNotes = (note) => {
-    console.log("inside onsavenotes");
+    
     this.props.onDocMsg(this.state.selectedDocNumber, note, "doc");
     this.setState({ enableDocumnetMsgWindow: false });
   };
 
   onSavePickers = (picker) => {
-    console.log(
-      "checking picker things",
-      picker,
-      this.state.selectedDocNumber,
-      this.state.doctype
-    );
+  
 
     const pickerObj = {
       docnum: this.state.selectedDocNumber,
@@ -1158,12 +1142,12 @@ class RouteMap extends React.Component {
         this.props.fetchDocumentPanelDateChange(this.props.documentPanel_date);
       })
       .catch((err) => {
-        console.log(err.message);
+        
       });
   };
 
   onSaveCarrierNotes = (note, type) => {
-    console.log("inside onsaveCarrierNotes");
+    
 
     if (type === "carrier") {
       this.props.onDocMsg(this.state.selectedDocNumber, note, "carrier");
@@ -1182,9 +1166,9 @@ class RouteMap extends React.Component {
 
   render() {
 
-    console.log("inside RouteMap-  geodata", this.props.geoData);
-    console.log("inside RouteMap - markers", this.props.markers);
-    console.log("inside RouteMap - mapchanged", this.props.mapChanged);
+    
+    
+    
     let addProductsClose = () => this.setState({ addProductShoww: false });
     let Productlist_win_Close = () => this.setState({ ShowDetailList: false });
     let addNotesClose = () => this.setState({ enableDocumnetMsgWindow: false });
@@ -1199,16 +1183,8 @@ class RouteMap extends React.Component {
       this.updateMap();
     }
 
-    console.log(this.props.geoData, "geodata");
-    console.log(
-      this.state.selectedDocNumber,
-      "this is seelcted doc number when click"
-    );
+    
 
-    console.log(
-      this.props.currDropsPanel,
-      "this is currDropsPanel in route map"
-    );
     return (
       <div class="routeMapOuter " style={{ zIndex: "10", height: "400px" }}>
         <ToastContainer />
@@ -1281,7 +1257,7 @@ class RouteMap extends React.Component {
                       }
                     });
                     const isLastGeoData = this.props.geoData.length === 1;
-console.log(data ,"this is service time checking")
+
                     return (
                       <tr
                         key={i}

@@ -81,7 +81,7 @@ class RailRouteList extends React.Component {
     }
 
         daysforRailTripsCheckbox = () => {
-               console.log("T222 trippanel - dayscheckbox change", );
+               
                this.setState({ daysforRailTrips: !this.props.daysforRailTripsCheckedIn });
                this.props.checked30daysRailtrips(!this.props.daysforRailTripsCheckedIn)
             }
@@ -126,7 +126,7 @@ class RailRouteList extends React.Component {
   onGroupValidateYes = () => {
 
       this.props.onValidateAll();
-      console.log("GV - Yes confirm for group Valdiation");
+      
         this.setState({
             addvalidateconfirmShow: false
         })
@@ -151,16 +151,16 @@ class RailRouteList extends React.Component {
             }
 
          else {
-           console.log("before confirm , drops panel are",this.props.dropsPanel);
-           console.log("trip is",clickedTrip);
-           console.log("trip- docnum is",Tripdocnum);
+           
+           
+           
              let SealnumberExist = false;
              if (this.props.dropsPanel && this.props.dropsPanel.drops && this.props.dropsPanel.drops.length > 0) {
                                      this.props.dropsPanel.drops.map((drop) => {
                                          if (drop.docnum === Tripdocnum && drop.sealnumbers.length > 11) {
-                                                       console.log("trip- docnum is mathced",Tripdocnum);
-                                                       console.log("trip- docnum is mathced",drop.sealnumbers);
-                                                        console.log("trip- docnum , sealnumber",drop.sealnumbers.length);
+                                                       
+                                                       
+                                                        
                                                         SealnumberExist = true;
 
                                                        }
@@ -223,7 +223,7 @@ class RailRouteList extends React.Component {
 
 
     onTriplogClick = (totobject) => {
-       console.log("T7 inside trip click",totobject);
+       
        this.setState({
            showLogs : true,
            logs :totobject
@@ -245,9 +245,9 @@ class RailRouteList extends React.Component {
 
     getLockData = (lock, i, opti) => {
 
-     console.log("inside getlockdata - lock",lock);
-     console.log("inside getlockdata - i",i);
-          console.log("inside getlockdata - opti",opti);
+     
+     
+          
 
         if (lock) {
 
@@ -292,11 +292,11 @@ class RailRouteList extends React.Component {
 
     getVRdetailBtnClick(lock,i) {
              if(lock){
-                        console.log("Trip is locked");
+                        
                        this.props.onVRClick(i, false);
                    }
                    else{
-                       console.log("Trip is unlocked");
+                       
                         this.props.updateTripsGeolocationbeforelock(i);
                    }
 
@@ -409,24 +409,24 @@ class RailRouteList extends React.Component {
 
 
     ForcedSequnce = (i,event) => {
-        console.log("inside forced",i+"-"+event);
+        
         //this.props.ForcedSequnce(i);
     }
 
     checkForceSeq = (index,check) => {
            let updatedflg;
-            console.log("inside checkForceSeq",check);
+            
             if(check){
-              console.log("inside checkForceSeq true");
+              
               updatedflg = false;
 
             }
             else {
-              console.log("inside checkForceSeq false");
+              
               updatedflg = true;
             }
            //
-             console.log("inside checkForceSeq updatedflg", updatedflg);
+             
           //  this.props.onForceseq(this.state.Seletedtripindex, updatedflg);
     }
 
@@ -443,7 +443,7 @@ class RailRouteList extends React.Component {
         }
 
      onSaveloaderNotes = (note) => {
-            console.log("inside onsaveloadernotes");
+            
             this.props.onloaderMsg(this.state.Seletedtripindex, note);
             this.setState({ enableloaderMsgWindow: false })
         }
@@ -491,7 +491,7 @@ class RailRouteList extends React.Component {
     */
     render() {
 
-     console.log("T6 data in trips",this.props.tripsList);
+     
         const currDate = moment(this.props.date).format('YYMMDD');
         let addEquipmentClose = () => this.setState({ addEquipmentShow: false });
         let addTrailClose = () => this.setState({ addTrailShow: false });

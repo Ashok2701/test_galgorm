@@ -128,16 +128,16 @@ class LVSToAllocationTabs extends React.Component {
 
 
    getLotDetailsbyProdSite = (prod) => {
-     console.log("inside to Allication tab");
+     
       this.props.getLotDetailsbyProdSite(this.props.vrdata.fcy,prod, this.props.vrdata.xnumpc)
    }
 
 
 
      OnStaggingFromLocChanged = (event, newValue) => {
-       console.log("stagging event =", event);
-     //   console.log("stagging index =", index);
-        console.log("stagging newvalue =", newValue);
+       
+     //   
+        
         let index = -1;
 
       //  this.props.toStaggingLocationList && this.props.toStaggingLocationList
@@ -165,7 +165,7 @@ class LVSToAllocationTabs extends React.Component {
 
 
      OnStaggingFromLocChanged2 = (event, newValue) => {
-        //console.log("stagging newvalue =", newValue);
+        //
 
    let index = -1;
 
@@ -208,7 +208,7 @@ OnStaggingToLocChanged  = (event, newValue) => {
           })
           }
 
-                                  console.log("stagging newvalue =", newValue);
+                                  
                                   if (newValue == null) {
                                      }
                                    else {
@@ -221,7 +221,7 @@ OnStaggingToLocChanged  = (event, newValue) => {
 
 
   OnStaggingToLocChanged2  = (event, newValue) => {
-                                    console.log("stagging newvalue =", newValue);
+                                    
 
    let index = -1;
 
@@ -257,7 +257,7 @@ OnStaggingToLocChanged  = (event, newValue) => {
 
 
     render() {
-    console.log("allocation stagging location", this.props.toStaggingLocationList);
+    
 
     let filterDetailedProd;
     let filterGlobalProd;
@@ -268,12 +268,12 @@ OnStaggingToLocChanged  = (event, newValue) => {
  //let addAlertClose = () => this.setState({ addAlertShow: false });
 
     if(this.props.toPickDataList) {
-           // console.log("T11 inside triplist",this.props.tripsList);
+           // 
            filterDetailedProd = this.props.toPickDataList.filter(
             (docs) => {
-                 console.log("T222 inside docs",docs);
-                 console.log("T11 state of docs ",docs.children[9].value);
-                     // console.log("T11 inside triplist - openRecrods");
+                 
+                 
+                     // 
                    return  (docs.children[9].value === "Detailed" || docs.children[9].value === "Global");
 
      })
@@ -341,12 +341,12 @@ OnStaggingToLocChanged  = (event, newValue) => {
 
 
       if(this.props.toPickDataList) {
-                // console.log("T11 inside triplist",this.props.tripsList);
+                // 
              this.props.toPickDataList && this.props.toPickDataList.length > 0 && this.props.toPickDataList.map((docs) => {
-                      console.log("T222 inside docs",docs);
+                      
                       let tempglobaldoc = {};
-                      console.log("T11 state of docs ",docs.children[9].value);
-                          // console.log("T11 inside triplist - openRecrods");
+                      
+                          // 
 
 
                              tempglobaldoc.prod =  docs.children[3].value;
@@ -360,13 +360,13 @@ OnStaggingToLocChanged  = (event, newValue) => {
                                 tempglobaldoc.unit =  docs.children[13].value;
                                  tempglobaldoc.lotflg =  docs.children[14].value;
                                    tempglobaldoc.bcount =  docs.children[15].value;
-                        console.log("global temp", tempglobaldoc)
+                        
                         Arraytempglobaldoc.push(tempglobaldoc);
 
           })
-            console.log("global temparray", Arraytempglobaldoc)
+            
                // filterGlobalProd = this.groupAndSumData(Arraytempglobaldoc);
-                  console.log("global temparray fitler ", filterGlobalProd)
+                  
           }
 
      if(Arraytempglobaldoc) {

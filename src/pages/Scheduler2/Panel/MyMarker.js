@@ -62,7 +62,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function MyMarker(props) {
-// console.log(props.lng, "from mymarker")
+// 
   const [dlvError, setDlvError] = useState(false);
   const [preceiptError, setPreceiptError] = useState(false);
   const [pickError, setPickError] = useState(false);

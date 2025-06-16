@@ -82,12 +82,12 @@ function BulkOperations(props) {
     const [modalTimeMessage, setModalTimeMessage] = React.useState('');
     const [autooptimise, setAutooptimise] = React.useState(true);
 
-    console.log("2 Routeshc",props.data);
-console.log("T223  Routeshc BulkOperations",props.date);
+    
+
 
 
     var date = new Date();
-    console.log("T223 inside BulkOperations-Date =",date);
+    
     let distanceCost = 0;
     let timeCost = 0;
     let totalCost = 0;
@@ -100,7 +100,7 @@ console.log("T223  Routeshc BulkOperations",props.date);
 
     const onchangeSwitch =() => {
        let autoop = autooptimise;
-       console.log("auto op",autooptimise);
+       
        setAutooptimise(!autooptimise);
     }
 
@@ -163,7 +163,7 @@ console.log("T223  Routeshc BulkOperations",props.date);
 const updateDataAfterOptimisation = (result , proccessedTrips) => {
      var OptmizedTrips = [];
      var data =
-     console.log("inside updateAfterop - result", result);
+     
      for(let i=0; i< result.batchItems.length;i++) {
          var data = proccessedTrips[i];
           let prevTripsDist = 0;
@@ -175,8 +175,8 @@ const updateDataAfterOptimisation = (result , proccessedTrips) => {
          var currentTrip  = result.batchItems[i];
          var res = currentTrip.response;
          if(currentTrip.statusCode === 200) {
-              console.log("Trip ",currentTrip)
-              console.log("Reponse of Trip =",res);
+              
+              
                if(res && res.optimizedWaypoints){
                                      optiindex.push(res.optimizedWaypoints);
                                   }
@@ -454,9 +454,9 @@ const updateDataAfterOptimisation = (result , proccessedTrips) => {
                                                   latestEndDate = date1;
                                               }
                                               routesSchedule.endDate = latestEndDate;
-                                              console.log("Bulk - RouteScheduler",routesSchedule);
-                                              console.log("Bulk - optiindex",optiindex);
-                                              console.log("Bulk - autooptimise",autooptimise);
+                                              
+                                              
+                                              
 
 
                                             //  getRouteSchedulerApp(routesSchedule, optiindex, autooptimise);
@@ -535,11 +535,11 @@ const getRouteSchedulerApp = (routesSchedule, optimisedindex , auto) => {
     var BatchItems = [];
     var ProccesedTrips = [];
     var Batchitem
-        console.log("inside Main group optimsation");
+        
         var currTripsPanel = props.tripsPanel;
         for (var i = 0; i < currTripsPanel.length; i++) {
                let trip = currTripsPanel[i]
-            console.log("trip is",trip);
+            
             if(trip.optistatus === 'Open') {
               ProccesedTrips.push(trip);
               Batchitem =   OptimisePreparation(trip);
@@ -548,8 +548,8 @@ const getRouteSchedulerApp = (routesSchedule, optimisedindex , auto) => {
         }
         finalBatchbody.batchItems = BatchItems
 
-    console.log("final BatchItems are",finalBatchbody);
-    console.log("Processed Trips =",ProccesedTrips);
+    
+    
 
 
 
@@ -570,7 +570,7 @@ const getRouteSchedulerApp = (routesSchedule, optimisedindex , auto) => {
                               // setLoader(false);
                            }
                        }).then((res) => {
-                               console.log("bulk - opti result",res);
+                               
                                var strips = res.summary.successfulRequests;
                                var ttrips = res.summary.totalRequests;
                                props.notifySucess(`${strips} Trips are optimized out of ${ttrips}`);
@@ -618,10 +618,10 @@ const getRouteSchedulerApp = (routesSchedule, optimisedindex , auto) => {
         });
         //change end depo lan n lat below siteLat + ',' + siteLang
         lanLat = lanLat + ':' + arrSiteLat + ',' + arrSiteLang
-        console.log("lanlat =",lanLat);
+        
       //  let url = apiurl + encodeURIComponent(lanLat) + jsonUrl;
           let url = apiurl + lanLat + jsonUrl;
-  console.log("url =",url);
+  
     var item = {};
        item.query = url;
        return item;
@@ -631,7 +631,7 @@ const getRouteSchedulerApp = (routesSchedule, optimisedindex , auto) => {
 
 
     const handleDateChange = (date) => {
-       console.log("T223 inside Timeine- date ",date);
+       
         let hr = Number(formatHrMin(date.getHours()));
         let min = Number(formatHrMin(date.getMinutes()));
         let loadingTime = loadingSecs(hr, min, loadHrs)
@@ -689,11 +689,11 @@ const getRouteSchedulerApp = (routesSchedule, optimisedindex , auto) => {
 
 
      const   OnGroupLockingTrips = () => {
-          console.log("inside onclick locking");
+          
         }
 
      const    OnGroupValidateTrips = () => {
-           console.log("inside onclick validation");
+           
          }
 
     const loadingSecs = (hr, min, loadingHrs) => {
@@ -762,7 +762,7 @@ const getRouteSchedulerApp = (routesSchedule, optimisedindex , auto) => {
                     setLoader(false);
                 }
             }).then((res) => {
-                console.log("auto - opti result",res);
+                
                     if(res && res.optimizedWaypoints){
                        optiindex.push(res.optimizedWaypoints);
                     }
@@ -1048,7 +1048,7 @@ const getRouteSchedulerApp = (routesSchedule, optimisedindex , auto) => {
 
 /*
     useEffect(() => {
-      console.log("T223 inside loading useEffect",props);
+      
         let hr;
         let min;
         let loadingHrs;
@@ -1056,10 +1056,10 @@ const getRouteSchedulerApp = (routesSchedule, optimisedindex , auto) => {
         let loadingTime;
         let tripEndTime = [];
         let date = new Date();
-        console.log("T223 inside loading - vehiclepanel",props.vehiclePanel);
+        
         props.vehiclePanel && props.vehiclePanel.vehicles.length > 0 && props.vehiclePanel.vehicles.map((vehicle) => {
             if (vehicle.codeyve === props.data.code) {
-              console.log("T223 inside loading - vehiclepanel - matched",vehicle.codeyve);
+              
                 if (vehicle.starttime.includes(':')) {
                     hr = vehicle.starttime.split(':')[0];
                     min = vehicle.starttime.split(':')[1];
@@ -1067,7 +1067,7 @@ const getRouteSchedulerApp = (routesSchedule, optimisedindex , auto) => {
                     hr = vehicle.starttime.substring(0, 2);
                     min = vehicle.starttime.substring(2, 4);
                 }
-               console.log("T223 inside use effct",hr+' -'+min);
+               
                 loadingHrs = vehicle.startdepots;
                 unloadHrs = vehicle.enddepotserv;
                 setLoadHrs(vehicle.startdepots);
@@ -1080,17 +1080,17 @@ const getRouteSchedulerApp = (routesSchedule, optimisedindex , auto) => {
             hr = props.data.startTime.split(':')[0];
             min = props.data.startTime.split(':')[1];
             loadingTime = loadingSecs(hr, min)
-              console.log("T223 inside loading use effct not opti",loadingTime);
+              
         } else {
             loadingTime = loadingSecs(hr, min, loadingHrs);
-              console.log("T223 inside loading use effct opti",loadingTime);
+              
         }
 
         //unit setting
        props.sites && props.sites.length > 0 && props.sites.map((site) => {
-                  console.log("2 set sites",site);
+                  
               if (props.data.depSite === site.id) {
-                 console.log("T223 inside loading site match")
+                 
 
 
                   m = site.massunit;
@@ -1126,22 +1126,22 @@ const getRouteSchedulerApp = (routesSchedule, optimisedindex , auto) => {
                         hr = time.split(':')[0];
                         min = time.split(':')[1];
                         loadingTime = loadingSecs(hr, min)
-                        console.log("T223 inside loading time if",loadingTime);
+                        
                     } else {
                         let startTime = new Date();
                         startTime.setHours((props.data.startTime.split(":")[0]), (props.data.startTime.split(":")[1]));
                         hr = startTime.getHours();
                         min = startTime.getMinutes();
                         loadingTime = loadingSecs(hr, min)
-                        console.log("T223 inside loading time else",loadingTime);
+                        
                     }
                 }
             }
         })
         hr = loadingTime.split(':')[0];
         min = loadingTime.split(':')[1];
-        console.log("T223 inside loading time",loadingTime);
-        console.log("2 after assign",c+"-"+m+"-"+d+"-"+v);
+        
+        
         setCurrency(c);
         setMassunit(m);
         setVolunits(v);
@@ -1150,12 +1150,12 @@ const getRouteSchedulerApp = (routesSchedule, optimisedindex , auto) => {
         setMin(min);
         date.setHours(hr);
         date.setMinutes(parseInt(min));
-        console.log("T223 inside loading - after loading",date);
+        
         setHandleDateChange(date);
     }, [props])
 */
 
-console.log("insdei BulkOperations",props.date);
+
      return(
                              <div
                                                                           style={{

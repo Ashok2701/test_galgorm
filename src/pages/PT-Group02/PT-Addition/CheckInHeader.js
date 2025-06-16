@@ -44,14 +44,14 @@ class PTDeletionHeader extends Component {
 
     FilterCustomer = customer => {
     //  this.props.customerChange(customer);
-        console.log("on change customer data =", customer)
+        
         this.props.setCustomer(customer);
     }
 
 
       FilterPickTkts = doc => {
         //  this.props.customerChange(customer);
-            console.log("on change customer data =", doc)
+            
             this.props.setPickTkcket(doc);
         }
 
@@ -83,7 +83,7 @@ class PTDeletionHeader extends Component {
 
       if(this.props.selectedOpenDocs.length > 0) {
 
-       console.log("some  Documents for deletion")
+       
      //  this.props.DocumentforDeletion();
 
       this.setState({
@@ -101,7 +101,7 @@ class PTDeletionHeader extends Component {
                                                                                                       addAlertShow: true,
 
                                                                                                        })
-         console.log("No Documents for deletion")
+         
 
       }
 
@@ -110,9 +110,9 @@ class PTDeletionHeader extends Component {
 
     handleRadioChange = (event) => {
      //  setSelectedOption(event.target.value);
-     console.log("handle radio change =", event)
-    // console.log("handle radio change value =", event.taget.value)
-     console.log("handle radio change direct value =", event.target.value)
+     
+    
+     
 
      this.props.handleRadioChange(event.target.value);
      };
@@ -123,11 +123,11 @@ class PTDeletionHeader extends Component {
        const { selectedMulti } = this.state;
         let addAlertClose = () => this.setState({ addAlertShow: false });
          let onHide = () => this.setState({ addConfirmShow: false });
-       console.log("from date =", this.props.fromDate)
-         console.log("customer data = ", this.props.productsList)
+       
+         
        let fdata = moment(this.props.fromDate).format('YYYY-MM-DD');
         let ldata = moment(this.props.toDate).format('YYYY-MM-DD');
-         console.log("from date 1 =", fdata)
+         
        let getDate = new Date();
  let optionSiteItems = [];
   var selectedSite = {};
@@ -146,8 +146,8 @@ class PTDeletionHeader extends Component {
    // let selectedCustomer = null;
       let optionSelected1 = [];
       let placeHolder1 = "All";
-      console.log("customer list = ", this.props.CustomerList)
-      console.log("customer data = ", this.props.selectedCustomer)
+      
+      
              this.props.CustomerList && this.props.CustomerList.length > 0 && this.props.CustomerList.map((customer) => {
                      if (this.props.selectedCustomer.includes(customer)) {
                        //  selectedCustomer = customer;
@@ -155,7 +155,7 @@ class PTDeletionHeader extends Component {
                          let tempdata = {}
                          tempdata.value = customer;
                          tempdata.label = (customer);
-                         console.log("customer inside data = ",optionSelected1)
+                         
                          optionSelected1.push(tempdata);
                      }
                      optionCustomerItems.push({ value: customer, label: customer })

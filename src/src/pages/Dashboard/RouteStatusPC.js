@@ -28,7 +28,7 @@ class SalesAnalytics extends Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.data !== this.props.data) {
-      console.log("Some props changed. Rendering...");
+      
     //  ApexCharts.exec('routestatus-pie')
        let tempoptions = {...this.state.options};
        tempoptions.labels = this.props.data.routeStatusVO && this.props.data.routeStatusVO.labels;
@@ -43,7 +43,7 @@ class SalesAnalytics extends Component {
 
 
     render() {
-      console.log("route status =", this.props.data);
+      
         return (
             <React.Fragment>
                 <Card>

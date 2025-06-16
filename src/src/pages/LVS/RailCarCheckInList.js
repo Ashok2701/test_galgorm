@@ -219,10 +219,10 @@ const RailCarCheckInList = (props) => {
       } else {
            let updatedData = []
                               const startDate = moment(date[0]).format('YYYY-MM-DD')
-                                console.log("T11 to before =", updatedData)
-                                  console.log("T11 start DAte =", startDate)
+                                
+                                  
                               updatedData = props.lvsList && props.lvsList.filter(item => moment(moment(item.DLVDAT_0).format('YYYY-MM-DD')).isSameOrAfter(startDate))
-                                console.log("T11 to after =", updatedData)
+                                
                               setFilteredData(updatedData)
 
       }

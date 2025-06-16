@@ -100,7 +100,7 @@ class Login extends React.Component { // <1>
         });
     }
     hadleLngClick = (lng) => {
-        console.log("lng===>", lng)
+        // console.log("lng===>", lng)
         localStorage.setItem('lng', lng);
         i18next.init({
             interpolation: { escapeValue: false },  // React already does escaping
@@ -125,7 +125,7 @@ class Login extends React.Component { // <1>
 
     render() { // <3>
 
-        console.log("lng- issue 1:", this.state.lngFr + ", " + this.state.lngEn);
+        // console.log("lng- issue 1:", this.state.lngFr + ", " + this.state.lngEn);
         const { loggingIn } = this.props;
         const { username, password, submitted } = this.state;
         return (

@@ -45,8 +45,8 @@ class CheckInHeader extends Component {
          if(activeRailcar.railcarid == selectedOption){
 
          currentCheckin = activeRailcar;
-            console.log("matched railcar",activeRailcar);
-            console.log("matched selectedoption",selectedOption);
+            
+            
          }
 
      });
@@ -57,7 +57,7 @@ class CheckInHeader extends Component {
     }
 
     handleRailCarChange = selectedOption => {
-          console.log("Trrr selected Railcar change",selectedOption);
+          
           this.setCurrentRailCar(selectedOption);
 
        }
@@ -78,8 +78,8 @@ class CheckInHeader extends Component {
 
 
     onCheckIn = () => {
-        console.log("Trrr site value =",this.state.selectedSite);
-        console.log("Trrr railcar value =",this.state.selectedRailCar);
+        
+        
        if(this.state.selectedRailCar === '') {
          this.setState({
                                  errorMessage: 'Please Select the RailCar, before CheckIn',
@@ -101,7 +101,7 @@ class CheckInHeader extends Component {
 
 
      OnSiteChanged = (event, newValue) => {
-        console.log("newvalue =", newValue);
+        
         if (newValue == null) {
            }
          else
@@ -113,7 +113,7 @@ class CheckInHeader extends Component {
 
 
       OnRailCarChanged = (event, newValue) => {
-              console.log("newvalue =", newValue);
+              
               if (newValue == null) {
                  }
                else {

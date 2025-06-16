@@ -25,7 +25,7 @@ class LVS extends Component {
 
 
    componentDidMount() {
-     console.log("inside lvs")
+     
       var user = JSON.parse(localStorage.getItem("authUser"));
        Promise.all([fetch('http://tmsportal.tema-systems.com:8082/api/v1/transport/usrsites?user='+ user.username)])
       .then(([res1]) => {
@@ -49,18 +49,18 @@ class LVS extends Component {
 
     OnCheckInClicked = selectedRailCar => {
 
-      console.log("onCheckInClikced",selectedRailCar);
+      
       fetch('http://tmsportal.tema-systems.com:8082/api/v1/rail/Checkin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(selectedRailCar)
       }).then((response) => {
-        console.log("inside after Railcarcheckin - response",response);
+        
        this.handleErrors(response);
       }).then(function (response) {
 
       }).then(() => {
-         console.log("after success ",this.state.selectedSite);
+         
         this.ReloadData();
       }).then(() => {
         this.notifySucess("RailCar Checked-In Sucessfully");
@@ -81,7 +81,7 @@ class LVS extends Component {
 
 
     ReloadData = () => {
-   //  console.log("after success ",selectedOption);
+   //  
     fetchLvsList()
              .then(([res1]) => {
                this.setState({
@@ -99,8 +99,8 @@ class LVS extends Component {
 
 
   handleSiteChange = selectedOption => {
-        console.log("site change",selectedOption);
-        console.log("date =",this.state.date);
+        
+        
         this.setCurrentSite(selectedOption);
        fetchLvsList(selectedOption)
          .then(([res1, res2, res3]) => {

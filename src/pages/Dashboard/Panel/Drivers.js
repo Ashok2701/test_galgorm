@@ -92,7 +92,7 @@ class Drivers extends React.Component {
        const DriversList = this.props.curDrivers;
 
      function changeRowColor(params){
-              console.log("T21 color",params.data.color);
+              
             var myStr = params.data.color;
            var subStr = myStr.match("background-color:(.*)");
            var s = subStr[1];
@@ -101,10 +101,10 @@ class Drivers extends React.Component {
             }
 
      const onRowDrag = (params)  => {
-     console.log("inside onRowDrag",params);
+     
      var rowNode = params.rowNode;
      var e = params.dragEvent;
-     console.log("inside onRowDrag - e",e);
+     
       this.props.handleDragStart(e, rowNode.data, 'driver',rowNode.rowIndex , rowNode.data.driverid);
     }
 

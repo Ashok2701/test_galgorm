@@ -6,11 +6,8 @@ class AlertSummary extends React.Component {
   render() {
     const errorMessagesArray = this.props.errorArrayMessage;
     const errorSummartMessage = this.props.errorSummartMessage;
-    console.log("TTT temp error display array check", errorMessagesArray);
-    console.log(
-      "TTT temp error display error summary message",
-      errorSummartMessage
-    );
+    
+  
 
     return (
       <Modal

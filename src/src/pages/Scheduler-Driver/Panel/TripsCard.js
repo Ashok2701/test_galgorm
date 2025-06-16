@@ -37,9 +37,9 @@ function TripsCard(props) {
 const [prodList, setProdList] = useState([])
 const [prd_unit_price, setPrd_unit_price] = useState([])
 
-console.log("prod price list", props.productsPrice)
+
   const handleFilter = (value) => {
-            console.log("Inisde handlefilter", props.searchValue)
+            
              let updatedData = []
              if (value.length) {
                updatedData = props.productsPrice && props.productsPrice.filter(product => {
@@ -56,9 +56,9 @@ console.log("prod price list", props.productsPrice)
            }
 
  useEffect(() => {
-console.log("prod list useeffect")
+
      if (props?.searchValue?.length > 0) {
-        console.log("prod insdie list matched")
+        
        handleFilter(props.searchValue)
        } else if (props?.categoryValue?.length > 0) {
         handleFilter(props.categoryValue)
@@ -133,18 +133,18 @@ console.log("prod list useeffect")
 
       let mflag = false
       props.shoppingList.map((cart, i) => {
-            console.log("Inside ", i)
-             console.log("Inside cart ", cart)
+            
+             
           if (cart.ITMREF_0 === prd.O_XITM) {
             mflag = true
           }
       })
-       console.log("Inside getDAta", props.shoppingList)
+       
      if (mflag) {
-          console.log("Inside getDAta matched", prd.O_XITM)
+          
 
          const tindex = props.shoppingList.findIndex(item => item.ITMREF_0 === prd.O_XITM)
-         console.log("Inside tindex=", tindex)
+         
          const tempQty = props.shoppingList[tindex].QTY_0
         return (
           <MDBCol  md="5" className="mr-2 mb-lg-0">

@@ -6,11 +6,11 @@ executeuserwithID(){
 return axios.get('/user?ID=12345')
   .then(function (response) {
     // handle success
-    console.log(response);
+    
   })
   .catch(function (error) {
     // handle error
-    console.log(error);
+    
   })
   .then(function () {
     // always executed
@@ -24,10 +24,10 @@ return axios.get('/user', {
     }
   })
   .then(function (response) {
-    console.log(response);
+    
   })
   .catch(function (error) {
-    console.log(error);
+    
   })
   .then(function () {
     // always executed
@@ -38,9 +38,9 @@ return axios.get('/user', {
 loginuser(data){
 
 const newUrl = 'http://localhost:8090/api/v1/user/login';
-   console.log("T1 data inside loginuser axios- url",data);
-   console.log("T1 data inside postlogin- data",data);
-   console.log("T1 data inside postlogin- newURL",newUrl);
+   
+   
+   
    let axiosConfig = {
      headers: {
          'Content-Type': 'application/json;charset=UTF-8',
@@ -50,7 +50,7 @@ const newUrl = 'http://localhost:8090/api/v1/user/login';
 
  return axios.post('http://localhost:8090/api/v1/user/login', data, axiosConfig)
       .then(response => {
-         console.log("T1 response",data);
+         
         if (response.status === 400 || response.status === 500)
             throw response;
         return response;

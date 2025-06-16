@@ -47,7 +47,7 @@ class SideNav extends React.Component {
 
 
    groupByHandleChange = (val) => {
-      console.log("value =",val);
+      
        this.props.OnGroupByChange(val);
     }
 

@@ -15,7 +15,7 @@ constructor(props)
 
 
     render() {
-       console.log("Tttt inside modal - vehicle list", this.props.Vehiclelist.vehicles)
+       
            return (
               <Modal
                      {...this.props}

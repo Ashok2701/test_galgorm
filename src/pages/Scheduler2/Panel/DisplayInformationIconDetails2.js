@@ -32,14 +32,14 @@ const DisplayInformationIconDetails1 = (props) => {
 
   const onAvailable = (availdays) => {
     let finaldata = "";
-    console.log("Available days= ", availdays);
+    
     if (availdays.length > 1) {
       let days = availdays.split(",");
 
       for (let i = 0; i < days.length; i++) {
-        console.log("day i= ", days[i]);
+        
         if (days[i] == 2) {
-          console.log("day i inside= ", days[i]);
+          
           switch (i) {
             case 0:
               finaldata = finaldata + " Sunday ";
@@ -65,10 +65,10 @@ const DisplayInformationIconDetails1 = (props) => {
             default:
               break;
           }
-          console.log("day i inside= ", finaldata);
+          
         }
 
-        console.log("insdie =", days[i]);
+        
       }
     }
 

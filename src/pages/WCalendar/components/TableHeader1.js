@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 
 const TableHeader = (props) => {
   const classes = useStyles();
-  console.log("inside TableHEader -",props.totalDistance);
+  
   let optionItems = [];
 
 const setSelectedSites = (val) => {
@@ -61,7 +61,7 @@ const setSelectedSites = (val) => {
             var optionSelected = {};
             var selectedSite = {};
             var placeHolder = "All";
-            console.log("inside useEffect",props.sitelist);
+            
             props.sitelist && props.sitelist.length > 0 && props.sitelist.map((site) => {
                 if (site.id == props.selectedSite) {
                     selectedSite = site;
@@ -71,7 +71,7 @@ const setSelectedSites = (val) => {
                 }
                 optionItems.push({ value: site.id, label: (site.value + "(" + site.id + ")") })
             });
-      console.log("inside useEffect - optionItems",optionItems);
+      
     }, [props])
 
   return (

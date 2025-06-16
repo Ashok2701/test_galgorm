@@ -49,7 +49,7 @@ class DocumentsPanel extends React.Component {
 
 
     dayscheckBoxChange = () => {
-       console.log("T222 docpanel - dayscheckbox change");
+       
        this.setState({ Todayschecked: !this.props.daysCheckedIn });
        this.props.checked5days(!this.props.daysCheckedIn)
 
@@ -57,7 +57,7 @@ class DocumentsPanel extends React.Component {
 
 
       checkBoxChange = () => {
-       console.log("T224 docpanel - to plan change");
+       
                   this.setState({ ToPlanchecked: !this.state.ToPlanchecked });
                   this.props.checkedToPlan(!this.state.ToPlanchecked)
               }
@@ -106,10 +106,10 @@ toggleTab(tab) {
 
     render() {
      const site = this.props.deliverySite;
-    console.log("T6 inside docpanel - flag",this.props.daysCheckedIn)
+    
  //const currDate = moment(this.props.selectedDate).format('YYYY-MM-DD');
  const currDate = moment(this.props.selectedDate).format('YYYY-MM-DD');
- console.log("T222 curr date =",currDate);
+ 
 
 
      let filterDrops;

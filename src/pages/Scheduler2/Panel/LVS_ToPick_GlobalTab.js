@@ -29,7 +29,7 @@ constructor(props)
 
 
     render() {
-       console.log("at global tab", this.props.toPickDataList);
+       
            return (
           <TabPane className="tripstab" tabId="Global">
           <Card>

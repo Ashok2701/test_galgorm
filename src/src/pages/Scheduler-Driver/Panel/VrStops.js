@@ -114,8 +114,8 @@ class VrStops extends React.Component {
   render(){
     var lang = localStorage.getItem("lng");
         var trip = this.props.tripdetails;
-        console.log("trip", trip)
-        console.log("this.props.vedetail", this.props.vedetail)
+        
+        
         let distunts;
         if (lang == "en") {
             distunts = 'Kms';

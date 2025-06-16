@@ -212,10 +212,10 @@ class TripsList3 extends React.Component {
   };
 
   // onOptimiseConfirm = (trip, index, opti, lock) => {
-  //   console.log("T000 trip =", trip);
-  //   console.log("T000 index =", index);
-  //   console.log("T000 opti =", opti);
-  //   console.log("T000 lock =", lock);
+  //   
+  //   
+  //   
+  //   
   //   if (lock) {
   //     this.setState({
   //       errorMessage: "Trip cannot optmise after Lock",
@@ -382,7 +382,7 @@ class TripsList3 extends React.Component {
       })
       .then((res) => {
 
-        console.log(res ,"checking res here 835");
+        
     
         if (res && res.optimizedWaypoints) {
           optiindex.push(res.optimizedWaypoints);
@@ -604,7 +604,7 @@ class TripsList3 extends React.Component {
         }
       })
       .then((res) => {
-        console.log("auto - opti result", res);
+        
         if (res && res.optimizedWaypoints) {
           optiindex.push(res.optimizedWaypoints);
         }
@@ -612,7 +612,7 @@ class TripsList3 extends React.Component {
         if (res && res.routes) {
           summaryData.push(res.routes);
         }
-        console.log("T6565 1");
+        
         let summaryResult = {
           summarydata: [...summaryData],
           serviceTime: serviceTime,
@@ -628,9 +628,9 @@ class TripsList3 extends React.Component {
           let serviceTime = summaryResult.serviceTime;
           let waitingTime = summaryResult.waitingTime;
           let results = summaryData[0];
-          console.log(serviceTime,"serviceTime in line numer 631");
+          
 
-          console.log(waitingTime,"waitingTime in line numer 633");
+          
 
 
           if (results) {
@@ -642,7 +642,7 @@ class TripsList3 extends React.Component {
                 t = t.split(" ")[0];
                 return d + " " + t;
               };
-              console.log("T6565 3");
+              
               let resultsData = [];
               var departure = new Date();
               let depsetHrs, depsetMin;
@@ -658,16 +658,16 @@ class TripsList3 extends React.Component {
               });
               let currTripTimeHr = setHr;
               let currTripTimeMin = setMin;
-              console.log("T6565 setHr", setHr);
-              console.log("T6565 setMin", setMin);
-              console.log(currTripTimeHr,currTripTimeMin ,"checking setHours and setMuniutes")
+              
+              
+              
               departure.setHours(Number(currTripTimeHr));
               departure.setMinutes(Number(currTripTimeMin));
-              console.log(departure ,"checking setHours and setMuniutes")
+              
               let sameTrips = [];
               let startTimeInSec;
               if (optimisedTrips.length > 0) {
-                console.log("T6565 4");
+                
                 optimisedTrips.map((optiTrip) => {
                   if (
                     optiTrip.code === data.code &&
@@ -679,7 +679,7 @@ class TripsList3 extends React.Component {
               }
               let previousCheck = [];
               this.props.tripsList.map((tripPanel) => {
-                console.log("T6565 5");
+                
                 if (
                   tripPanel.code === data.code &&
                   tripPanel.docdate === data.docdate
@@ -691,7 +691,7 @@ class TripsList3 extends React.Component {
               });
               let optimizationStatus = false;
               if (previousCheck.length > 0) {
-                console.log("T6565 6");
+                
                 if (previousCheck[0].optistatus === "Optimized") {
                   optimizationStatus = false;
                 } else {
@@ -700,7 +700,7 @@ class TripsList3 extends React.Component {
               }
 
               if (sameTrips.length > 0) {
-                console.log("T6565 7");
+                
                 let sameTripTime = [];
                 sameTrips.map((times, index) => {
                   sameTripTime.push({
@@ -746,54 +746,54 @@ class TripsList3 extends React.Component {
                   convertMinToSec(departure.getMinutes()) +
                   convertHrToSec(departure.getHours());
               } else {
-                console.log("T6565 8");
-                console.log(departure ,"this is departure in else block same trips 750");
-                console.log(convertMinToSec(departure.getMinutes()),"minutes to seconds departure 751");
-                console.log(convertHrToSec(departure.getHours()),"minutes to seconds hrs 752")
+                
+                
+                
+                
                 startTimeInSec =
                   convertMinToSec(departure.getMinutes()) +
                   convertHrToSec(departure.getHours());
               }
-              console.log(startTimeInSec ,"this is start time sec 757 checking");
+              
               startTimeInSec = formatTime(startTimeInSec);
               let startTimeHrs = startTimeInSec.split(":")[0];
               let startTimeMins = startTimeInSec.split(":")[1];
-              console.log(startTimeInSec ,"splitted time here start time 760")
+              
               departure.setHours(startTimeHrs);
               departure.setMinutes(startTimeMins);
 
-              console.log(departure,"after setting hrs and mins 764");
+              
 
               //  setHandleDateChange = departure;
 
               let startTimeHr = departure.getHours();
               let startTimeMin = departure.getMinutes();
               
-              console.log(startTimeHr ,"this is start time hrs");
-              console.log(startTimeMins ,"this is start time minutes")
+              
+              
               let startTimeLocal =
                 formatHrMin(startTimeHr) + ":" + formatHrMin(startTimeMin);
-                console.log(startTimeLocal ,"this is start time local 776");
+                
 
               legs.forEach((data, index) => {
-                console.log("at legs", data);
+                
                 let time = data.summary.travelTimeInSeconds;
-                console.log(time,"this is time inside legs 778");
+                
                 let length = data.summary.lengthInMeters;
                 let sec = 0;
                 let waitSec = 0;
-                console.log(Number(serviceTime[index]),convertHrToSec(Number(serviceTime[index])),"checking service time index 766");
+                
                 if (Number(serviceTime[index])) {
                   sec = sec + convertHrToSec(Number(serviceTime[index]));
-                  console.log(sec ,"this is seconds 773")
+                  
                 } else {
                   sec = sec + 0;
                 }
-                console.log(Number(waitingTime[index]),convertHrToSec(Number(waitingTime[index])), "This is waiting time checking 772")
+                
                 if (Number(waitingTime[index])) {
                   waitSec =
                     waitSec + convertHrToSec(Number(waitingTime[index]));
-                    console.log(waitSec,"waiting time seconds")
+                    
                 } else {
                   waitSec = waitSec + 0;
                 }
@@ -804,7 +804,7 @@ class TripsList3 extends React.Component {
                   convertHrToSec(Number(waitingTime[index]))
                 );
 
-                console.log(serTime,waitTime ,"checking serv waiting 782")
+                
                 serTime = serTime.split(":");
                 let serTimeHr = serTime[0];
                 let serTimeMin = serTime[1];
@@ -817,10 +817,10 @@ class TripsList3 extends React.Component {
                 waitTime =
                   formatHrMin(waitTimeHr) + ":" + formatHrMin(waitTimeMin);
 
-                  console.log(waitTime ,"this is waiting time");
+                  
 
-                  console.log(departure,index,"this is departure checking here 822")
-                  console.log(dateformatter(departure, index) ,"this is date formatter deperture 823")
+                  
+                  
                 let res = {
                   start: dateformatter(departure, index),
                   distance: length / 1000,
@@ -830,14 +830,14 @@ class TripsList3 extends React.Component {
                   tTime: time,
                   tDistance: length,
                 };
-                console.log(res ,"res before checking 809");
                 
-                console.log(departure, "this is again departure on line numer 818");
-                  console.log(departure.getSeconds() ,"this is end time route 811");
+                
+                
+                  
 
-                  console.log(time , sec , waitSec  ,"this is time sec waitsec 813");
+                  
 
-                    console.log(departure ,"this is end time route 810 before all the addition of time daperture 834");
+                    
                 departure.setSeconds(
                   departure.getSeconds() + time + sec + waitSec
                 );
@@ -845,38 +845,38 @@ class TripsList3 extends React.Component {
                 //     departure.setSeconds(
                 //   departure.getSeconds() + time + sec + waitSec
                 // );
-                console.log(departure ,"this is end time route 810");
+                
 
                 //added sersec+wait sec+time
                 let endTimeRoute = dateformatter(departure);
 
-                console.log(endTimeRoute ,"this is end time route 821")
+                
                 endTimeRoute = new Date(endTimeRoute);
-                console.log(endTimeRoute ,"this is end time route 813")
+                
 
                 let endTimeHr = endTimeRoute.getHours();
                 let endTimeMin = endTimeRoute.getMinutes();
                 endTimeRoute = endTimeHr + ":" + endTimeMin;
-                console.log(endTimeRoute ,"this is end time route checking 814")
+                
                 var a = endTimeRoute.split(":");
-                console.log(a ,"end route 812")
+                
                 var endTimeSec = +a[0] * 60 * 60 + +a[1] * 60;
 
-                console.log(endTimeSec, "this is end time seconds")
-                console.log(serviceTime[index], "814 checking for service time");
+                
+                
 
-                console.log(endTimeSec , serviceTime[index],waitingTime[index] ,"Endtime service time waiting time 816")
+                
                 // let servTimeCheck =  serviceTime[index] != "00:00" ? serviceTime[index] : 0
                 var arrivalTime =
                   endTimeSec -
                   Number(serviceTime[index]) * 60 * 60 -
                   Number(waitingTime[index]) * 60 * 60;
 
-                  console.log(arrivalTime ,"this is arrival time checking without any modificaiton 874")
-                  console.log(formatTime(arrivalTime),arrivalTime ,"formatatted arrival time and arrival time 821")
+                  
+                  
                 arrivalTime = formatTime(arrivalTime);
 
-                console.log(endTimeRoute,splitTime(endTimeRoute), "    "+  + "    ", arrivalTime,splitTime(arrivalTime) ,"End route and arrival time 824")
+                
 
 
 function addHoursToHHMM(arrivalTimeStr, serviceTime, waitingTime) {
@@ -907,11 +907,11 @@ function addHoursToHHMM(arrivalTimeStr, serviceTime, waitingTime) {
 let finalEndTime=addHoursToHHMM(splitTime(arrivalTime),Number(serviceTime[index]),Number(waitingTime[index]))
 
 
-console.log(finalEndTime,"after added service time and waiting time endTimeCheck");
 
-                console.log(splitTime(arrivalTime) ,"this is arrival time here before assigning to key 881");
 
-                console.log(endTimeRoute ,"this is end 832 check")
+                
+
+                
                 res.end = finalEndTime;
                 res.arrival = splitTime(arrivalTime);
 
@@ -942,11 +942,11 @@ console.log(finalEndTime,"after added service time and waiting time endTimeCheck
               let totTime = 0;
               let totDistance = 0;
               let endTime;
-              console.log("T6565 resultsData =", resultsData);
-              console.log("T6565 data =", data);
+              
+              
               resultsData.map((tdata, index) => {
                 if (index === data.stops) {
-                  console.log("T6565 data if =");
+                  
                   endTime = tdata.end.split(":");
                   let endTimeHrs = endTime[0];
                   let endTimeMins = endTime[1];
@@ -957,11 +957,11 @@ console.log(finalEndTime,"after added service time and waiting time endTimeCheck
                   endTime = endLoadHrs;
                   setEndTime = endTime;
                 }
-                console.log("every step Ttime =", totTime);
+                
                 totTime += tdata.tTime;
                 totDistance += tdata.tDistance;
               });
-              console.log("T6565 endTime =", endTime);
+              
               let reducer1 = (accumulator, currentValue) =>
                 Number(accumulator) + Number(currentValue);
               let serTime = serviceTime.reduce(reducer1);
@@ -971,11 +971,11 @@ console.log(finalEndTime,"after added service time and waiting time endTimeCheck
                 tTime + convertHrToSec(serTime) + convertHrToSec(waitTime)
               );
 
-              console.log(totTime ,"this is total trip time checking 879")
+              
               setTotalTime = totTime;
               setTotalDistance = totDistance / 1000;
-              console.log("TotalDistaince =", totDistance);
-              console.log("setTotalDistance =", setTotalDistance);
+              
+              
               let vehicleStartTime = "";
               if (sameTrips.length > 0) {
                 sameTrips.map((sameTrip) => {
@@ -1064,19 +1064,10 @@ console.log(finalEndTime,"after added service time and waiting time endTimeCheck
               } else {
                 let loadingHrs = convertHrToSec(loadHrs);
 
-                console.log("T11 travel total time in sec", tTime);
-                console.log(
-                  "T11 travel total time in sec format",
-                  formatTime(tTime)
-                );
-                console.log("T11 total dist", totDistance);
-                console.log("T11 total dist / 1000", totDistance / 1000);
-                console.log(
-                  "T11 max total dist",
-                  data.vehicleObject.maxtotaldist
-                );
+        
+            
                 // to check total travel time
-                console.log(tTime , maxTotTimeSec , "total travel time max travel time")
+                
                 if (tTime > maxTotTimeSec) {
                   this.setState({
                     TimeErrorMessageData: `The vehicle cannot perform trip ${formatTime(
@@ -1135,10 +1126,7 @@ console.log(finalEndTime,"after added service time and waiting time endTimeCheck
                                     }
                                     */
                   routesSchedule.endDate = latestEndDate;
-                  // console.log(
-                  //   "T6565 final data routeScheduler",
-                  //   routesSchedule
-                  // );
+                
                   this.props.getValues(
                     routesSchedule,
                     optiindex,
@@ -1185,8 +1173,8 @@ console.log(finalEndTime,"after added service time and waiting time endTimeCheck
 
   onConfirmClick = (trip, index, opti, lock) => {
 
-    // console.log(trip.vehicleObject.trailerLink,"clicked on lock button")
-console.log(trip, "this is trip for checking driver")
+    // 
+
 
     if (trip.vehicleObject.trailerLink == "Yes" && !trip.trialerObject.length > 0) {
 
@@ -1219,12 +1207,12 @@ console.log(trip, "this is trip for checking driver")
         });
       }
     } else {
-      console.log("Passed Trip =", trip);
+      
 
       if (opti === "Optimized") {
         let previousLockTripsCheck = [];
         let tripsCollection = this.props.tripsList;
-        console.log("Collection Trips are =", tripsCollection);
+        
         tripsCollection.map((t) => {
           if (t.code === trip.code && t.docdate === trip.docdate) {
             if (t.trips === trip.trips - 1) {
@@ -1235,7 +1223,7 @@ console.log(trip, "this is trip for checking driver")
 
         let LockStatus = false;
         if (previousLockTripsCheck.length > 0) {
-          console.log("prev lock trip =", previousLockTripsCheck);
+          
           if (previousLockTripsCheck[0].lock) {
             LockStatus = false;
           } else {
@@ -1275,7 +1263,7 @@ console.log(trip, "this is trip for checking driver")
   };
 
   onConfirmYes = (index,itemCode) => {
-    console.log(index,itemCode,"this is indexxx lock")
+    
     this.props.onLockRecord(index,undefined,itemCode);
     this.setState({
       addConfirmShow: false,
@@ -1305,7 +1293,7 @@ console.log(trip, "this is trip for checking driver")
   };
 
   onTriplogClick = (totobject) => {
-    console.log("T7 inside trip click", totobject);
+    
     this.setState({
       showLogs: true,
       logs: totobject,
@@ -1390,10 +1378,10 @@ console.log(trip, "this is trip for checking driver")
 
   getVRdetailBtnClick(lock, i, tmsValidated) {
     if (lock) {
-      console.log("Trip is locked");
+      
       this.props.onVRClick(i, tmsValidated);
     } else {
-      console.log("Trip is unlocked");
+      
       this.props.updateTripsGeolocationbeforelock(i);
     }
   }
@@ -1428,7 +1416,7 @@ console.log(trip, "this is trip for checking driver")
   }
 
   // getStatus(trip, valid, lock, index, docStatus, validatedflg, lvsStatus) {
-  //   console.log("TTTT lvs status =", lvsStatus);
+  //   
   //   if (trip.optistatus == "Open") {
   //     return (
   //       <span
@@ -1470,7 +1458,7 @@ console.log(trip, "this is trip for checking driver")
   //     valid &&
   //     validatedflg
   //   ) {
-  //     console.log("TTTT lvs status =", lvsStatus);
+  //     
   //     if (lvsStatus == 9) {
   //       return (
   //         <span
@@ -1514,7 +1502,7 @@ console.log(trip, "this is trip for checking driver")
   // }
 
   getStatus(trip, valid, lock, index, docStatus, validatedflg, lvsStatus) {
-    console.log("TTTT lvs status =", lvsStatus);
+    
     if (trip.optistatus == "Open" && !lock && !valid) {
       return <span class='badge badge-primary text-uppercase' style={{ fontSize: 14 }}>{this.props.t('OPEN')}</span>;
     }
@@ -1541,7 +1529,7 @@ console.log(trip, "this is trip for checking driver")
       return <span class='badge badge-dark text-uppercase' style={{ fontSize: 14 }} >{this.props.t('TO_LOAD')}</span>;
     }
     else if (trip.optistatus == "Optimized" && lock && valid && validatedflg) {
-      console.log("TTTT lvs status =", lvsStatus);
+      
       if (lvsStatus == 9) {
         return <span class='badge badge-warning text-uppercase' style={{ fontSize: 14 }} >{this.props.t('LOAD_CONFIRMED')} </span>;
 
@@ -1561,8 +1549,8 @@ console.log(trip, "this is trip for checking driver")
   }
 
   getTripStatus(trip, valid, lock, index, validatedflg, lvsStatus) {
-    console.log("lvs status", trip);
-    console.log("lvs status", lvsStatus);
+    
+    
     if (valid && lock && validatedflg) {
       if (
         lvsStatus == 7 ||
@@ -1651,7 +1639,7 @@ console.log(trip, "this is trip for checking driver")
   };
 
   onConfirmDeleteClick = (index, tripcode) => {
-    console.log("T11d at deletion", tripcode);
+    
     this.setState({
       addDeleteconfirmShow: true,
       confirmMessage: this.props.t("DeleteTrip"),
@@ -1668,7 +1656,7 @@ console.log(trip, "this is trip for checking driver")
   };
 
   onConfirmDeleteYes = (index, docnum) => {
-    console.log("T11d at deletion yes", docnum);
+    
     this.props.onCompleteTripDelete(index, this.state.tripcode);
     this.setState({
       addDeleteconfirmShow: false,
@@ -1737,22 +1725,22 @@ console.log(trip, "this is trip for checking driver")
   };
 
   ForcedSequnce = (i, event) => {
-    console.log("inside forced", i + "-" + event);
+    
     //this.props.ForcedSequnce(i);
   };
 
   checkForceSeq = (index, check) => {
     let updatedflg;
-    console.log("inside checkForceSeq", check);
+    
     if (check) {
-      console.log("inside checkForceSeq true");
+      
       updatedflg = false;
     } else {
-      console.log("inside checkForceSeq false");
+      
       updatedflg = true;
     }
     //
-    console.log("inside checkForceSeq updatedflg", updatedflg);
+    
     //  this.props.onForceseq(this.state.Seletedtripindex, updatedflg);
   };
 
@@ -1767,7 +1755,7 @@ console.log(trip, "this is trip for checking driver")
   };
 
   onSaveloaderNotes = (note) => {
-    console.log("inside onsaveloadernotes");
+    
     this.props.onloaderMsg(this.state.Seletedtripindex, note);
     this.setState({ enableloaderMsgWindow: false });
   };
@@ -1818,7 +1806,7 @@ console.log(trip, "this is trip for checking driver")
     */
 
   SearchTrips = (e) => {
-    console.log("search content= ", e.target.value);
+    
     this.props.updateTripsSearchTerm(e);
   };
 
@@ -1866,7 +1854,7 @@ console.log(trip, "this is trip for checking driver")
   
 
   render() {
-    console.log("T6 data in trips", this.props.trips);
+    
 
     const currDate = moment(this.props.date).format("YYMMDD");
     let addEquipmentClose = () => this.setState({ addEquipmentShow: false });
@@ -1878,7 +1866,7 @@ console.log(trip, "this is trip for checking driver")
     let addLoaderClose = () => this.setState({ enableloaderMsgWindow: false });
     let warningWindowClose = () => this.setState({ TimeErrorflg: false });
 
-    console.log(this.state.itemCode, "this is item code in trip level when we click on confirm trip")
+    
     return (
       <TabPane
         tabId="Trips"

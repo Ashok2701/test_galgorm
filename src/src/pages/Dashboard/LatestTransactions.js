@@ -51,7 +51,7 @@ class LatestTransactions extends Component {
 
    componentDidUpdate(prevProps) {
           if (prevProps.dash !== this.props.dash) {
-            console.log("Some props changed. Rendering...");
+            
           //  ApexCharts.exec('routestatus-pie')
 
               this.setState({

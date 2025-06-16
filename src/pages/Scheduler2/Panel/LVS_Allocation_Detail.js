@@ -28,7 +28,7 @@ constructor(props)
 
 
     render() {
-    //   console.log("allocation data", this.props.toAllocationDataList);
+    //   
 
            return (
               <Modal className="LvsModalscreen"

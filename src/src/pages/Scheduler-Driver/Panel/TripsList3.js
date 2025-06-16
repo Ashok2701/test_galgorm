@@ -182,7 +182,7 @@ class TripsList3 extends React.Component {
   onGroupValidateYes = () => {
 
       this.props.onValidateAll();
-      console.log("GV - Yes confirm for group Valdiation");
+      
         this.setState({
             addvalidateconfirmShow: false
         })
@@ -203,7 +203,7 @@ class TripsList3 extends React.Component {
 
          onConfirmWarningClose = ( i,tripnum) => {
            this.props.onWarningAlertOff(i, tripnum);
-           console.log("Warning alert close confirmed");
+           
              this.setState({
                  addWarningAlertShow: false
              })
@@ -211,10 +211,10 @@ class TripsList3 extends React.Component {
 
 
      onOptimiseConfirm = (trip,index, opti, lock) => {
-          console.log("T000 trip =",trip);
-            console.log("T000 index =",index);
-              console.log("T000 opti =",opti);
-                console.log("T000 lock =",lock);
+          
+            
+              
+                
             if (lock) {
 
                     this.setState({
@@ -244,14 +244,14 @@ class TripsList3 extends React.Component {
             }
 
     onOptimiseNo = () => {
-     console.log("TSSS at Trips - optimise confirm No");
+     
         this.setState({
             addoptimiseconfirmShow: false
         })
     }
 
     onOptimiseYes = (index) => {
-        console.log("TSSS at Trips - optimise confirm Yes");
+        
        var trips = this.props.tripsList;
        var clickedTrip = trips[index];
        //clickedTrip.timelineInterval = trips[index].totalObject.timelineInterval;
@@ -272,9 +272,9 @@ class TripsList3 extends React.Component {
 
      optimizeRoute = (data, SeletedI) => {
 
-           console.log("T6565 data =",data);
+           
 
-           console.log("T000 props data",data);
+           
               let siteLat;
                        let siteLang;
                         let distanceCost = 0;
@@ -326,7 +326,7 @@ class TripsList3 extends React.Component {
             lanLat = lanLat + ':' + arrSiteLat + ',' + arrSiteLang
             let url = apiurl + encodeURIComponent(lanLat) + jsonUrl;
 
-            console.log("T6565 URL after sites setting =",url);
+            
 
              return fetch(url)
                             .then(function (response) {
@@ -337,7 +337,7 @@ class TripsList3 extends React.Component {
                                     this.setState({ loader: false , setOptimizationFailedStatus : true });
                                 }
                             }).then((res) => {
-                                console.log("T6565 auto - opti result",res);
+                                
                                     if(res && res.optimizedWaypoints){
                                        optiindex.push(res.optimizedWaypoints);
                                     }
@@ -345,14 +345,14 @@ class TripsList3 extends React.Component {
                                     if(res && res.routes) {
                                     summaryData.push(res.routes);
                                 }
-                                 console.log("T6565  - opti result summary Data",summaryData);
+                                 
                                 let summaryResult = { "summarydata": [...summaryData], "serviceTime": serviceTime, "waitingTime": waitingTime }
                                 if (summaryResult && summaryResult.summarydata && summaryResult.serviceTime && summaryResult.waitingTime) {
                                     let summaryData = summaryResult.summarydata;
                                     let serviceTime = summaryResult.serviceTime;
                                     let waitingTime = summaryResult.waitingTime;
                                     let results = summaryData[0];
-                                       console.log("T6565 after process  results =",results);
+                                       
                                     if (results) {
                                         let legs = results[0].legs;
                                         if (data && legs && data.stops < results[0].legs.length) {
@@ -426,10 +426,10 @@ class TripsList3 extends React.Component {
                     let tripEndTime = [];
                      let c, d, m, v;
                     let date = new Date();
-                    console.log("T223 inside loading - vehiclepanel",this.props.vehiclePanel);
+                    
                     this.props.vehiclePanel && this.props.vehiclePanel.vehicles.length > 0 && this.props.vehiclePanel.vehicles.map((vehicle) => {
                         if (vehicle.codeyve === data.code) {
-                          console.log("T223 inside loading - vehiclepanel - matched",vehicle.codeyve);
+                          
                             if (vehicle.starttime.includes(':')) {
                                 hr = vehicle.starttime.split(':')[0];
                                 min = vehicle.starttime.split(':')[1];
@@ -437,7 +437,7 @@ class TripsList3 extends React.Component {
                                 hr = vehicle.starttime.substring(0, 2);
                                 min = vehicle.starttime.substring(2, 4);
                             }
-                           console.log("T223 inside use effct",hr+' -'+min);
+                           
                             loadingHrs = vehicle.startdepots;
                             unloadHrs = vehicle.enddepotserv;
                         }
@@ -448,17 +448,17 @@ class TripsList3 extends React.Component {
                         hr = data.startTime.split(':')[0];
                         min = data.startTime.split(':')[1];
                         loadingTime = this.loadingSecs(hr, min)
-                          console.log("T223 inside loading use effct not opti",loadingTime);
+                          
                     } else {
                         loadingTime = this.loadingSecs(hr, min, loadingHrs);
-                          console.log("T223 inside loading use effct opti",loadingTime);
+                          
                     }
 
                     //unit setting
                    this.props.sites && this.props.sites.length > 0 && this.props.sites.map((site) => {
-                              console.log("2 set sites",site);
+                              
                           if (data.depSite === site.id) {
-                             console.log("T223 inside loading site match")
+                             
 
 
                               m = site.massunit;
@@ -527,7 +527,7 @@ class TripsList3 extends React.Component {
                         this.setState({ loader: false , setOptimizationFailedStatus : true });
                     }
                 }).then((res) => {
-                    console.log("auto - opti result",res);
+                    
                         if(res && res.optimizedWaypoints){
                            optiindex.push(res.optimizedWaypoints);
                         }
@@ -535,14 +535,14 @@ class TripsList3 extends React.Component {
                         if(res && res.routes) {
                         summaryData.push(res.routes);
                     }
-                    console.log("T6565 1");
+                    
                     let summaryResult = { "summarydata": [...summaryData], "serviceTime": serviceTime, "waitingTime": waitingTime }
                     if (summaryResult && summaryResult.summarydata && summaryResult.serviceTime && summaryResult.waitingTime) {
                         let summaryData = summaryResult.summarydata;
                         let serviceTime = summaryResult.serviceTime;
                         let waitingTime = summaryResult.waitingTime;
                         let results = summaryData[0];
-                         console.log("T6565 2");
+                         
                         if (results) {
                             let legs = results[0].legs;
                             if (data && legs && data.stops < results[0].legs.length) {
@@ -552,7 +552,7 @@ class TripsList3 extends React.Component {
                                     t = t.split(" ")[0]
                                     return d + " " + t;
                                 }
-                                console.log("T6565 3");
+                                
                                 let resultsData = [];
                                 var departure = new Date();
                                 let depsetHrs , depsetMin;
@@ -564,14 +564,14 @@ class TripsList3 extends React.Component {
                                 });
                                 let currTripTimeHr = setHr;
                                 let currTripTimeMin = setMin;
-                                console.log("T6565 setHr",setHr);
-                                 console.log("T6565 setMin",setMin);
+                                
+                                 
                                  departure.setHours(Number(currTripTimeHr));
                                  departure.setMinutes(Number(currTripTimeMin));
                                 let sameTrips = [];
                                 let startTimeInSec;
                                 if (optimisedTrips.length > 0) {
-                                console.log("T6565 4");
+                                
                                     optimisedTrips.map((optiTrip) => {
                                         if (optiTrip.code === data.code && optiTrip.docdate === data.docdate) {
                                             sameTrips.push(optiTrip);
@@ -580,7 +580,7 @@ class TripsList3 extends React.Component {
                                 };
                                 let previousCheck = [];
                                 this.props.tripsList.map((tripPanel) => {
-                                console.log("T6565 5");
+                                
                                     if (tripPanel.code === data.code && tripPanel.docdate === data.docdate) {
                                         if (tripPanel.trips === data.trips - 1) {
                                             previousCheck.push(tripPanel)
@@ -589,7 +589,7 @@ class TripsList3 extends React.Component {
                                 })
                                 let optimizationStatus = false;
                                 if (previousCheck.length > 0) {
-                                console.log("T6565 6");
+                                
                                     if (previousCheck[0].optistatus === 'Optimized') {
                                         optimizationStatus = false;
                                     } else {
@@ -598,7 +598,7 @@ class TripsList3 extends React.Component {
                                 }
 
                                 if (sameTrips.length > 0) {
-                                 console.log("T6565 7");
+                                 
                                     let sameTripTime = []
                                     sameTrips.map((times, index) => {
                                         sameTripTime.push({ hr: times.endTime.split(":")[0], min: times.endTime.split(":")[1] })
@@ -632,7 +632,7 @@ class TripsList3 extends React.Component {
                                             startTimeInSec = convertMinToSec(departure.getMinutes()) + convertHrToSec(departure.getHours());
 
                                 } else {
-                                 console.log("T6565 8");
+                                 
                                     startTimeInSec = convertMinToSec(departure.getMinutes()) + convertHrToSec(departure.getHours());
                                 }
                                 startTimeInSec = formatTime(startTimeInSec);
@@ -721,11 +721,11 @@ class TripsList3 extends React.Component {
                                 let totTime = 0;
                                 let totDistance = 0;
                                 let endTime;
-                                console.log("T6565 resultsData =",resultsData);
-                                console.log("T6565 data =",data);
+                                
+                                
                                 resultsData.map((tdata, index) => {
                                     if (index === data.stops) {
-                                         console.log("T6565 data if =");
+                                         
                                         endTime = tdata.end.split(':');
                                         let endTimeHrs = endTime[0];
                                         let endTimeMins = endTime[1];
@@ -736,7 +736,7 @@ class TripsList3 extends React.Component {
                                     totTime += data.tTime;
                                     totDistance += data.tDistance;
                                 });
-                                  console.log("T6565 endTime =",endTime);
+                                  
                                 let reducer1 = (accumulator, currentValue) => Number(accumulator) + Number(currentValue);
                                 let serTime = serviceTime.reduce(reducer1);
                                 let waitTime = waitingTime.reduce(reducer1)
@@ -820,7 +820,7 @@ class TripsList3 extends React.Component {
                                     }
                                     */
                                     routesSchedule.endDate = latestEndDate;
-                                    console.log("T6565 final data routeScheduler",routesSchedule);
+                                    
                                     this.props.getValues(routesSchedule, optiindex, false , data, SeletedI);
                                 }
                             }
@@ -881,13 +881,13 @@ class TripsList3 extends React.Component {
             }
 
         } else {
-           console.log("Passed Trip =",trip);
+           
 
             if (opti === 'Optimized') {
 
                 let previousLockTripsCheck = [];
                 let tripsCollection = this.props.tripsList;
-                 console.log("Collection Trips are =",tripsCollection);
+                 
                 tripsCollection.map((t) => {
                                                if (t.code === trip.code && t.docdate === trip.docdate) {
                                                    if (t.trips === trip.trips - 1) {
@@ -898,7 +898,7 @@ class TripsList3 extends React.Component {
 
                   let LockStatus = false;
                                              if (previousLockTripsCheck.length > 0) {
-                                              console.log("prev lock trip =",previousLockTripsCheck)
+                                              
                                                  if (previousLockTripsCheck[0].lock) {
                                                      LockStatus = false;
                                                  } else {
@@ -969,7 +969,7 @@ class TripsList3 extends React.Component {
 
 
     onTriplogClick = (totobject) => {
-       console.log("T7 inside trip click",totobject);
+       
        this.setState({
            showLogs : true,
            logs :totobject
@@ -1051,11 +1051,11 @@ class TripsList3 extends React.Component {
 
     getVRdetailBtnClick(lock,i,tmsValidated) {
         if(lock){
-             console.log("Trip is locked");
+             
             this.props.onVRClick(i, tmsValidated);
         }
         else{
-            console.log("Trip is unlocked");
+            
              this.props.updateTripsGeolocationbeforelock(i);
         }
     }
@@ -1109,7 +1109,7 @@ class TripsList3 extends React.Component {
     }
 
     getStatus(trip , valid , lock , index , docStatus,validatedflg, lvsStatus) {
- console.log("TTTT lvs status =",lvsStatus);
+ 
         if(trip.optistatus == "Open") {
              return <span class='badge badge-primary text-uppercase' style={{ fontSize: 14  }}>{this.props.t('OPEN')}</span>;
         }
@@ -1123,7 +1123,7 @@ class TripsList3 extends React.Component {
                      return <span class='badge badge-dark text-uppercase' style={{ fontSize: 14  }} >{this.props.t('TO_LOAD')}</span>;
                 }
          else if(trip.optistatus == "Optimized" && lock && valid && validatedflg) {
-   console.log("TTTT lvs status =",lvsStatus);
+   
                   if(lvsStatus == 9) {
                     return <span class='badge badge-warning text-uppercase' style={{ fontSize: 14 }} >{this.props.t('LOAD_CONFIRMED')} </span>;
 
@@ -1146,8 +1146,8 @@ class TripsList3 extends React.Component {
   getTripStatus(trip,valid, lock, index,validatedflg, lvsStatus)
   {
 
-  console.log("lvs status", trip);
-    console.log("lvs status", lvsStatus);
+  
+    
      if(valid && lock && validatedflg) {
 
              if(lvsStatus == 7 || lvsStatus == 10 || lvsStatus == 5 || lvsStatus == 6) {
@@ -1297,24 +1297,24 @@ class TripsList3 extends React.Component {
 
 
     ForcedSequnce = (i,event) => {
-        console.log("inside forced",i+"-"+event);
+        
         //this.props.ForcedSequnce(i);
     }
 
     checkForceSeq = (index,check) => {
            let updatedflg;
-            console.log("inside checkForceSeq",check);
+            
             if(check){
-              console.log("inside checkForceSeq true");
+              
               updatedflg = false;
 
             }
             else {
-              console.log("inside checkForceSeq false");
+              
               updatedflg = true;
             }
            //
-             console.log("inside checkForceSeq updatedflg", updatedflg);
+             
           //  this.props.onForceseq(this.state.Seletedtripindex, updatedflg);
     }
 
@@ -1331,7 +1331,7 @@ class TripsList3 extends React.Component {
         }
 
      onSaveloaderNotes = (note) => {
-            console.log("inside onsaveloadernotes");
+            
             this.props.onloaderMsg(this.state.Seletedtripindex, note);
             this.setState({ enableloaderMsgWindow: false })
         }
@@ -1379,7 +1379,7 @@ class TripsList3 extends React.Component {
     */
 
        SearchTrips = e => {
-                          console.log("search content= ",e.target.value);
+                          
                           this.props.updateTripsSearchTerm(e);
                       }
 
@@ -1387,7 +1387,7 @@ class TripsList3 extends React.Component {
 
     render() {
 
-     console.log("T6 data in trips",this.props.tripsList);
+     
         const currDate = moment(this.props.date).format('YYMMDD');
         let addEquipmentClose = () => this.setState({ addEquipmentShow: false });
         let addTrailClose = () => this.setState({ addTrailShow: false });

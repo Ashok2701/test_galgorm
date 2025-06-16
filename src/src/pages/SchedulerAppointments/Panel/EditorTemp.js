@@ -101,7 +101,7 @@ class EditorTemp extends React.PureComponent {
               }
 
     getDocink = (tripData) => {
-        console.log("getDoclink = ",tripData);
+        
        var url = "";
                    var content;
                    if (tripData.doctype == 'PRECEIPT') {
@@ -147,7 +147,7 @@ class EditorTemp extends React.PureComponent {
        let addProductsClose = () => this.setState({ addProductShow: false });
 
      var tripData = this.props.SelectedDocData;
-     console.log("data inside edtiort = ",this.props.SelectedTripData);
+     
      const vr_url = "https://tms.tema-systems.com/syracuse-main/html/main.html?url=/trans/x3/erp/DEMOTMSFR/$sessions?f=GESXX10CPLC/2//M/" + tripData.vrcode;
 
 

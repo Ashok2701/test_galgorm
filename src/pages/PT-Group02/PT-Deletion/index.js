@@ -59,7 +59,7 @@ class PTDeletion extends Component {
 
 ChangeFdate = (data) => {
 
- console.log("data f change =",data)
+ 
     this.setState({
        selectedFDate : data
     })
@@ -73,7 +73,7 @@ ChangeLdate = (data) => {
  this.setState({
        selectedTDate : data
     })
-console.log("data l change =",data)
+
  this.callDocumentService(this.state.selectedSite, this.state.selectedFDate, data);
 }
 
@@ -87,7 +87,7 @@ console.log("data l change =",data)
 
 
     setCustomer = data => {
-       console.log("data at customer =", data)
+       
 
   if(data === null) {
               this.setState({
@@ -121,7 +121,7 @@ console.log("data l change =",data)
     }
 
       setPickTkcket = data => {
-           console.log("data at pk =", data)
+           
 
   if(data === null) {
               this.setState({
@@ -159,7 +159,7 @@ console.log("data l change =",data)
         }
 
         setProducts = data => {
-                 console.log("data at product  =", data)
+                 
       if(data === null) {
                     this.setState({
                                     selectedProd: []
@@ -197,7 +197,7 @@ console.log("data l change =",data)
               }
 
         setRouteNumber = data => {
-                       console.log("data at route  =", data)
+                       
 
         if(data === null) {
                       this.setState({
@@ -239,18 +239,18 @@ console.log("data l change =",data)
 
     OnCheckInClicked = selectedRailCar => {
 
-      console.log("onCheckInClikced",selectedRailCar);
+      
       fetch(`${apiUrl}/api/v1/rail/Checkin`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(selectedRailCar)
       }).then((response) => {
-        console.log("inside after Railcarcheckin - response",response);
+        
        this.handleErrors(response);
       }).then(function (response) {
 
       }).then(() => {
-         console.log("after success ",this.state.selectedSite);
+         
         this.ReloadData(this.state.selectedSite);
       }).then(() => {
         this.notifySucess("RailCar Checked-In Sucessfully");
@@ -275,7 +275,7 @@ console.log("data l change =",data)
 
 handleSiteChange = (data) => {
 this.setState({loader : true});
-     console.log(data);
+     
 
      this.setState({
       selectedSite : data.value,
@@ -295,14 +295,14 @@ var newDate = moment(from).format('YYYY-MM-DD');
   var newStartDate = moment(to).format('YYYY-MM-DD');
   fetchOpenDocumentPanelwithRange(passedsite, newDate, newStartDate)
                     .then(([res1]) => {
-                     console.log("resultant data =",res1)
+                     
                       var dropsP = res1;
-                      // console.log("drops panel after result",dropsP);
+                      
                      // this.filterDropsDiv(newDate, dropsP);
-                      // console.log("drops panel after filter",dropsP);
+                     
 
                       const custList = [...new Set(res1.map(item => item.bpname))]
-                      console.log("customer list",custList )
+                      
 
                       const RouteList = [...new Set(res1.map(item => item.vrcode))]
                       const PKList = [...new Set(res1.map(item => item.docnum))]
@@ -318,9 +318,9 @@ const allProductCodes = res1.reduce((acc, entry) => {
   const uniqueProductCodes = [...new Set(allProductCodes)];
 
 
-                      console.log("customer list",custList )
-                       console.log("route list",RouteList )
-                        console.log("product list",uniqueProductCodes )
+                      
+                       
+                        
                      //  const uniqueArrayCust = Array.from(custList);
 
                       this.setState({
@@ -343,7 +343,7 @@ const allProductCodes = res1.reduce((acc, entry) => {
 
 handleRadioChange = (value) => {
 
-console.log("data at index", value);
+
  this.setState({
                         selectedRadioOption : value
                         })
@@ -355,7 +355,7 @@ handleSelectAll = () => {
 
 let tempdata = this.state.docsList;
  if(this.state.selectedCustomer.length > 0) {
-   console.log("data ===", this.state.selectedCustomer)
+   
 tempdata = this.state.docsList.filter(item => this.state.selectedCustomer.includes(item.bpname));
     }
 if(this.state.selectedRouteNum.length > 0) {
@@ -365,25 +365,25 @@ if(this.state.selectedPckTicket.length > 0) {
              tempdata = tempdata.filter(item => this.state.selectedPckTicket.includes(item.docnum));
     }
 if(this.state.selectedProd.length > 0) {
-                 console.log("data ===", this.state.selectedProd)
+                 
             tempdata = tempdata.filter(item => this.state.selectedProd.includes(item.products.some(product => product.productName)));
 
             }
 
 
- console.log("data tempdata =", tempdata)
-  console.log("data opendocs =", this.state.selectedOpenDocs)
+ 
+  
 
   const allSelected = tempdata.every((item) => this.state.selectedOpenDocs.includes(item.docnum));
 
-  console.log("data allselect =", allSelected)
+  
     if (allSelected) {
           // If all are selected, unselect all
           this.setState({
                  selectedOpenDocs : [],
                  selectedOpenDocsList : [],
                  })
-            console.log(" un select All - " )
+            
         } else {
           // If not all are selected, select all
           const allIds = this.state.docsList.map((item) => item.docnum);
@@ -391,7 +391,7 @@ if(this.state.selectedProd.length > 0) {
                            selectedOpenDocs : allIds,
                            selectedOpenDocsList : tempdata,
                            })
-          console.log("All Ids are selected  - ",allIds )
+          
         }
 
 
@@ -414,26 +414,26 @@ this.setState({
 
 DocumentforDeletion = () => {
 this.setState({loader : true});
-  console.log("in side document deletion");
+  
       fetch(`${apiUrl}/api/v1/transport/OpenDocs/deleteDocs`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(this.state.selectedOpenDocsList)
       }).then((response) => {
-        console.log("inside after Railcarcheckin - response",response);
-        console.log("inside after Railcarcheckin - openddocs",this.state.selectedOpenDocs);
-        console.log("inside after Railcarcheckin - open docs length",this.state.selectedOpenDocs.length);
+        
+        
+        
 
          if(response.status === 200) {
 
              if(this.state.selectedRadioOption === 'option2')   {
                 DeleteDocument(this.state.selectedOpenDocs, this.state.selectedOpenDocs.length)
                   .then(res => {
-                                          console.log("after soap completes The result is", res);
+                                          
                                             var statuscode =  res.children[0].children[0].children[1].value;
                                                    var statusmessage = res.children[0].children[0].children[2].value;
-                                                   console.log("status code =", statuscode)
-                                                   console.log("status code type =", typeof(statuscode));
+                                                   
+                                                   
 
                                             this.notifySucess(statusmessage);
 
@@ -467,8 +467,8 @@ DocumentSelectionProcess = (doc) => {
 
 
       const isSelected = this.state.selectedOpenDocs.includes(doc.docnum);
-            console.log(" selected item  - ", doc )
-             console.log("selected item doc  - ", this.state.selectedOpenDocsList)
+            
+             
              let updatedDoclist ;
              let updatedDocTotalList ;
           if (isSelected) {
@@ -479,8 +479,8 @@ DocumentSelectionProcess = (doc) => {
            updatedDocTotalList = [...this.state.selectedOpenDocsList, doc];
           }
 
-    console.log(" selected updatedDocList  - ", updatedDocTotalList )
-                console.log("selected updateddocs   - ", updatedDoclist)
+    
+                
 
         this.setState({
         selectedOpenDocs : updatedDoclist,
@@ -498,11 +498,11 @@ DocumentSelectionProcess = (doc) => {
   render() {
 
     let DatabeforeFilter = this.state.docsList;
-     console.log("data ===", this.state.docsList)
+     
     let filterData ;
     let customerdata = this.state.selectedCustomer;
   if(this.state.selectedCustomer.length > 0) {
-   console.log("data ===", this.state.selectedCustomer)
+   
 
    filterData = DatabeforeFilter.filter(item => this.state.selectedCustomer.includes(item.bpname));
 
@@ -521,20 +521,20 @@ filterData = DatabeforeFilter.filter(item =>
 
 
       if(this.state.selectedRouteNum.length > 0) {
-       console.log("data ===", this.state.selectedRouteNum)
+       
       filterData = filterData.filter(item => this.state.selectedRouteNum.includes(item.vrcode));
 
         }
 
         if(this.state.selectedPckTicket.length > 0) {
-           console.log("data ===", this.state.selectedPckTicket)
+           
            filterData = filterData.filter(item => this.state.selectedPckTicket.includes(item.docnum));
 
             }
 
        // prod filter
        if(this.state.selectedProd.length > 0) {
-                console.log("data ===", this.state.selectedProd)
+                
            filterData = filterData.filter(item => this.state.selectedProd.includes(item.products.some(product => product.productName)));
 
            }

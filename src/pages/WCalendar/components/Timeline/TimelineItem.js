@@ -14,7 +14,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import IconButton from '@material-ui/core/IconButton';
 const TimelineItem = ({ data }) => {
-  console.log("inside timelineitem", data);
+  
   const [productList, setproductList] = React.useState();
   const [open, setOpen] = React.useState(false);
 
@@ -149,10 +149,10 @@ const TimelineItem = ({ data }) => {
   let products = "";
   const handleOpen = (product, docNum, doctype) => {
     products = product;
-    console.log("prod list", products);
+    
     products = products;
     setproductList(products);
-    console.log("prod list", productList);
+    
     setOpen(true);
     setdocnum(docNum);
     setdoctype(doctype);

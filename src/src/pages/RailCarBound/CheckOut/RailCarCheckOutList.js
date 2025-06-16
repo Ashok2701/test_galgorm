@@ -68,7 +68,7 @@ class RailCarCheckOutList extends Component {
 
   OnCheckoutClick = SelectedRailCar => {
 
-     // console.log("checkout clicked for",SelectedRailCar);
+     // 
       //this.props.OnCheckout(SelectedRailCar);
         this.setState({
                                 confirmMessage: 'Are you sure to CheckOut the selected RailCar',
@@ -91,13 +91,13 @@ class RailCarCheckOutList extends Component {
           }
 
    SearchDrops = e => {
-                      console.log("search content= ",e.target.value);
+                      
                       this.props.updateSearchTerm(e);
                   }
 
 
   render() {
-   console.log("inside CheckoutList",this.props.CheckInList);
+   
 
     let  rows =  this.props.CheckInList
     let column = this.state.columnDefs

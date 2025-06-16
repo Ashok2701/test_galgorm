@@ -63,7 +63,7 @@ export default function CustomizedSteppers(props) {
   }
 
   const ToSubmitAllocation = () => {
-    console.log("Inside allocation submit at workflow");
+    
     props.SubmitforAllocation();
     setAddToAllocationShow(false)
     setAddToAllocationClose(true)
@@ -133,7 +133,7 @@ export default function CustomizedSteppers(props) {
 
   const handleLoadToTruckIconClick = () => {
 
-    console.log("T444 inside LVS workflow - LVS");
+    
     props.confirmLVS();
 
 

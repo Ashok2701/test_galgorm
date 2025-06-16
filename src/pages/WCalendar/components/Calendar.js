@@ -10,10 +10,10 @@ const Calendar = (props) => {
 
   const onDateChange = (date) => {
     if (props.type === "maps") {
-      console.log("TYYY Date Changed at Maps");
+      
       props.onMapDateChange(date);
     } else {
-      console.log("TYYY Date Changed at Calendar");
+      
       props.onCalenderDateChage(date);
     }
     setselectedDate(date);
@@ -31,13 +31,13 @@ const Calendar = (props) => {
 
         const jsDate = new Date(year, month, day);
         setselectedDate(jsDate);
-        // console.log(jsDate, "This is js date from calendar")
-        // console.log("inside calendar", props.weekStartDate);
+        // 
+        // 
       }
     }
   }, [props]);
-  // console.log("props.weekStartDate", props.weekStartDate);
-  // console.log("props.weekStartDate object", selectedDate);
+  // 
+  // 
   return (
     <div style={{ position: "relative" }}>
       <Flatpickr

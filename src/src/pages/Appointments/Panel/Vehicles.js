@@ -90,7 +90,7 @@ class Vehicles extends React.Component {
                    field: "starttime",
                    width: 150,
                    cellRendererFramework: function (params) {
-                    console.log("at time ",params.data.starttime)
+                    
                     return  <span>splitTime(params.data.starttime)</span>;
                     },
                  },
@@ -141,7 +141,7 @@ class Vehicles extends React.Component {
 
 
     rowDragLeavefunction = (event) => {
-       console.log("4  inside rowdragging after leave",event);
+       
        this.props.handleDragStart(event, event.node.data, 'vehicle',event.node.rowIndex);
     }
 
@@ -175,12 +175,12 @@ class Vehicles extends React.Component {
                       defaultColDef : defaultColDef
                     };
        const onFilterTextChange = (e) => {
-             console.log("search value",e.target.value);
+             
             gridOptions.api.setQuickFilter(e.target.value);
           }
 
      function changeRowColor(params){
-       console.log("T21 color",params.data.color);
+       
      var myStr = params.data.color;
     var subStr = myStr.match("background-color:(.*)");
     var s = subStr[1];

@@ -104,7 +104,7 @@ class EditorTemp extends React.PureComponent {
   }
 
   getDocink = (tripData) => {
-    console.log("getDoclink = ", tripData);
+    
     var url = "";
     var content;
     if (tripData.doctype == 'PRECEIPT') {
@@ -150,7 +150,7 @@ class EditorTemp extends React.PureComponent {
     let addProductsClose = () => this.setState({ addProductShow: false });
 
     var tripData = this.props.SelectedDocData;
-    console.log("data inside edtiort = ", this.props.SelectedDocData.bpcode);
+    
     const vr_url = `${x3Url}/$sessions?f=GESXX10CPLC/2//M/` + tripData.vrcode;
 
 

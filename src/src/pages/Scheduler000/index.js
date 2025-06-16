@@ -266,7 +266,7 @@ class Dashboard extends Component {
 
 
   colourDivs = (allDrivers, dlist, allTrailers, tlist) => {
-    console.log("T22 - inside  index, change colorDivs");
+    
     this.setState({
       allAllowedDrivers: allDrivers,
       allAllowedTrailers: allTrailers,
@@ -275,7 +275,7 @@ class Dashboard extends Component {
       allowedTrailers: tlist
     });
 
-    console.log("T22 after assiging -vehicleDropped", this.state.vehicleDropped);
+    
   }
   colourDocDivs = (drpTrailer) => {
     if (drpTrailer !== null || drpTrailer !== '') {
@@ -344,8 +344,8 @@ class Dashboard extends Component {
       loading: true,
       trips: emptyTrip
     });
-    console.log("T11 inside refreshAllpanels", this.state.trips);
-    console.log("T11 inside refreshAllpanels", this.state.date);
+    
+    
   //  this.handleDateChange(this.state.date);
   }
 
@@ -382,8 +382,8 @@ class Dashboard extends Component {
 
     var user = JSON.parse(localStorage.getItem("authUser"));
     const currDate = moment(new Date()).format('YYYY-MM-DD');
-    console.log("T11 component did mount", currDate);
-    console.log("T11 component did mount", this.state.date);
+    
+    
     Promise.all([fetch('http://tmsportal.tema-systems.com:8082/api/v1/scheduler/usrsites?user=' + user.username)])
       .then(([res1]) => {
         return Promise.all([res1.json()])
@@ -405,13 +405,13 @@ class Dashboard extends Component {
   }
 
   handleSiteChange = selectedOption => {
-    console.log("site change", selectedOption);
-    console.log("date =", this.state.date);
+    
+    
     this.setCurrentSite(selectedOption);
     const currDate = moment(this.state.date).format('YYYY-MM-DD');
     var FirstDate , LastDate
     [FirstDate, LastDate] = this.startAndEndOfWeek(currDate);
-    console.log("after assign current date =", currDate);
+    
     var StartDate =  moment(FirstDate).format("YYYY-MM-DD");
                var EndDate = moment(LastDate).format("YYYY-MM-DD");
 
@@ -563,17 +563,17 @@ class Dashboard extends Component {
   handleDateRangeChange = () => {
    var satday , sunday;
    const events = this.schedulerRef;
-   console.log("insdie handleDateChagnge -",events);
+   
     const clickedDate = this.schedulerRef.current.scheduleObj.selectedDate;
    if(this.schedulerRef.current.scheduleObj.currentView === 'TimelineWeek')
    {
-     console.log("insdie handleDateChagnge selected week -");
+     
      [sunday , satday] = this.startAndEndOfWeek(clickedDate);
      var StartDate =  moment(sunday).format("YYYY-MM-DD");
      var EndDate = moment(satday).format("YYYY-MM-DD");
 
-     console.log("start date =",StartDate);
-     console.log("End date =",EndDate);
+     
+     
 
   fetchSchedulerAPI(this.state.selectedMultipleSites, StartDate,EndDate)
                .then(([res1, res2, res3]) => {
@@ -592,7 +592,7 @@ class Dashboard extends Component {
   /*
     updateTripsGeoLocations = (index , status) => {
      // var checkboxes = document.getElementsByName("tripsCheckBox");
-      console.log("inside updateTripgeo");
+      
      var checkboxes = this.state.tripsPanel;
       const currMarkers = [];
       const currGeoData = [];
@@ -609,14 +609,14 @@ class Dashboard extends Component {
       }
   
       if (status) {
-         console.log("inside updateTripgeo if",status);
+         
         this.removeTrips();
   //      checkboxes[index].checked = true;
   
         this.updateTripsPanel(currMarkers, currGeoData, index);
         this.setState({ selectedIndex: index, checkedTrip: true, RouteoptiShow:'block' })
       } else {
-       console.log("inside updateTripgeo else",status);
+       
         this.removeTrips();
         let marker = [];
         marker.push(currMarkers[0])
@@ -639,7 +639,7 @@ class Dashboard extends Component {
   updateTripsPanel = (currMarkers, currGeoData, i) => {
 
 
-    console.log("inside updateTripsPanel - 1");
+    
     var tripsPanels = this.state.tripsPanel;
     var selectedTrip = [];
     var selectedTrips = [];
@@ -652,10 +652,10 @@ class Dashboard extends Component {
     quantities = slectTrip.quantities;
     selectedTrip.push(tripsPanels[i]);
 
-    console.log("inside updateTripsPanel - 2");
+    
     for (var j = 0; j < tripsPanels[i].dropObject.length; j++) {
 
-      console.log("inside updateTripsPanel - 3");
+      
       tripsPanels[i].dropObject[j].itemCode = tripsPanels[i].itemCode;
       tripsPanels[i].dropObject[j].lock = tripsPanels[i].lock;
       currMarkers.push(tripsPanels[i].dropObject[j]);
@@ -672,7 +672,7 @@ class Dashboard extends Component {
       "#e0e0e0",
       "#e0e0e0"
     ];
-    console.log("inside updateTripsPanel - 4", selectedTrips.length);
+    
     var count = selectedTrips.length;
     for (var i = 0; i < selectedTrips.length; i++) {
 
@@ -685,7 +685,7 @@ class Dashboard extends Component {
         currGeoData.push(selectedTrips[i]);
       }
     }
-    console.log("inside index - updateTripspanel - 5");
+    
     this.setState({
       trips: selectedTrip,
       guageTrip: gTrip,
@@ -730,10 +730,10 @@ class Dashboard extends Component {
 
 
   handleDragStart = (event, valueObj, type, index, id) => {
-    console.log("3 inside handldragStart at index - event", event);
-    console.log("3 inside handldragStart at index - valueobj", valueObj);
-    console.log("3 inside handldragStart at index - type", type);
-    console.log("3 inside handldragStart at index - index", index);
+    
+    
+    
+    
 
 
 
@@ -743,8 +743,8 @@ class Dashboard extends Component {
     event.dataTransfer.setData("row-id", id);
     event.dataTransfer.setData("index", index);
 
-    console.log("3 inside handledrag - dataTranser after", event);
-    console.log("3 inside handledrag - is dragged after", event.dataTransfer);
+    
+    
 
   }
 
@@ -908,13 +908,13 @@ class Dashboard extends Component {
 
 
   disableDroppedDiv = (divTag) => {
-    console.log("T31 inside disable Drooped Div", divTag);
+    
     var temp = "[row-id=" + divTag + "]";
     //  var htmlDiv = document.getElementById(divTag);
-    console.log("T31 inside disable Drooped Div temp", temp);
+    
     var htmlDiv = document.querySelectorAll(temp);
     var { droppedDivs } = this.state;
-    console.log("T31 inside disable Drooped Div htmldiv", htmlDiv);
+    
     droppedDivs.push(temp);
     this.setState({ droppedDivs });
   }
@@ -983,7 +983,7 @@ class Dashboard extends Component {
 
 
   validate = (i) => {
-    console.log("s1 - inside validate");
+    
     var tripsPanels = this.state.tripsPanel;
     var ClickedTrip = tripsPanels[i];
     let trips = ClickedTrip;
@@ -1030,7 +1030,7 @@ class Dashboard extends Component {
 
 
   railcarStatus_Change = (code, status) => {
-    console.log("s1 - inside validate");
+    
     let StatusupdateDetail = {
       "code": code,
       "status": status
@@ -1064,7 +1064,7 @@ class Dashboard extends Component {
 
 
   validateonly = (i, pageType) => {
-    console.log("s1 - inside validate");
+    
     var tripsPanels = this.state.tripsPanel;
     var ClickedTrip = tripsPanels[i];
     let trips = ClickedTrip;
@@ -1118,7 +1118,7 @@ class Dashboard extends Component {
   }
 
   updateTripsGeolocationbeforelock = (index) => {
-    console.log("inside updateTRipGeolocations")
+    
     const currMarkers_bl = [];
     const currGeoData_bl = [];
     if (typeof (this.state.selectedSite) === "string") {
@@ -1140,7 +1140,7 @@ class Dashboard extends Component {
 
 
   updateTripsGeoLocations = (index) => {
-    console.log("inside updateTripGeolocations", index);
+    
     var checkboxes = document.getElementsByName("tripsCheckBox1");
     const currMarkers = [];
     const currGeoData = [];
@@ -1155,9 +1155,9 @@ class Dashboard extends Component {
     } else if (this.state.selectedSite.lat != undefined) {
       currMarkers.push(this.state.selectedSite);
     }
-    console.log("inside updateTripsGelLocations - ", checkboxes[index].checked);
-    console.log("inside updateTripsGelLocations - ", checkboxes[index].checked);
-    console.log("inside updateTripsGelLocations - ", checkboxes[index].checked);
+    
+    
+    
 
 
     if (checkboxes[index].checked) {
@@ -1205,10 +1205,10 @@ class Dashboard extends Component {
   }
 
   updateTripsPanel_beforeLocking(currMarkers_bl, i) {
-    console.log("beforelocking=", this.state.tripsPanel);
+    
     var tripsPanels = this.state.tripsPanel;
     var tripsList_bl = tripsPanels[i];
-    //  console.log("beforelocking=",tripsPanels[i].totalObject);
+    //  
     var slectTrip_bl = tripsPanels[i].totalObject;
     var selectedTrip_bl = slectTrip_bl.selectedTripData;
     for (var j = 0; j < tripsPanels[i].dropObject.length; j++) {
@@ -1456,14 +1456,14 @@ class Dashboard extends Component {
     var tripsList_loader = tripsPanels[tripindex];
     tripsList_loader.loaderInfo = msg;
 
-    console.log("loader msg - trip", tripsList_loader);
+    
     this.confirmTrip(tripsList_loader, "loaderMsg");
 
   }
 
   onForcesequnceCheck = (tripindex, msg) => {
 
-    console.log("foced check msg - trip", msg);
+    
     var tripsPanels = this.state.tripsPanel;
     var trips = []
     var tripsList_force = tripsPanels[tripindex];
@@ -1511,7 +1511,7 @@ class Dashboard extends Component {
 
       if (TripData.docnum && TripData.docnum === docNum) {
         if (Msgtype === 'doc') {
-          console.log("inside doc type at app", Msgtype);
+          
           TripData.noteMessage = msg
         }
         else if (Msgtype === 'carrier') {
@@ -1539,7 +1539,7 @@ class Dashboard extends Component {
 
 
   lockTrip = (trips, index) => {
-    console.log("inside final lock tripp");
+    
     var tripsPanel = this.state.tripsPanel;
     tripsPanel[index].lock = true;
     fetch('http://tmsportal.tema-systems.com:8082/api/v1/rail/lock/trips', {
@@ -1562,10 +1562,10 @@ class Dashboard extends Component {
 
     var checkboxes = document.getElementsByName("railcarCheckBox");
 
-    console.log("inside railcarChecked - ", checkboxes[i].checked);
+    
     if (checkboxes[i].checked) {
 
-      console.log("Inside railCar Checked at index");
+      
       var carlist = this.state.railcarCheckInList;
 
       var CheckedRailcar = carlist[i];
@@ -1727,7 +1727,7 @@ class Dashboard extends Component {
 
 
     submit = () => {
-        console.log(this.schedulerRef);
+        
         const events = this.schedulerRef.current.scheduleObj.getCurrentViewEvents();
         var dlvyevents = [];
         var tripevents = [];
@@ -1840,7 +1840,7 @@ class Dashboard extends Component {
           });
         });
         Trips = processedData;
-        console.log(Trips);
+        
 
         this.ConfirmTrips(Trips);
       };
@@ -1854,12 +1854,12 @@ class Dashboard extends Component {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(trips)
       }).then((response) => {
-        console.log("inside after trip - response",response);
+        
         this.handleErrors(response);
       }).then(function (response) {
 
       }).then(() => {
-         console.log("inside submit Trips",this.state.date);
+         
        // this.handleDateRangeChange();
       }).then(() => {
         this.setState({ loading: false, checkedTrip: false, isDetail:false });

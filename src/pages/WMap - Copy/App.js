@@ -59,7 +59,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    console.log("inside componentDidmount");
+    
     let date = moment(new Date()).format('YYYY-MM-DD');
     Promise.all([
       fetch('/api/v1/report/sites'),
@@ -80,10 +80,10 @@ class App extends React.Component {
           sites: sites,
           tripList: tripListData
         });
-          console.log("inside componentDidmount after success call");
+          
            this.OnSiteSelection(this.state.selectedSite);
       })
-      console.log("inside componentDidmount before onsitechagne");
+      
      // this.OnSiteSelection(this.state.selectedSite);
   }
   onEyeIconClick = (type, status, itemcode, index) => {
@@ -106,9 +106,9 @@ class App extends React.Component {
 
   setCurrentSite = selectedOption => {
     var currSelected = {};
-    console.log("1 set currentsite",selectedOption);
+    
     this.state.sites && this.state.sites.map((site) => {
-    console.log("1 set sites",site);
+    
       if (selectedOption[0] === site.id) {
         currSelected = site;
         currSelected.city = site.value;
@@ -128,10 +128,10 @@ class App extends React.Component {
 
 
   onDaysChanged = (days) => {
-   console.log("T1 inside onDaysChanged",days);
+   
   var currDate = moment(this.state.calenderMapDate, 'YYYY-MM-DD').add(days,'days');
   var newDate = moment(currDate).format('YYYY-MM-DD');
-  console.log("T1 inside onDaysChanged", newDate);
+  
    this.onMapDateChange(newDate);
   }
 
@@ -174,16 +174,16 @@ class App extends React.Component {
 
 
   onMapDateChange = (seldate , camefrom) => {
-    console.log("T1 inside MApChanged", seldate);
+    
      this.setState({ calenderMapDate: seldate })
     seldate = moment(new Date(seldate)).format('YYYY-MM-DD')
-    console.log("T1 inside MApChanged site arraylist", this.state.selectedSitesArr);
+    
     if(this.state.selectedSitesArr.length > 0 && camefrom !== 'uncheck'){
-       console.log("T1 inside MApChanged site arraylist if", this.state.selectedSitesArr);
+       
        this.onMapDateAndSiteChange(seldate, this.state.selectedSitesArr)
     }
     else {
-      console.log("T1 inside MApChanged site arraylist else", this.state.selectedSitesArr);
+      
     Promise.all([fetch(`/api/v1/report/tripslist?date=${seldate}`)])
       .then(([trips]) => {
         return Promise.all([trips.json()])
@@ -205,7 +205,7 @@ class App extends React.Component {
   }
 
   OnSiteSelection = (selSite) => {
-  console.log("inside onSiteSelection - selSite",selSite);
+  
     this.setState({ selectedSite: selSite })
     let startDate = moment(this.state.weekStartDate).format('YYYY-MM-DD');
     let endDate = moment(this.state.weekEndDate).format('YYYY-MM-DD');
@@ -225,20 +225,20 @@ class App extends React.Component {
   }
 
   OnVehicleSelection = (selVehicle) => {
-    console.log("selected selVehicle", selVehicle)
+    
   }
 
     handleSiteChange = selectedOption => {
       if(selectedOption.length > 0) {
         var currdate =  moment(this.state.calenderMapDate).format('YYYY-MM-DD');
         this.onMapDateAndSiteChange(currdate,selectedOption);
-              console.log("inside handleSite Change selected sites are ", selectedOption);
+              
 
       }
       else{
         var currdate =  moment(this.state.calenderMapDate).format('YYYY-MM-DD');
         this.onMapDateChange(currdate , 'uncheck');
-       console.log("inside handleSite no sites exist ", selectedOption);
+       
       }
 
       }
@@ -264,7 +264,7 @@ class App extends React.Component {
   }
 
   render() {
-        console.log("inside App component");
+        
     const { classes } = this.props;
     return (
       <div className={classes.root}>

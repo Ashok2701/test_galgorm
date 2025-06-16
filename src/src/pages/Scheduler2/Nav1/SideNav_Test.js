@@ -46,7 +46,7 @@ class SideNav_Test extends React.Component {
   }
 
   setSelectedSites = (val) => {
-    console.log("Thhh setSelectedSites", val);
+    
     this.props.handleSiteChange(val);
   };
 
@@ -59,7 +59,7 @@ class SideNav_Test extends React.Component {
   };
 
   selectedSitesArr = (val) => {
-    console.log("Thhh selectedSitesArr", val);
+    
     this.props.sitesArr(val);
   };
 
@@ -79,9 +79,9 @@ class SideNav_Test extends React.Component {
   };
 
   onDateselection = (date) => {
-    console.log("T11 inside dateselection", date);
+    
     const Seldate = moment(date[0]).format("YYYY-MM-DD");
-    console.log("T11 inside dateselection", Seldate);
+    
     this.props.handleDateChange(Seldate);
   };
 
@@ -101,7 +101,7 @@ class SideNav_Test extends React.Component {
   };
 
   OnSameVehcheckBoxChange = () => {
-    console.log("T222 docpanel - to plan change");
+    
     this.setState({ sameVehicles: !this.state.sameVehicles });
     this.props.OncheckedSameVehicles(!this.state.sameVehicles);
   };
@@ -131,14 +131,14 @@ class SideNav_Test extends React.Component {
 
   onGroupValidateYes = () => {
     this.props.onValidateAll();
-    console.log("GV - Yes confirm for group Valdiation");
+    
     this.setState({
       addvalidateconfirmShow: false,
     });
   };
 
   handleDocProcessChange = (event) => {
-    console.log("Changed Value =", event.target.value);
+    
     this.props.onDocProcessChange(event.target.value);
     this.setState({
       documents: event.target.value,
@@ -146,8 +146,8 @@ class SideNav_Test extends React.Component {
   };
 
   render() {
-    console.log("props of RouteCode", this.props.routecodes);
-    console.log("props of Vehicle code", this.props.vehicles);
+    
+    
     let Selection_win_Close = () => this.setState({ ShowSelectionList: false });
 
     let optionItems = [];

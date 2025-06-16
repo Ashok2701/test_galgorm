@@ -182,7 +182,7 @@ class RouteMap extends React.Component {
             var markerArray;
 
             markerArray = this.props.markers;
-            console.log("inside update place markersArray",markerArray);
+            
             if (this.props.selectedTrips && this.props.selectedTrips[0]) {
                 if (this.props.selectedTrips[0].depSite) {
                     let depatureSite = {};
@@ -225,7 +225,7 @@ class RouteMap extends React.Component {
             this.customControl(centerControlDiv, map);
             map.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(centerControlDiv);
             markerArray.map((place) => {
-               console.log("inside update place",place);
+               
                 var marker = null;
                 if (place.id !== undefined) {
                     DepartureSite = place.id;
@@ -344,9 +344,9 @@ class RouteMap extends React.Component {
     }
 
     onConfirmClick = (index, docnum, vehicleCode) => {
-       console.log("T222 inside RouteMAp after onConfirmClick clicked- index",index);
-       console.log("T222 inside RouteMAp after onConfirmClick clicked- docnum",docnum);
-       console.log("T222 inside RouteMAp after onConfirmClick clicked- vehicleCode",vehicleCode);
+       
+       
+       
         this.setState({
             addConfirmShow: true,
             confirmMessage: 'Are you sure you want to Delete?',
@@ -357,8 +357,8 @@ class RouteMap extends React.Component {
     }
 
         displayRouteTag = (drop , lang) => {
-                  console.log("T888 language =",lang);
-                  console.log("T888 drop =",drop);
+                  
+                  
              var myStr = drop.routeColor;
                          var subStr = myStr.match("background-color:(.*)");
                          var s = subStr[1];
@@ -382,13 +382,13 @@ class RouteMap extends React.Component {
                 }
 
 displayDeliverableStatus = (docnum) => {
-    console.log("inside RouteMap - dropspanel",this.props.currDropsPanel);
+    
     var matched = false;
     var status = '';
     this.props.currDropsPanel.drops.length >0 && this.props.currDropsPanel.drops.map((drop)=> {
-         console.log("inside RouteMap - 3- drop",drop);
-          console.log("inside RouteMap - 3- docnum",docnum);
-           console.log("inside RouteMap - 3- status",status);
+         
+          
+           
          if(drop.docnum === docnum) {
               matched = true;
               if(drop.dlvflg === '1') {
@@ -402,7 +402,7 @@ displayDeliverableStatus = (docnum) => {
               }
       }
     });
-  console.log("inside RouteMap - 3- final status",status);
+  
 
     return (<h5>
      <td width="3%" ><span class='badge badge-success text-uppercase'>{status}</span></td>
@@ -520,13 +520,13 @@ displayDeliverableStatus = (docnum) => {
 
     onConfirmYes = (index, docnum) => {
         let type;
-          console.log("T222 inside confirm yes");
+          
         if (this.state.confirmMessage.includes("Delete")) {
             type = "Delete";
-             console.log("T222 inside confirm Yes - if")
+             
             this.props.onTripDelete(index, docnum, type, this.state.vehicleCode);
         } else {
-         console.log("T222 inside confirm Yes - else")
+         
             this.props.onTripDelete(index, docnum);
         }
 
@@ -556,13 +556,13 @@ displayDeliverableStatus = (docnum) => {
     }
 
     onSaveNotes = (note) => {
-        console.log("inside onsavenotes");
+        
         this.props.onDocMsg(this.state.selectedDocNumber, note,'doc');
         this.setState({ enableDocumnetMsgWindow: false })
     }
 
 onSaveCarrierNotes = (note , type) => {
-         console.log("inside onsaveCarrierNotes");
+         
 
       if(type === 'carrier') {
         this.props.onDocMsg(this.state.selectedDocNumber, note,'carrier');
@@ -581,9 +581,9 @@ onSaveCarrierNotes = (note , type) => {
     };
 
     render() {
-       console.log("inside RouteMap-  geodata",this.props.geoData);
-        console.log("inside RouteMap - dropspanel",this.props.currDropsPanel);
-        console.log("inside RouteMap - mapchanged",this.props.mapChanged);
+       
+        
+        
         let addProductsClose = () => this.setState({ addProductShow: false });
          let lang = localStorage.getItem("i18nextLng");
         let Productlist_win_Close = () => this.setState({ ShowDetailList: false });

@@ -70,20 +70,20 @@ class Drops3 extends React.Component {
 
 
    getBgcolor(type, docnum, doctype) {
-            console.log("T1 inside bgcolor drop",this.props.trailerDropped +" ,"+type+" ,"+docnum+", "+doctype);
+            
            if (this.props.trailerDropped && type !==  '' && doctype === 'open' ) {
-               console.log("T1 drop if",this.props.trailerDropped);
+               
                if (this.props.droppedTrailers && !this.props.droppedTrailers.includes(type)) {
-                      console.log("T1 inside if trailer doesn't exist drop");
+                      
                      return '';
                }
                else {
-                  console.log("T1 inside if else - Trailer matched drop");
+                  
                   return '#feff99';
                }
         }
         else {
-          console.log("T1 drop no match else");
+          
           return '';
         }
    }
@@ -115,8 +115,8 @@ class Drops3 extends React.Component {
     }
 
     dragStyle = (type, x, docnum) => {
-       console.log("T00 inside dragstyle",type+"-"+x+"-"+docnum)
-       console.log("T00 inside dragstyle- props",this.props.selectedDocuments)
+       
+       
         if ((type === 'open' && (x == '0' || x == '8' )) && !this.props.selectedDocuments.includes(docnum)) {
             return ("custom-enable");
         }
@@ -135,12 +135,12 @@ class Drops3 extends React.Component {
     //add carrier color
     displayCarrierColor = (carrier, color) =>
     {
-      console.log("3 insdie carrier color");
+      
        const carriername = carrier;
        var myStr = color;
        var subStr = myStr.match("background-color:(.*)");
        var s = subStr[1];
-       console.log("3 insdie carrier colored",s);
+       
        return (
 
                 <td> <span style={{ "backgroundColor": s }} >{carriername}</span></td>
@@ -150,12 +150,12 @@ class Drops3 extends React.Component {
  //add Rotuecode color
     displayRouteCodeColor = (routeCodeDesc, color) =>
     {
-      console.log("3 insdie carrier color");
+      
        const RoutcodeDesc = routeCodeDesc;
        var myStr = color;
        var subStr = myStr.match("background-color:(.*)");
        var s = subStr[1];
-       console.log("3 insdie carrier colored",s);
+       
        return (
 
                 <td> <h6> <span style={{ "backgroundColor": s }} >{RoutcodeDesc}</span> </h6></td>
@@ -169,9 +169,9 @@ class Drops3 extends React.Component {
     displayDropStatus = (vStatus, x, docnum) => {
        const dropStatus = vStatus
         const dlvyStatus = x
-           console.log("doc3 selected documents",this.props.selectedDocuments);
-                console.log("doc3 selected documents",dropStatus);
-                console.log("doc3 selected documents",dlvyStatus);
+           
+                
+                
        if (dropStatus == 'open'&& ((dlvyStatus == '0' || dlvyStatus == '8') && !this.props.selectedDocuments.includes(docnum))) {
             return (
                 <h6>
@@ -287,8 +287,8 @@ class Drops3 extends React.Component {
 
 
      displayRouteTag = (drop , lang) => {
-       console.log("T888 language =",lang);
-       console.log("T888 drop =",drop);
+       
+       
   var myStr = drop.routeColor;
               var subStr = myStr.match("background-color:(.*)");
               var s = subStr[1];
@@ -362,7 +362,7 @@ class Drops3 extends React.Component {
 
 
        SearchDrops = e => {
-                      console.log("search content= ",e.target.value);
+                      
                       this.props.updateDropSearchTerm(e);
                   }
 
@@ -373,7 +373,7 @@ class Drops3 extends React.Component {
         let addInfoIconClose = () => this.setState({ addInfoShow: false });
         let dropList = this.props.dropsList;
         let selectedDate = this.props.currDate;
-        console.log("Drop list",dropList)
+        
 
 
         return (

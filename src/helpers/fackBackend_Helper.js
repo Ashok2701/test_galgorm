@@ -63,8 +63,8 @@ const postRegister = (url, data) => {
 
 // Login Method
 const postLogin = (url, data) => {
-   console.log("T1 data inside postlogin- url",url);
-   console.log("T1 data inside postlogin- data",data);
+//    console.log("T1 data inside postlogin- url",url);
+//    console.log("T1 data inside postlogin- data",data);
 
 
  const requestOptions = {
@@ -78,7 +78,7 @@ const postLogin = (url, data) => {
                           // store user details and jwt token in local storage to keep user logged in between page refreshes
 
                       localStorage.setItem('user', JSON.stringify(response));
-                      console.log("T1 userdetails ",response);
+                    //   console.log("T1 userdetails ",response);
                       return response;
                     }).catch(error => {
                         this.setState({ errorFlag: true });

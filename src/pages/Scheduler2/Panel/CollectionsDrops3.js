@@ -552,7 +552,7 @@ class Drops3 extends React.Component {
   // based on creation date we are displaying color code
 
   // getColor = (doc) => {
-  //   console.log(doc, "this is doccc, in getcolor")
+  //   
   //   const today = new Date();
   //   const createdDate = new Date(doc.docdate);
   //   const differenceInDays = Math.floor((today - createdDate) / (1000 * 3600 * 24));
@@ -630,9 +630,9 @@ class Drops3 extends React.Component {
     let dropList = this.props.dropsList;
     let selectedDate = this.props.currDate;
 
-    // console.log("products show state inside render", this.props.selectedDocs);
+    // 
 
-    console.log(dropList, "this is droplist checking");
+    
 
     let filteredExternalDrops = dropList?.filter((doc)=>doc.carrier=="COLLECTIONS")
 

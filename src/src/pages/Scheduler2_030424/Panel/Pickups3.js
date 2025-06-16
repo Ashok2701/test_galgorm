@@ -44,35 +44,35 @@ class Pickups3 extends React.Component {
     }
 
      getBgcolor(type, docnum, doctype) {
-                console.log("T1 inside bgcolor drop",this.props.trailerDropped +" ,"+type+" ,"+docnum);
+                
                if (this.props.trailerDropped && type !==  '' && doctype === 'open') {
-                   console.log("T1 drop if",this.props.trailerDropped);
+                   
                    if (this.props.droppedTrailers && !this.props.droppedTrailers.includes(type)) {
-                          console.log("T1 inside if trailer doesn't exist drop");
+                          
                          return '';
                    }
                    else {
-                      console.log("T1 inside if else - Trailer matched drop");
+                      
                       return '#feff99';
                    }
             }
             else {
-              console.log("T1 drop no match else");
+              
               return '';
             }
        }
 
 
     defaultColor(checked,dropdate , seldate){
-        console.log("at drops-drop date",dropdate);
-        console.log("at drops-sel date",seldate);
-        console.log("at drops-checked",checked);
+        
+        
+        
 
         var DAte1 = moment.tz(dropdate, '').format('YYYY-MM-DD');
         var SelectedDAte = moment.tz(seldate, '').format('YYYY-MM-DD');
 
- console.log("at drops-drop date",DAte1);
-        console.log("at drops-sel date",SelectedDAte);
+ 
+        
 
         var Dropd = new Date(DAte1);
         var Seld = new Date(SelectedDAte);
@@ -215,12 +215,12 @@ class Pickups3 extends React.Component {
 
       displayCarrierColor = (carrier, color) =>
         {
-          console.log("3 insdie carrier color");
+          
            const carriername = carrier;
            var myStr = color;
            var subStr = myStr.match("background-color:(.*)");
            var s = subStr[1];
-           console.log("3 insdie carrier colored",s);
+           
            return (
 
                     <td> <span style={{ "backgroundColor": s }} >{carriername}</span></td>
@@ -289,7 +289,7 @@ class Pickups3 extends React.Component {
 
 
        SearchPickups = e => {
-                      console.log("search content= ",e.target.value);
+                      
                       this.props.updatePickupSearchTerm(e);
                   }
 

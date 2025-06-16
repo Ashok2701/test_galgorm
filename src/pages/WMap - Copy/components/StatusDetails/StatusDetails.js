@@ -57,7 +57,7 @@ export default function StatusDetails(props) {
     const theme = useTheme();
     let dates = [];
     var from = new Date(props.weekStartDate);
-    console.log("weekStartDate==>",props.weekStartDate)
+    
     var to = new Date(props.weekEndDate);
     for (var day = from; day <= to; day.setDate(day.getDate() + 1)) {
         dates.push(new Date(day))

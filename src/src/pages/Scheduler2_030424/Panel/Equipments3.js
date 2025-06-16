@@ -37,7 +37,7 @@ class Equipments3 extends React.Component {
 
 
        SearchEquipment = e => {
-                  console.log("search content= ",e.target.value);
+                  
                   this.props.updateEquSearchTerm(e);
               }
 

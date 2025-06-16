@@ -58,17 +58,17 @@ export default function StatusDetails(props) {
     const theme = useTheme();
     let dates = [];
     var from = new Date(props.weekStartDate);
-    console.log("weekStartDate==>",props.weekStartDate)
-    console.log("weekStartDate==> from",from)
+    
+    
     var to = new Date(props.weekEndDate);
-    console.log("weekStartDate==>end",props.weekEndDate)
-        console.log("weekStartDate==>to ",to)
+    
+        
     for (var day = from; day < to; day.setDate(day.getDate() + 1)) {
-          console.log("weekStartDate==>day ",day)
+          
         dates.push(new Date(day))
     }
     let vehicleList = [...new Set(props.tripDetails.map(item => item.code))];
-        console.log("weekStartDate==>dates ",dates)
+        
     return (
         <div>
 

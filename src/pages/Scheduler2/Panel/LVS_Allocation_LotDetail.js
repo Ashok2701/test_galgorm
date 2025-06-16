@@ -28,7 +28,7 @@ constructor(props)
 
 
     render() {
-               console.log("To Pick data  =", this.props.toLogDataList)
+               
            return (
               <Modal className="LvsModalscreen"
                      {...this.props}

@@ -170,9 +170,9 @@ class RouteMap extends React.Component {
 
 
     onConfirmClick = (index, docnum, vehicleCode) => {
-       console.log("T222 inside RouteMAp after onConfirmClick clicked- index",index);
-       console.log("T222 inside RouteMAp after onConfirmClick clicked- docnum",docnum);
-       console.log("T222 inside RouteMAp after onConfirmClick clicked- vehicleCode",vehicleCode);
+       
+       
+       
         this.setState({
             addConfirmShow: true,
             confirmMessage: 'Are you sure you want to Delete?',
@@ -277,13 +277,13 @@ class RouteMap extends React.Component {
 
     onConfirmYes = (index, docnum) => {
         let type;
-          console.log("T222 inside confirm yes");
+          
         if (this.state.confirmMessage.includes("Delete")) {
             type = "Delete";
-             console.log("T222 inside confirm Yes - if")
+             
             this.props.onTripDelete(index, docnum, type, this.state.vehicleCode);
         } else {
-         console.log("T222 inside confirm Yes - else")
+         
             this.props.onTripDelete(index, docnum);
         }
 
@@ -313,13 +313,13 @@ class RouteMap extends React.Component {
     }
 
     onSaveNotes = (note) => {
-        console.log("inside onsavenotes");
+        
         this.props.onDocMsg(this.state.selectedDocNumber, note,'doc');
         this.setState({ enableDocumnetMsgWindow: false })
     }
 
 onSaveCarrierNotes = (note , type) => {
-         console.log("inside onsaveCarrierNotes");
+         
 
       if(type === 'carrier') {
         this.props.onDocMsg(this.state.selectedDocNumber, note,'carrier');
@@ -338,7 +338,7 @@ onSaveCarrierNotes = (note , type) => {
     };
 
     render() {
-       console.log("inside addupdateTrip",this.props.geoData);
+       
         let addProductsClose = () => this.setState({ addProductShow: false });
         let Productlist_win_Close = () => this.setState({ ShowDetailList: false });
         let addNotesClose = () => this.setState({ enableDocumnetMsgWindow: false });

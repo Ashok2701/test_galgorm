@@ -52,18 +52,18 @@ class RailCarCheckIn extends Component {
 
     OnCheckInClicked = selectedRailCar => {
 
-      console.log("onCheckInClikced",selectedRailCar);
+      
       fetch('http://tmsportal.tema-systems.com:8082/api/v1/rail/Checkin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(selectedRailCar)
       }).then((response) => {
-        console.log("inside after Railcarcheckin - response",response);
+        
        this.handleErrors(response);
       }).then(function (response) {
 
       }).then(() => {
-         console.log("after success ",this.state.selectedSite);
+         
         this.ReloadData(this.state.selectedSite);
       }).then(() => {
         this.notifySucess("RailCar Checked-In Sucessfully");
@@ -84,7 +84,7 @@ class RailCarCheckIn extends Component {
 
 
     ReloadData =selectedOption => {
-     console.log("after success ",selectedOption);
+     
     fetchRailCarAPI(selectedOption)
              .then(([res1, res2, res3]) => {
                this.setState({
@@ -103,8 +103,8 @@ class RailCarCheckIn extends Component {
 
 
   handleSiteChange = selectedOption => {
-        console.log("site change",selectedOption);
-        console.log("date =",this.state.date);
+        
+        
         this.setCurrentSite(selectedOption);
        fetchRailCarAPI(selectedOption)
          .then(([res1, res2, res3]) => {

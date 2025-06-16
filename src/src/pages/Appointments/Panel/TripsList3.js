@@ -85,7 +85,7 @@ class TripsList3 extends React.Component {
 
 
     daysforTripsCheckbox = () => {
-           console.log("T222 trippanel - dayscheckbox change", );
+           
            this.setState({ daysforTrips: !this.props.daysforTripsCheckedIn });
            this.props.checked30daystrips(!this.props.daysforTripsCheckedIn)
 
@@ -94,7 +94,7 @@ class TripsList3 extends React.Component {
 
      alltripsCheckbox = () => {
 
-        console.log("T222 trippanel - dayscheckbox change", );
+        
                 this.setState({ allTrips: !this.props.allTripsCheckedIn });
                 this.props.checkedalltrips(!this.props.allTripsCheckedIn)
      }
@@ -139,7 +139,7 @@ class TripsList3 extends React.Component {
   onGroupValidateYes = () => {
 
       this.props.onValidateAll();
-      console.log("GV - Yes confirm for group Valdiation");
+      
         this.setState({
             addvalidateconfirmShow: false
         })
@@ -224,7 +224,7 @@ class TripsList3 extends React.Component {
 
 
     onTriplogClick = (totobject) => {
-       console.log("T7 inside trip click",totobject);
+       
        this.setState({
            showLogs : true,
            logs :totobject
@@ -275,11 +275,11 @@ class TripsList3 extends React.Component {
 
     getVRdetailBtnClick(lock,i,tmsValidated) {
         if(lock){
-             console.log("Trip is locked");
+             
             this.props.onVRClick(i, tmsValidated);
         }
         else{
-            console.log("Trip is unlocked");
+            
              this.props.updateTripsGeolocationbeforelock(i);
         }
     }
@@ -410,24 +410,24 @@ class TripsList3 extends React.Component {
 
 
     ForcedSequnce = (i,event) => {
-        console.log("inside forced",i+"-"+event);
+        
         //this.props.ForcedSequnce(i);
     }
 
     checkForceSeq = (index,check) => {
            let updatedflg;
-            console.log("inside checkForceSeq",check);
+            
             if(check){
-              console.log("inside checkForceSeq true");
+              
               updatedflg = false;
 
             }
             else {
-              console.log("inside checkForceSeq false");
+              
               updatedflg = true;
             }
            //
-             console.log("inside checkForceSeq updatedflg", updatedflg);
+             
           //  this.props.onForceseq(this.state.Seletedtripindex, updatedflg);
     }
 
@@ -444,7 +444,7 @@ class TripsList3 extends React.Component {
         }
 
      onSaveloaderNotes = (note) => {
-            console.log("inside onsaveloadernotes");
+            
             this.props.onloaderMsg(this.state.Seletedtripindex, note);
             this.setState({ enableloaderMsgWindow: false })
         }
@@ -493,12 +493,12 @@ class TripsList3 extends React.Component {
 
 
     OnCheckBoxClicked = (index, Itemcode) => {
-         console.log("TT filtered trip index",index);
-       console.log("TT filtered trips",Itemcode);
-       console.log("TT Total tripspanel =", this.props.tripsList);
+         
+       
+       
 
        for(let i= 0;i<this.props.tripsList.length;i++) {
-            console.log("inside checkbox =",i)
+            
             if(this.props.tripsList[i].itemCode === Itemcode) {
               this.props.updateTripsGeoLocations(i,index);
                 break;
@@ -512,7 +512,7 @@ class TripsList3 extends React.Component {
 
     render() {
 /*
-     console.log("T6 data in trips",this.props.tripsList);
+     
       let filteringTrips
      if(this.props.allTripsCheckedIn) {
            filteringTrips = this.props.tripsList

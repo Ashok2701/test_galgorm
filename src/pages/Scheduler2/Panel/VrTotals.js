@@ -90,7 +90,7 @@
 //       ) {
 //         selectedDocs = trip.totalObject.selectedTripData;
 //       }
-//       console.log("T5555 weight & vol ", selectedDocs);
+//       
 //       for (i = 0; i < selectedDocs.length; i++) {
 //         var dropwei = 0.0,
 //           pickupwei = 0.0,
@@ -108,8 +108,8 @@
 //         tdropvol = tdropvol + dropvol;
 //         tpickupvol = tpickupvol + pickupvol;
 
-//         console.log("data 1 = ", selectedDocs[i]);
-//         console.log("data 2 = ", dropvol);
+//         
+//         
 //       }
 //     }
 
@@ -125,7 +125,7 @@
 //     var overtimecost = Math.round(trip.overtimeCost * 100) / 100;
 //     // (Math.round(num * 100) / 100).toFixed(2);
 
-//     console.log(trip,"vrTotals")
+//     
 //     return (
 //       <Card>
 //         <CardBody>
@@ -615,12 +615,12 @@ class VrTotals extends React.Component {
   }
 
   toggleTab(tab) {
-    console.log("Clicked tab:", tab); // Check if the correct tab is clicked
+    
     if (this.state.activeTab !== tab) {
       this.setState({
         activeTab: tab,
       });
-      console.log("Active tab:", this.state.activeTab); // Check if the activeTab state is updated correctly
+      
     }
   }
 
@@ -629,8 +629,8 @@ class VrTotals extends React.Component {
     let c, d, m, v;
     var wu, vu;
     var lang = localStorage.getItem("lng");
-    // console.log(this.props.t("TotDistance"),"total distance");
-    // console.log("actual distance testing",this.props.t("ActualDistance"))
+    // 
+    // 
     /*   if (lang == "en") {
             currency = "USD";
             distunts = 'Miles';
@@ -653,7 +653,7 @@ class VrTotals extends React.Component {
     var VrObject = this.props.vrdata;
     var DetailObject = this.props.vedetail;
 
-    console.log(DetailObject, "this is detail object inside tripp");
+    
     var trip = this.props.tripdetails;
     var VehicleCapacity = parseFloat(VrObject.capacities);
     var VehicleVolume = parseFloat(VrObject.volume);
@@ -679,27 +679,18 @@ class VrTotals extends React.Component {
           pickupwei = 0,
           dropvol = 0,
           pickupvol = 0;
-        console.log(
-          DetailObject,
-          "this is detail object checking after trip is locked"
-        );
-        // console.log(DetailObject[i].xdoctyp == 2 || DetailObject[i].xdoctyp == 4, "")
+    
+        // 
         if (DetailObject[i].xdoctyp == 2 || DetailObject[i].xdoctyp == 4) {
         
           dropwei = parseFloat(DetailObject[i].growei);
           dropvol = parseFloat(DetailObject[i].vol);
-          console.log(
-            DetailObject[i].growei,
-            "this is trip lock loop for weight check for sales return doc if"
-          );
+        
           
         } else {
           pickupwei = parseFloat(DetailObject[i].growei);
           pickupvol = parseFloat(DetailObject[i].vol);
-          console.log(
-            DetailObject[i].growei,
-            "this is trip lock loop for weight check for sales return doc else"
-          );
+        
         }
         tdropwei = tdropwei + dropwei;
         tpickupwei = tpickupwei + pickupwei;
@@ -716,7 +707,7 @@ class VrTotals extends React.Component {
       ) {
         selectedDocs = trip.totalObject.selectedTripData;
       }
-      //   console.log("T5555 weight & vol ", selectedDocs);
+      //   
       for (i = 0; i < selectedDocs.length; i++) {
         var dropwei = 0.0,
           pickupwei = 0.0,
@@ -734,12 +725,12 @@ class VrTotals extends React.Component {
         tdropvol = tdropvol + dropvol;
         tpickupvol = tpickupvol + pickupvol;
 
-        console.log("data 1 = ", selectedDocs[i]);
-        console.log("data 2 = ", dropvol);
+        
+        
       }
     }
 
-    console.log(tdropwei, "tdropweight checking");
+    
 
     avai_vol = VehicleVolume - tdropvol;
     avai_weight = VehicleCapacity - tdropwei;
@@ -764,7 +755,7 @@ class VrTotals extends React.Component {
     let veicleVolume = trip.lock ? VehicleVolume : 0;
 
     let loadingMass = nullAndNanChecking(weight_per, "vrStops");
-    console.log(tpickupwei, "this is pickup weight after locked trip");
+    
     let pickupWeights = nullAndNanChecking(tpickupwei, "vrStops");
 
     let dropsVolume = nullAndNanChecking(tdropvol, "vrStops");

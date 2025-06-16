@@ -372,12 +372,12 @@ class Pickups extends React.Component {
             }
 
     const onRowDrag = (params)  => {
-    console.log("inside onRowDrag",params);
+    
     var rowNode = params.rowNode;
     var e = params.dragEvent;
-    console.log("inside onRowDrag - e",e);
+    
      this.props.handleDragStart(e, rowNode.data, 'drops',rowNode.rowIndex, rowNode.data.docnum);
-     console.log("inside onRowDrag - e",e);
+     
   }
 
 

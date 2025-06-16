@@ -552,7 +552,7 @@ class Drops3 extends React.Component {
   // based on creation date we are displaying color code
 
   // getColor = (doc) => {
-  //   console.log(doc, "this is doccc, in getcolor")
+  //   
   //   const today = new Date();
   //   const createdDate = new Date(doc.docdate);
   //   const differenceInDays = Math.floor((today - createdDate) / (1000 * 3600 * 24));
@@ -630,12 +630,14 @@ class Drops3 extends React.Component {
     let dropList = this.props.dropsList;
     let selectedDate = this.props.currDate;
 
-    // console.log("products show state inside render", this.props.selectedDocs);
+    // 
 
-    console.log(dropList, "this is droplist checking")
+    
 
+console.log(dropList ,"this is drop lists 637");
+    let filteredDrops = dropList?.filter((doc)=>doc.carrier=="INTERNAL");
 
-    let filteredDrops = dropList?.filter((doc)=>doc.carrier=="INTERNAL")
+    console.log(filteredDrops ,"internal documents checking here 640");
     return (
       <TabPane
         className="tripstab"

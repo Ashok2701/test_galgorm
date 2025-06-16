@@ -212,7 +212,7 @@ class ExternalDragDrop extends Component {
   }
 
   showModal = (e) => {
-    // console.log("e =",e)
+    // 
     this.setState({
       showEditorTemplate: true,
       EditorData: e,
@@ -243,12 +243,12 @@ class ExternalDragDrop extends Component {
   };
 
   getConsultantDesignation(value) {
-    console.log("T444 value at designation =", value);
+    
     return value.resourceData.skillList;
   }
 
   onInfoClick = (value) => {
-    // console.log("Tvvv site values are",this.props.selectedSite);
+    // 
     let currunit = "",
       distunits = "",
       weiunits = "",
@@ -394,7 +394,7 @@ class ExternalDragDrop extends Component {
   }
 
   onPopupOpen = (args) => {
-    // console.log("popuo args =",args);
+    // 
     if (args.type === "Editor") {
       args.cancel = true;
       this.data = args.data;
@@ -436,27 +436,27 @@ class ExternalDragDrop extends Component {
   }
 
   onSchActionBegin(event) {
-    // console.log("action begin sch event",event);
+    // 
   }
 
   onSchActionComplete(event) {
-    // console.log("action compltes sch event",event);
+    // 
     if (event.requestType === "dateNavigate") {
-      // console.log("schduler object =",this.scheduleObj);
+      // 
       this.props.handleDateRangeChange();
     }
   }
 
   addcontenttoScheduler = (passeddata, event, index, cellData) => {
-    console.log("T333 at drop event - schduler_data =", passeddata);
-    console.log("T333 at drop event - schduler_data =", passeddata);
+    
+    
     var data = passeddata;
     var doctype;
 
     doctype = "Order";
 
     //    let cellData : CellClickEventArgs = this.scheduleObj.getCellDetails(event.target);
-    // console.log("T111 inside cellData = ",cellData);
+    // 
     let resourceDetails = this.scheduleObj.getResourcesByIndex(
       cellData.groupIndex
     );
@@ -464,22 +464,19 @@ class ExternalDragDrop extends Component {
     let dropCompatability = true;
     let error = "";
     // To check vehicle and product category
-    console.log("T333 at drop event - schduler_data =", resourceDetails);
+    
     //to  check customer compatability
     if (dropCompatability == true) {
-      // console.log("T1111 inside few customers ");
+      // 
       // need to check the venicle and products category compatability;
-      console.log(
-        "T333 at drop event - schduler_data tech skills =",
-        resourceDetails.resourceData.skillIds
-      );
-      console.log("T333 at drop event - schduler_data data =", data.skillId);
+    
+      
       if (
         resourceDetails.resourceData.skillIds &&
         !resourceDetails.resourceData.skillIds.includes(data.skillId)
       ) {
         dropCompatability = false;
-        // console.log("T1111 inside customer doesn't match");
+        // 
         error = "Skill";
         this.setState({
           errorType: "Skill",
@@ -493,16 +490,13 @@ class ExternalDragDrop extends Component {
     }
 
     if (dropCompatability) {
-      console.log("T111 inside resourceDetails = ", resourceDetails);
-      console.log("after dropped cellDate", cellData);
+      
+      
       const parseDate = new Date(Date.parse(cellData.startTime)).toString();
-      console.log("Tktk1 inside parseDate =", parseDate);
+      
       const SelParsedate = moment.tz(parseDate, "").format("YYYY-MM-DD");
-      console.log("after ------selparseDate =", SelParsedate);
-      console.log(
-        "after dropped moment",
-        moment(cellData.startTime).format("YYYY-MM-DD")
-      );
+      
+    
       let eventData: { [key: string]: Object } = {
         docnum: data.docnum,
         subject: data.docnum,
@@ -526,14 +520,14 @@ class ExternalDragDrop extends Component {
             confirmMessage: 'Are you sure you want  to create the trip',
         })
 */
-      // console.log("T333 after eventdata prep", eventData)
+      // 
       this.scheduleObj.addEvent(eventData);
       this.props.disableDivs(index, "doc", data.docnum);
     }
   };
 
   drop(event, eventType, args: DragAndDropEventArgs) {
-    // console.log("T111 inside drop event, add ExternalDragDrop");
+    // 
 
     var data;
     var doctype;
@@ -541,25 +535,25 @@ class ExternalDragDrop extends Component {
     var transferedData = event.dataTransfer;
     var index = event.dataTransfer.getData("index");
 
-    console.log("T111 inside - index", index);
+    
 
-    // console.log("T333 at drop event - data",data);
+    // 
     let cellData: CellClickEventArgs = this.scheduleObj.getCellDetails(
       event.target
     );
-    console.log("before checking = cellData date =", cellData.startTime);
-    console.log("T111 inside cellData", cellData);
+    
+    
 
     const parseDate1 = new Date(Date.parse(cellData.startTime)).toString();
-    console.log("Tktk1 inside parseDate =", parseDate1);
+    
     const SelParsedate1 = moment.tz(parseDate1, "").format("YYYY-MM-DD");
-    console.log("Tktk1 inside parseDate after moment =", SelParsedate1);
+    
 
     if (moment(data.docdate).format("YYYY-MM-DD") === SelParsedate1) {
-      // console.log("same date");
+      // 
       this.draggingProcessedFurther(data, event, index, cellData);
     } else {
-      // console.log("Different Date");
+      // 
       this.setState({
         droppedData: data,
         droppedIndex: index,
@@ -573,7 +567,7 @@ class ExternalDragDrop extends Component {
   }
 
   draggingProcessedFurther = (data, event, index, cellData) => {
-    console.log("T333 at drop event - not  misc data", data);
+    
     this.addcontenttoScheduler(data, event, index, cellData);
   };
 
@@ -628,7 +622,7 @@ class ExternalDragDrop extends Component {
   };
 
   bgcolor = (type) => {
-    // console.log("at becolor",type);
+    // 
     if (type === "DLV") {
       return "#008000		";
     } else if (type === "PICK") {
@@ -739,7 +733,7 @@ class ExternalDragDrop extends Component {
   };
 
   eventTemplate(props: { [key: string]: Object }): JSX.Element {
-    // console.log("inside props -",props);
+    // 
     return (
       <div
         className="template-wrap"
@@ -792,20 +786,20 @@ class ExternalDragDrop extends Component {
 
   render() {
     var lang = localStorage.getItem("i18nextLng");
-    // console.log("Tvvv site values are",this.props.selectedSite);
+    // 
     let loc = "";
     if (lang === "eng") {
       loc = "en";
     } else {
       loc = "en";
     }
-    // console.log("vehicle - panel",this.props.vehicles);
-    // console.log("selected drops =", this.props.dropsPanel);
+    // 
+    // 
     let addAlertClose = () => this.setState({ addAlertShow: false });
     let addInfoIconClose = () => this.setState({ addInfoShow: false });
 
-    console.log("vehicle info", this.props.vehicles);
-    console.log("vehicle selected", this.props.selectedVehicleCodeArr);
+    
+    
     const filteredVehicle = [];
     this.props.vehicles &&
       this.props.vehicles.length > 0 &&
@@ -820,10 +814,10 @@ class ExternalDragDrop extends Component {
         }
       });
 
-    // console.log("TScheduler vehicle - panel",this.props.vehicles);
-    // console.log("TScheduler selected  vehicle",this.props.selectedVehicleCodeArr);
-    // console.log("TScheduler filtered  vehicle",filteredVehicsle);
-    // console.log("TScheduler filtered  vehicle flag",this.props.filterVehicleflg);
+    // 
+    // 
+    // 
+    // 
 
     const vehicles =
       filteredVehicle.length > 0 ? filteredVehicle : this.props.vehicles;

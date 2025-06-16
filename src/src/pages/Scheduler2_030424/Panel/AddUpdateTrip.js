@@ -88,7 +88,7 @@ class AddUpdateTrip extends React.Component {
     };
  this.dragOver = this.dragOver.bind(this);
     this.drop = this.drop.bind(this);
-    console.log("inside addupdate trip constructor");
+    
   }
 
 
@@ -97,7 +97,7 @@ class AddUpdateTrip extends React.Component {
       }
 
       drop(event, eventType) {
-          console.log("3 inside drop event",event);
+          
            if(eventType === 'createVehicle') {
                       this.setState({
                           checkedTripShow: true,
@@ -117,9 +117,9 @@ class AddUpdateTrip extends React.Component {
                          } else {
                              type = event.type;
                          }
-              console.log("T8 inside if");
+              
               var currentTrip = this.props.trips;
-              console.log("T8 inside current trip",currentTrip);
+              
               var trip = {
                   code: '',
                   driverName: '',
@@ -157,12 +157,12 @@ class AddUpdateTrip extends React.Component {
                                 data = JSON.parse(event.currentCard);
 
                             } else {
-                                console.log("updateVehicleData", this.state.updateVehicleData);
+                                
                                 type = "vehicle";
                                 data = this.state.updateVehicleData
                             }
               if (type === 'vehicle') {
-                 console.log("3 inside vehicle drop event");
+                 
                   this.setState({ isValidPassword: '' })
                   if (currentTrip.length > 0) {
                       currentTrip = [];
@@ -178,7 +178,7 @@ class AddUpdateTrip extends React.Component {
                                               updateVehicleIndex: event.dataTransfer.getData("index")
                                           })
                                       } else {
-                  console.log("3 current trip after reset",currentTrip);
+                  
                   trip.code = data.codeyve;
                   trip.timelineInterval = data.timelineInterval;
                   trip.trailerLink = data.trailerLink;
@@ -201,7 +201,7 @@ class AddUpdateTrip extends React.Component {
                           }
                       }
                   }
-                  console.log("T8 empty index",emptyIndex);
+                  
                   if (emptyIndex > 0) {
                       this.props.addSelectedTrips(emptyIndex);
                   }
@@ -211,7 +211,7 @@ class AddUpdateTrip extends React.Component {
                   }
                   if (data.drivername != "") {
                       var drivs = this.props.curVehiclePanel.drivers;
-                        console.log("T8 data drviername",data.drivername);
+                        
                       for (var i = 0; i < drivs.length; i++) {
                           if (data.drivername == drivs[i].driver) {
                               trip.driverId = drivs[i].driverid;
@@ -222,10 +222,10 @@ class AddUpdateTrip extends React.Component {
                   }
 
                   if ( data.trailer !== "" || data.trailer !== null ) {
-                       console.log("T8 data trailers",data.trailer);
+                       
                     //  this.props.colourDocDivs(data.trailer);
                       var trails = this.props.curVehiclePanel.trails;
-                       console.log("T8 trails",trails);
+                       
                       for (var i = 0; i < trails.length; i++) {
                           if (data.trailer == trails[i].trailer) {
                               this.addTrailer(trip, trails[i], data.codeyve);
@@ -235,7 +235,7 @@ class AddUpdateTrip extends React.Component {
                       }
                   }
                   if (data.equipmentList.length > 0) {
-                    console.log("T8 data equipment",data.equipmentList);
+                    
                       var equip = this.props.curVehiclePanel.equipments;
                       for (var i = 0; i < equip.length; i++) {
                           if (data.equipmentList.includes(equip[i].xequipid)) {
@@ -248,10 +248,10 @@ class AddUpdateTrip extends React.Component {
                   trip.vehicleObject = data;
                   trip.vol = data.vol;
 
-                    console.log("T8 data before push",trip);
+                    
                   currentTrip.push(trip);
-                  console.log("T8 current final trip is",currentTrip);
-                    console.log("T8 trip is",trip);
+                  
+                    
                     /*
                   if (this.props.checkedTrip) {
                       currentTrip[0].equipmentObject = this.props.equipments;
@@ -374,7 +374,7 @@ class AddUpdateTrip extends React.Component {
                       this.setState({ siteStartValueTripList: this.state.siteStartValueTripList })
                   }
               } else if (type === 'trailer') {
-                  console.log("T11 trailer data",data);
+                  
 
                   if (currentTrip.length > 0) {
                       trip = currentTrip[0];
@@ -385,16 +385,16 @@ class AddUpdateTrip extends React.Component {
               if(trip.stops > 0)
                  {
                      // trailer and document relation
-                     console.log("T21 insdie stops");
+                     
                                                if(trip.drops > 0){
-                                               console.log("T21 insdie drops");
+                                               
                                                 for (var i = 0; i < trip.dropObject.length; i++) {
                                                    if((trip.dropObject[i].trailer).trim() === '' || trip.dropObject[i].trailer === data.trailer){
                                                        docsCompatability = true;
-                                                       console.log("T21 insdie stops matched");
+                                                       
                                                    }
                                                    else{
-                                                   console.log("T21 insdie stops not matched");
+                                                   
                                                     docsCompatability = false;
                                                     errorflag = true;
 
@@ -517,7 +517,7 @@ class AddUpdateTrip extends React.Component {
                       });
                   }
                   else {
-                      console.log("T1 - data insdie trailer",data);
+                      
                        this.props.colourDocDivs(data.trailer);
                       let code = currentTrip[0] && currentTrip[0].code
                       this.addTrailer(trip, data, trip.code);
@@ -570,7 +570,7 @@ class AddUpdateTrip extends React.Component {
                                     }
               }
           }
-          console.log("T8 endof drop event");
+          
           }
       }
   render(){

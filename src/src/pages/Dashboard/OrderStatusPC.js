@@ -27,7 +27,7 @@ class OrderAnalytics extends Component {
 
       componentDidUpdate(prevProps) {
         if (prevProps.data !== this.props.data) {
-          console.log("Some props changed. Rendering...");
+          
         //  ApexCharts.exec('routestatus-pie')
            let tempoptions = {...this.state.options};
            tempoptions.labels = this.props.data.sorderStatusVO && this.props.data.sorderStatusVO.labels;

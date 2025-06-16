@@ -48,8 +48,8 @@ class VrStops3 extends React.Component {
     render() {
         var lang = localStorage.getItem("lng");
         var trip = this.props.tripdetails;
-        console.log("trip", trip)
-        console.log("this.props.vedetail", this.props.vedetail)
+        
+        
         let distunts;
         /*
         if (lang == "en") {
@@ -62,7 +62,7 @@ class VrStops3 extends React.Component {
         if(this.props.sites && this.props.sites.length > 0) {
          this.props.sites.map((site) => {
                      if (trip.depSite === site.id) {
-                         console.log("2 site matched");
+                         
                           distunts = site.distunit;
                          }
                 })
@@ -121,7 +121,7 @@ class VrStops3 extends React.Component {
                                         )) :
                                         trip && trip.totalObject && trip.totalObject.selectedTripData &&
                                         trip.totalObject.selectedTripData.map((doc, i) => {
-                                            console.log("doccccc", doc)
+                                            
                                             return (
                                                 <tr class="bg-blue" key={i}>
                                                     <td ></td>

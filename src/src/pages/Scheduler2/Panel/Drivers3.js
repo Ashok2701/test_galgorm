@@ -65,13 +65,13 @@ class Drivers3 extends React.Component {
         }
    }
    else {
-          console.log("Driver id", driverid);
+          
            var myStr = style;
                              var subStr = myStr.match("background-color:(.*)");
                              var s = subStr[1];
                              var s1 = s + ' !important';
 
-                             console.log("driver color",s1)
+                             
                              return s;
    }
  }
@@ -79,7 +79,7 @@ class Drivers3 extends React.Component {
 
 
        SearchDriver = e => {
-                  console.log("search content= ",e.target.value);
+                  
                   this.props.updateDriverSearchTerm(e);
               }
 

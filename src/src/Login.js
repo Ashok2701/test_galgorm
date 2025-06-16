@@ -46,7 +46,7 @@ class Login extends React.Component { // <1>
     }
 
     handleSubmit(e) {
-         console.log("inside handlesubmit");
+         
         e.preventDefault();
 
         this.setState({ submitted: true });
@@ -62,10 +62,10 @@ class Login extends React.Component { // <1>
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, password })
         };
-         console.log("before calling");
+         
         return fetch('http://tmsx3.tema-systems.com:8050/api/fms/user/login', requestOptions)
             .then(this.handleResponse)
-            console.log("Response =",response);
+            
             .then(user => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
 
@@ -80,7 +80,7 @@ class Login extends React.Component { // <1>
     }
 
     handleResponse(response) {
-       console.log("inside handleResponse", response);
+       
         return response.text().then(text => {
 
             const data = text && JSON.parse(text);
@@ -99,7 +99,7 @@ class Login extends React.Component { // <1>
         });
     }
     hadleLngClick = (lng) => {
-        console.log("lng===>", lng)
+        
          localStorage.setItem('lng', lng);
         i18next.init({
             interpolation: { escapeValue: false },  // React already does escaping
@@ -124,7 +124,7 @@ class Login extends React.Component { // <1>
 
     render() { // <3>
 
-    console.log("lng- issue 1:",this.state.lngFr+", "+this.state.lngEn);
+    
         const { loggingIn } = this.props;
         const { username, password, submitted } = this.state;
         return (

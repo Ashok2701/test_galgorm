@@ -24,18 +24,18 @@ class Login extends Component {
         super(props);
         this.state = {  username : "", password : "" }
         this.handleSubmit = this.handleSubmit.bind(this);
-        console.log("inside Auth/Login.js");
+        
     }
 
     handleSubmit(event, values) {
-        console.log("T1 inside handlesubmit after login clicked",values);
+        
         this.props.checkLogin(values, this.props.history);
        // this.login(values.username,values.password);
     }
 
 
      login(username, password) {
-         console.log("T1 inside login - login() ")
+         
             const requestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -45,7 +45,7 @@ class Login extends Component {
             return fetch('/api/v1/user/login', requestOptions)
                 .then(this.handleResponse)
                 .then(user => {
-                    console.log("T1 inside login-after fetch",user)
+                    
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem("authUser", JSON.stringify(user));
                    // localStorage.setItem("user", JSON.stringify(user));
@@ -64,7 +64,7 @@ class Login extends Component {
 
 
         handleResponse(response) {
-            console.log("T1 inside handleResponse",response)
+            
             return response.text().then(text => {
                 const data = text && JSON.parse(text);
                 if (!response.ok) {
@@ -77,7 +77,7 @@ class Login extends Component {
 
                     return Promise.reject(error);
                 }
-                 console.log("T1 inside handleRespobse-after",data);
+                 
                 return data;
             });
         }
@@ -89,7 +89,7 @@ class Login extends Component {
     componentDidMount(){
         this.props.apiError("");
         document.body.classList.add("auth-body-bg");
-        console.log("inside Aut/login componentDidMount");
+        
     }
 
     componentWillUnmount(){

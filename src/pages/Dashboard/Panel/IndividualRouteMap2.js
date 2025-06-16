@@ -15,10 +15,10 @@ class IndividualRouteMap2 extends React.Component {
     ];
     let depDetails = {};
     let arrDetails = {};
-    console.log("inside indiv map",this.props.tripsList);
+    
     if (this.props.tripsList && this.props.vrdata && this.props.triplock == true)
     {
-    console.log("inside IndividualMap , lock");
+    
       this.props.tripsList.map((tripList) => {
         if (tripList.code === this.props.vrdata.codeyve && this.props.vrdata.xnumpc === tripList.itemCode) {
           // points.push({})
@@ -41,8 +41,8 @@ class IndividualRouteMap2 extends React.Component {
       })
     }
     else if(this.props.bl_tripsList && this.props.bl_tripsList.lock == false) {
-      console.log("inside IndividualMap , unlock");
-      console.log("inside IndividualMap , unlock",this.props.bl_tripsList);
+      
+      
          this.props.sites.map((site) => {
             if (this.props.bl_tripsList.depSite === site.id) {
               depDetails.id = 0;

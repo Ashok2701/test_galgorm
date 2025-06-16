@@ -43,8 +43,8 @@ class DisplaySealNumbers extends React.Component {
 
     _handleChangeEvent = (event,arrval)  => {
      //  var arrval = 1
-        console.log("arrval =",arrval);
-        console.log("event value -=",event.target.value);
+        
+        
         let seararr = this.state.sealnumbers;
         seararr[arrval] = event.target.value;
 
@@ -57,17 +57,17 @@ class DisplaySealNumbers extends React.Component {
 
 
     OnSubmitSeal = (sealarray) => {
- console.log("on submitseal")
-console.log("state",this.state.sealnumbers);
+ 
 
-   console.log("data =",sealarray);
+
+   
 
 let resultSealnumbers = [];
 let propsdata = this.props.sealnumbers;
 let statedata = this.state.sealnumbers;
 
-console.log("state data",statedata);
-console.log("props data",propsdata);
+
+
 
 
 
@@ -80,7 +80,7 @@ console.log("props data",propsdata);
       }
   }
 
-  console.log("final seal numbers",resultSealnumbers);
+  
 this.props.onSaveSealnumbers(resultSealnumbers,this.props.dlvyno)
       this.setState({
                 sealnumbers : ['','','','','','']
@@ -93,7 +93,7 @@ this.props.onSaveSealnumbers(resultSealnumbers,this.props.dlvyno)
     render() {
 
     let  sealarray = this.props.sealnumbers;
-        console.log("inside sealnumbers -", this.props.sealnumbers);
+        
         return (
             <Modal
             {...this.props}

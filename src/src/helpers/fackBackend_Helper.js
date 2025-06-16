@@ -16,9 +16,9 @@ const isUserAuthenticated = () => {
 /*
 const postLogin = (url, data) => {
 const newUrl = 'http://localhost:8090/api/v1/user/login';
-   console.log("T1 data inside postlogin- url",url);
-   console.log("T1 data inside postlogin- data",data);
-   console.log("T1 data inside postlogin- newURL",newUrl);
+   
+   
+   
    let axiosConfig = {
      headers: {
          'Content-Type': 'application/json;charset=UTF-8',
@@ -28,7 +28,7 @@ const newUrl = 'http://localhost:8090/api/v1/user/login';
 
  return axios.post('http://localhost:8090/api/v1/user/login', data, axiosConfig)
       .then(response => {
-         console.log("T1 response",data);
+         
         if (response.status === 400 || response.status === 500)
             throw response;
         return response;
@@ -63,8 +63,8 @@ const postRegister = (url, data) => {
 
 // Login Method
 const postLogin = (url, data) => {
-   console.log("T1 data inside postlogin- url",url);
-   console.log("T1 data inside postlogin- data",data);
+   
+   
 
 
  const requestOptions = {
@@ -78,7 +78,7 @@ const postLogin = (url, data) => {
                           // store user details and jwt token in local storage to keep user logged in between page refreshes
 
                       localStorage.setItem('user', JSON.stringify(response));
-                      console.log("T1 userdetails ",response);
+                      
                       return response;
                     }).catch(error => {
                         this.setState({ errorFlag: true });
@@ -89,13 +89,13 @@ const postLogin = (url, data) => {
         return fetch('/api/v1/user/login', requestOptions)
             .then(handleResponse(response)
             .then(user=> {
-                                              console.log("T1 response",response);
+                                              
                                              if (response.status === 400 || response.status === 500){
                                                   throw response;
                                              }
                                              else{
 
-                                                 console.log("T1 after fetch- response",response);
+                                                 
                                              return response;
                                              }
                                          }).catch(err => {
@@ -108,7 +108,7 @@ const postLogin = (url, data) => {
 
 
     return axios.post(url, data).then(response => {
-         console.log("T1 response",response);
+         
         if (response.status === 400 || response.status === 500)
             throw response.data;
         return response.data;
