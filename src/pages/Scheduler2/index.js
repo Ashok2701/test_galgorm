@@ -2263,43 +2263,43 @@ class Dashboard extends Component {
     if (
       this.schedulerRef.current.scheduleObj.currentView === "TimelineWorkWeek"
     ) {
+      // fetchSchedulerAPI(selectedOption, StartDate, EndDate)
+      //   .then(([res1, res2, res3, res4, res5]) => {
+      //     this.setState({
+      //       vehiclePanel: res1,
+      //       docsPanel: res2,
+      //       tripsPanel: res3,
+      //       RouteCode: res4,
+      //       loader: false,
+      //       documentPanel_dateflg: false,
+      //       documentPanel_date: "",
+      //       documentPanel_5dayscheck: false,
+      //       filterVehicleflg: false,
+      //       pickersList: res5,
+      //     });
+      //   })
+      //   .then(() => {
+      //     this.updateTopBar();
+      //     this.refreshSite();
+      //   });
+
       fetchSchedulerAPI(selectedOption, StartDate, EndDate)
-        .then(([res1, res2, res3, res4, res5]) => {
-          this.setState({
-            vehiclePanel: res1,
-            docsPanel: res2,
-            tripsPanel: res3,
-            RouteCode: res4,
-            loader: false,
-            documentPanel_dateflg: false,
-            documentPanel_date: "",
-            documentPanel_5dayscheck: false,
-            filterVehicleflg: false,
-            pickersList: res5,
-          });
-        })
-        .then(() => {
-          this.updateTopBar();
-          this.refreshSite();
-        })
+  .then(([res1, res2, res3, res4, res5]) => {
 
-  //     fetchSchedulerAPI(selectedOption, StartDate, EndDate)
-  // .then(([res1, res2, res3, res4, res5]) => {
-
-  //   console.log(res1,res2,res3,res4,res5 ,"all these response inside fetch one data")
-  //   this.setState({
-  //     vehiclePanel: res1 || [],            // fallback to empty array or object
-  //     docsPanel: res2 || [],
-  //     tripsPanel: res3 || [],
-  //     RouteCode: res4 || [],
-  //     pickersList: res5 || [],
-  //     loader: false,
-  //     documentPanel_dateflg: false,
-  //     documentPanel_date: "",
-  //     documentPanel_5dayscheck: false,
-  //     filterVehicleflg: false,
-  //   });
-  // })
+    console.log(res1,res2,res3,res4,res5 ,"all these response inside fetch one data")
+    this.setState({
+      vehiclePanel: res1 || [],            // fallback to empty array or object
+      docsPanel: res2 || [],
+      tripsPanel: res3 || [],
+      RouteCode: res4 || [],
+      pickersList: res5 || [],
+      loader: false,
+      documentPanel_dateflg: false,
+      documentPanel_date: "",
+      documentPanel_5dayscheck: false,
+      filterVehicleflg: false,
+    });
+  })
   .then(() => {
     this.updateTopBar();
     this.refreshSite();
