@@ -798,7 +798,8 @@ let collectionCount =  filterDrops?.filter((doc)=>doc.carrier== "COLLECTIONS").l
 let internalCount = filterDrops?.filter((doc)=>doc.carrier== "INTERNAL").length || 0;
 
 
-console.log(this.props.dropsPanel ,"this is drops panel checking")
+// console.log(this.props.dropsPanel ,"this is drops panel checking")
+
     return (
       <>
         <div class="documentPanel" style={{ height: "100%" }}>

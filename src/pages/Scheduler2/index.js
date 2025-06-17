@@ -111,6 +111,7 @@ const optionGroup = [
 ];
 
 class Dashboard extends Component {
+   docChangeTimeout = null;
   constructor(props) {
     super(props);
     this.schedulerRef = React.createRef();
@@ -130,6 +131,7 @@ class Dashboard extends Component {
       checkedToShowinMap: false,
       optimisedClickedTrip: false,
       defaultdocprocess: 90,
+      daysDoc:7,
       isDragged: false,
       loader: false,
       draggedDocActTour: {},
@@ -364,6 +366,7 @@ class Dashboard extends Component {
     this.ClearRouteCodes = this.ClearRouteCodes.bind(this);
     this.googleMapRef = React.createRef();
     this.setcurrentView = this.setcurrentView.bind(this);
+   
   }
 
   updateselectedRCode(val) {
@@ -1959,6 +1962,8 @@ class Dashboard extends Component {
       fridayMatchedRouteCodeDesc: {},
       selectedDocs: [],
       checkedDoccs: [],
+    
+      
     });
     this.handleDateRangeChange();
   };
@@ -2028,6 +2033,7 @@ class Dashboard extends Component {
     if (!this.state.documentPanel_date) {
       this.setState({
         documentPanel_date: currDate,
+        documentPanel_dateflg:true
       });
     }
 
@@ -2153,6 +2159,7 @@ class Dashboard extends Component {
             SelectedDeletedDocs: [],
             selectedDocumentList: [],
             RouteCode: res4,
+              daysDoc:7,
           });
         })
         .then(() => {
@@ -2180,6 +2187,7 @@ class Dashboard extends Component {
             SelectedDeletedDocs: [],
             selectedDocumentList: [],
             filteredTripData: "",
+              daysDoc:7,
           });
         })
 
@@ -2528,6 +2536,8 @@ class Dashboard extends Component {
   };
 
   handleDateChange = (date) => {
+
+    console.log("this is handle date change funciton 2533");
     // 
     const currDate = moment.tz(date, "").format("YYYY-MM-DD");
     // 
@@ -3506,6 +3516,23 @@ class Dashboard extends Component {
       defaultdocprocess: val,
     });
   };
+
+  // ondaysDocChange=(val)=>{
+  //   this.setState({
+  //     daysDoc:val
+  //   })
+
+  //   console.log(val ,"this is val checking 3518");
+
+  //   this.documentPanelDateChange(this.state.documentPanel_date);
+  // }
+
+  ondaysDocChange = (val) => {
+  this.setState({ daysDoc: val });
+      this.documentPanelDateChange(this.state.documentPanel_date);
+
+};
+
 
   updateTripCount = () => {
     var tripCount = this.state.selectedTrips;
@@ -4514,13 +4541,23 @@ class Dashboard extends Component {
   };
 
   documentPanelDateChange = (date) => {
+
+    console.log(date ,"document panel date chagne fetching here");
     this.setState({ loader: true });
     // 
     const currDate = moment.tz(date, "").format("YYYY-MM-DD");
     // 
 
+
+
+      const daysDoc = parseInt(this.state.daysDoc || 0, 10);
+      
+        const startDate = moment(currDate).subtract(daysDoc, 'days').format("YYYY-MM-DD");
+
+        console.log(startDate,currDate ,"checking both dates checkins here 4537");
+
     let value = this.state.selectedMultipleSites;
-    fetchDocumentPanelAPI(value, currDate)
+    fetchDocumentPanelwithRange(value, startDate,currDate)
       .then(([res1, res2]) => {
         /*
           if(status1 === 200 && status2 === 200 && status3 === 200){
@@ -4546,6 +4583,9 @@ class Dashboard extends Component {
           loader: false,
         });
       });
+
+
+    
   };
 
   // show document panel data after generating route locking validating (this is created because date is getting blank after performing these oprations)
@@ -9057,6 +9097,8 @@ class Dashboard extends Component {
                 samevehicleChecked={this.state.checkedsameVehicles}
                 onDocProcessChange={this.onDocProcessChange}
                 defaultprocessDocs={this.state.defaultdocprocess}
+                daysDoc={this.state.daysDoc}
+                ondaysDocChange={this.ondaysDocChange}
                 vrShow={this.state.vrShow}
                 toPickdetailsShow={this.state.toPickdetailsShow}
                 toAllocationdetailsShow={this.state.toAllocationdetailsShow}

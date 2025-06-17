@@ -634,7 +634,7 @@ class Drops3 extends React.Component {
 
     
 
-console.log(dropList ,"this is drop lists 637");
+// console.log(dropList ,"this is drop lists 637");
     let filteredDrops = dropList?.filter((doc)=>doc.carrier=="INTERNAL");
 
     console.log(filteredDrops ,"internal documents checking here 640");

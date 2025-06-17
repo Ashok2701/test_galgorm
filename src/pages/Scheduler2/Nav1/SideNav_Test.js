@@ -41,6 +41,7 @@ class SideNav_Test extends React.Component {
       confirmMessage: "",
       documents: this.props.defaultprocessDocs,
       sameVehicles: this.props.samevehicleChecked,
+      daysDoc:this.props.daysDoc,
     };
 
     this.onTagsChange = this.onTagsChange.bind(this);
@@ -150,6 +151,57 @@ class SideNav_Test extends React.Component {
       documents: event.target.value,
     });
   };
+
+//   handleDaysDocChange =(event)=>{
+
+//     // // window.alert(event.target.value)
+//     // this.props.ondaysDocChange(event.target.value);
+//     // this.setState({
+//     //   daysDoc:event.target.value
+//     // })
+
+//      const value = Number(event.target.value);
+// // window.alert(value)
+//   if (value >= 1 && value <= 30) {
+//     this.props.ondaysDocChange(value);
+//     this.setState({
+//       daysDoc: value,
+//     });
+//   } else {
+//     console.warn("Value must be between 1 and 30");
+//     this.setState({ daysDoc: "" }); // Clear input or keep last valid
+//   }
+//   }
+
+
+handleDaysDocChange = (event) => {
+  const value = Number(event.target.value);
+
+  if (!event.target.value) {
+    // If field is cleared
+    this.setState({ daysDoc: "" });
+    return;
+  }
+
+  if (value >= 1 && value <= 30) {
+    this.setState({ daysDoc: value });
+
+    // Debounce: clear previous timeout
+    if (this.docDaysChangeTimeout) {
+      clearTimeout(this.docDaysChangeTimeout);
+    }
+
+    // Set new timeout to call the prop after user stops typing
+    this.docDaysChangeTimeout = setTimeout(() => {
+      this.props.ondaysDocChange(value);
+    }, 500); // Delay: 500ms (can tweak)
+  } else {
+    console.warn("Value must be between 1 and 30");
+    this.setState({ daysDoc: "" });
+  }
+};
+
+
 
   render() {
     let Selection_win_Close = () => this.setState({ ShowSelectionList: false });
@@ -311,7 +363,7 @@ class SideNav_Test extends React.Component {
                   >
                     {this.props.t("RTZ")}
                   </button>
-                  <span className="d-inline align-items-center">
+                  {/* <span className="d-inline align-items-center">
              
                     <Tooltip title="Max Stops" placement="top">
                     <Input
@@ -325,6 +377,24 @@ class SideNav_Test extends React.Component {
                       type="text"
                       onChange={this.handleDocProcessChange}
                       value={this.state.documents}
+                    />
+                    </Tooltip>
+                  </span> */}
+
+                   <span className="d-inline align-items-center">
+             
+                    <Tooltip title="Days before documents" placement="top">
+                    <Input
+                      style={{
+                        width: 50,
+                        // height: "40px",
+                        // fontSize: "16px",
+                        // fontWeight: "bolder",
+                        display:"inline"
+                      }}
+                      type="text"
+                      onChange={this.handleDaysDocChange}
+                      value={this.state.daysDoc}
                     />
                     </Tooltip>
                   </span>

@@ -102,6 +102,7 @@
     "react-star-ratings": "^2.3.0",
     "react-switch": "^5.0.1",
     "react-toastr": "^3.0.0",
+    "react-window": "^1.8.11",
     "react-xml-parser": "^1.1.8",
     "reactstrap": "^8.4.1",
     "redux": "^4.0.5",
