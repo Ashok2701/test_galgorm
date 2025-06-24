@@ -383,7 +383,17 @@ handleDaysDocChange = (event) => {
 
                    <span className="d-inline align-items-center">
              
-                    <Tooltip title="Days before documents" placement="top">
+                    <Tooltip
+                     title="Number of past days to include" placement="top"
+                       componentsProps={{
+    tooltip: {
+      sx: {
+        fontSize: '18px', // or '1rem', '16px', etc.
+        fontWeight: 'bold' // optional
+      }
+    }
+  }}
+                     >
                     <Input
                       style={{
                         width: 50,

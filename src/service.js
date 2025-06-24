@@ -169,7 +169,7 @@ export async function fetchSchedulerAPIOneDate(param, sdate) {
       return Promise.all([res1.json(), res2.json(), res3.json(), res4.json(), res5.json()])
     });
 
-    console.log(completeResult, "this is complete result");
+    // console.log(completeResult, "this is complete result");
   return completeResult;
 }
 
@@ -219,6 +219,18 @@ export async function fetchDocumentPanelwithRange(param, sdate, edate) {
   return completeResult;
 }
 
+
+// fetch documents with range and trips with selected date
+
+export async function fetchDocumentPanelwithRangeDaysBack(param, sdate, edate) {
+  const completeResult = Promise.all([fetch(`${apiUrl}/api/v1/scheduler/docs/panelwithRange?site=` + param + '&sdate=' + sdate + '&edate=' + edate), fetch(`${apiUrl}/api/v1/scheduler/trips?site=` + param + '&date=' + edate),    fetch(`${apiUrl}/api/v1/scheduler/routecodes`),
+    fetch(`${apiUrl}/api/v1/transport/getpickerlist`),fetch(`${apiUrl}/api/v1/scheduler/vehicle/panel?site=` + param + '&date=' + sdate)])
+    .then(([res1, res2,res3,res4,res5]) => {
+      return Promise.all([res1.json(), res2.json(),res3.json(),res4.json(),res5.json()])
+    });
+  return completeResult;
+}
+
 //Scheduler
 export async function fetchDocumentPanelAPI(param, date) {
   const completeResult = Promise.all([fetch(`${apiUrl}/api/v1/scheduler/docs/panelwithSelDate?site=` + param + '&seldate=' + date), fetch(`${apiUrl}/api/v1/scheduler/trips?site=` + param + '&date=' + date)])
@@ -227,6 +239,9 @@ export async function fetchDocumentPanelAPI(param, date) {
     });
   return completeResult;
 }
+
+
+// 
 
 // confirm lvs using soap X3
 

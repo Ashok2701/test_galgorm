@@ -603,7 +603,7 @@ function Timeline(props) {
                 
                 let finalEndTime=addHoursToHHMM(splitTime(arrivalTime),Number(serviceTime[index]),Number(waitingTime[index]))
                 
-                res.end = finalEndTime;
+                res.end = splitTime(endTimeRoute);
                 res.arrival = splitTime(arrivalTime);
 
 

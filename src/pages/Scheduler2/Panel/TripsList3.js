@@ -904,15 +904,18 @@ function addHoursToHHMM(arrivalTimeStr, serviceTime, waitingTime) {
 
 // let serWaiting =  Number(serviceTime[index]) +  Number(waitingTime[index])
 
+// console.log()
+
 let finalEndTime=addHoursToHHMM(splitTime(arrivalTime),Number(serviceTime[index]),Number(waitingTime[index]))
 
 
 
-
+// console.log(splitTime(arrivalTime),Number(serviceTime[index]),Number(waitingTime[index]) ,"this is departure time checking here 913");
                 
 
                 
-                res.end = finalEndTime;
+                // res.end = finalEndTime;
+                res.end =splitTime(endTimeRoute);
                 res.arrival = splitTime(arrivalTime);
 
                 res.startDate = passedData.docdate;

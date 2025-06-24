@@ -8,7 +8,7 @@ import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";
 import { logoutUser } from "../../store/actions";
 // import IdleTimerContainer from '../../IdleTimerContainer';
-import { fetchSchedulerAPI } from "../../service";
+import { fetchDocumentPanelwithRangeDaysBack, fetchSchedulerAPI } from "../../service";
 import { ToastContainer, toast } from "react-toastify";
 import LoadingOverlay from "react-loading-overlay";
 import "react-toastify/dist/ReactToastify.css";
@@ -2169,34 +2169,77 @@ class Dashboard extends Component {
         })
         .catch((error) => {});
     } else {
-      fetchSchedulerAPIOneDate(
-        this.state.selectedMultipleSites,
-        clickedDateinFormat
-      )
-        .then(([res1, res2, res3, res4]) => {
-          this.setState({
-            vehiclePanel: res1,
-            docsPanel: res2,
-            tripsPanel: res3,
-            loader: false,
-            RouteCode: res4,
-            date: clickedDateinFormat,
-            // documentPanel_dateflg: false,
-            // documentPanel_date: "",
-            // documentPanel_5dayscheck: false,
-            SelectedDeletedDocs: [],
-            selectedDocumentList: [],
-            filteredTripData: "",
-              daysDoc:7,
-          });
-        })
+    
+// getting documents with range and trips with selected date here
+  const daysDoc = parseInt(this.state.daysDoc || 0, 10);
 
-        .then(() => {
-          this.updateTopBar();
-          this.refreshSite();
-          this.removeDocsCheckBoxes();
-        })
-        .catch((error) => {});
+  const startDate = moment(clickedDate).subtract(daysDoc, 'days').format("YYYY-MM-DD");
+  
+  console.log(startDate ,clickedDateinFormat,"this is start date and end date here initially here checking")
+
+
+
+    //   fetchSchedulerAPIOneDate(
+    //     this.state.selectedMultipleSites,
+    //     clickedDateinFormat
+    //   )
+    //     .then(([res1, res2, res3, res4]) => {
+    //       this.setState({
+    //         vehiclePanel: res1,
+    //         docsPanel: res2,
+    //         tripsPanel: res3,
+    //         loader: false,
+    //         RouteCode: res4,
+    //         date: clickedDateinFormat,
+    //         // documentPanel_dateflg: false,
+    //         // documentPanel_date: "",
+    //         // documentPanel_5dayscheck: false,
+    //         SelectedDeletedDocs: [],
+    //         selectedDocumentList: [],
+    //         filteredTripData: "",
+    //           daysDoc:7,
+    //       });
+    //     })
+
+    //     .then(() => {
+    //       this.updateTopBar();
+    //       this.refreshSite();
+    //       this.removeDocsCheckBoxes();
+    //     })
+    //     .catch((error) => {});
+    // }
+
+
+
+    // fetchDocumentPanelwithRangeDaysBack
+
+        fetchDocumentPanelwithRangeDaysBack(this.state.selectedMultipleSites, startDate,clickedDateinFormat)
+      .then(([res1, res2]) => {
+        /*
+          if(status1 === 200 && status2 === 200 && status3 === 200){
+                   this.setState({loading: false})
+          }
+          */
+
+        this.setState({
+          date: clickedDate,
+          documentPanel_dateflg: true,
+          docsPanel: res1,
+          tripsPanel: res2,
+          loader: false,
+          
+        });
+      })
+      .then(() => {
+        this.updateTopBar();
+        this.refreshSite();
+        this.removeDocsCheckBoxes();
+      })
+      .catch((error) => {
+        this.setState({
+          loader: false,
+        });
+      });
     }
   };
 
@@ -4557,7 +4600,7 @@ class Dashboard extends Component {
         console.log(startDate,currDate ,"checking both dates checkins here 4537");
 
     let value = this.state.selectedMultipleSites;
-    fetchDocumentPanelwithRange(value, startDate,currDate)
+    fetchDocumentPanelwithRangeDaysBack(value, startDate,currDate)
       .then(([res1, res2]) => {
         /*
           if(status1 === 200 && status2 === 200 && status3 === 200){
@@ -4594,8 +4637,23 @@ class Dashboard extends Component {
     this.setState({ loader: true });
     // 
 
+
+       console.log(date ,"document panel date chagne fetching here");
+    this.setState({ loader: true });
+    // 
+    const currDate = moment.tz(date, "").format("YYYY-MM-DD");
+    // 
+
+
+
+      const daysDoc = parseInt(this.state.daysDoc || 0, 10);
+      
+        const startDate = moment(currDate).subtract(daysDoc, 'days').format("YYYY-MM-DD");
+
+        console.log(startDate,currDate ,"checking both dates checkins here 4537");
+
     let value = this.state.selectedMultipleSites;
-    fetchDocumentPanelAPI(value, date)
+  fetchDocumentPanelwithRangeDaysBack(value, startDate,currDate)
       .then(([res1, res2]) => {
         /*
           if(status1 === 200 && status2 === 200 && status3 === 200){
@@ -8128,9 +8186,10 @@ class Dashboard extends Component {
         var freqtype = false;
         var appointmentExist = false;
         var routeCodeArr = [];
-
+console.log(GroupedObjects ,"this is groupedObjects 8146")
         GroupedObjects.forEach(function (docItem) {
-          // 
+console.log(docItem ,"this is docItem 8146")
+          
 
           // Splitting routeCodeDesc into an array
           const routeCodeDescArray =
@@ -8997,7 +9056,7 @@ class Dashboard extends Component {
     });
 
    
-    console.log(this.state.docsPanel , "this is docs panel state where will get all the documents"); 
+    // console.log(this.state.docsPanel , "this is docs panel state where will get all the documents"); 
 
     // 
 

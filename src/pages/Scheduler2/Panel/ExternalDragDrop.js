@@ -1348,8 +1348,14 @@ class ExternalDragDrop extends Component {
     let clickedDocs = this.props.checkedDoccs;
 
     // Adjust carrier type for certain conditions
+
+    let matchCareer="";
+
     if (["MONTGOMERY", "DPD", "EXTERNAL"].includes(data.carrier)) {
-      data.carrier = "EXTERNAL";
+      // data.carrier = "EXTERNAL";
+        matchCareer="EXTERNAL";
+    }else{
+      matchCareer =data.carrier;
     }
 
     // Check if document's carrier matches resource's carrier
@@ -1367,7 +1373,7 @@ class ExternalDragDrop extends Component {
           confirmAction: () => {
             // If user confirms, proceed with adding all selected documents
             clickedDocs.forEach((doc) => {
-              if (doc.carrier == tempresourceData1.bptnumType) {
+              if (matchCareer == tempresourceData1.bptnumType) {
                 this.draggingProcessedFurther(doc, event, index, cellData);
               }
             });
@@ -1377,7 +1383,7 @@ class ExternalDragDrop extends Component {
       } else {
         // If all documents have the same date, process further
         clickedDocs.forEach((doc) => {
-          if (doc.carrier == tempresourceData1.bptnumType) {
+          if (matchCareer == tempresourceData1.bptnumType) {
             this.draggingProcessedFurther(doc, event, index, cellData);
           }
         });
@@ -1385,7 +1391,7 @@ class ExternalDragDrop extends Component {
       }
     } else {
       // Single document handling (same as before)
-      if (tempresourceData1.bptnumType == data.carrier) {
+      if (tempresourceData1.bptnumType == matchCareer) {
         if (moment(data.docdate).format("YYYY-MM-DD") === SelParsedate1) {
           this.draggingProcessedFurther(data, event, index, cellData);
         } else {

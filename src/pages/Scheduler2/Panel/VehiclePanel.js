@@ -441,7 +441,7 @@ class VehiclePanel extends React.Component {
 */
         return (
         <>
-        <Card className="mb-3">
+        <Card className="mb-3" style={{height:"400px",overflow:"scroll"}}>
                           <CardBody className="p-2">
                             <Nav tabs className="nav-tabs-custom nav-justified">
                               <NavItem>
@@ -492,7 +492,7 @@ class VehiclePanel extends React.Component {
                                 vehOrder={this.props.vehOrder}
                                 sortVehicles={this.props.sortVehicles}
                                 />
-                                <Trailers3
+                                {/* <Trailers3
                                  curTrails={filterTrailers}
                                  handleDragStart = {this.props.handleDragStart}
                                  allowedTrailers = {this.props.allowedTrailers}
@@ -510,7 +510,7 @@ class VehiclePanel extends React.Component {
                                 sortEquipement={this.props.sortEquipement}
                                 equpOrder={this.props.equpOrder}
 
-                                />
+                                /> */}
                                 <Drivers3
                                  curDrivers={filterDriver}
                                  handleDragStart = {this.props.handleDragStart}
