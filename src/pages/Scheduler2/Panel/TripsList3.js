@@ -372,9 +372,8 @@ class TripsList3 extends React.Component {
    
 
     return fetch(url)
-      .then(function (response) {
+      .then((response)=> {
         if (response.status === 200) {
-          // this.setState({ loader: false });
           return response.json();
         } else {
           this.setState({ loader: false, setOptimizationFailedStatus: true });
@@ -595,7 +594,7 @@ class TripsList3 extends React.Component {
     lanLat = lanLat + ":" + arrSiteLat + "," + arrSiteLang;
     let url = apiurl + encodeURIComponent(lanLat) + jsonUrl;
     return fetch(url)
-      .then(function (response) {
+      .then( (response) => {
         if (response.status === 200) {
           // this.setState({ loader: false });
           return response.json();
@@ -1867,7 +1866,7 @@ let finalEndTime=addHoursToHHMM(splitTime(arrivalTime),Number(serviceTime[index]
       this.setState({ addWarningAlertShow: false });
     let addLogsClose = () => this.setState({ showLogs: false });
     let addLoaderClose = () => this.setState({ enableloaderMsgWindow: false });
-    let warningWindowClose = () => this.setState({ TimeErrorflg: false });
+    let warningWindowClose = () => this.setState({ TimeErrorflg: false, setOptimizationFailedStatus:false});
 
     
     return (
@@ -2216,6 +2215,15 @@ let finalEndTime=addHoursToHHMM(splitTime(arrivalTime),Number(serviceTime[index]
           data={this.state.TimeErrorMessageData}
           warning={true}
         ></DisplayInformationIconDetails>
+
+       
+                                <DisplayInformationIconDetails
+                                    show={this.state.setOptimizationFailedStatus}
+                                    onInfoIconHide={warningWindowClose}
+                                    data={"Optimization is failing. Please check the Geo Coordinates for Site and Deliveries ,should be in same Region/Country"}
+                                    warning={true}>
+                                </DisplayInformationIconDetails>
+                            
       </TabPane>
     );
   }

@@ -8,7 +8,11 @@ import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";
 import { logoutUser } from "../../store/actions";
 // import IdleTimerContainer from '../../IdleTimerContainer';
-import { fetchDocumentPanelwithRangeDaysBack, fetchSchedulerAPI } from "../../service";
+import {
+  fetchDocumentPanelwithRangeDaysBack,
+  fetchSchedulerAPI,
+  refreshAllpanels,
+} from "../../service";
 import { ToastContainer, toast } from "react-toastify";
 import LoadingOverlay from "react-loading-overlay";
 import "react-toastify/dist/ReactToastify.css";
@@ -111,7 +115,7 @@ const optionGroup = [
 ];
 
 class Dashboard extends Component {
-   docChangeTimeout = null;
+  docChangeTimeout = null;
   constructor(props) {
     super(props);
     this.schedulerRef = React.createRef();
@@ -131,7 +135,7 @@ class Dashboard extends Component {
       checkedToShowinMap: false,
       optimisedClickedTrip: false,
       defaultdocprocess: 90,
-      daysDoc:7,
+      daysDoc: 7,
       isDragged: false,
       loader: false,
       draggedDocActTour: {},
@@ -366,7 +370,6 @@ class Dashboard extends Component {
     this.ClearRouteCodes = this.ClearRouteCodes.bind(this);
     this.googleMapRef = React.createRef();
     this.setcurrentView = this.setcurrentView.bind(this);
-   
   }
 
   updateselectedRCode(val) {
@@ -446,8 +449,7 @@ class Dashboard extends Component {
     this.setState({ searchDString: event.target.value });
   };
   updateDropSearchTerm = (event) => {
-    
-    this.setState({ searchDrpString: event.target.value });
+    this.setState({ searchDrpString: event.target.value.trim() });
   };
   updatePickupSearchTerm = (event) => {
     this.setState({ searchPckString: event.target.value });
@@ -465,7 +467,6 @@ class Dashboard extends Component {
   };
 
   colourDivs = (allDrivers, dlist, allTrailers, tlist) => {
-    
     this.setState({
       allAllowedDrivers: allDrivers,
       allAllowedTrailers: allTrailers,
@@ -473,8 +474,6 @@ class Dashboard extends Component {
       vehicleDropped: true,
       allowedTrailers: tlist,
     });
-
-     
   };
   colourDocDivs = (drpTrailer) => {
     if (drpTrailer !== null || drpTrailer !== "") {
@@ -573,18 +572,17 @@ class Dashboard extends Component {
 
   // sortDrop = (type, index) => {
 
-    
   //   var cusDropsPanel = this.state.docsPanel;
   //   var cusPick = this.state.docsPanel;
 
-  //   
+  //
 
-  //   
+  //
   //   var picOrder = this.state.dropOrder;
 
-  //   
-  //   
-  //   
+  //
+  //
+  //
   //   if (picOrder[index] == -1 || picOrder[index] == 1) {
 
   //     picOrder[index] = 0;
@@ -612,7 +610,7 @@ class Dashboard extends Component {
   //       cusPick.sort((a, b) => (a.poscode < b.poscode) ? 1 : -1)
   //     }
   //     if ("netweight" === type) {
-  //       
+  //
   //       cusPick.sort((a, b) => (a.netweight < b.netweight) ? 1 : -1)
   //     }
   //     if ("volume" === type) {
@@ -640,7 +638,7 @@ class Dashboard extends Component {
   //       cusPick.sort((a, b) => (a.docnum > b.docnum) ? 1 : -1)
   //     }
   //     if ("weight" == type) {
-  //       
+  //
   //       cusPick.sort((a, b) => Number(a.netweight) > Number(b.netweight) ? 1 : -1);
 
   //     }
@@ -1135,12 +1133,12 @@ class Dashboard extends Component {
   };
 
   disableDivs = (index, type, docNum) => {
-    // 
-    // 
-    // 
+    //
+    //
+    //
     var currVehPanel = this.state.vehiclePanel;
     var currDocssPanel = this.state.docsPanel;
-    // 
+    //
     if (type === "vehicle") {
       var currVeh = currVehPanel.vehicles;
       currVeh[index].isDropped = true;
@@ -1167,7 +1165,7 @@ class Dashboard extends Component {
     }
     if (type === "doc") {
       var currVeh = currDocssPanel;
-      // 
+      //
       if (currDocssPanel && currDocssPanel.length > 0) {
         currDocssPanel.map((pickups, i) => {
           if (pickups.docnum === docNum) {
@@ -1176,7 +1174,7 @@ class Dashboard extends Component {
         });
       }
       currDocssPanel = currVeh;
-      // 
+      //
     }
     this.setState({
       vehiclePanel: currVehPanel,
@@ -1189,12 +1187,12 @@ class Dashboard extends Component {
   };
 
   OptimiseConfirmTrip = (ClickedTrip) => {
-    // 
+    //
     this.setState({ optimisedClickedTrip: true, guageTrip: ClickedTrip });
   };
 
   submitTrips = (trips) => {
-    // 
+    //
     this.setState({ loader: true });
     fetch(`${apiUrl}/api/v1/transport/trips`, {
       method: "POST",
@@ -1202,21 +1200,19 @@ class Dashboard extends Component {
       body: JSON.stringify(trips),
     })
       .then((response) => {
-        // 
+        //
         this.handleErrors(response);
       })
       .then(function (response) {})
       .then(() => {
-        // 
+        //
         // this.onRouteoptihide();
         // this.UPDATE_DELETED_DOC_DETAILS();
-        this.fetchDocumentPanelDateChange(this.state.documentPanel_date);
-
         // this.refreshDocspanel()
       })
       .then(() => {
         this.setState({
-          loader: false,
+          // loader: false,
           checkedTrip: false,
           isDetail: false,
           showListRouteMap: false,
@@ -1231,6 +1227,7 @@ class Dashboard extends Component {
         });
 
         this.notifySucess("Trip Added/Updated Sucessfully");
+        this.fetchDocumentPanelDateChange(this.state.documentPanel_date);
       })
       .catch((error) => {
         this.handleDateRangeChange();
@@ -1250,8 +1247,6 @@ class Dashboard extends Component {
   };
 
   confirmTrip = (trip, route, routesSchedule, newGeoData) => {
-    
-
     if (
       (trip.timelineInterval != undefined &&
         trip.timelineInterval.length > 0) ||
@@ -1294,7 +1289,7 @@ class Dashboard extends Component {
                 trip.datexec = today;
                 trip.heuexec = time;
                 */
-        // 
+        //
         trip.datexec = today;
         trip.date = tripdate;
         trip.startTime = routesSchedule.startTime;
@@ -1419,10 +1414,10 @@ class Dashboard extends Component {
       ) {
         itemTrips.push(trip);
       } else {
-        // 
+        //
         if (route === "route") {
           if (routesSchedule) {
-            // 
+            //
             while (
               this.state.tripsPanel[this.state.selectedIndex].timelineInterval
                 .length > 0
@@ -1564,12 +1559,11 @@ class Dashboard extends Component {
       trips: trip,
     });
 
-    
     // this.removeMarkers();
   };
 
   changeDateatDocumentPanel = (dayflag) => {
-    // 
+    //
     var flagconsider = dayflag;
     var currDate = moment(this.state.documentPanel_date).add(0, "days");
     var sdate = moment(currDate).add(-5, "days");
@@ -1577,9 +1571,9 @@ class Dashboard extends Component {
     var newDate = moment(currDate).format("YYYY-MM-DD");
     var newStartDate = moment(sdate).format("YYYY-MM-DD");
     var newEndDate = moment(edate).format("YYYY-MM-DD");
-    // 
+    //
     if (flagconsider) {
-      // 
+      //
       fetchDocumentPanelwithRange(
         this.state.selectedMultipleSites,
         newStartDate,
@@ -1587,9 +1581,9 @@ class Dashboard extends Component {
       )
         .then(([res1, res2]) => {
           var dropsP = res1;
-          // 
+          //
           // this.filterDropsDiv(newDate, dropsP);
-          // 
+          //
           this.setState({
             docsPanel: res1,
             tripsPanel: res2,
@@ -1597,15 +1591,15 @@ class Dashboard extends Component {
         })
         .catch((error) => {});
     } else {
-      // 
+      //
 
-      // 
+      //
       fetchDocumentPanelAPI(this.state.selectedMultipleSites, newDate)
         .then(([res1, res2]) => {
           var dropsP = res1;
-          // 
+          //
           // this.filterDropsDiv(newDate, dropsP);
-          // 
+          //
           this.setState({
             docsPanel: res1,
             tripsPanel: res2,
@@ -1618,13 +1612,13 @@ class Dashboard extends Component {
   changeDate = (day, dayflag, from) => {
     var flagconsider = false;
     if (from == "checked") {
-      // 
+      //
       flagconsider = dayflag;
-      // 
+      //
     } else if (from == "buttons") {
-      // 
+      //
       flagconsider = this.state.checked5days;
-      // 
+      //
     }
 
     var currDate = moment.tz(this.state.dropDate, "").add(day, "days");
@@ -1633,9 +1627,9 @@ class Dashboard extends Component {
     var newDate = moment.tz(currDate, "").format("YYYY-MM-DD");
     var newStartDate = moment.tz(sdate, "").format("YYYY-MM-DD");
     var newEndDate = moment.tz(edate, "").format("YYYY-MM-DD");
-    // 
+    //
     if (flagconsider) {
-      // 
+      //
       fetchDropsPanelwithRange(
         this.state.selectedMultipleSites,
         newStartDate,
@@ -1643,9 +1637,9 @@ class Dashboard extends Component {
       )
         .then(([res1]) => {
           var dropsP = res1;
-          // 
+          //
           // this.filterDropsDiv(newDate, dropsP);
-          // 
+          //
           this.setState({
             dropDate: new Date(newDate),
             dropsPanel: dropsP,
@@ -1653,15 +1647,15 @@ class Dashboard extends Component {
         })
         .catch((error) => {});
     } else {
-      // 
+      //
 
-      // 
+      //
       fetchDropsPanel(this.state.selectedMultipleSites, newDate)
         .then(([res1]) => {
           var dropsP = res1;
-          // 
+          //
           // this.filterDropsDiv(newDate, dropsP);
-          // 
+          //
           this.setState({
             dropDate: new Date(newDate),
             dropsPanel: dropsP,
@@ -1672,7 +1666,7 @@ class Dashboard extends Component {
   };
 
   SelectedDocumentEvent = (data) => {
-    // 
+    //
     let temparray = this.state.selectedDocumentList;
     temparray.add(data);
 
@@ -1728,59 +1722,59 @@ class Dashboard extends Component {
   }
 
   checkedToPlan = (checked) => {
-    // 
+    //
     this.setState({ checkedToPlan: checked });
   };
 
   OnCheckedToOpen = (checked) => {
-    // 
-    // 
+    //
+    //
     this.setState({ checkedToOpen: checked });
   };
 
   OnCheckedToShowoverMap = (checked) => {
-    // 
+    //
 
-    // 
+    //
     this.setState({ checkedToShowinMap: checked });
     this.updateGeoLocations();
   };
 
   OncheckedTodropList = (checked) => {
-    // 
-    // 
+    //
+    //
     this.setState({ checkedDropsList: checked });
   };
 
   OncheckedToPickupList = (checked) => {
-    // 
-    // 
+    //
+    //
     this.setState({ checkedPickupList: checked });
   };
 
   OnCheckedToValidate = (checked) => {
-    // 
+    //
     this.setState({ checkedToValidate: checked });
   };
 
   OnCheckedToLock = (checked) => {
-    // 
+    //
     this.setState({ checkedToLock: checked });
   };
 
   OnCheckedToOptimise = (checked) => {
-    // 
+    //
     this.setState({ checkedToOptimise: checked });
   };
 
   checked5days = (checked) => {
-    // 
+    //
     this.setState({ checked5days: checked });
     this.changeDate(0, checked, "checked");
   };
 
   checked5daysfromDocumentPanel = (checked) => {
-    // 
+    //
     this.setState({ documentPanel_5dayscheck: checked });
     this.changeDateatDocumentPanel(checked);
   };
@@ -1795,7 +1789,7 @@ class Dashboard extends Component {
     var assignedOrders = 0;
     var unassignedOrders = 0;
     //  for(var i=0;i< this.state.vehiclePanel..length; )
-    // 
+    //
     if (this.state.vehiclePanel.vehicles.length > 0) {
       totalvehicleCount = this.state.vehiclePanel.vehicles.length;
     }
@@ -1944,7 +1938,7 @@ class Dashboard extends Component {
   };
 
   refreshAllPanels = () => {
-    // 
+    //
     const emptyTrip = [];
     this.setState({
       loading: true,
@@ -1962,8 +1956,6 @@ class Dashboard extends Component {
       fridayMatchedRouteCodeDesc: {},
       selectedDocs: [],
       checkedDoccs: [],
-    
-      
     });
     this.handleDateRangeChange();
   };
@@ -1990,7 +1982,7 @@ class Dashboard extends Component {
   }
 
   sitesArr = (val) => {
-    // 
+    //
     this.setCurrentSite(val);
     this.setState({ selectedSitesArr: val });
   };
@@ -2001,7 +1993,7 @@ class Dashboard extends Component {
   };
 
   VehicleCodeArr = (val) => {
-    // 
+    //
     this.setCurrentVehiclecode(val);
 
     if (val.length > 0) {
@@ -2022,10 +2014,10 @@ class Dashboard extends Component {
   componentDidMount() {
     var user = JSON.parse(localStorage.getItem("authUser"));
     const currDate = moment.tz(new Date(), "").format("YYYY-MM-DD");
-    // 
+    //
     var selSites = sessionStorage.getItem("sites");
     var listSites = [];
-    // 
+    //
     if (selSites != null) {
       listSites = selSites.split(",");
     }
@@ -2033,11 +2025,11 @@ class Dashboard extends Component {
     if (!this.state.documentPanel_date) {
       this.setState({
         documentPanel_date: currDate,
-        documentPanel_dateflg:true
+        documentPanel_dateflg: true,
       });
     }
 
-    // 
+    //
     Promise.all([
       fetch(`${apiUrl}/api/v1/transport/usrsites?user=` + user.username),
     ])
@@ -2060,8 +2052,8 @@ class Dashboard extends Component {
   }
 
   AlreadySelectedSites = (totsites, selSites, arrayList) => {
-    // // 
-    // 
+    // //
+    //
     this.handleSiteChange(selSites);
     this.sitesArr(arrayList);
     /*
@@ -2110,19 +2102,19 @@ class Dashboard extends Component {
   };
 
   startAndEndOfWeek = (date) => {
-    // 
-    // 
-    // 
+    //
+    //
+    //
     const now = date ? new Date(date) : new Date().setHours(0, 0, 0, 0);
-    // 
+    //
     const sunday = new Date(now);
-    // 
+    //
     sunday.setDate(sunday.getDate() - sunday.getDay() + 0);
-    // 
+    //
     const satday = new Date(now);
-    // 
+    //
     satday.setDate(satday.getDate() - satday.getDay() + 5);
-    // 
+    //
     return [sunday, satday];
   };
 
@@ -2130,20 +2122,20 @@ class Dashboard extends Component {
     this.setState({ loader: true });
     var satday, sunday;
     const events = this.schedulerRef;
-    // 
+    //
     const clickedDate = this.schedulerRef.current.scheduleObj.selectedDate;
     let clickedDateinFormat = moment(clickedDate).format("YYYY-MM-DD");
 
     if (
       this.schedulerRef.current.scheduleObj.currentView === "TimelineWorkWeek"
     ) {
-      // 
+      //
       [sunday, satday] = this.startAndEndOfWeek(clickedDate);
       var StartDate = moment(sunday).format("YYYY-MM-DD");
       var EndDate = moment(satday).format("YYYY-MM-DD");
 
-      // 
-      // 
+      //
+      //
 
       fetchSchedulerAPI(this.state.selectedMultipleSites, StartDate, EndDate)
         .then(([res1, res2, res3, res4]) => {
@@ -2159,7 +2151,7 @@ class Dashboard extends Component {
             SelectedDeletedDocs: [],
             selectedDocumentList: [],
             RouteCode: res4,
-              daysDoc:7,
+            daysDoc: 7,
           });
         })
         .then(() => {
@@ -2169,77 +2161,84 @@ class Dashboard extends Component {
         })
         .catch((error) => {});
     } else {
-    
-// getting documents with range and trips with selected date here
-  const daysDoc = parseInt(this.state.daysDoc || 0, 10);
+      // getting documents with range and trips with selected date here
+      const daysDoc = parseInt(this.state.daysDoc || 0, 10);
 
-  const startDate = moment(clickedDate).subtract(daysDoc, 'days').format("YYYY-MM-DD");
-  
-  console.log(startDate ,clickedDateinFormat,"this is start date and end date here initially here checking")
+      const startDate = moment(clickedDate)
+        .subtract(daysDoc, "days")
+        .format("YYYY-MM-DD");
 
+      console.log(
+        startDate,
+        clickedDateinFormat,
+        "this is start date and end date here initially here checking"
+      );
 
+      //   fetchSchedulerAPIOneDate(
+      //     this.state.selectedMultipleSites,
+      //     clickedDateinFormat
+      //   )
+      //     .then(([res1, res2, res3, res4]) => {
+      //       this.setState({
+      //         vehiclePanel: res1,
+      //         docsPanel: res2,
+      //         tripsPanel: res3,
+      //         loader: false,
+      //         RouteCode: res4,
+      //         date: clickedDateinFormat,
+      //         // documentPanel_dateflg: false,
+      //         // documentPanel_date: "",
+      //         // documentPanel_5dayscheck: false,
+      //         SelectedDeletedDocs: [],
+      //         selectedDocumentList: [],
+      //         filteredTripData: "",
+      //           daysDoc:7,
+      //       });
+      //     })
 
-    //   fetchSchedulerAPIOneDate(
-    //     this.state.selectedMultipleSites,
-    //     clickedDateinFormat
-    //   )
-    //     .then(([res1, res2, res3, res4]) => {
-    //       this.setState({
-    //         vehiclePanel: res1,
-    //         docsPanel: res2,
-    //         tripsPanel: res3,
-    //         loader: false,
-    //         RouteCode: res4,
-    //         date: clickedDateinFormat,
-    //         // documentPanel_dateflg: false,
-    //         // documentPanel_date: "",
-    //         // documentPanel_5dayscheck: false,
-    //         SelectedDeletedDocs: [],
-    //         selectedDocumentList: [],
-    //         filteredTripData: "",
-    //           daysDoc:7,
-    //       });
-    //     })
+      //     .then(() => {
+      //       this.updateTopBar();
+      //       this.refreshSite();
+      //       this.removeDocsCheckBoxes();
+      //     })
+      //     .catch((error) => {});
+      // }
 
-    //     .then(() => {
-    //       this.updateTopBar();
-    //       this.refreshSite();
-    //       this.removeDocsCheckBoxes();
-    //     })
-    //     .catch((error) => {});
-    // }
+      // fetchDocumentPanelwithRangeDaysBack
 
-
-
-    // fetchDocumentPanelwithRangeDaysBack
-
-        fetchDocumentPanelwithRangeDaysBack(this.state.selectedMultipleSites, startDate,clickedDateinFormat)
-      .then(([res1, res2]) => {
-        /*
+      refreshAllpanels(
+        this.state.selectedMultipleSites,
+        startDate,
+        clickedDateinFormat
+      )
+        .then(([res1, res2, res3,res4,res5]) => {
+          /*
           if(status1 === 200 && status2 === 200 && status3 === 200){
                    this.setState({loading: false})
           }
           */
 
-        this.setState({
-          date: clickedDate,
-          documentPanel_dateflg: true,
-          docsPanel: res1,
-          tripsPanel: res2,
-          loader: false,
-          
+          this.setState({
+            date: clickedDate,
+            documentPanel_dateflg: true,
+            docsPanel: res1,
+            tripsPanel: res2,
+            loader: false,
+            vehiclePanel: res3,
+                 RouteCode: res4 ,
+            pickersList: res5,
+          });
+        })
+        .then(() => {
+          this.updateTopBar();
+          this.refreshSite();
+          this.removeDocsCheckBoxes();
+        })
+        .catch((error) => {
+          this.setState({
+            loader: false,
+          });
         });
-      })
-      .then(() => {
-        this.updateTopBar();
-        this.refreshSite();
-        this.removeDocsCheckBoxes();
-      })
-      .catch((error) => {
-        this.setState({
-          loader: false,
-        });
-      });
     }
   };
 
@@ -2247,18 +2246,18 @@ class Dashboard extends Component {
     this.setState({ loader: true });
     var satday, sunday;
     const events = this.schedulerRef;
-    // 
+    //
     const clickedDate = this.schedulerRef.current.scheduleObj.selectedDate;
     if (
       this.schedulerRef.current.scheduleObj.currentView === "TimelineWorkWeek"
     ) {
-      // 
+      //
       [sunday, satday] = this.startAndEndOfWeek(clickedDate);
       var StartDate = moment(sunday).format("YYYY-MM-DD");
       var EndDate = moment(satday).format("YYYY-MM-DD");
 
-      // 
-      // 
+      //
+      //
 
       fetchSchedulerAPI(this.state.selectedMultipleSites, StartDate, EndDate)
         .then(([res1, res2, res3, res4]) => {
@@ -2290,26 +2289,30 @@ class Dashboard extends Component {
   };
 
   handleVehicleCodeChange = (selectedvehicleCodes) => {
-    // 
-    // 
+    //
+    //
     this.setCurrentVehiclecode(selectedvehicleCodes);
   };
 
   handleSiteChange = (selectedOption) => {
     this.setState({ loader: true });
-    // 
-
-    // 
     this.setCurrentSite(selectedOption);
     sessionStorage.setItem("sites", selectedOption);
     const currDate = moment.tz(this.state.date, "").format("YYYY-MM-DD");
     var FirstDate, LastDate;
     [FirstDate, LastDate] = this.startAndEndOfWeek(currDate);
-    // 
-    var StartDate = moment.tz(FirstDate, "").format("YYYY-MM-DD");
+  
+    // var StartDate = moment.tz(FirstDate, "").format("YYYY-MM-DD");
     var EndDate = moment.tz(LastDate, "").format("YYYY-MM-DD");
 
-    // 
+  
+
+
+    const daysDoc = parseInt(this.state.daysDoc || 0, 10);
+
+    const startDate = moment(currDate)
+      .subtract(daysDoc, "days")
+      .format("YYYY-MM-DD");
 
     if (
       this.schedulerRef.current.scheduleObj.currentView === "TimelineWorkWeek"
@@ -2334,32 +2337,37 @@ class Dashboard extends Component {
       //     this.refreshSite();
       //   });
 
-      fetchSchedulerAPI(selectedOption, StartDate, EndDate)
-  .then(([res1, res2, res3, res4, res5]) => {
-
-    console.log(res1,res2,res3,res4,res5 ,"all these response inside fetch one data")
-    this.setState({
-      vehiclePanel: res1 || [],            // fallback to empty array or object
-      docsPanel: res2 || [],
-      tripsPanel: res3 || [],
-      RouteCode: res4 || [],
-      pickersList: res5 || [],
-      loader: false,
-      documentPanel_dateflg: false,
-      documentPanel_date: "",
-      documentPanel_5dayscheck: false,
-      filterVehicleflg: false,
-    });
-  })
-  .then(() => {
-    this.updateTopBar();
-    this.refreshSite();
-  })
-  .catch(error => {
-    console.error('Unexpected error in fetchSchedulerAPI:', error);
-    this.setState({ loader: false }); // always stop the loader on error
-  });
-
+      fetchSchedulerAPI(selectedOption, startDate, currDate)
+        .then(([res1, res2, res3, res4, res5]) => {
+          // console.log(
+          //   res1,
+          //   res2,
+          //   res3,
+          //   res4,
+          //   res5,
+          //   "all these response inside fetch one data"
+          // );
+          this.setState({
+            vehiclePanel: res1 || [], // fallback to empty array or object
+            docsPanel: res2 || [],
+            tripsPanel: res3 || [],
+            RouteCode: res4 || [],
+            pickersList: res5 || [],
+            loader: false,
+            documentPanel_dateflg: false,
+            documentPanel_date: "",
+            documentPanel_5dayscheck: false,
+            filterVehicleflg: false,
+          });
+        })
+        .then(() => {
+          this.updateTopBar();
+          this.refreshSite();
+        })
+        .catch((error) => {
+          console.error("Unexpected error in fetchSchedulerAPI:", error);
+          this.setState({ loader: false }); // always stop the loader on error
+        });
     } else {
       fetchSchedulerAPIOneDate(selectedOption, currDate)
         .then(([res1, res2, res3, res4, res5]) => {
@@ -2373,6 +2381,10 @@ class Dashboard extends Component {
             selectedDocumentList: [],
             pickersList: res5,
           });
+        })
+        .then(() => {
+          this.updateTopBar();
+          this.refreshSite();
         })
         .catch((error) => {});
     }
@@ -2437,8 +2449,8 @@ class Dashboard extends Component {
 
         currMarkers.push(this.state.selectedSite);
 
-        // 
-        // 
+        //
+        //
 
         //add pointer to the map
         let currDropsPanel = this.state.docsPanel;
@@ -2579,11 +2591,10 @@ class Dashboard extends Component {
   };
 
   handleDateChange = (date) => {
-
     console.log("this is handle date change funciton 2533");
-    // 
+    //
     const currDate = moment.tz(date, "").format("YYYY-MM-DD");
-    // 
+    //
 
     let value = this.state.selectedMultipleSites;
     fetchSchedulerAPIOneDate(value, currDate)
@@ -2639,8 +2650,8 @@ class Dashboard extends Component {
 
   onVRClick = (i, tmsValidated) => {
     this.setState({ loader: true });
-    // 
-    // 
+    //
+    //
     var tripsPanels = this.state.tripsPanel;
     var selectedTrip = [];
     var selectedTrips = [];
@@ -2689,9 +2700,9 @@ class Dashboard extends Component {
       .catch((error) => {
         //  history.push('/');
       });
-    // 
+    //
     if (this.state.markers && this.state.markers.length == 0) {
-      // 
+      //
       this.state.sites.map((site) => {
         if (this.state.selectedSite === site.id) {
           let marker = [];
@@ -2900,7 +2911,7 @@ class Dashboard extends Component {
 
   ToPickDatafromVR = (vrnum) => {
     this.setState({ loader: true });
-    // 
+    //
     //   var tripsPanels = this.state.tripsPanel;
     //   var ClickedTrip = tripsPanels[i];
     //   let trips = ClickedTrip;
@@ -3002,7 +3013,7 @@ class Dashboard extends Component {
     this.setState({
       loader: true,
     });
-    // 
+    //
     //  var tripsPanel = this.state.tripsPanel;
     //  tripsPanel[index].lock = true;
 
@@ -3037,7 +3048,6 @@ class Dashboard extends Component {
     }).then((response) => {
       if (response.status === 200) {
         ToAllocationSubmitData(vrcode).then((res) => {
-       
           //    if(statuscode == 200) {
 
           this.notifySucess("Allocation Sucessfully Completed");
@@ -3064,7 +3074,7 @@ class Dashboard extends Component {
 
   confirmLVSbyCode = (lvscode, i, pageType) => {
     this.setState({ loader: true });
-    // 
+    //
     var tripsPanels = this.state.tripsPanel;
     var ClickedTrip = tripsPanels[i];
     let trips = ClickedTrip;
@@ -3156,7 +3166,7 @@ class Dashboard extends Component {
   updateDocsMap = (currMarkers, currGeoData, i, docnum) => {
     //add pointer to the map
     let currDropsPanel = this.state.docsPanel;
-    // 
+    //
     for (var j = 0; j < currDropsPanel.length; j++) {
       if (currDropsPanel[j].docnum === docnum) {
         if (currDropsPanel[j].movtype === "DROP") {
@@ -3177,10 +3187,10 @@ class Dashboard extends Component {
   };
 
   updateonlyTripsPanel = (i) => {
-    // 
-    // 
+    //
+    //
     var tripsPanels = this.state.tripsPanel;
-    // 
+    //
     var selectedTrip = [];
     var selectedTrips = [];
     var trailers = [];
@@ -3189,11 +3199,11 @@ class Dashboard extends Component {
     var gTrip = this.state.guageTrip;
     gTrip = tripsPanels[i];
     var slectTrip = gTrip.totalObject;
-    // 
+    //
     tripsPanels[i].timelineInterval = slectTrip.timelineInterval;
-    // 
+    //
     selectedTrips = slectTrip.selectedTripData;
-    // 
+    //
     trailers = slectTrip.trailers;
     equipments = slectTrip.equipments;
     quantities = slectTrip.quantities;
@@ -3202,10 +3212,9 @@ class Dashboard extends Component {
   };
 
   updateTripsPanel = (currMarkers, currGeoData, i) => {
-    
-    // 
+    //
     var tripsPanels = this.state.tripsPanel;
-    // 
+    //
     var selectedTrip = [];
     var selectedTrips = [];
     var trailers = [];
@@ -3214,16 +3223,16 @@ class Dashboard extends Component {
     var gTrip = this.state.guageTrip;
     gTrip = tripsPanels[i];
     var slectTrip = tripsPanels[i].totalObject;
-    // 
+    //
     tripsPanels[i].timelineInterval = slectTrip.timelineInterval;
-    // 
+    //
     selectedTrips = slectTrip.selectedTripData;
-    // 
+    //
     trailers = slectTrip.trailers;
     equipments = slectTrip.equipments;
     quantities = slectTrip.quantities;
     selectedTrip.push(tripsPanels[i]);
-    // 
+    //
 
     for (var j = 0; j < tripsPanels[i].dropObject.length; j++) {
       tripsPanels[i].dropObject[j].itemCode = tripsPanels[i].itemCode;
@@ -3261,7 +3270,7 @@ class Dashboard extends Component {
       }
     }
 
-    // 
+    //
     this.setState({
       trips: selectedTrip,
       guageTrip: gTrip,
@@ -3277,7 +3286,7 @@ class Dashboard extends Component {
       mapChanged: true,
       tripsChecked: selectedTrip,
     });
-    // 
+    //
   };
 
   removeTrips = () => {
@@ -3307,12 +3316,12 @@ class Dashboard extends Component {
   };
 
   handleDragStart = (event, valueObj, type, index, id) => {
-    // 
-    // 
-    // 
-    // 
+    //
+    //
+    //
+    //
     if (type === "vehicle") {
-      // 
+      //
       const currDate = moment.tz(this.state.date, "").format("YYYY-MM-DD");
       const url =
         `${apiUrl}/api/v1/transport/prevtrpsite?veh=` +
@@ -3392,8 +3401,8 @@ class Dashboard extends Component {
     event.dataTransfer.setData("row-id", id);
     event.dataTransfer.setData("index", index);
 
-    // 
-    // 
+    //
+    //
   };
 
   enableDivs = (trails, type) => {
@@ -3571,11 +3580,9 @@ class Dashboard extends Component {
   // }
 
   ondaysDocChange = (val) => {
-  this.setState({ daysDoc: val });
-      this.documentPanelDateChange(this.state.documentPanel_date);
-
-};
-
+    this.setState({ daysDoc: val });
+    this.documentPanelDateChange(this.state.documentPanel_date);
+  };
 
   updateTripCount = () => {
     var tripCount = this.state.selectedTrips;
@@ -3641,13 +3648,13 @@ class Dashboard extends Component {
   };
 
   disableDroppedDiv = (divTag) => {
-    // 
+    //
     var temp = "[row-id=" + divTag + "]";
     //  var htmlDiv = document.getElementById(divTag);
-    // 
+    //
     var htmlDiv = document.querySelectorAll(temp);
     var { droppedDivs } = this.state;
-    // 
+    //
     droppedDivs.push(temp);
     this.setState({ droppedDivs });
   };
@@ -3780,7 +3787,7 @@ class Dashboard extends Component {
       var trip = tripsPanel[i];
       if (trip.lock && !trip.tmsValidated) {
         Validatecount = Validatecount + 1;
-        // 
+        //
         ValidateTrips.push(trip);
       }
     }
@@ -3820,7 +3827,7 @@ class Dashboard extends Component {
 
   Nonvalidate = (i) => {
     this.setState({ loader: true });
-    // 
+    //
     var tripsPanels = this.state.tripsPanel;
     var ClickedTrip = tripsPanels[i];
     let trips = ClickedTrip;
@@ -3829,22 +3836,22 @@ class Dashboard extends Component {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(trips),
     })
-      .then((response) => {
-        // this.handleErrors(response);
-      })
-      .then(function (response) {})
-      .then(() => {
-        // this.handleDateRangeChange();
-        this.fetchDocumentPanelDateChange(this.state.documentPanel_date);
-      })
-      .then(() => {
-        // this.updateMaprelatedstuff(i);
-      })
+      // .then((response) => {
+      //   // this.handleErrors(response);
+      // })
+      // .then(function (response) {})
+      // .then(() => {
+      //   // this.handleDateRangeChange();
+
+      // })
+      // .then(() => {
+      //   // this.updateMaprelatedstuff(i);
+      // })
       .then(() => {
         // this.setState({ loader: false });
 
         this.setState({
-          loader: false,
+          // loader: false,
           checkedTrip: false,
           isDetail: false,
           showListRouteMap: false,
@@ -3857,7 +3864,9 @@ class Dashboard extends Component {
           vehicleChecked: "none",
           tripsChecked: [],
         });
+
         this.notifySucess("Disputed Validated Trip Sucessfully");
+        this.fetchDocumentPanelDateChange(this.state.documentPanel_date);
 
         // call vrClick functionality
       })
@@ -3870,14 +3879,14 @@ class Dashboard extends Component {
 
   validate = (i) => {
     this.setState({ loader: true });
-    // 
+    //
     var tripsPanels = this.state.tripsPanel;
     var ClickedTrip = tripsPanels[i];
     let userinfo = JSON.parse(localStorage.getItem("authUser"));
     ClickedTrip.loginUser = userinfo.username;
     let trips = ClickedTrip;
 
-    // 
+    //
     fetch(`${apiUrl}/api/v1/transport/validate`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -3889,12 +3898,11 @@ class Dashboard extends Component {
       .then(function (response) {})
       .then(() => {
         // this.handleDateRangeChange();
-        this.fetchDocumentPanelDateChange(this.state.documentPanel_date);
       })
       .then(() => {
         this.updateMaprelatedstuff(i);
         this.setState({
-          loader: false,
+          // loader: false,
           checkedTrip: false,
           isDetail: false,
           showListRouteMap: false,
@@ -3909,9 +3917,9 @@ class Dashboard extends Component {
         });
       })
       .then(() => {
-        this.setState({ loader: false });
-        this.notifySucess("Trip Validated Sucessfully");
         // call vrClick functionality
+        this.notifySucess("Trip Validated Sucessfully");
+        this.fetchDocumentPanelDateChange(this.state.documentPanel_date);
       })
       .catch((error) => {
         this.handleDateRangeChange();
@@ -3922,7 +3930,7 @@ class Dashboard extends Component {
 
   confirmLVSbyCode_backup = (lvscode, i, pageType) => {
     this.setState({ loader: true });
-    // 
+    //
     var tripsPanels = this.state.tripsPanel;
     var ClickedTrip = tripsPanels[i];
     let trips = ClickedTrip;
@@ -3964,7 +3972,7 @@ class Dashboard extends Component {
 
   confirmLVSbyCode = (lvscode, i, pageType) => {
     this.setState({ loader: true });
-    // 
+    //
     var tripsPanels = this.state.tripsPanel;
     var ClickedTrip = tripsPanels[i];
     let trips = ClickedTrip;
@@ -4003,7 +4011,7 @@ class Dashboard extends Component {
 
   validateonly = (i, pageType) => {
     this.setState({ loader: true });
-    // 
+    //
     var tripsPanels = this.state.tripsPanel;
     var ClickedTrip = tripsPanels[i];
     let trips = ClickedTrip;
@@ -4086,7 +4094,7 @@ class Dashboard extends Component {
   //   const currGeoData = [];
   //   if (typeof (this.state.selectedSite) === "string") {
   //     if (this.state.sites.length > 0) {
-  //       // 
+  //       //
   //       this.state.sites.map((site) => {
   //         if (site.id === this.state.selectedSite) {
   //           currMarkers.push(site)
@@ -4094,27 +4102,27 @@ class Dashboard extends Component {
   //       })
   //     }
   //   } else if (this.state.selectedSite.lat != undefined) {
-  //     // 
+  //     //
   //     currMarkers.push(this.state.selectedSite);
   //   }
-  //   // 
-  //   // 
+  //   //
+  //   //
   //   if (checkboxes[index].checked) {
   //     this.removeDocsCheckBoxes();
-  //     // 
+  //     //
   //     checkboxes[index].checked = true;
   //     //this.onRouteoptiShow();
   //     this.updateDocsMap(currMarkers, currGeoData, index, docnum);
   //     //this.updateTripsPanel(currMarkers, currGeoData, index);
   //     // this.setState({ selectedIndex: index, checkedTrip: true })
   //   } else {
-  //     // 
+  //     //
   //     // this.onRouteoptihide();
   //     this.removeDocsCheckBoxes();
   //     let marker = [];
   //     marker.push(currMarkers[0])
-  //     // 
-  //     // 
+  //     //
+  //     //
   //     this.setState({
   //       markers: marker,
   //       mapChanged: true,
@@ -4125,7 +4133,6 @@ class Dashboard extends Component {
   // }
 
   updateDocsGeoLocations = (index, drops) => {
-    
     const checkboxes = document.getElementsByName("docsCheckBox");
     const currMarkers = [];
     const currGeoData = [];
@@ -4180,6 +4187,7 @@ class Dashboard extends Component {
   };
 
   updateTripsGeoLocations = (passedi, vrcode) => {
+    console.log(vrcode, "this is vrcode 4193");
     let index, searchindex;
     let temptripsdata = this.state.tripsPanel;
     let temptripsdata2 = this.state.tripsPanel;
@@ -4198,7 +4206,7 @@ class Dashboard extends Component {
             .indexOf(searchTripString.toLowerCase()) !== -1
         );
 
-        // 
+        //
       });
     }
 
@@ -4221,7 +4229,7 @@ class Dashboard extends Component {
     const currGeoData = [];
     if (typeof this.state.selectedSite === "string") {
       if (this.state.sites.length > 0) {
-        // 
+        //
         this.state.sites.map((site) => {
           if (site.id === this.state.selectedSite) {
             currMarkers.push(site);
@@ -4229,14 +4237,14 @@ class Dashboard extends Component {
         });
       }
     } else if (this.state.selectedSite.lat != undefined) {
-      // 
+      //
       currMarkers.push(this.state.selectedSite);
     }
-    // 
-    // 
+    //
+    //
     if (checkboxes[index].checked) {
       this.removeTrips();
-      // 
+      //
       checkboxes[index].checked = true;
       this.onRouteoptiShow();
 
@@ -4248,8 +4256,8 @@ class Dashboard extends Component {
       this.removeTrips();
       let marker = [];
       marker.push(currMarkers[0]);
-      // 
-      // 
+      //
+      //
       this.setState({
         markers: marker,
         mapChanged: true,
@@ -4318,7 +4326,7 @@ class Dashboard extends Component {
 
   // working updateTripsPanel (one same named function is there)
   updateTripsPanel = (currMarkers, currGeoData, i) => {
-    // 
+    //
 
     var tripsPanels = this.state.tripsPanel;
     var selectedTrip = [];
@@ -4329,11 +4337,11 @@ class Dashboard extends Component {
     var gTrip = this.state.guageTrip;
     gTrip = tripsPanels[i];
     var slectTrip = tripsPanels[i].totalObject;
-    // 
+    //
     tripsPanels[i].timelineInterval = slectTrip.timelineInterval;
-    // 
+    //
     selectedTrips = slectTrip.selectedTripData;
-    // 
+    //
     trailers = slectTrip.trailers;
     equipments = slectTrip.equipments;
     quantities = slectTrip.quantities;
@@ -4375,8 +4383,8 @@ class Dashboard extends Component {
       }
     }
 
-    // 
-    // 
+    //
+    //
     // if (currGeoData[0]?.vehicleCode !== gTrip.code) {
     currGeoData = currGeoData.map((obj) => ({
       ...obj,
@@ -4584,23 +4592,22 @@ class Dashboard extends Component {
   };
 
   documentPanelDateChange = (date) => {
-
-    console.log(date ,"document panel date chagne fetching here");
+    console.log(date, "document panel date chagne fetching here");
     this.setState({ loader: true });
-    // 
+    //
     const currDate = moment.tz(date, "").format("YYYY-MM-DD");
-    // 
+    //
 
+    const daysDoc = parseInt(this.state.daysDoc || 0, 10);
 
+    const startDate = moment(currDate)
+      .subtract(daysDoc, "days")
+      .format("YYYY-MM-DD");
 
-      const daysDoc = parseInt(this.state.daysDoc || 0, 10);
-      
-        const startDate = moment(currDate).subtract(daysDoc, 'days').format("YYYY-MM-DD");
-
-        console.log(startDate,currDate ,"checking both dates checkins here 4537");
+    console.log(startDate, currDate, "checking both dates checkins here 4537");
 
     let value = this.state.selectedMultipleSites;
-    fetchDocumentPanelwithRangeDaysBack(value, startDate,currDate)
+    fetchDocumentPanelwithRangeDaysBack(value, startDate, currDate)
       .then(([res1, res2]) => {
         /*
           if(status1 === 200 && status2 === 200 && status3 === 200){
@@ -4626,34 +4633,27 @@ class Dashboard extends Component {
           loader: false,
         });
       });
-
-
-    
   };
 
   // show document panel data after generating route locking validating (this is created because date is getting blank after performing these oprations)
 
   fetchDocumentPanelDateChange = (date) => {
-    this.setState({ loader: true });
-    // 
 
-
-       console.log(date ,"document panel date chagne fetching here");
     this.setState({ loader: true });
-    // 
+
     const currDate = moment.tz(date, "").format("YYYY-MM-DD");
-    // 
 
 
+    const daysDoc = parseInt(this.state.daysDoc || 0, 10);
 
-      const daysDoc = parseInt(this.state.daysDoc || 0, 10);
-      
-        const startDate = moment(currDate).subtract(daysDoc, 'days').format("YYYY-MM-DD");
+    const startDate = moment(currDate)
+      .subtract(daysDoc, "days")
+      .format("YYYY-MM-DD");
 
-        console.log(startDate,currDate ,"checking both dates checkins here 4537");
+    console.log(startDate, currDate, "checking both dates checkins here 4537");
 
     let value = this.state.selectedMultipleSites;
-  fetchDocumentPanelwithRangeDaysBack(value, startDate,currDate)
+    fetchDocumentPanelwithRangeDaysBack(value, startDate, currDate)
       .then(([res1, res2]) => {
         /*
           if(status1 === 200 && status2 === 200 && status3 === 200){
@@ -4736,12 +4736,12 @@ class Dashboard extends Component {
     var tripsList_loader = tripsPanels[tripindex];
     tripsList_loader.loaderInfo = msg;
 
-    // 
+    //
     this.confirmTrip(tripsList_loader, "loaderMsg");
   };
 
   onForcesequnceCheck = (tripindex, msg) => {
-    // 
+    //
     var tripsPanels = this.state.tripsPanel;
     var trips = [];
     var tripsList_force = tripsPanels[tripindex];
@@ -4789,7 +4789,7 @@ class Dashboard extends Component {
       trip.totalObject.selectedTripData.map((TripData) => {
         if (TripData.docnum && TripData.docnum === docNum) {
           if (Msgtype === "doc") {
-            // 
+            //
             TripData.noteMessage = msg;
           } else if (Msgtype === "carrier") {
             TripData.CarrierMessage = msg;
@@ -4820,27 +4820,50 @@ class Dashboard extends Component {
   };
 
   refreshDocspanel = () => {
-    var satday, sunday;
-    var currDate = moment.tz(this.state.date, "");
-    [sunday, satday] = this.startAndEndOfWeek(currDate);
-    var StartDate = moment.tz(sunday, "").format("YYYY-MM-DD");
-    var EndDate = moment.tz(satday, "").format("YYYY-MM-DD");
-    // 
-    // 
-    fetchSchedulerDocsAPI(this.state.selectedMultipleSites, StartDate, EndDate)
+    this.setState({
+      loader: true,
+    });
+
+    // var currDate = moment.tz(this.state.date, "");
+    const currDate = moment
+      .tz(this.state.documentPanel_date, "")
+      .format("YYYY-MM-DD");
+
+    const daysDoc = parseInt(this.state.daysDoc || 0, 10);
+
+    const startDate = moment(currDate)
+      .subtract(daysDoc, "days")
+      .format("YYYY-MM-DD");
+
+    // console.log(startDate,currDate ,"checking both dates checkins here 4537");
+
+    // var satday, sunday;
+
+    // [sunday, satday] = this.startAndEndOfWeek(currDate);
+    // var StartDate = moment.tz(sunday, "").format("YYYY-MM-DD");
+    // var EndDate = moment.tz(satday, "").format("YYYY-MM-DD");
+    //
+    //
+    fetchSchedulerDocsAPI(this.state.selectedMultipleSites, startDate, currDate)
       .then(([res1]) => {
         this.setState({
           docsPanel: res1,
+          loader: false,
         });
+        toast.success("Documents fetched successfully!");
       })
-      .catch((error) => {});
+      .catch((error) => {
+        this.setState({
+          loader: false,
+        });
+      });
   };
 
   onTripDelete = (index, docnum, vtype, vcode, docObject) => {
-    // 
+    //
 
-    // 
-    // 
+    //
+    //
     var currentGeoData = this.state.geoData;
     var currentMarkers = this.state.markers;
 
@@ -4863,10 +4886,10 @@ class Dashboard extends Component {
       }
     });
 
-    // 
-    // 
-    // 
-    // 
+    //
+    //
+    //
+    //
     if (currentGeoData[index].panelType == "pickup") {
       var pickCount = trip.pickups;
       trip.pickups = pickCount - 1;
@@ -4977,23 +5000,16 @@ class Dashboard extends Component {
 
     removeDocsObject.forEach((deletedDoc) => {
       const { docnum, serviceTime, bpcode, adrescode } = deletedDoc;
-   
+
       if (serviceTime !== "00:00") {
-        
         const index = selectedTripData.findIndex(
           (item) => item.docnum === docnum
         );
 
-        
-
         if (index !== -1 && index + 1 < selectedTripData.length) {
           const nextItem = selectedTripData[index + 1];
 
-          
-
-      
           if (nextItem.bpcode === bpcode && nextItem.adrescode === adrescode) {
-         
             selectedTripData[index + 1].serviceTime = serviceTime;
           }
         }
@@ -5008,13 +5024,13 @@ class Dashboard extends Component {
       }
     }
 
-    // 
+    //
 
     trip.pickupObject = pickupObject;
     trip.dropObject = dropObject;
     trip.totalObject.selectedTripData = selectedTrips;
 
-    // 
+    //
     var tripColor = [
       "#e0e0e0",
       "#e0e0e0",
@@ -5035,8 +5051,6 @@ class Dashboard extends Component {
         tripColor[i] = "#09aaed";
       }
     }
-
-    
 
     trips.push(trip);
 
@@ -5059,7 +5073,7 @@ class Dashboard extends Component {
 
   lockTrip = (trips, index) => {
     this.setState({ loader: true });
-    // 
+    //
     var tripsPanel = this.state.tripsPanel;
     let userinfo = JSON.parse(localStorage.getItem("authUser"));
     tripsPanel[index].loginUser = userinfo.username;
@@ -5072,7 +5086,7 @@ class Dashboard extends Component {
     }).then((response) => {
       this.setState({
         tripsPanel: tripsPanel,
-        loader: false,
+        // loader: false,
         checkedTrip: false,
         isDetail: false,
         showListRouteMap: false,
@@ -5086,8 +5100,8 @@ class Dashboard extends Component {
         tripsChecked: [],
       });
 
-      this.documentPanelDateChange(this.state.documentPanel_date);
       this.notifySucess("Trip Locked Sucessfully");
+      this.documentPanelDateChange(this.state.documentPanel_date);
     });
   };
 
@@ -5150,7 +5164,7 @@ class Dashboard extends Component {
   */
 
   GrouplockTrips = () => {
-    // 
+    //
     var tripsPanel = this.state.tripsPanel;
     var trips = [];
     for (let trip in tripsPanel) {
@@ -5182,7 +5196,7 @@ class Dashboard extends Component {
     var RouteprocessedData = [];
     var sameProcessUsedDriversList = [];
     var TripsfromRoutes = [];
-    // 
+    //
     for (let k = 0; k < routes.length; k++) {
       var currRoute = routes[k];
       var Veh = routes[k].description;
@@ -5191,7 +5205,7 @@ class Dashboard extends Component {
       var auto_service_time = routes[k].service / 60 / 60;
       var auto_total_distance = routes[k].distance / 1000;
 
-      // 
+      //
       var dropObject = [],
         pickupObject = [],
         drops = 0,
@@ -5235,17 +5249,16 @@ class Dashboard extends Component {
       for (let t = 0; t < currRoute.steps.length; t++) {
         var ttime = "";
         var currTask = currRoute.steps[t];
-        
 
         if (currTask.type !== "start" && currTask.type !== "end") {
           var docno = currTask.description;
-          // 
+          //
           for (let d = 0; d < this.state.docsPanel.length; d++) {
             let newStartDate1 = moment(existingTrip.docdate).format(
               "YYYY-MM-DD"
             );
             var currDoc = this.state.docsPanel[d];
-            // 
+            //
             var SelectedDoc = [];
             if (currDoc.docnum === docno) {
               //let time = data.summary.travelTimeInSeconds
@@ -5262,7 +5275,9 @@ class Dashboard extends Component {
               currDoc.endDate = newStartDate1;
               currDoc.time = convertSecToHr(currTask.duration).toFixed(3);
               currDoc.distance = 0;
-              currDoc.end = secondsToHmsAutoGen(currTask.arrival + currTask.service);
+              currDoc.end = secondsToHmsAutoGen(
+                currTask.arrival + currTask.service
+              );
               ttime = currDoc.arrival;
               if (currDoc.doctype === "PRECEIPT") {
                 pickups = pickups + 1;
@@ -5284,19 +5299,19 @@ class Dashboard extends Component {
           //end of search task with document panel
         } // end of if, task
         else if (currTask.type === "start") {
-          // 
+          //
           startTime = secondsToHms(currTask.arrival);
           ttime = startTime;
         } else if (currTask.type === "end") {
           endTime = secondsToHms(currTask.arrival);
           ttime = endTime;
-          // 
+          //
         }
         //for timeline
         var index = t * 12;
         timelneInterval.push({ value: index, label: ttime });
 
-        // 
+        //
       } // end of steps
       totalWeight = 0; //totalWeight + parseInt(docItem.obbject.netweight);
       totalVolume = 0; //totalVolume + parseInt(docItem.obbject.volume);
@@ -5317,7 +5332,7 @@ class Dashboard extends Component {
       );
       fld_per_volume = Math.round((fld_doc_volume / fld_tot_volume) * 100);
 
-      // 
+      //
       var volume = VehicleObject.vol;
       //  var StartTime = VehicleObject.timelineInterval[0].label;
       vehobj = VehicleObject;
@@ -5331,8 +5346,6 @@ class Dashboard extends Component {
       }
       var today = new Date();
       var execdate = today.getDate();
-
-      
 
       existingTrip.date = moment.tz(ddate, "").format("YYYY-MM-DD");
       existingTrip.docdate = moment.tz(ddate, "").format("YYYY-MM-DD");
@@ -5458,9 +5471,9 @@ class Dashboard extends Component {
 
       RouteprocessedData.push(existingTrip);
     }
-    // 
+    //
     TripsfromRoutes = RouteprocessedData;
-    // 
+    //
     //   this.ConfirmScheduledTrips(TripsfromRoutes);
     /*
             fetch(`${process.env.REACT_APP_API_URL}/api/v1/transport/trips`, {
@@ -5525,7 +5538,7 @@ class Dashboard extends Component {
     let siteLatM, siteLangM;
     let docM = {};
     let selSite = this.state.selectedMultipleSites[0];
-    // 
+    //
     this.state.sites.map((site) => {
       if (selSite === site.id) {
         siteLatM = site.lat;
@@ -5541,32 +5554,29 @@ class Dashboard extends Component {
 
       switch (DayOnDate) {
         case "Monday":
-          
           array = JSON.parse("[" + tempveh.mondayRC + "]");
           break;
         case "Tuesday":
           array = JSON.parse("[" + tempveh.tuesdayRC + "]");
-          
+
           break;
         case "Wednesday":
           array = JSON.parse("[" + tempveh.wednesdayRC + "]");
-          
+
           break;
         case "Thursday":
           array = JSON.parse("[" + tempveh.thursdayRC + "]");
-          
+
           break;
         case "Friday":
           array = JSON.parse("[" + tempveh.fridayRC + "]");
-          // 
+          //
           break;
       }
 
-    
       if (processtrip.code === tempveh.codeyve) {
         vehObject = tempveh;
 
-        
         let MVeh = {};
 
         MVeh.max_travel_time = convertHrToSec(tempveh.maxtotaltrvtime);
@@ -5577,7 +5587,7 @@ class Dashboard extends Component {
         let starttime = splitTimeAndConv2Sec(tempveh.starttime);
         let loadingHrs = convertHrToSec(tempveh.startdepots);
         let stime = starttime + loadingHrs;
-        // 
+        //
         let etime = splitTimeAndAddtimeAndConv2Sec(
           tempveh.starttime,
           tempveh.overtimestar
@@ -5595,7 +5605,7 @@ class Dashboard extends Component {
         } else {
           MVeh.max_tasks = 99;
         }
-        
+
         VehListM.push(MVeh);
         break;
       }
@@ -5606,11 +5616,11 @@ class Dashboard extends Component {
     for (let j = 0; j < selectedTripdata.length; j++) {
       let doc = selectedTripdata[j];
       var Doc = {};
-      // 
-      // 
+      //
+      //
       Doc.id = j + 1;
       Doc.description = doc.docnum;
-      // 
+      //
 
       var FromArr;
       var fromflag = false;
@@ -5625,23 +5635,23 @@ class Dashboard extends Component {
         toflag = true;
       }
 
-      // 
-      // 
+      //
+      //
 
       var timeWindw = [];
 
       fromflag &&
         FromArr.map((ft, index) => {
           var tt = [];
-          // 
+          //
           tt.push(splitTimeAndConv2Sec(ft));
-          // 
+          //
           tt.push(splitTimeAndConv2Sec(ToArr[index]));
 
           timeWindw.push(tt);
         });
 
-      // 
+      //
 
       var DocLat, DocLang;
       DocLat = doc.lat;
@@ -5661,14 +5671,12 @@ class Dashboard extends Component {
       //   Doc.skills = []; // or handle the case where skills is undefined or empty
       // }
 
-   
       let wtime = convertHrToSec(doc.waitingTime);
       let stime = convertHrToSec(doc.serviceTime);
 
-      
       Doc.service = parseInt(wtime) + parseInt(stime);
 
-      // 
+      //
       let ps,
         pe = 0;
       let ds,
@@ -5679,7 +5687,7 @@ class Dashboard extends Component {
       // }
       // if (fromflag) {
       //   if (timeWindw[0][0] !== 0) {
-      //     
+      //
       //     Doc.time_windows = timeWindw;
       //   }
       // }
@@ -5699,7 +5707,7 @@ class Dashboard extends Component {
             }
       */
 
-      // 
+      //
       DocListM.push(Doc);
     }
 
@@ -5710,8 +5718,6 @@ class Dashboard extends Component {
     processedData.options = {
       g: true,
     };
-
-    
 
     try {
       let response = await fetch("http://maps.uk.tema-systems.com:3000", {
@@ -5757,10 +5763,10 @@ class Dashboard extends Component {
   groupOptmiseTrips = () => {
     let OptimisedtripsPanel = this.state.tripsPanel;
 
-    // 
+    //
     let Optimisedtrips = [];
     for (let ttrip in OptimisedtripsPanel) {
-      // 
+      //
       if (
         OptimisedtripsPanel[ttrip].optistatus === "Open" &&
         OptimisedtripsPanel[ttrip].driverId !== ""
@@ -5933,7 +5939,7 @@ class Dashboard extends Component {
       ).toFixed(1);
     }
 
-    // 
+    //
 
     var trip = {
       code: eventData.code,
@@ -6006,7 +6012,7 @@ class Dashboard extends Component {
       if (!trip.lock && trip.optistatus === "Optimized") {
         if (trip.driverId !== "") {
           Lockcount = Lockcount + 1;
-          // 
+          //
           let tripdate = moment.tz(trip.docdate, "").format("YYYY-MM-DD");
           trip.date = tripdate;
           trip.lock = true;
@@ -6060,7 +6066,7 @@ class Dashboard extends Component {
     }
 
     if (deletecount > 0) {
-      // 
+      //
       fetch(`${apiUrl}/api/v1/transport/delete/trips`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -6068,11 +6074,12 @@ class Dashboard extends Component {
       }).then((response) => {
         // this.reloadTrips();
         //  this.handlePanelsUpdate(currDate);
-        this.setState({ loader: false });
+
         this.notifySucess("Trips deleted Sucessfully");
         this.onRouteoptihide();
         this.fetchDocumentPanelDateChange(this.state.documentPanel_date);
-        this.refreshDocspanel();
+        // this.refreshDocspanel();
+        this.setState({ loader: false });
       });
     } else {
       this.setState({
@@ -6113,11 +6120,11 @@ class Dashboard extends Component {
   //   //filter the trips panle and sort it
   //   var tempTripPanel = this.state.tripsPanel;
   //   var orginalTripOrder = this.state.tripsPanel;
-  //   // 
+  //   //
 
   //   tempTripPanel.sort((a, b) => (b.code.localeCompare(a.code) || b.trips - a.trips));
 
-  //   // 
+  //   //
 
   //   const key = "code"
 
@@ -6127,9 +6134,9 @@ class Dashboard extends Component {
 
   //   let DayOnDate = this.getDayOfWeek(selectedDate);
 
-  //   // 
+  //   //
 
-  //   // 
+  //   //
 
   //   var resArr = [];
   //   tempTripPanel.filter(function (item) {
@@ -6175,26 +6182,26 @@ class Dashboard extends Component {
   //     }
   //   }
 
-  //   
+  //
 
-  //   // 
+  //   //
 
-  //   // 
-  //   // 
-  //   // 
+  //   //
+  //   //
+  //   //
 
   //   if (DocCount > 0) {
 
-  //     // 
-  //     // 
-  //     // 
-  //     // 
-  //     // 
+  //     //
+  //     //
+  //     //
+  //     //
+  //     //
   //     var VehList = [], DocList = [];
   //     var siteLat, siteLang;
   //     var doc = {};
   //     var selSite = this.state.selectedMultipleSites[0];
-  //     // 
+  //     //
   //     this.state.sites.map((site) => {
   //       if (selSite === site.id) {
   //         siteLat = site.lat;
@@ -6209,38 +6216,38 @@ class Dashboard extends Component {
 
   //     var vehSkill = "";
 
-  //     
+  //
   //     for (let i = 0; i < this.state.vehiclePanel.vehicles.length; i++) {
   //       var Veh = {};
   //       let veh = this.state.vehiclePanel.vehicles[i];
 
-  //       // 
-  //       
+  //       //
+  //
 
-  //       
+  //
   //       switch (DayOnDate) {
 
   //         case "Monday":
   //           let temodata = JSON.parse("[" + veh.mondayRC + "]");
   //           //check temodata array count if it is greatee than 1
-  //           
+  //
   //           let finmodata = []
   //           if (temodata.length > 1) {
-  //             
+  //
   //             for (let i = 0; i < temodata.length; i++) {
   //               if (temproutecodelistofdocs.includes(temodata[i])) {
   //                 finmodata.push(temodata[i]);
-  //                 
+  //
 
   //                 break;
   //               }
   //             }
   //           } else {
-  //             
+  //
   //             for (let i = 0; i < temodata.length; i++) {
   //               if (temproutecodelistofdocs.includes(temodata[i])) {
   //                 finmodata.push(temodata[i]);
-  //                 
+  //
   //                 break;
   //               }
   //             }
@@ -6249,14 +6256,14 @@ class Dashboard extends Component {
 
   //           //     routecode if it exist in temproutecodelistofdocs
   //           //     vehSkill = routecodeec;
-  //           
+  //
   //           vehSkill = finmodata;
   //           break;
   //         case "Tuesday":
   //           let temtudata = JSON.parse("[" + veh.tuesdayRC + "]");
-  //           
-  //           
-  //           
+  //
+  //
+  //
   //           let fintudata = []
   //           if (temtudata.length > 1) {
   //             for (let i = 0; i < temtudata.length; i++) {
@@ -6264,7 +6271,7 @@ class Dashboard extends Component {
   //               if (temproutecodelistofdocs.includes(temtudata[i])) {
 
   //                 fintudata.push(temtudata[i])
-  //                 
+  //
   //                 break;
   //               }
   //             }
@@ -6274,12 +6281,12 @@ class Dashboard extends Component {
   //               if (temproutecodelistofdocs.includes(temtudata[i])) {
 
   //                 fintudata.push(temtudata[i])
-  //                 
+  //
   //                 break;
   //               }
   //             }
   //           }
-  //           
+  //
   //           vehSkill = fintudata;
   //           break;
   //         case "Wednesday":
@@ -6348,7 +6355,7 @@ class Dashboard extends Component {
 
   //       }
 
-  //       // 
+  //       //
 
   //       var sflag = false; var prevEndTime = 0;
 
@@ -6360,7 +6367,7 @@ class Dashboard extends Component {
   //           var endTime = splitTimeAndConv2Sec(currtrip.endTime);
   //           var unloadingtime = convertHrToSec(veh.enddepotserv);
   //           prevEndTime = endTime + unloadingtime;
-  //           // 
+  //           //
   //           break;
   //         }
   //       }
@@ -6378,7 +6385,7 @@ class Dashboard extends Component {
   //         externalVeh.push(veh)
   //       }
 
-  //       // 
+  //       //
 
   //       if (!sameVehiclesflag && !sflag) {
   //         Veh.max_travel_time = convertHrToSec(veh.maxtotaltrvtime);
@@ -6388,7 +6395,7 @@ class Dashboard extends Component {
   //         let starttime = splitTimeAndConv2Sec(veh.starttime);
   //         let loadingHrs = convertHrToSec(veh.startdepots);
   //         let stime = starttime + loadingHrs;
-  //         // 
+  //         //
   //         let etime = splitTimeAndAddtimeAndConv2Sec(veh.starttime, veh.overtimestar);
   //         let timew = [stime, etime];
   //         let geo = [siteLang, siteLat];
@@ -6404,7 +6411,7 @@ class Dashboard extends Component {
   //         else {
   //           Veh.max_tasks = 3;
   //         }
-  //         // 
+  //         //
   //         VehList.push(Veh);
   //         VehEndTime = etime;
   //         VehStartTime = stime;
@@ -6414,8 +6421,8 @@ class Dashboard extends Component {
   //         let starttime = prevEndTime;
   //         let loadingHrs = convertHrToSec(veh.startdepots);
   //         let stime = starttime + loadingHrs;
-  //         // 
-  //         // 
+  //         //
+  //         //
   //         let etime = splitTimeAndAddtimeAndConv2Sec(veh.starttime, veh.overtimestar);
 
   //         if (stime < etime) {
@@ -6425,7 +6432,7 @@ class Dashboard extends Component {
   //           Veh.max_travel_time = convertHrToSec(veh.maxtotaltrvtime);
   //           Veh.capacity = [veh.capacities];
 
-  //           // 
+  //           //
   //           let timew = [stime, etime];
   //           let geo = [siteLang, siteLat];
   //           Veh.time_window = timew;
@@ -6440,7 +6447,7 @@ class Dashboard extends Component {
   //             Veh.max_tasks = 3;
   //           }
 
-  //           // 
+  //           //
   //           VehList.push(Veh);
   //           VehEndTime = etime;
   //           VehStartTime = stime;
@@ -6450,27 +6457,27 @@ class Dashboard extends Component {
 
   //     }
 
-  //     
+  //
 
-  //     // 
-  //     // 
-  //     // 
+  //     //
+  //     //
+  //     //
 
-  //     // 
-  //     // 
+  //     //
+  //     //
   //     let maxDoc = this.state.defaultdocprocess;
   //     let docprocessedCount = 0;
   //     for (let j = 0; j < this.state.docsPanel.length; j++) {
   //       let doc = this.state.docsPanel[j];
-  //       // 
+  //       //
   //       if ((doc.type === 'open') && (doc.dlvystatus === '0' || doc.dlvystatus === '8') && docprocessedCount < maxDoc) {
 
   //         var Doc = {};
-  //         // 
-  //         // 
+  //         //
+  //         //
   //         Doc.id = j + 1;
   //         Doc.description = doc.docnum;
-  //         // 
+  //         //
 
   //         var FromArr;
   //         var fromflag = false;
@@ -6486,22 +6493,22 @@ class Dashboard extends Component {
   //           toflag = true;
   //         }
 
-  //         // 
-  //         // 
+  //         //
+  //         //
 
   //         var timeWindw = [];
 
   //         fromflag && FromArr.map((ft, index) => {
   //           var tt = []
-  //           // 
+  //           //
   //           tt.push(splitTimeAndConv2Sec(ft));
-  //           // 
+  //           //
   //           tt.push(splitTimeAndConv2Sec(ToArr[index]));
 
   //           timeWindw.push(tt);
   //         });
 
-  //         // 
+  //         //
 
   //         var DocLat, DocLang;
   //         DocLat = doc.lat;
@@ -6509,7 +6516,7 @@ class Dashboard extends Component {
   //         Doc.location = [DocLang, DocLat];
   //         Doc.priority = doc.priority;
   //         Doc.amount = [Math.round(doc.netweight)];
-  //         // 
+  //         //
   //         // var array1 = JSON.parse("[" + doc.skills + "]");
   //         // var array1 = []
   //         //  Veh.skills = array;
@@ -6526,10 +6533,10 @@ class Dashboard extends Component {
   //         let ps, pe = 0;
   //         let ds, de = 0;
 
-  //         
+  //
   //         if (fromflag) {
   //           if (timeWindw[0][0] !== 0) {
-  //             
+  //
   //             Doc.time_windows = timeWindw;
   //           }
   //         }
@@ -6550,12 +6557,12 @@ class Dashboard extends Component {
   //               }
   //         */
 
-  //         // 
+  //         //
   //         DocList.push(Doc);
   //         docprocessedCount = docprocessedCount + 1;
   //       }
   //     }
-  //     
+  //
 
   //     //process for the JSON file
   //     var processedData = {};
@@ -6565,7 +6572,7 @@ class Dashboard extends Component {
   //       "g": false
   //     }
 
-  //     
+  //
   //     // latest - 34.171.208.219
   //     // v10   - 34.134.143.219
   //     //new frane  - 35.193.234.153
@@ -6580,14 +6587,14 @@ class Dashboard extends Component {
   //       headers: { 'Content-Type': 'application/json' },
   //       body: JSON.stringify(processedData)
   //     }).then((response) => {
-  //       // 
+  //       //
   //       if (response.status === 200) {
   //         return response.json()
   //       }
   //     }).then((res) => {
-  //       // 
+  //       //
   //       if (res.routes.length > 0) {
-  //         // 
+  //         //
   //         // submit generated routes for trips creation
   //         this.submitRoutesforTripsCreation(res.routes, selSite);
   //       }
@@ -6613,13 +6620,13 @@ class Dashboard extends Component {
     //filter the trips panle and sort it
     var tempTripPanel = this.state.tripsPanel;
     var orginalTripOrder = this.state.tripsPanel;
-    // 
+    //
 
     tempTripPanel.sort(
       (a, b) => b.code.localeCompare(a.code) || b.trips - a.trips
     );
 
-    // 
+    //
 
     const key = "code";
 
@@ -6629,9 +6636,9 @@ class Dashboard extends Component {
 
     let DayOnDate = this.getDayOfWeek(selectedDate);
 
-    // 
+    //
 
-    // 
+    //
 
     var resArr = [];
     tempTripPanel.filter(function (item) {
@@ -6706,22 +6713,22 @@ class Dashboard extends Component {
       }
     }
 
-    // 
-    // 
-    // 
+    //
+    //
+    //
 
     if (DocCount > 0) {
-      // 
-      // 
-      // 
-      // 
-      // 
+      //
+      //
+      //
+      //
+      //
       var VehList = [],
         DocList = [];
       var siteLat, siteLang;
       var doc = {};
       var selSite = this.state.selectedMultipleSites[0];
-      // 
+      //
       this.state.sites.map((site) => {
         if (selSite === site.id) {
           siteLat = site.lat;
@@ -6735,7 +6742,7 @@ class Dashboard extends Component {
 
       var vehSkill = "";
 
-      // 
+      //
 
       let filteredVehicle = this.state.vehiclePanel.vehicles.filter(
         (vehicle) => vehicle.bptnumType == "INTERNAL"
@@ -6744,8 +6751,6 @@ class Dashboard extends Component {
       for (let i = 0; i < filteredVehicle.length; i++) {
         var Veh = {};
         let veh = filteredVehicle[i];
-
-        
 
         switch (DayOnDate) {
           case "Monday":
@@ -6851,7 +6856,7 @@ class Dashboard extends Component {
             break;
           case "Friday":
             let temfrdata = JSON.parse("[" + veh.fridayRC + "]");
-            // 
+            //
             temfrdata = moveOnesToEnd(temfrdata);
             let finfridata = [];
 
@@ -6875,8 +6880,6 @@ class Dashboard extends Component {
             break;
         }
 
-        
-
         var sflag = false;
         var prevEndTime = 0;
 
@@ -6887,7 +6890,7 @@ class Dashboard extends Component {
             var endTime = splitTimeAndConv2Sec(currtrip.endTime);
             var unloadingtime = convertHrToSec(veh.enddepotserv);
             prevEndTime = endTime + unloadingtime;
-            // 
+            //
             break;
           }
         }
@@ -6905,7 +6908,7 @@ class Dashboard extends Component {
           externalVeh.push(veh);
         }
 
-        // 
+        //
 
         if (!sameVehiclesflag && !sflag) {
           Veh.max_travel_time = convertHrToSec(veh.maxtotaltrvtime);
@@ -6920,7 +6923,7 @@ class Dashboard extends Component {
           let starttime = splitTimeAndConv2Sec(veh.starttime);
           let loadingHrs = convertHrToSec(veh.startdepots);
           let stime = starttime + loadingHrs;
-          // 
+          //
           let etime = splitTimeAndAddtimeAndConv2Sec(
             veh.starttime,
             veh.overtimestar
@@ -6938,7 +6941,7 @@ class Dashboard extends Component {
           } else {
             Veh.max_tasks = 3;
           }
-          // 
+          //
           VehList.push(Veh);
           VehEndTime = etime;
           VehStartTime = stime;
@@ -6946,8 +6949,8 @@ class Dashboard extends Component {
           let starttime = prevEndTime;
           let loadingHrs = convertHrToSec(veh.startdepots);
           let stime = starttime + loadingHrs;
-          // 
-          // 
+          //
+          //
           let etime = splitTimeAndAddtimeAndConv2Sec(
             veh.starttime,
             veh.overtimestar
@@ -6960,7 +6963,7 @@ class Dashboard extends Component {
             // Veh.capacity = [veh.capacities];
             Veh.capacity = [parseInt(veh.capacities), parseInt(veh.vol)];
 
-            // 
+            //
             let timew = [stime, etime];
             let geo = [siteLang, siteLat];
             Veh.time_window = timew;
@@ -6974,7 +6977,7 @@ class Dashboard extends Component {
               Veh.max_tasks = 3;
             }
 
-            // 
+            //
             VehList.push(Veh);
             VehEndTime = etime;
             VehStartTime = stime;
@@ -6982,19 +6985,17 @@ class Dashboard extends Component {
         }
       }
 
-      
+      //
+      //
+      //
 
-      // 
-      // 
-      // 
-
-      // 
-      // 
+      //
+      //
       let maxDoc = this.state.defaultdocprocess;
       let docprocessedCount = 0;
       for (let j = 0; j < this.state.docsPanel.length; j++) {
         let doc = this.state.docsPanel[j];
-        // 
+        //
         if (
           doc.type === "open" &&
           (doc.dlvystatus === "0" || doc.dlvystatus === "8") &&
@@ -7002,11 +7003,11 @@ class Dashboard extends Component {
           doc.routeCodeDesc != "None"
         ) {
           var Doc = {};
-          // 
-          // 
+          //
+          //
           Doc.id = j + 1;
           Doc.description = doc.docnum;
-          // 
+          //
 
           var FromArr;
           var fromflag = false;
@@ -7021,23 +7022,23 @@ class Dashboard extends Component {
             toflag = true;
           }
 
-          // 
-          // 
+          //
+          //
 
           var timeWindw = [];
 
           fromflag &&
             FromArr.map((ft, index) => {
               var tt = [];
-              // 
+              //
               tt.push(splitTimeAndConv2Sec(ft));
-              // 
+              //
               tt.push(splitTimeAndConv2Sec(ToArr[index]));
 
               timeWindw.push(tt);
             });
 
-          // 
+          //
 
           var DocLat, DocLang;
           DocLat = doc.lat;
@@ -7050,7 +7051,7 @@ class Dashboard extends Component {
             parseInt(doc.volume),
             // , parseInt(doc.noofcases ? doc.noofcases : 0)
           ];
-          // 
+          //
           // var array1 = JSON.parse("[" + doc.skills + "]");
           // var array1 = []
           //  Veh.skills = array;
@@ -7065,11 +7066,9 @@ class Dashboard extends Component {
           }
           let wtime = convertHrToSec(doc.waitingTime);
           let stime = convertHrToSec(doc.serviceTime);
-          
-       
+
           Doc.service = parseInt(wtime) + parseInt(stime);
 
-       
           let ps,
             pe = 0;
           let ds,
@@ -7097,7 +7096,7 @@ class Dashboard extends Component {
                 }
           */
 
-          // 
+          //
           DocList.push(Doc);
           docprocessedCount = docprocessedCount + 1;
         }
@@ -7111,16 +7110,10 @@ class Dashboard extends Component {
         g: true,
       };
 
-      
-
-      
-
       // for sending route code matched vehicles to OSRM
       let filteredVehArray = this.state.vehiclePanel.vehicles.filter((item1) =>
         VehList.some((item2) => item1.codeyve === item2.description)
       );
-
-    
 
       // latest - 34.171.208.219
       // v10   - 34.134.143.219
@@ -7137,7 +7130,6 @@ class Dashboard extends Component {
         body: JSON.stringify(processedData),
       })
         .then((response) => {
-          
           if (response.status === 200) {
             return response.json();
           } else {
@@ -7150,9 +7142,7 @@ class Dashboard extends Component {
           }
         })
         .then((res) => {
-          
           if (res.routes.length > 0) {
-            
             // submit generated routes for trips creation
             this.submitRoutesforTripsCreation(
               res.routes,
@@ -7210,31 +7200,31 @@ class Dashboard extends Component {
             //               var varray="";
             // switch (DayOnDate) {
             //   case "Monday":
-            //     
+            //
             //     varray= JSON.parse("[" + veh.mondayRC + "]");
             //     break;
             //   case "Tuesday":
             //     varray= JSON.parse("[" + veh.tuesdayRC + "]");
-            //     
+            //
             //     break;
             //   case "Wednesday":
             //     varray= JSON.parse("[" + veh.wednesdayRC + "]");
-            //     
+            //
             //     break;
             //   case "Thursday":
             //     varray= JSON.parse("[" + veh.thursdayRC + "]");
-            //     
+            //
             //     break;
             //   case "Friday":
             //     varray= JSON.parse("[" + veh.fridayRC + "]");
-            //     
+            //
             //     break;
             // }
             //             const missingSkills = docskill.filter(
             //               (skill) => !varray.includes(skill)
             //             );
 
-            //             
+            //
 
             //             if (missingSkills.length == 0) {
             //               // If no missing skills, it's a match
@@ -7295,15 +7285,14 @@ class Dashboard extends Component {
             //             if (doc.fromTime.length > 0) {
             //               const fromTimes = this.TimeWindow_splitTime(doc.fromTime); // Split into ["0700", "0900"]
             //               const toTimes = this.TimeWindow_splitTime(doc.toTime); // Split into ["0800", "1030"]
-            //               
+            //
             //               for (let i = 0; i < fromTimes.length; i++) {
             //                 TimewindowforDoc.push(`${fromTimes[i]}-${toTimes[i]}`); // Combine each pair into a time range
             //               }
             //             }
-            //             
+            //
 
-            //             
- 
+            //
 
             //             if (vehClassVehList.length > 0) {
             //               glabalerrorOBject =
@@ -7342,14 +7331,14 @@ class Dashboard extends Component {
             //                   glabalerrorOBject +
             //                   `Document ${doc.docnum} has been excluded due to Delivery Time Frame restriction (${TimewindowforDoc}). \n`;
             //               } else {
-            //                 // 
+            //                 //
             //                 glabalerrorOBject = `Document ${doc.docnum} has been excluded due to the vehicles weight/volume capacity was full in the current trip. \n`;
             //               }
             //             }
 
-            //             // 
+            //             //
             //             glabalerrorOBject = glabalerrorOBject + "\n";
-            //             // 
+            //             //
             //             errorbox.push(glabalerrorOBject);
             //           }
             //         });
@@ -7397,15 +7386,10 @@ class Dashboard extends Component {
                     break;
                 }
 
-                
-                
-
                 // ✅ Check if at least one skill matches
                 const isSkillMatched = docskill.some((skill) =>
                   varray.includes(skill)
                 );
-
-                
 
                 if (isSkillMatched) {
                   matchedVehicles.push(veh.name);
@@ -7425,7 +7409,6 @@ class Dashboard extends Component {
                   vehicleAssignedWeight[veh.name] + doc.netweight;
                 let totalVolumeIfAdded =
                   vehicleAssignedVolume[veh.name] + doc.volume;
-
 
                 // ✅ Check if adding this document exceeds capacity
                 if (totalWeightIfAdded > veh.capacities) {
@@ -7448,8 +7431,8 @@ class Dashboard extends Component {
               });
 
               let errorMessagesArray = [];
-   let capacityFailed = false;
-      let volumeFailed = false;
+              let capacityFailed = false;
+              let volumeFailed = false;
               // ✅ If at least one vehicle matched skills, check weight/volume errors
               if (matchedVehicles.length > 0) {
                 if (capacityFailedVehicles.size > 0) {
@@ -7461,7 +7444,7 @@ class Dashboard extends Component {
                   );
                 }
                 if (volumeFailedVehicles.size > 0) {
-                  volumeFailed=true;
+                  volumeFailed = true;
                   errorMessagesArray.push(
                     `${doc.docnum} excluded: Volume Capacity exceeded on: ${[
                       ...volumeFailedVehicles,
@@ -7469,13 +7452,12 @@ class Dashboard extends Component {
                   );
                 }
 
-
-                   if (!capacityFailed && !volumeFailed) {
-            // 
-            errorMessagesArray.push(
-              `${doc.docnum} Document excluded: Could not be assigned due to travel time or distance constraints.`
-            );
-          }
+                if (!capacityFailed && !volumeFailed) {
+                  //
+                  errorMessagesArray.push(
+                    `${doc.docnum} Document excluded: Could not be assigned due to travel time or distance constraints.`
+                  );
+                }
               } else {
                 // ❌ No vehicle matched, show skill mismatch error
 
@@ -7522,7 +7504,6 @@ class Dashboard extends Component {
 
             const finalErrorMessage = errorbox.join("\n");
 
-            
             this.setState({
               errorArrayMessage: errorbox,
               loader: false,
@@ -7559,7 +7540,7 @@ class Dashboard extends Component {
     var TripsfromRoutes = [];
     // let seenClients = new Set();
 
-    // 
+    //
     for (let k = 0; k < routes.length; k++) {
       var currRoute = routes[k];
       var Vehicle = {},
@@ -7568,7 +7549,7 @@ class Dashboard extends Component {
       var auto_total_time = (routes[k].duration + routes[k].service) / 60 / 60;
       var auto_service_time = routes[k].service / 60 / 60;
       var auto_total_distance = routes[k].distance / 1000;
-      // 
+      //
       for (let i = 0; i < this.state.vehiclePanel.vehicles.length; i++) {
         if (Veh == this.state.vehiclePanel.vehicles[i].codeyve) {
           Vehicle = this.state.vehiclePanel.vehicles[i];
@@ -7576,7 +7557,7 @@ class Dashboard extends Component {
         }
       }
 
-      // 
+      //
       var dropObject = [],
         pickupObject = [],
         drops = 0,
@@ -7628,10 +7609,10 @@ class Dashboard extends Component {
       for (let t = 0; t < currRoute.steps.length; t++) {
         var ttime = "";
         var currTask = currRoute.steps[t];
-        
+
         if (currTask.type !== "start" && currTask.type !== "end") {
           var docno = currTask.description;
-          // 
+          //
 
           for (let d = 0; d < this.state.docsPanel.length; d++) {
             var currDoc = this.state.docsPanel[d];
@@ -7647,7 +7628,7 @@ class Dashboard extends Component {
                 routeCodeArr1.push(currDoc.routeCodeDesc);
               }
               currDoc.vehicleCode = Veh;
-           
+
               currDoc.arrival = secondsToHmsAutoGen(currTask.arrival);
               currDoc.time = convertSecToMin(currTask.duration);
               // currDoc.distance = 0;
@@ -7655,14 +7636,11 @@ class Dashboard extends Component {
                 ? currTask.distance / 1000
                 : 0;
 
-              
               currDoc.serTime = secondsToHmsAutoGen(currTask.service);
 
               const clientAddressKey = `${clientCode}_${currDoc.adrescode}`;
 
               if (seenClientAddress.has(clientAddressKey)) {
-             
-
                 // Already processed this client+address → no service time
                 const prevDoc = itemTrip.selectedTripData.find(
                   (doc) =>
@@ -7678,13 +7656,11 @@ class Dashboard extends Component {
                 currDoc.serviceTime = secondsToHmsAutoGen(0);
                 currDoc.serTime = secondsToHmsAutoGen(0);
               } else {
-             
-
                 // First time → assign full service time
                 seenClientAddress.add(clientAddressKey);
                 currDoc.serTime = secondsToHmsAutoGen(currTask.service);
                 // let diff =convertHrToSec((Number(currDoc.waitingTime)),currTask.service)
-                // 
+                //
                 currDoc.serviceTime = secondsToDecimalHours(
                   currTask.service - convertHrToSec(Number(currDoc.waitingTime))
                 );
@@ -7711,8 +7687,6 @@ class Dashboard extends Component {
               }
               itemTrip.selectedTripData.push(currDoc);
 
-              
-
               totalWeight = totalWeight + parseFloat(currDoc.netweight);
               totalVolume = totalVolume + parseFloat(currDoc.volume);
               break;
@@ -7721,19 +7695,19 @@ class Dashboard extends Component {
           //end of search task with document panel
         } // end of if, task
         else if (currTask.type === "start") {
-          // 
+          //
           startTime = secondsToHms(currTask.arrival);
           ttime = startTime;
         } else if (currTask.type === "end") {
           endTime = secondsToHms(currTask.arrival);
           ttime = endTime;
-          // 
+          //
         }
         //for timeline
         var index = t * 12;
         timelneInterval.push({ value: index, label: ttime });
 
-        // 
+        //
       } // end of steps
 
       ddate = this.state.documentPanel_date;
@@ -7791,8 +7765,8 @@ class Dashboard extends Component {
         var sflag = false;
         var dflag = false;
 
-        // 
-        // 
+        //
+        //
 
         var resArr1 = [],
           UsedDriversList = [];
@@ -7804,7 +7778,7 @@ class Dashboard extends Component {
         //   return null;
         // });
 
-        // 
+        //
         // for (let t = 0; t < resArr1.length; t++) {
         //   var currtrip = resArr1[t];
 
@@ -7819,59 +7793,59 @@ class Dashboard extends Component {
         //       defaultDrivername = currtrip.driverName;
         //       dflag = true;
 
-        //       // 
+        //       //
         //     }
         //     break;
         //   }
         // }
 
-        // 
+        //
 
-        // 
-        // 
-        // 
+        //
+        //
+        //
         // Veh  -  vehicle
         //check already vehicle is used , and assign same driver
         //loop all the drivers list and assigned not used driver
         // if (!dflag) {
-        //   // 
+        //   //
         //   for (let dl = 0; dl < activeDrivers.length; dl++) {
-        //     // 
+        //     //
         //     if (UsedDriversList.length > 0) {
         //       if (!UsedDriversList.includes(activeDrivers[dl].driverid)) {
-        //         // 
+        //         //
         //         if (sameProcessUsedDriversList.length > 0) {
-        //           // 
+        //           //
         //           if (!sameProcessUsedDriversList.includes(activeDrivers[dl].driverid)) {
-        //             // 
-        //             // 
+        //             //
+        //             //
         //             defaultDriver = activeDrivers[dl].driverid;
         //             defaultDrivername = activeDrivers[dl].driver;
         //             sameProcessUsedDriversList.push(activeDrivers[dl].driverid);
         //             break;
         //           }
         //           else {
-        //             // 
+        //             //
         //           }
         //         }
         //         else {
-        //           // 
+        //           //
         //           defaultDriver = activeDrivers[dl].driverid;
         //           defaultDrivername = activeDrivers[dl].driver;
         //           sameProcessUsedDriversList.push(activeDrivers[dl].driverid);
         //           break;
         //         }
 
-        //         // 
+        //         //
         //       }
         //     }
         //     else {
-        //       // 
+        //       //
         //       if (sameProcessUsedDriversList.length > 0) {
-        //         // 
+        //         //
         //         if (!sameProcessUsedDriversList.includes(activeDrivers[dl].driverid)) {
-        //           // 
-        //           // 
+        //           //
+        //           //
         //           defaultDriver = activeDrivers[dl].driverid;
         //           defaultDrivername = activeDrivers[dl].driver;
         //           sameProcessUsedDriversList.push(activeDrivers[dl].driverid);
@@ -7879,11 +7853,11 @@ class Dashboard extends Component {
 
         //         }
         //         else {
-        //           // 
+        //           //
         //         }
         //       }
         //       else {
-        //         // 
+        //         //
         //         defaultDriver = activeDrivers[dl].driverid;
         //         defaultDrivername = activeDrivers[dl].driver;
         //         sameProcessUsedDriversList.push(activeDrivers[dl].driverid);
@@ -7952,9 +7926,9 @@ class Dashboard extends Component {
           }
         });
 
-        // 
+        //
       }
-      // 
+      //
       var volume = VehicleObject.vol;
       //  var StartTime = VehicleObject.timelineInterval[0].label;
 
@@ -8017,7 +7991,7 @@ class Dashboard extends Component {
       var execdate = today.getDate();
       let commaSeperated = routeCodeArr1.join(", ");
 
-      // 
+      //
 
       var user = JSON.parse(localStorage.getItem("authUser"));
       var trip = {
@@ -8106,7 +8080,7 @@ class Dashboard extends Component {
     }
     TripsfromRoutes = RouteprocessedData;
 
-    // 
+    //
     this.ConfirmScheduledTrips(
       TripsfromRoutes,
       selDocs,
@@ -8117,7 +8091,7 @@ class Dashboard extends Component {
   };
 
   submitDocumentsforTripCreation = () => {
-    // 
+    //
     const events = this.schedulerRef.current.scheduleObj.getCurrentViewEvents();
     var dlvyevents = [];
     var tripevents = [];
@@ -8186,10 +8160,9 @@ class Dashboard extends Component {
         var freqtype = false;
         var appointmentExist = false;
         var routeCodeArr = [];
-console.log(GroupedObjects ,"this is groupedObjects 8146")
+        console.log(GroupedObjects, "this is groupedObjects 8146");
         GroupedObjects.forEach(function (docItem) {
-console.log(docItem ,"this is docItem 8146")
-          
+          console.log(docItem, "this is docItem 8146");
 
           // Splitting routeCodeDesc into an array
           const routeCodeDescArray =
@@ -8218,7 +8191,7 @@ console.log(docItem ,"this is docItem 8146")
             pickups = pickups + 1;
             docItem.obbject.panelType = "pickup";
             pickupObject.push(docItem.obbject);
-            // 
+            //
             if (docItem.obbject.doctype === "FREQENCY") {
               freqtype = true;
             }
@@ -8457,7 +8430,7 @@ console.log(docItem ,"this is docItem 8146")
       });
     });
     Trips = processedData;
-    // 
+    //
 
     this.ConfirmScheduledTrips(Trips);
   };
@@ -8499,9 +8472,6 @@ console.log(docItem ,"this is docItem 8146")
     res,
     tripsfromAuto
   ) => {
-    
-
-    
     let totalSelectedDocs = selectedDocs.length;
     let unassignedDocCount = res.unassigned.length;
     let unassignedDocs = res.unassigned;
@@ -8524,7 +8494,6 @@ console.log(docItem ,"this is docItem 8146")
       }
     }
 
-    
     let tempselDocs = [];
     unassignedDocs.map((undoc, index) => {
       for (let tempdoc of selectedDocs) {
@@ -8544,9 +8513,6 @@ console.log(docItem ,"this is docItem 8146")
       vehicleAssignedDocCount[vehicleCode] = dropCount + pickupCount;
     });
 
-    
-
-    
     summarybox.push(
       ` ${trips} trips have been auto generated containing a total of  ${assignedDocs} documents  \n`
     );
@@ -8561,7 +8527,7 @@ console.log(docItem ,"this is docItem 8146")
 
     let errorbox = [];
 
-    // 
+    //
 
     let selectedDate = this.state.documentPanel_date;
     let DayOnDate = this.getDayOfWeek(selectedDate);
@@ -8614,20 +8580,19 @@ console.log(docItem ,"this is docItem 8146")
             break;
         }
 
-        // 
-        // 
+        //
+        //
 
         // ✅ Check if at least one skill matches
         const isSkillMatched = docskill.some((skill) => varray.includes(skill));
 
-        // 
+        //
 
         if (isSkillMatched) {
           matchedVehicles.push(veh.name);
 
           const assignedCount = vehicleAssignedDocCount[veh.name] || 0;
 
-    
           if (assignedCount >= veh.maxordercnt) {
             // Exclude document due to max order count
             maxOrderCountFaildedDocuments.add(
@@ -8642,22 +8607,18 @@ console.log(docItem ,"this is docItem 8146")
         } else {
           unmatchedVehicles.push(veh.name);
         }
-        
+
         // maxordercnt
         // checking time windo here
         if (doc.fromTime && doc.toTime) {
           let docTimeFrom = this.timeToMinutes(doc.fromTime);
           let docTimeTo = this.timeToMinutes(doc.toTime);
 
-        
-
           let isTimeWindowMatched = tripsfromAuto.some((trip) => {
             if (!trip.startTime || !trip.endTime) return false;
 
             let tripStart = this.timeToMinutes(trip.startTime);
             let tripEnd = this.timeToMinutes(trip.endTime);
-
-            
 
             return docTimeFrom >= tripStart && docTimeTo <= tripEnd;
           });
@@ -8672,32 +8633,26 @@ console.log(docItem ,"this is docItem 8146")
           }
         }
 
-      
         // CAT012501PIC00243
         // CAT012503PIC00171
         // CAT012503PIC00172
         //  checking max order count of the vehicle
 
-        // 
+        //
 
         // for getting vehicle fulled weight
         const assignedWeight = tripsfromAuto
           .filter((trip) => trip.code === veh.codeyve) // Find the trip for this vehicle
           .reduce((sum, trip) => sum + Number(trip.doc_capacity), 0); // Sum assigned weights
 
-        
         // Calculate remaining capacity
         const remainingCapacity = Number(veh.capacities) - assignedWeight;
-
-        
 
         const assignedVolume = tripsfromAuto
           .filter((trip) => trip.code === veh.codeyve) // Find the trip for this vehicle
           .reduce((sum, trip) => sum + Number(trip.doc_volume), 0); // Sum assigned weights
-        
-        const remainingVol = veh.vol - assignedVolume;
 
-        
+        const remainingVol = veh.vol - assignedVolume;
 
         // 🔹 Initialize assigned weight & volume if not present
         if (!vehicleAssignedWeight[veh.name])
@@ -8761,9 +8716,8 @@ console.log(docItem ,"this is docItem 8146")
             timeWindoFailed = true;
           }
 
-          
           if (!capacityFailed && !volumeFailed && !timeWindoFailed) {
-            // 
+            //
             errorMessagesArray.push(
               `${doc.docnum} Document excluded: Could not be assigned due to travel time or distance constraints.`
             );
@@ -8779,7 +8733,6 @@ console.log(docItem ,"this is docItem 8146")
         //   (veh) => veh.allocatedRouteCodes == doc.routeCodeDesc
         // );
 
-    
         // errorMessagesArray.push(
         //   `${doc.docnum} excluded: No vehicle matched for provided Route code ${
         //     doc.routeCodeDesc
@@ -8824,8 +8777,6 @@ console.log(docItem ,"this is docItem 8146")
       }
     });
 
-    
-
     //   errorbox.push(glabalerrorOBject);
 
     const finalErrorMessage = errorbox.join("\n");
@@ -8839,7 +8790,6 @@ console.log(docItem ,"this is docItem 8146")
   };
 
   ConfirmScheduledTrips = (trips, selDocs, SelVeh, res, from) => {
-
     this.setState({ loader: true });
     fetch(`${apiUrl}/api/v1/transport/trips`, {
       method: "POST",
@@ -8847,8 +8797,9 @@ console.log(docItem ,"this is docItem 8146")
       body: JSON.stringify(trips),
     })
       .then((response) => {
-        // 
+        //
         this.handleErrors(response);
+        this.notifySucess("Trip Added/Updated Sucessfully");
         this.fetchDocumentPanelDateChange(this.state.documentPanel_date);
       })
       .then(() => {
@@ -8863,15 +8814,12 @@ console.log(docItem ,"this is docItem 8146")
           // thursdayMatchedRouteCodeDesc: {},
           // fridayMatchedRouteCodeDesc: {}
         });
-        this.notifySucess("Trip Added/Updated Sucessfully");
 
         if (from === "auto") {
-          
           this.Exceptionalanalysis(selDocs, SelVeh, res, trips);
         }
       })
       .catch((error) => {
-        
         this.handleDateRangeChange();
         this.setState({ loader: false });
         this.notifyError(
@@ -8889,12 +8837,12 @@ console.log(docItem ,"this is docItem 8146")
       body: JSON.stringify(trips),
     })
       .then((response) => {
-        // 
+        //
         this.handleErrors(response);
       })
       .then(function (response) {})
       .then(() => {
-        // 
+        //
         this.handleDateRangeChange();
       })
       .then(() => {
@@ -8942,8 +8890,9 @@ console.log(docItem ,"this is docItem 8146")
     }).then((response) => {
       // this.reloadTrips();
       //  this.handlePanelsUpdate(currDate);
-      this.fetchDocumentPanelDateChange(this.state.documentPanel_date);
       this.notifySucess("Trip deleted Sucessfully");
+      this.fetchDocumentPanelDateChange(this.state.documentPanel_date);
+
       // this.onRouteoptihide();
     });
   };
@@ -9007,7 +8956,7 @@ console.log(docItem ,"this is docItem 8146")
         }
       });
     } else {
-      // 
+      //
       var data = [];
       var GeoData1 = [];
 
@@ -9016,7 +8965,7 @@ console.log(docItem ,"this is docItem 8146")
         var selectedTrips = Tripsdata.totalObject.selectedTripData;
         routesSchedule.trips.timelineInterval =
           Tripsdata.totalObject.timelineInterval;
-        // 
+        //
         for (var i = 0; i < selectedTrips.length; i++) {
           GeoData1.push(selectedTrips[i]);
         }
@@ -9029,7 +8978,7 @@ console.log(docItem ,"this is docItem 8146")
           newGeoData.push(data);
         });
       } else {
-        // 
+        //
         this.state.geoData.map((geo, geoIndex) => {
           routesSchedule.routesData.map((route, routeIndex) => {
             if (geoIndex === routeIndex) {
@@ -9040,25 +8989,24 @@ console.log(docItem ,"this is docItem 8146")
         });
       }
     }
-    // 
+    //
     this.setState({ geoData: newGeoData });
     this.setState({ routeSchedulerTime: routesSchedule });
     this.confirmTrip(routesSchedule.trips, "route", routesSchedule, newGeoData);
   };
 
-  notifySucess = (message) => toast.success(message, { autoClose: 3000 });
+  notifySucess = (message) => toast.success(message, { autoClose: 3000,  toastId: Date.now()});
 
-  notifyError = (message) => toast.error(message, { autoClose: 3000 });
+  notifyError = (message) => toast.error(message, { autoClose: 3000,toastId: Date.now() });
 
   render() {
     let filteredVeh = this.state.vehiclePanel.vehicles.filter((vehicle) => {
       return vehicle.bptnumType == "INTERNAL";
     });
 
-   
-    // console.log(this.state.docsPanel , "this is docs panel state where will get all the documents"); 
+    // console.log(this.state.docsPanel , "this is docs panel state where will get all the documents");
 
-    // 
+    //
 
     let optionItems = [];
     let addAlertClose = () => this.setState({ addAlertShow: false });
@@ -9105,9 +9053,9 @@ console.log(docItem ,"this is docItem 8146")
         });
     }
 
-    // 
+    //
 
-    // 
+    //
 
     return (
       <React.Fragment>

@@ -1215,7 +1215,7 @@ class DisplayProducts extends React.Component {
 
     
     if (!Array.isArray(routeCodes) || routeCodes.length === 0) {
-      return <div>No routes available</div>;
+      return <div></div>;
     }
 
     // Convert the routeCodes into the format that React Select expects
