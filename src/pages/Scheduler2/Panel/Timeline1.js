@@ -86,7 +86,7 @@ function Timeline(props) {
     React.useState(false);
   // const [currentStartTime, setCurrentStartTime] = React.useState(date);
   const [modalTimeMessage, setModalTimeMessage] = React.useState("");
-  const [autooptimise, setAutooptimise] = React.useState(false);
+  const [autooptimise, setAutooptimise] = React.useState(true);
 
   // 
   // 
@@ -113,6 +113,7 @@ function Timeline(props) {
     let autoop = autooptimise;
     // 
     setAutooptimise(!autooptimise);
+    
   };
 
   const costCalculation = (vehiclePanel, totalTime, totalDistance, code) => {
@@ -255,7 +256,12 @@ function Timeline(props) {
       );
     } else {
       // 
-      optimizeRoute(data);
+     // optimizeRoute(data);
+
+     //props.OSRM_manuallytrip(data);
+     props.NB_manuallytrip(data, autooptimise);
+
+      //props.OSRM_manuallytrip(data)
     }
   };
 
@@ -285,23 +291,13 @@ function Timeline(props) {
     let jsonUrl;
 
     if (autooptimise) {
-      apiurl = "https://api.tomtom.com/routing/1/calculateRoute/";
-      jsonUrl = `/json?computeBestOrder=true&routeRepresentation=summaryOnly&computeTravelTimeFor=all&avoid=unpavedRoads&travelMode=truck&vehicleMaxSpeed=${
-        data.vehicleObject.maxspeed
-      }&vehicleWeight=${data.vehicleObject.capacities}&vehicleLength=${
-        data.vehicleObject.length / 100
-      }&vehicleWidth=${data.vehicleObject.width / 100}&vehicleHeight=${
-        data.vehicleObject.heigth / 100
-      }&vehicleCommercial=true&vehicleLoadType=otherHazmatGeneral&vehicleEngineType=combustion&key=ctZzLlfGUpaNdfHiIobOeub8NBzzGkNG`;
+      apiurl = "https://api.tomtom.com/routing/2/calculateRoute/";
+      jsonUrl = `/json?travelMode=car&vehicleCommercial=true&computeBestOrder=false&traffic=false&avoid=tollRoads
+&vehicleLoadType=USHazmatClass1&key=U3OddzQlbKGUkxdTe1f9kZ2owx5NJwwh`;
     } else {
-      apiurl = "https://api.tomtom.com/routing/1/calculateRoute/";
-      jsonUrl = `/json?computeBestOrder=false&routeRepresentation=summaryOnly&computeTravelTimeFor=all&avoid=unpavedRoads&travelMode=truck&vehicleMaxSpeed=${
-        data.vehicleObject.maxspeed
-      }&vehicleWeight=${data.vehicleObject.capacities}&vehicleLength=${
-        data.vehicleObject.length / 100
-      }&vehicleWidth=${data.vehicleObject.width / 100}&vehicleHeight=${
-        data.vehicleObject.heigth / 100
-      }&vehicleCommercial=true&vehicleLoadType=otherHazmatGeneral&vehicleEngineType=combustion&key=ctZzLlfGUpaNdfHiIobOeub8NBzzGkNG`;
+      apiurl = "https://api.tomtom.com/routing/2/calculateRoute/";
+      jsonUrl = `/json?travelMode=car&vehicleCommercial=true&computeBestOrder=false&traffic=false&avoid=tollRoads
+&vehicleLoadType=USHazmatClass1&key=U3OddzQlbKGUkxdTe1f9kZ2owx5NJwwh`;
     }
 
     let prevTripsDist = 0;

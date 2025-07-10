@@ -316,7 +316,7 @@ export default function StatusCard(props) {
               <Typography align="left" className={classes.typography}>
                 VEHICLE :{" "}
                 <span>
-                  <b> {detailsPopover.code} </b>
+                 <b> {detailsPopover.vehicleObject?.name || detailsPopover.code} </b>
                 </span>
               </Typography>
               <br />

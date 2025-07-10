@@ -1179,33 +1179,90 @@ class AddUpdateTrip1 extends React.Component {
         dropCompatability = true;
       }
     }
-    //vehicle and prod category
-    if (dropCompatability === true) {
-      if (trip.vehicleObject.tclcod === "") {
-        dropCompatability = true;
-      } else {
-        // need to check the vehicle and products category compatability;
-        for (var i = 0; i < data.products.length; i++) {
-          if (
-            trip.vehicleObject &&
-            trip.vehicleObject.tclcod &&
-            trip.vehicleObject.tclcod.includes(data.products[i].productCateg)
-          ) {
-            dropCompatability = true;
-          } else {
-            dropCompatability = false;
-            error = "product";
-            this.setState({
-              errorType: "product",
-            });
-            break;
-          }
-        }
-      }
 
-      //to check trailer & product category
-      // if(trip.trailer)
+
+
+// capacity validation
+    if (dropCompatability) {
+    
+      if (
+        trip.tot_capacity <
+        parseInt(trip.doc_capacity, 10) + data.netweight
+      ) {
+        dropCompatability = false;
+
+        error = "CapacityFull";
+        this.setState({
+          errorType: "CapacityFull",
+        });
+      }
     }
+
+    // volume validation
+    if (dropCompatability) {
+      if (trip.tot_volume < parseInt(trip.doc_volume, 10) + data.volume) {
+        dropCompatability = false;
+        error = "VolumeFull";
+        this.setState({
+          errorType: "VolumeFull",
+        });
+      }
+    }
+ // no of orders check
+    if (dropCompatability) {
+      if (trip.vehicleObject.maxordercnt < parseInt(trip.stops, 10) + 1) {
+        dropCompatability = false;
+        error = "MaxOrderCount";
+        this.setState({
+          errorType: "MaxOrderCount",
+        });
+      }
+    }
+
+  
+    //vehicle and prod category
+if (dropCompatability === true) {
+  // ✅ Use skills instead of tclcod
+  const vehicleSkillsRaw = trip.vehicleObject?.skills || trip.skills || "";
+
+  // Normalize skills to array of strings
+  const vehicleSkills = vehicleSkillsRaw
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .map(String);
+
+  // If no skills defined, assume compatible
+  if (vehicleSkills.length === 0) {
+  
+    dropCompatability = true;
+  } else {
+   
+
+    // Normalize product skill(s) to array
+    const productSkills = (typeof data.skills === "string"
+      ? data.skills.split(",")
+      : Array.isArray(data.skills)
+        ? data.skills
+        : []
+    ).map((s) => s.trim()).filter(Boolean).map(String);
+
+    for (let i = 0; i < productSkills.length; i++) {
+      const skill = productSkills[i];
+
+      if (!vehicleSkills.includes(skill)) {
+        dropCompatability = false;
+        error = "product";
+
+        this.setState({ errorType: "product" });
+        break;
+      } else {
+       
+      }
+    }
+  }
+}
+
 
     //to check trailr & prodcut category
     if (trip.trailers > 0) {
@@ -1333,7 +1390,34 @@ class AddUpdateTrip1 extends React.Component {
           addAlertShow: true,
           error: true,
         });
-      } else {
+      }
+      else if (error === "CapacityFull") { 
+        this.setState({
+          errorMessage:
+            "Vehicle Capacity is Full, cannot add document to the trip",
+          addAlertShow: true,
+          error: true,
+        });
+      } 
+      else if (error === "VolumeFull") {
+        this.setState({
+          errorMessage:
+            "Vehicle Volume is Full , cannot add document to the trip",
+          addAlertShow: true,
+          error: true,
+        });
+      } 
+      
+      else if (error === "MaxOrderCount") {
+        this.setState({
+          errorMessage:
+            "Due to the vehicle's maximum order count being reached, no document  added to the trip.",
+          addAlertShow: true,
+          error: true,
+        });
+      } 
+      
+      else {
         this.setState({
           errorMessage: '{this.props.t("cust_veh_assoc")}',
           addAlertShow: true,
@@ -2896,10 +2980,12 @@ class AddUpdateTrip1 extends React.Component {
                           date={this.props.date}
                           RouteoptiShow={this.props.RouteoptiShow}
                           data={this.props.data}
+                          OSRM_manuallytrip = {this.props.OSRM_manuallytrip}
                           selectedSite={this.props.selectedSite}
                           vehiclePanel={this.props.vehiclePanel}
                           getValues={this.props.getValues}
                           tripsPanel={this.props.tripsPanel}
+                           NB_manuallytrip={this.props.NB_manuallytrip}
                           toggleDetail={this.props.toggleDetail}
                         />
                       </>

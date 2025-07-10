@@ -235,7 +235,7 @@ const updatedVedetail = this.props.vedetail && this.props.vedetail.map(veItem =>
                 <CardBody className="p-2">
 
 
-                    <div className="tablheight">
+                    <div className="tablheight" style={{ maxHeight: '300px', overflowY: 'auto', overflowX: 'auto' }}>
                         <table className="table table-striped m-0 tablewidth1200" id="dtHorizontalVerticalExample">
                             <thead>
                                 <tr className="">

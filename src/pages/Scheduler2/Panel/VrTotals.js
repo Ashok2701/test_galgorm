@@ -764,37 +764,37 @@ class VrTotals extends React.Component {
 
     let pickupVolume = nullAndNanChecking(tpickupvol, "vrStops");
 
-    let vehicleAvailableWeight = trip.lock ? avai_weight : 0;
+    let vehicleAvailableWeight = trip.lock ? parseFloat(avai_weight).toFixed(2) : 0;
 
     let vehicleAvailableVolume = trip.lock ? avai_vol : 0;
 
     let totalDistance = trip.lock
       ? parseFloat(this.props.vrdata.totdistance).toFixed(2)
-      : nullAndNanChecking(trip.totalDistance);
+      : nullAndNanChecking(trip.totalDistance, 'vrStops');
 
     let totalTime = trip.lock
       ? parseFloat(this.props.vrdata.tottime).toFixed(2)
       : nullAndTime(trip.totalTime);
 
-    let travelTimeCost = trip.lock
-      ? parseFloat(trip.regularCost).toFixed(2)
-      : nullAndNanChecking(trip.regularCost);
+    let travelTimeCost = 
+       nullAndNanChecking(parseFloat(trip.regularCost).toFixed(2), 'vrStops')
+   
 
-    let travelTime = trip.lock
-      ? parseFloat(trip.travelTime).toFixed(2)
-      : nullAndNanChecking(trip.travelTime);
+    let travelTime = 
+       nullAndNanChecking(parseFloat(trip.travelTime).toFixed(2), 'vrStops')
+     
 
-    let overTimeCost = trip.lock
-      ? parseFloat(trip.overtimeCost).toFixed(2)
-      : nullAndNanChecking(trip.regularCost);
+    let overTimeCost = 
+       nullAndNanChecking(parseFloat(trip.overtimeCost).toFixed(2), 'vrStops')
+     
 
-    let distanceCost = trip.lock
-      ? parseFloat(trip.distanceCost).toFixed(2)
-      : nullAndNanChecking(trip.distanceCost);
+    let distanceCost = 
+       nullAndNanChecking(parseFloat(trip.distanceCost).toFixed(2),'vrStops')
+    
 
-    let totalCost = trip.lock
-      ? parseFloat(trip.totalCost).toFixed(2)
-      : nullAndNanChecking(trip.totalCost);
+    let totalCost = 
+       nullAndNanChecking(parseFloat(trip.totalCost).toFixed(2), 'vrStops')
+     
     return (
       <Card>
         <CardBody>

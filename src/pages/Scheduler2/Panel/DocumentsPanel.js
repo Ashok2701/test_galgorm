@@ -1240,7 +1240,7 @@ let internalCount = filterDrops?.filter((doc)=>doc.carrier== "INTERNAL").length 
               Nonvalidate={this.props.Nonvalidate}
               onCompleteTripDelete={this.props.onCompleteTripDelete}
               onWarningAlertOff={this.props.onWarningAlertOff}
-              onLockRecord={this.props.onLockRecord}
+             
               date={this.props.date}
               selectAllTripsPanel={this.props.selectAllTripsPanel}
               routeSchedulerData={this.props.routeSchedulerTime}
@@ -1252,6 +1252,7 @@ let internalCount = filterDrops?.filter((doc)=>doc.carrier== "INTERNAL").length 
               sites={this.props.sites}
               selectedSite={this.props.selectedSite}
               getValues={this.props.getValues}
+              NB_manuallytrip = {this.props.NB_manuallytrip}
             />
 
 

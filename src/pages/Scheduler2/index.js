@@ -67,6 +67,7 @@ import VrStops3 from "./Panel/VrStops3";
 import Timeline from "./Panel/Timeline";
 import RouteMap1 from "./Panel/RouteMap1";
 import IndividualRouteMap2 from "./Panel/IndividualRouteMap2";
+
 import VrTotals from "./Panel/VrTotals";
 import RouteDetails from "./RouteDetail";
 import "./dashboard.scss";
@@ -105,6 +106,8 @@ import MiniWidgets from "./MiniWidgets";
 import RouteInfoRenderer from "./RouteInfoRenderer";
 import AlertSummary from "./Panel/AlertSummary";
 import AlertArray from "./Panel/AlertArray";
+import { LensTwoTone } from "@material-ui/icons";
+import { ro } from "date-fns/locale";
 
 // backend url from .env
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -424,7 +427,7 @@ class Dashboard extends Component {
     }
   }
 
-  Dateformat() {}
+  Dateformat() { }
 
   updateMagChaged = () => {
     this.setState({
@@ -698,17 +701,17 @@ class Dashboard extends Component {
       const totalQuantityA =
         a.products && a.products.length > 0
           ? a.products.reduce(
-              (sum, product) => sum + parseFloat(product.quantity || 0),
-              0
-            )
+            (sum, product) => sum + parseFloat(product.quantity || 0),
+            0
+          )
           : 0;
 
       const totalQuantityB =
         b.products && b.products.length > 0
           ? b.products.reduce(
-              (sum, product) => sum + parseFloat(product.quantity || 0),
-              0
-            )
+            (sum, product) => sum + parseFloat(product.quantity || 0),
+            0
+          )
           : 0;
 
       return totalQuantityA - totalQuantityB; // Ascending order
@@ -1203,7 +1206,7 @@ class Dashboard extends Component {
         //
         this.handleErrors(response);
       })
-      .then(function (response) {})
+      .then(function (response) { })
       .then(() => {
         //
         // this.onRouteoptihide();
@@ -1589,7 +1592,7 @@ class Dashboard extends Component {
             tripsPanel: res2,
           });
         })
-        .catch((error) => {});
+        .catch((error) => { });
     } else {
       //
 
@@ -1605,7 +1608,7 @@ class Dashboard extends Component {
             tripsPanel: res2,
           });
         })
-        .catch((error) => {});
+        .catch((error) => { });
     }
   };
 
@@ -1645,7 +1648,7 @@ class Dashboard extends Component {
             dropsPanel: dropsP,
           });
         })
-        .catch((error) => {});
+        .catch((error) => { });
     } else {
       //
 
@@ -1661,7 +1664,7 @@ class Dashboard extends Component {
             dropsPanel: dropsP,
           });
         })
-        .catch((error) => {});
+        .catch((error) => { });
     }
   };
 
@@ -2043,7 +2046,7 @@ class Dashboard extends Component {
 
         // this.updateGeoLocations();
         // this.addStateMarker()
-        this.refreshAllPanels();
+        //   this.refreshAllPanels();
 
         if (listSites.length > 0) {
           this.AlreadySelectedSites(res1, selSites, listSites);
@@ -2159,7 +2162,7 @@ class Dashboard extends Component {
           this.refreshSite();
           this.removeDocsCheckBoxes();
         })
-        .catch((error) => {});
+        .catch((error) => { });
     } else {
       // getting documents with range and trips with selected date here
       const daysDoc = parseInt(this.state.daysDoc || 0, 10);
@@ -2168,11 +2171,7 @@ class Dashboard extends Component {
         .subtract(daysDoc, "days")
         .format("YYYY-MM-DD");
 
-      console.log(
-        startDate,
-        clickedDateinFormat,
-        "this is start date and end date here initially here checking"
-      );
+     
 
       //   fetchSchedulerAPIOneDate(
       //     this.state.selectedMultipleSites,
@@ -2211,7 +2210,7 @@ class Dashboard extends Component {
         startDate,
         clickedDateinFormat
       )
-        .then(([res1, res2, res3,res4,res5]) => {
+        .then(([res1, res2, res3, res4, res5]) => {
           /*
           if(status1 === 200 && status2 === 200 && status3 === 200){
                    this.setState({loading: false})
@@ -2225,7 +2224,7 @@ class Dashboard extends Component {
             tripsPanel: res2,
             loader: false,
             vehiclePanel: res3,
-                 RouteCode: res4 ,
+            RouteCode: res4,
             pickersList: res5,
           });
         })
@@ -2280,7 +2279,7 @@ class Dashboard extends Component {
           // this.refreshSite();
           this.removeDocsCheckBoxes();
         })
-        .catch((error) => {});
+        .catch((error) => { });
     }
   };
 
@@ -2301,11 +2300,11 @@ class Dashboard extends Component {
     const currDate = moment.tz(this.state.date, "").format("YYYY-MM-DD");
     var FirstDate, LastDate;
     [FirstDate, LastDate] = this.startAndEndOfWeek(currDate);
-  
+
     // var StartDate = moment.tz(FirstDate, "").format("YYYY-MM-DD");
     var EndDate = moment.tz(LastDate, "").format("YYYY-MM-DD");
 
-  
+
 
 
     const daysDoc = parseInt(this.state.daysDoc || 0, 10);
@@ -2339,14 +2338,7 @@ class Dashboard extends Component {
 
       fetchSchedulerAPI(selectedOption, startDate, currDate)
         .then(([res1, res2, res3, res4, res5]) => {
-          // console.log(
-          //   res1,
-          //   res2,
-          //   res3,
-          //   res4,
-          //   res5,
-          //   "all these response inside fetch one data"
-          // );
+        
           this.setState({
             vehiclePanel: res1 || [], // fallback to empty array or object
             docsPanel: res2 || [],
@@ -2365,7 +2357,7 @@ class Dashboard extends Component {
           this.refreshSite();
         })
         .catch((error) => {
-          console.error("Unexpected error in fetchSchedulerAPI:", error);
+        
           this.setState({ loader: false }); // always stop the loader on error
         });
     } else {
@@ -2386,7 +2378,7 @@ class Dashboard extends Component {
           this.updateTopBar();
           this.refreshSite();
         })
-        .catch((error) => {});
+        .catch((error) => { });
     }
   };
 
@@ -2591,7 +2583,7 @@ class Dashboard extends Component {
   };
 
   handleDateChange = (date) => {
-    console.log("this is handle date change funciton 2533");
+  
     //
     const currDate = moment.tz(date, "").format("YYYY-MM-DD");
     //
@@ -2631,7 +2623,7 @@ class Dashboard extends Component {
         this.updateTopBar();
         this.refreshSite();
       })
-      .catch((error) => {});
+      .catch((error) => { });
   };
 
   onVRhide = () => {
@@ -2667,7 +2659,7 @@ class Dashboard extends Component {
 
     {
       tripsPanels[i].dropObject.length > 0 &&
-        console.log("Hide and seek - LVS Workflow 1", tripsPanels[i]);
+      console.log("Hide and seek - LVS Workflow 1", tripsPanels[i]);
 
       for (let ij = 0; ij < tripsPanels[i].dropObject.length; ij++) {
         let dropobj = tripsPanels[i].dropObject[ij];
@@ -2692,11 +2684,11 @@ class Dashboard extends Component {
         this.setState({
           vrlist: res1,
           vrdetaillist: res2,
-          loadvehstock: res3,
-          loader: false,
+          loadvehstock: res3
+         
         });
       })
-      .then(() => {})
+      .then(() => { })
       .catch((error) => {
         //  history.push('/');
       });
@@ -2724,6 +2716,7 @@ class Dashboard extends Component {
       toPickdetailsShow: "none",
       toAllocationdetailsShow: "none",
       vehicleChecked: "none",
+       loader: false,
     });
   };
 
@@ -3111,7 +3104,7 @@ class Dashboard extends Component {
           loader: false,
         });
       })
-      .then(() => {})
+      .then(() => { })
       .catch((error) => {
         // history.push('/');
       });
@@ -3574,7 +3567,7 @@ class Dashboard extends Component {
   //     daysDoc:val
   //   })
 
-  //   console.log(val ,"this is val checking 3518");
+
 
   //   this.documentPanelDateChange(this.state.documentPanel_date);
   // }
@@ -3801,7 +3794,7 @@ class Dashboard extends Component {
         .then((response) => {
           this.handleErrors(response);
         })
-        .then(function (response) {})
+        .then(function (response) { })
         .then(() => {
           // this.handleDateRangeChange();
           this.fetchDocumentPanelDateChange(this.state.documentPanel_date);
@@ -3895,7 +3888,7 @@ class Dashboard extends Component {
       .then((response) => {
         this.handleErrors(response);
       })
-      .then(function (response) {})
+      .then(function (response) { })
       .then(() => {
         // this.handleDateRangeChange();
       })
@@ -4187,7 +4180,7 @@ class Dashboard extends Component {
   };
 
   updateTripsGeoLocations = (passedi, vrcode) => {
-    console.log(vrcode, "this is vrcode 4193");
+   
     let index, searchindex;
     let temptripsdata = this.state.tripsPanel;
     let temptripsdata2 = this.state.tripsPanel;
@@ -4200,7 +4193,7 @@ class Dashboard extends Component {
             .toLowerCase()
             .indexOf(searchTripString.toLowerCase()) !== -1 ||
           trip.code.toLowerCase().indexOf(searchTripString.toLowerCase()) !==
-            -1 ||
+          -1 ||
           trip.driverName
             .toLowerCase()
             .indexOf(searchTripString.toLowerCase()) !== -1
@@ -4533,7 +4526,8 @@ class Dashboard extends Component {
 
     {
       tripsPanels[i].dropObject.length > 0 &&
-        console.log("Hide and seek - LVS Workflow 1", tripsPanels[i]);
+       console.log(
+        "TripsPanel Drop Object Length: ")
 
       for (let ij = 0; ij < tripsPanels[i].dropObject.length; ij++) {
         let dropobj = tripsPanels[i].dropObject[ij];
@@ -4561,7 +4555,7 @@ class Dashboard extends Component {
           loadvehstock: res3,
         });
       })
-      .then(() => {})
+      .then(() => { })
       .catch((error) => {
         // history.push('/');
       });
@@ -4592,7 +4586,7 @@ class Dashboard extends Component {
   };
 
   documentPanelDateChange = (date) => {
-    console.log(date, "document panel date chagne fetching here");
+   
     this.setState({ loader: true });
     //
     const currDate = moment.tz(date, "").format("YYYY-MM-DD");
@@ -4604,7 +4598,7 @@ class Dashboard extends Component {
       .subtract(daysDoc, "days")
       .format("YYYY-MM-DD");
 
-    console.log(startDate, currDate, "checking both dates checkins here 4537");
+   
 
     let value = this.state.selectedMultipleSites;
     fetchDocumentPanelwithRangeDaysBack(value, startDate, currDate)
@@ -4650,7 +4644,7 @@ class Dashboard extends Component {
       .subtract(daysDoc, "days")
       .format("YYYY-MM-DD");
 
-    console.log(startDate, currDate, "checking both dates checkins here 4537");
+   
 
     let value = this.state.selectedMultipleSites;
     fetchDocumentPanelwithRangeDaysBack(value, startDate, currDate)
@@ -4675,6 +4669,7 @@ class Dashboard extends Component {
         this.updateTopBar();
         this.refreshSite();
         this.removeDocsCheckBoxes();
+        this.closeActivePanel();
       })
       .catch((error) => {
         this.setState({
@@ -4816,7 +4811,7 @@ class Dashboard extends Component {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(this.state.SelectedDeletedDocs),
-    }).then((response) => {});
+    }).then((response) => { });
   };
 
   refreshDocspanel = () => {
@@ -4835,8 +4830,7 @@ class Dashboard extends Component {
       .subtract(daysDoc, "days")
       .format("YYYY-MM-DD");
 
-    // console.log(startDate,currDate ,"checking both dates checkins here 4537");
-
+   
     // var satday, sunday;
 
     // [sunday, satday] = this.startAndEndOfWeek(currDate);
@@ -5109,6 +5103,7 @@ class Dashboard extends Component {
     var tripsPanel = this.state.tripsPanel;
 
     var trips = [];
+    let finalToLockTrip = []
     for (let i = 0; i < tripsPanel.length; i++) {
       if (tripsPanel[i].itemCode == itemCode) {
         trips.push(tripsPanel[i]);
@@ -5120,7 +5115,7 @@ class Dashboard extends Component {
     trip.date = this.state.date;
     trip.lockP = lockP;
     trip.allocatedRouteCodes = trip.allocatedRouteCodes.split(",")[0].trim();
-    trips.push(trip);
+    finalToLockTrip.push(trip);
 
     // trips.allocatedRouteCodes=trip[index].allocatedRouteCodes
     var user = JSON.parse(localStorage.getItem("authUser"));
@@ -5136,7 +5131,7 @@ class Dashboard extends Component {
     ) {
       trips[0].totalObject.logData.push(details);
     }
-    this.lockTrip(trips, index);
+    this.lockTrip(finalToLockTrip, index);
   };
 
   /*
@@ -5185,11 +5180,18 @@ class Dashboard extends Component {
     });
   };
 
+
   submitRoutesforTripsCreationOSRMManually = async (
     routes,
     site,
     Vehicle,
-    alreadyTrip
+    alreadyTrip,
+    [],
+    res,
+    jobId,
+    assignedShipments,
+    assignedJobs,
+    nextAction = "next"
   ) => {
     this.setState({ loader: true });
     let existingTrip = alreadyTrip;
@@ -5204,6 +5206,13 @@ class Dashboard extends Component {
       var auto_total_time = (routes[k].duration + routes[k].service) / 60 / 60;
       var auto_service_time = routes[k].service / 60 / 60;
       var auto_total_distance = routes[k].distance / 1000;
+
+      var fdistanceCost = 0,
+        ftimeCost = 0,
+        ftotalCost = 0,
+        fovertimecost = 0,
+        fRegularcost = 0,
+        ffixedcost = 0;
 
       //
       var dropObject = [],
@@ -5246,9 +5255,13 @@ class Dashboard extends Component {
       // loop thorugh the documents steps
       let totTime = 0;
       let totDistance = 0;
+      let sharedArrival = "";
+      let sharedDeparture = "";
+let lastCoordsKey = "";
       for (let t = 0; t < currRoute.steps.length; t++) {
         var ttime = "";
         var currTask = currRoute.steps[t];
+         var prevTask = t > 0 ? currRoute.steps[t - 1] : null;
 
         if (currTask.type !== "start" && currTask.type !== "end") {
           var docno = currTask.description;
@@ -5263,21 +5276,67 @@ class Dashboard extends Component {
             if (currDoc.docnum === docno) {
               //let time = data.summary.travelTimeInSeconds
               //currDoc.serviceTime = secondsToHms(currTask.service);
+
+                // distance and time are accumalating 
+
+
+ const currentCoordsKey = currTask.location?.join(",");
+        const isSameCoords = currentCoordsKey === lastCoordsKey;
+
+
+
+                const legDistance =
+          prevTask && currTask.distance && prevTask.distance !== undefined
+            ? (currTask.distance - prevTask.distance) / 1000
+            : 0;
+
+        const legDuration =
+          prevTask && currTask.duration && prevTask.duration !== undefined
+            ? currTask.duration - prevTask.duration
+            : 0;
+
+// to make travel time zero if the prev and current address is same
+const sameLocation =
+  prevTask &&
+  typeof prevTask.distance === "number" &&
+  typeof currTask.distance === "number" &&
+  Math.abs(currTask.distance - prevTask.distance) < 1;
+
+
+
+  if (!isSameCoords) {
+  lastCoordsKey = currentCoordsKey;
+   sharedArrival = secondsToHmsAutoGen(currTask.arrival);
+          sharedDeparture = secondsToHmsAutoGen(currTask.arrival + currTask.service);
+
+          currDoc.arrival = sharedArrival;
+        //  currDoc.serTime = secondsToHmsAutoGen(currTask.service);
+          currDoc.end = sharedDeparture;
+ 
+  }
+  else {
+ currDoc.arrival = sharedArrival;
+          currDoc.serTime = secondsToHmsAutoGen(0);
+          currDoc.end = sharedDeparture;
+currDoc.serviceTime = 0;
+
+  }
+
               currDoc.serTime = secondsToHmsAutoGen(currTask.service);
-              currDoc.tDistance = currTask.distance
-                ? currTask.distance / 1000
-                : 0;
+              currDoc.distance = legDistance
               currDoc.waitingTime = currTask.waiting_time / 3600;
-              currDoc.tTime = currTask.duration;
+              currDoc.tTime = legDuration;
               currDoc.vehicleCode = Veh;
-              currDoc.arrival = secondsToHmsAutoGen(currTask.arrival);
+            //  currDoc.arrival = secondsToHmsAutoGen(currTask.arrival);
               currDoc.startDate = newStartDate1;
               currDoc.endDate = newStartDate1;
-              currDoc.time = convertSecToHr(currTask.duration).toFixed(3);
-              currDoc.distance = 0;
-              currDoc.end = secondsToHmsAutoGen(
-                currTask.arrival + currTask.service
-              );
+              currDoc.time = convertSecToHr(legDuration).toFixed(3);
+             // currDoc.distance = 0;
+             // currDoc.end = secondsToHmsAutoGen(
+             //   currTask.arrival + currTask.service
+             // );
+
+ //     currDoc.end = sameLocation  ? secondsToHmsAutoGen(currTask.arrival)  : secondsToHmsAutoGen(currTask.arrival + currTask.service);
               ttime = currDoc.arrival;
               if (currDoc.doctype === "PRECEIPT") {
                 pickups = pickups + 1;
@@ -5327,6 +5386,19 @@ class Dashboard extends Component {
       var fld_uom_capacity = VehicleObject.xweu;
       var fld_uom_volume = VehicleObject.xvol;
 
+      fdistanceCost = VehicleObject.costperunitd * Number(auto_total_distance);
+      if (auto_total_time > VehicleObject.overtimestar) {
+        fovertimecost = (auto_total_time - VehicleObject.overtimestar) * VehicleObject.costperunito;
+        fRegularcost = VehicleObject.overtimestar * VehicleObject.costperunitt;
+        ftimeCost = Math.round(fovertimecost + fRegularcost);
+      } else {
+        fRegularcost = VehicleObject.costperunitt * auto_total_time;
+        ftimeCost = fRegularcost;
+      }
+      ffixedcost = VehicleObject.fixedcost;
+      ftotalCost = VehicleObject.fixedcost + fdistanceCost + ftimeCost;
+     
+
       fld_per_capacity = Math.round(
         (fld_doc_capacity / fld_tot_capacity) * 100
       );
@@ -5356,7 +5428,7 @@ class Dashboard extends Component {
       existingTrip.doc_volume = fld_doc_volume;
       existingTrip.per_capacity = fld_per_capacity;
       existingTrip.totalDistance = auto_total_distance;
-      existingTrip.totalCost = 0;
+      existingTrip.totalCost = ftotalCost;
       existingTrip.per_volume = fld_per_volume;
       existingTrip.uom_capacity = fld_uom_capacity;
       existingTrip.uom_volume = fld_uom_volume;
@@ -5385,6 +5457,11 @@ class Dashboard extends Component {
       existingTrip.serviceTime = auto_service_time;
       existingTrip.totalTime = auto_total_time;
       existingTrip.pickups = pickups;
+      existingTrip.distanceCost = fdistanceCost;
+      existingTrip.regularCost = fRegularcost;
+      existingTrip.overtimeCost = fovertimecost;
+      existingTrip.timeCost = ftimeCost;
+      existingTrip.fixedCost = ffixedcost;
       existingTrip.route = true;
       /*
 
@@ -5508,14 +5585,23 @@ class Dashboard extends Component {
         }
       );
 
+
+
+
       if (fresponse.status === 200) {
         this.notifySucess("Trip Optimised Successfully");
-        this.setState({ loader: false });
+       
+        if (nextAction === 'auto' || nextAction === 'next') {
+          await this.ExceptionalanalysisManual(assignedJobs, Vehicle, res, alreadyTrip, 'autoManually');
+        }
+        //this.setState({ loader: false });
+
+        await this.fetchDocumentPanelDateChange(this.state.documentPanel_date);
       } else {
         this.notifyError("Trip is not optimised properly");
       }
     } catch (error) {
-      console.error("Error in processing trip:", error);
+     
       this.setState({
         errorMessage: `Error in processing trip ${error.message}`,
         loader: false,
@@ -5524,7 +5610,730 @@ class Dashboard extends Component {
     }
   };
 
+
+  NB_manuallytrip4rsync = async (optitrip, selectedIndex) => {
+    this.setState({ loader: true })
+    let processtrip = optitrip
+
+    let vehile_profile_options = {
+      routing: {
+        mode: 'car',
+        traffic_timestamp: 1724679300,
+        profiles: {
+          car: {
+            mode: 'car',
+            avoid: ['highway'],
+          },
+          minivan: {
+            mode: 'truck',
+            truck_weight: 10000,
+            truck_size: '200,210,400',
+            avoid: ['toll', 'left_turn'],
+          },
+        },
+      },
+    }
+
+    let postAPICode =
+      'https://api.nextbillion.io/optimization/v2?key=b1cebb49fcaa4366abcb19cfb12b43b3'
+
+    let locationArraybefore = []
+
+   
+    let selectedTripdata = processtrip.totalObject.selectedTripData
+    // get site details
+    let VehListM = [],
+      DocListM = [];
+    let stepsForSameSeq = [];
+    let veh = {},
+      vehObject = {}
+    let siteLatM, siteLangM
+    let docM = {}
+    let selSite = this.state.selectedMultipleSites[0]
+   
+    this.state.sites.map((site) => {
+      if (selSite === site.id) {
+        siteLatM = site.lat
+        siteLangM = site.lng
+
+        let newCoord = `${siteLatM},${siteLangM}`
+        locationArraybefore.push(newCoord)
+      }
+    })
+
+    // get vehicle from the vehicle list
+
+    for (let vi = 0; vi < this.state.vehiclePanel.vehicles.length; vi++) {
+      let tempveh = this.state.vehiclePanel.vehicles[vi]
+      if (processtrip.code === tempveh.codeyve) {
+        vehObject = tempveh
+        let MVeh = {}
+
+       
+        //  MVeh.max_travel_time = convertHrToSec(tempveh.maxtotaltrvtime)
+        MVeh.capacity = [tempveh.capacities]
+        MVeh.id = tempveh.codeyve
+        MVeh.start_index = 0
+        MVeh.end_index = 0
+
+        MVeh.description = tempveh.codeyve
+        let starttime = splitTimeAndConv2Sec(tempveh.starttime)
+        let loadingHrs = convertHrToSec(tempveh.startdepots)
+        let stime = starttime + loadingHrs
+       
+        let etime = splitTimeAndAddtimeAndConv2Sec(
+          tempveh.starttime,
+          tempveh.overtimestar
+        )
+
+        
+        let timew = [stime, etime]
+        let geo = [siteLangM, siteLatM]
+
+        MVeh.time_window = timew
+        //  MVeh.start = geo
+        //  MVeh.end = geo
+      
+        var array = JSON.parse('[' + tempveh.skills + ']')
+        // MVeh.skills = array;
+        if (veh.maxordercnt > 0) {
+          MVeh.max_tasks = veh.maxordercnt
+        } else {
+          MVeh.max_tasks = 99
+        }
+
+        let continousdrivingBreak = {
+          max_continuous_driving: 6000,
+          layover_duration: 900,
+        }
+        //   MVeh.drive_time_layover_config = continousdrivingBreak // continous break based on driving
+        // MVeh.profile = 'minivan'
+
+       
+        VehListM.push(MVeh)
+        break
+      }
+    }
+    let startPoint = {
+      "type": "start"
+    }
+
+    let endPoint = {
+      "type": "end"
+    }
+    stepsForSameSeq.push(startPoint);
+    let weightKey = ''
+    // get the list of documents to process
+ 
+    for (let j = 0; j < selectedTripdata.length; j++) {
+      let doc = selectedTripdata[j]
+      var Doc = {}
+
+      let tempSeqDoc = {
+        "type": "job",
+        "id": doc.docnum
+      }
+      stepsForSameSeq.push(tempSeqDoc);
+    
+    
+     
+      Doc.id = doc.docnum
+
+      Doc.description = doc.docnum
+   
+
+      var FromArr
+      var fromflag = false
+      var toflag = false
+      if (doc.fromTime && doc.fromTime.length > 0) {
+        FromArr = doc.fromTime.split(' ')
+        fromflag = true
+      }
+      var ToArr
+      if (doc.toTime && doc.toTime.length > 0) {
+        ToArr = doc.toTime.split(' ')
+        toflag = true
+      }
+
+    
+
+      var timeWindw = []
+
+      fromflag &&
+        FromArr.map((ft, index) => {
+          var tt = []
+        
+          tt.push(splitTimeAndConv2Sec(ft))
+         
+          tt.push(splitTimeAndConv2Sec(ToArr[index]))
+
+          timeWindw.push(tt)
+        })
+
+    
+
+      if (
+        doc.doctype == 'PICK' ||
+        doc.doctype == 'DLV' ||
+        doc.doctype == 'MISCDROP'
+      ) {
+        weightKey = 'delivery'
+      } else if (
+        doc.doctype == 'RETURN' ||
+        doc.doctype == 'MISCPICK' ||
+        doc.doctype == 'PRECEIPT'
+      ) {
+        weightKey = 'pickup'
+      }
+      var DocLat, DocLang
+      // let tempdata = [weightKey]
+      DocLat = doc.lat
+      DocLang = doc.lng
+      //  Doc.location = [DocLang, DocLat]
+      //  Doc.priority = parseInt(doc.priority)
+      //  Doc.amount = [Math.round(doc.netweight)]
+    
+
+      // var array1 = JSON.parse("[" + doc.skills + "]");
+      // Doc.skills = array1;
+      //  Veh.skills = array;
+      // Doc.skills = (doc.skills).split(',');
+      let wtime =
+        convertHrToSec(doc.waitingTime) + convertHrToSec(doc.serviceTime)
+      Doc.service = parseInt(wtime)
+      let ps,
+        pe = 0
+      let ds,
+        de = 0
+
+      // if (fromflag) {
+      //   Doc.time_windows = timeWindw
+      // }
+
+      Doc.location_index = j + 1
+      let newCoord1 = `${doc.lat},${doc.lng}`
+      locationArraybefore.push(newCoord1)
+
+      /*
+              ps = VehStartTime + 10800;
+              ds = VehStartTime ;
+              pe = VehEndTime ;
+              de = VehStartTime + 10800;
+              if(doc.doctype === "PRECEIPT") {
+                //Doc.time_windows = [0,28800]
+              //Doc.time_window = [36000, 54000];
+              Doc.time_windows = [[ps, pe]];
+
+              }
+              else {
+           Doc.time_windows =[[ds,de]];
+              }
+        */
+
+    
+      DocListM.push(Doc)
+    }
+    stepsForSameSeq.push(endPoint);
+
+    let finallocationList = locationArraybefore // for another type optimisation this.formatLocationCoordinates(locationArraybefore);
+    let locactionsFinal = {
+      id: 1,
+      location: finallocationList,
+    }
+
+    let nextBillonObject = {
+      jobs: DocListM,
+      // options: vehile_profile_options,
+      locations: locactionsFinal,
+      vehicles: VehListM,
+      relations: [
+        {
+          type: 'in_direct_sequence',
+          steps: stepsForSameSeq,
+          vehicle_id: VehListM[0].id
+        }
+      ]
+    }
+
+    try {
+      let response = await fetch(`${postAPICode}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(nextBillonObject),
+      })
+     
+      if (response.status === 200) {
+        if (!response.ok) {
+          const errorDetails = await response.json()
+         
+          this.setState({ loader: false })
+        } else {
+          const data = await response.json()
+         
+          await this.OrganiseNextBillionsResponse_GroupOptimise(
+            data,
+            selSite,
+            vehObject,
+            processtrip,
+            DocListM,
+            []
+
+          ) //  await this.submitRoutesforTripsCreationOSRMManually(response.routes, selSite, vehObject, processtrip,[], response);
+          this.setState({ loader: false })
+        }
+      } else {
+       
+        this.setState({ loader: false })
+      }
+    } catch (error) {
+    
+      this.setState({
+        errorMessage: 'Error in processing trip',
+        loader: false,
+        addAlertShow: true,
+      })
+    }
+  }
+
+
+  NB_manuallytrip = async (optitrip, autofrom) => {
+
+  
+    this.setState({ loader: true })
+    let processtrip = optitrip
+
+    let vehile_profile_options = {
+      routing: {
+        mode: 'car',
+        traffic_timestamp: 1724679300,
+        profiles: {
+          car: {
+            mode: 'car',
+            avoid: ['highway'],
+          },
+          minivan: {
+            mode: 'truck',
+            // truck_weight: 10000,
+            // truck_size: '200,210,400',
+            avoid: ['toll', 'left_turn'],
+          },
+        },
+      },
+    }
+
+    let postAPICode =
+      'https://api.nextbillion.io/optimization/v2?key=b1cebb49fcaa4366abcb19cfb12b43b3'
+
+    let locationArraybefore = []
+
+  
+    let selectedTripdata = processtrip.totalObject.selectedTripData
+    // get site details
+    let VehListM = [],
+      DocListM = [];
+    let stepsForSameSeq = [];
+    let veh = {},
+      vehObject = {}
+    let siteLatM, siteLangM
+    let docM = {}
+    let selSite = this.state.selectedMultipleSites[0]
+   
+    this.state.sites.map((site) => {
+      if (selSite === site.id) {
+        siteLatM = site.lat
+        siteLangM = site.lng
+
+        let newCoord = `${siteLatM},${siteLangM}`
+        locationArraybefore.push(newCoord)
+      }
+    })
+
+    // get vehicle from the vehicle list
+
+    for (let vi = 0; vi < this.state.vehiclePanel.vehicles.length; vi++) {
+      let tempveh = this.state.vehiclePanel.vehicles[vi]
+      if (processtrip.code === tempveh.codeyve) {
+        vehObject = tempveh
+        let MVeh = {}
+
+      
+        MVeh.max_travel_time = convertHrToSec(tempveh.maxtotaltrvtime)
+        MVeh.capacity = [tempveh.capacities]
+        MVeh.id = tempveh.codeyve
+        MVeh.start_index = 0
+        MVeh.end_index = 0
+
+        MVeh.description = tempveh.codeyve
+        let starttime = splitTimeAndConv2Sec(tempveh.starttime)
+        let loadingHrs = convertHrToSec(tempveh.startdepots)
+        let stime = starttime + loadingHrs
+      
+        let etime = splitTimeAndAddtimeAndConv2Sec(
+          tempveh.starttime,
+          tempveh.overtimestar
+        )
+
+
+        let timew = [stime, etime]
+        let geo = [siteLangM, siteLatM]
+
+        MVeh.time_window = timew
+        //  MVeh.start = geo
+        //  MVeh.end = geo
+       
+        var array = JSON.parse('[' + tempveh.skills + ']')
+        // MVeh.skills = array;
+        if (veh.maxordercnt > 0) {
+          MVeh.max_tasks = veh.maxordercnt
+        } else {
+          MVeh.max_tasks = 99
+        }
+
+        let continousdrivingBreak = {
+          max_continuous_driving: 6000,
+          layover_duration: 900,
+        }
+        //   MVeh.drive_time_layover_config = continousdrivingBreak // continous break based on driving
+        MVeh.profile = 'car'
+
+     
+        VehListM.push(MVeh)
+        break
+      }
+    }
+    let startPoint = {
+      "type": "start"
+    }
+
+    let endPoint = {
+      "type": "end"
+    }
+    stepsForSameSeq.push(startPoint);
+    let weightKey = ''
+    // get the list of documents to process
+
+    for (let j = 0; j < selectedTripdata.length; j++) {
+      let doc = selectedTripdata[j]
+      var Doc = {}
+
+      let tempSeqDoc = {
+        "type": "job",
+        "id": doc.docnum
+      }
+      stepsForSameSeq.push(tempSeqDoc);
+     
+      Doc.id = doc.docnum
+
+      Doc.description = doc.docnum
+     
+
+      var FromArr
+      var fromflag = false
+      var toflag = false
+      if (doc.fromTime && doc.fromTime.length > 0) {
+        FromArr = doc.fromTime.split(' ')
+        fromflag = true
+      }
+      var ToArr
+      if (doc.toTime && doc.toTime.length > 0) {
+        ToArr = doc.toTime.split(' ')
+        toflag = true
+      }
+
+   
+
+      var timeWindw = []
+
+      fromflag &&
+        FromArr.map((ft, index) => {
+          var tt = []
+        
+          tt.push(splitTimeAndConv2Sec(ft))
+         
+          tt.push(splitTimeAndConv2Sec(ToArr[index]))
+
+          timeWindw.push(tt)
+        })
+
+     
+
+      if (
+        doc.doctype == 'PICK' ||
+        doc.doctype == 'DLV' ||
+        doc.doctype == 'MISCDROP'
+      ) {
+        weightKey = 'delivery'
+      } else if (
+        doc.doctype == 'RETURN' ||
+        doc.doctype == 'MISCPICK' ||
+        doc.doctype == 'PRECEIPT'
+      ) {
+        weightKey = 'pickup'
+      }
+      var DocLat, DocLang
+      // let tempdata = [weightKey]
+      DocLat = doc.lat
+      DocLang = doc.lng
+      //  Doc.location = [DocLang, DocLat]
+      //  Doc.priority = parseInt(doc.priority)
+      //  Doc.amount = [Math.round(doc.netweight)]
+   
+
+      // var array1 = JSON.parse("[" + doc.skills + "]");
+      // Doc.skills = array1;
+      //  Veh.skills = array;
+      // Doc.skills = (doc.skills).split(',');
+      let wtime =
+        convertHrToSec(doc.waitingTime) + convertHrToSec(doc.serviceTime)
+      Doc.service = parseInt(wtime)
+      let ps,
+        pe = 0
+      let ds,
+        de = 0
+
+      // if (fromflag) {
+      //   Doc.time_windows = timeWindw
+      // }
+
+      Doc.location_index = j + 1
+      let newCoord1 = `${doc.lat},${doc.lng}`
+      locationArraybefore.push(newCoord1)
+
+      /*
+              ps = VehStartTime + 10800;
+              ds = VehStartTime ;
+              pe = VehEndTime ;
+              de = VehStartTime + 10800;
+              if(doc.doctype === "PRECEIPT") {
+                //Doc.time_windows = [0,28800]
+              //Doc.time_window = [36000, 54000];
+              Doc.time_windows = [[ps, pe]];
+
+              }
+              else {
+           Doc.time_windows =[[ds,de]];
+              }
+        */
+
+      
+      DocListM.push(Doc)
+    }
+    stepsForSameSeq.push(endPoint);
+
+    let finallocationList = locationArraybefore // for another type optimisation this.formatLocationCoordinates(locationArraybefore);
+    let locactionsFinal = {
+      id: 1,
+      location: finallocationList,
+    }
+
+    let nextBillonObject = {
+      jobs: DocListM,
+      options: vehile_profile_options,
+      locations: locactionsFinal,
+      vehicles: VehListM,
+      //   relations: [
+      // {
+      //   type: 'in_direct_sequence',
+      //   steps: stepsForSameSeq,
+      //   vehicle_id: VehListM[0].id
+      // }
+      //]
+      ...(autofrom === false && {
+        relations: [
+          {
+            type: 'in_direct_sequence',
+            steps: stepsForSameSeq,
+            vehicle_id: VehListM[0]?.id || ''
+          }
+        ]
+      })
+    }
+
+    try {
+      let response = await fetch(`${postAPICode}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(nextBillonObject),
+      })
+     
+      if (response.status === 200) {
+        if (!response.ok) {
+          const errorDetails = await response.json()
+        
+          this.setState({ loader: false })
+        } else {
+          const data = await response.json()
+         
+          await this.OrganiseNextBillionsResponse_GroupOptimise(
+            data,
+            selSite,
+            vehObject,
+            processtrip,
+            DocListM,
+            []
+
+          ) //  await this.submitRoutesforTripsCreationOSRMManually(response.routes, selSite, vehObject, processtrip,[], response);
+
+        }
+      } else {
+      
+        this.setState({
+          errorMessage: 'Optimization failed. Document/s coordiantes are not in same region. Please review in Maps',
+          loader: false,
+          addAlertShow: true,
+        })
+      }
+    } catch (error) {
+    
+      this.setState({
+        errorMessage: 'Error in processing trip',
+        loader: false,
+        addAlertShow: true,
+      })
+    }
+  }
+
+  OrganiseNextBillionsResponse_GroupOptimise = async (
+    data,
+    selSite,
+    vehObject,
+    processtrip,
+    assignedJobs,
+    assignedShipments
+  ) => {
+
+    try {
+      let SelDocs = [
+        ...(processtrip.dropObject || []),
+        ...(processtrip.pickupObject || []),
+      ]
+      const apiKey = 'b1cebb49fcaa4366abcb19cfb12b43b3'
+      const jobId = data.id
+      const postAPICodewithId = `https://api.nextbillion.io/optimization/v2/result?id=${jobId}&key=${apiKey}`
+
+      let attempt = 0
+      const maxAttempts = 50 // Stop after 20 tries (200 seconds)
+      let unassignedListRes = ''
+      let loopflg = true
+      while (attempt < maxAttempts && loopflg) {
+        await new Promise((res) => setTimeout(res, 10000)) // Wait for 10 seconds before each retry
+        attempt++
+
+        const response = await fetch(postAPICodewithId, { method: 'GET' })
+
+        if (response.status !== 200) {
+          this.setState({
+            errorMessage: 'Something went wrong while fetching the route.',
+            addAlertShow: true,
+            loader: false,
+          })
+          throw new Error('Failed to fetch route optimization result')
+        }
+
+        const res = await response.json()
+       
+
+        if (res.status !== 'Ok') {
+          loopflg = false
+          throw new Error(`API Error: ${res.message || 'Unknown error'}`)
+        }
+
+        if (
+          res.message === 'Job still processing' ||
+          !res.result ||
+          (res.result.routes && res.result.routes.length === 0)
+        ) {
+         
+          continue
+        }
+
+        if (res.result.routes && res.result?.routes?.length > 0) {
+
+          loopflg = false
+          await this.submitRoutesforTripsCreationOSRMManually(
+            res.result.routes,
+            selSite,
+            vehObject,
+            processtrip,
+            [],
+            res.result,
+            jobId,
+            assignedShipments,
+            assignedJobs,
+            'next'
+          )
+        }
+        else if (res.result && res.result?.unassigned?.length > 0) {
+         
+          loopflg = false
+
+          let matchedUnassignedWithReason = res.result.unassigned
+            .map((unassignedDoc) => {
+              const [lat, lng] = unassignedDoc.location
+const matchedDoc = SelDocs.find(
+                (doc) => doc.lat === lat && doc.lng === lng
+              )
+          
+  
+              if (matchedDoc) {
+                return {
+                  docnum: matchedDoc.docnum,
+                  reason: unassignedDoc.reason || 'N/A', // fallback if reason not present
+                }
+              }
+
+              return null // skip if no match
+            })
+            .filter(Boolean) // remove nulls (unmatched)
+
+        
+
+
+
+          if (assignedJobs.length === res.result?.unassigned?.length) {
+
+            if (res.result?.unassigned[0].reason === "the job/shipment is involved in infeasible relation") {
+              unassignedListRes = "All the documents cannot fit in the same trip, as vehicle end time is less than the trip duration. \n Please increase vehicle timings or remove added documents from the trip.";
+            }
+          }
+          else {
+            unassignedListRes = matchedUnassignedWithReason
+              .map((item) => `Doc: ${item.docnum}, Reason: ${item.reason}`)
+              .join('\n') // \n for line breaks
+          }
+          this.setState({
+            errorMessage: unassignedListRes,
+            addAlertShow: true,
+            loader: false,
+          })
+          break // Stop the while loop
+          return
+        }
+
+      }
+
+      if (attempt === 50) {
+       
+        this.setState({
+          errorMessage:
+            'Route optimization took too long. Please try again later.',
+          addAlertShow: true,
+          loader: false,
+        })
+      }
+    } catch (error) {
+      
+      this.setState({
+        errorMessage: error.message || 'An error occurred',
+        addAlertShow: true,
+        loader: false,
+      })
+    }
+  }
+
+
   OSRM_manuallytrip = async (optitrip) => {
+
     let selectedDate = this.state.documentPanel_date;
     let DayOnDate = this.getDayOfWeek(selectedDate);
     this.setState({ loader: true });
@@ -5670,12 +6479,34 @@ class Dashboard extends Component {
       // } else {
       //   Doc.skills = []; // or handle the case where skills is undefined or empty
       // }
+      let wtime = 0, stime = 0;
 
-      let wtime = convertHrToSec(doc.waitingTime);
-      let stime = convertHrToSec(doc.serviceTime);
+      if (doc.waitingTime === null || doc.waitingTime === undefined || doc.waitingTime === "") {
+        doc.waitingTime = 0;
+      }
+      else {
+        wtime = convertHrToSec(doc.waitingTime);
+      }
 
-      Doc.service = parseInt(wtime) + parseInt(stime);
+      if (doc.serviceTime === null || doc.serviceTime === undefined || doc.serviceTime === "") {
+        doc.waitingTime = 0;
+      }
+      else {
+        stime = convertHrToSec(doc.serviceTime);
+      }
 
+      //   const wtime = convertHrToSec(doc.waitingTime ?? 0);
+      // const stime = convertHrToSec(doc.serviceTime ?? 0);
+
+      // let wtime = convertHrToSec(doc.waitingTime);
+      //  let stime = convertHrToSec(doc.serviceTime);
+
+      // Doc.service = parseInt(wtime) + parseInt(stime);
+      doc.service = isNaN(parseInt(wtime) + parseInt(stime))
+        ? 0
+        : parseInt(wtime) + parseInt(stime);
+
+      
       //
       let ps,
         pe = 0;
@@ -5745,7 +6576,7 @@ class Dashboard extends Component {
         }
       }
     } catch (error) {
-      console.error("Error in processing trip:", error);
+     
       this.setState({
         errorMessage: "Error in processing trip",
         loader: false,
@@ -5754,9 +6585,16 @@ class Dashboard extends Component {
     }
   };
 
+  OptimisemanuallywithNB = async (Optimisedtrips) => {
+    for (let tt = 0; tt < Optimisedtrips.length; tt++) {
+      await this.NB_manuallytrip4rsync(Optimisedtrips[tt]);
+    }
+  };
+
+
   OptimisemanuallywithOSRM = async (Optimisedtrips) => {
     for (let tt = 0; tt < Optimisedtrips.length; tt++) {
-      await this.OSRM_manuallytrip(Optimisedtrips[tt]);
+      await this.NB_manuallytrip(Optimisedtrips[tt]);
     }
   };
 
@@ -5769,14 +6607,18 @@ class Dashboard extends Component {
       //
       if (
         OptimisedtripsPanel[ttrip].optistatus === "Open" &&
-        OptimisedtripsPanel[ttrip].driverId !== ""
+        OptimisedtripsPanel[ttrip].driverId !== "" && OptimisedtripsPanel[ttrip].lock === false
       ) {
         Optimisedtrips.push(OptimisedtripsPanel[ttrip]);
       }
     }
 
     if (Optimisedtrips.length > 0) {
+      // OSRM
       this.OptimisemanuallywithOSRM(Optimisedtrips);
+
+      // this.OptimisemanuallywithNB(Optimisedtrips);
+
     } else {
       this.setState({
         errorMessage:
@@ -6616,8 +7458,21 @@ class Dashboard extends Component {
   //   }
   // }
 
-  autoGenerateTrips = () => {
+
+
+
+  autoGenerateTrips_nextBillions = async () => {
     //filter the trips panle and sort it
+
+    let postAPICode =
+      'https://api.nextbillion.io/optimization/v2?key=b1cebb49fcaa4366abcb19cfb12b43b3'
+
+
+    let locationArraybefore = []
+
+    let vehile_profile_options = {}
+
+
     var tempTripPanel = this.state.tripsPanel;
     var orginalTripOrder = this.state.tripsPanel;
     //
@@ -6648,6 +7503,19 @@ class Dashboard extends Component {
       }
       return null;
     });
+
+    let siteLat, siteLang
+
+    let selSite = this.state.selectedMultipleSites[0]
+    this.state.sites.map((site) => {
+      if (selSite === site.id) {
+        siteLat = site.lat
+        siteLang = site.lng
+
+        let newCoord = `${siteLat},${siteLang}`
+        locationArraybefore.push(newCoord)
+      }
+    })
 
     this.setState({ loader: true });
     var sameVehiclesflag = this.state.checkedsameVehicles;
@@ -6723,18 +7591,18 @@ class Dashboard extends Component {
       //
       //
       //
-      var VehList = [],
+      var VehList = [], selDrivers = [],
         DocList = [];
-      var siteLat, siteLang;
+      //  var siteLat, siteLang;
       var doc = {};
-      var selSite = this.state.selectedMultipleSites[0];
-      //
+      // var selSite = this.state.selectedMultipleSites[0];
+      /*
       this.state.sites.map((site) => {
         if (selSite === site.id) {
           siteLat = site.lat;
           siteLang = site.lng;
         }
-      });
+      });*/
 
       var intenalVeh = [];
       var collectionVehicle = [];
@@ -6743,6 +7611,11 @@ class Dashboard extends Component {
       var vehSkill = "";
 
       //
+
+      selDrivers = this.state.vehiclePanel.drivers;
+      //.filter(
+      //  (vehicle) => vehicle.bptnumType == "INTERNAL"
+      //);
 
       let filteredVehicle = this.state.vehiclePanel.vehicles.filter(
         (vehicle) => vehicle.bptnumType == "INTERNAL"
@@ -6918,6 +7791,723 @@ class Dashboard extends Component {
             parseInt(veh.vol),
             // , parseInt(veh.totalCases ? veh.totalCases : 0)
           ];
+          Veh.id = veh.codeyve;
+          Veh.start_index = 0
+          Veh.end_index = 0
+          Veh.name = veh.codeyve;
+          Veh.description = veh.codeyve;
+          let starttime = splitTimeAndConv2Sec(veh.starttime);
+          let loadingHrs = convertHrToSec(veh.startdepots);
+          let stime = starttime + loadingHrs;
+          //
+          let etime = splitTimeAndAddtimeAndConv2Sec(
+            veh.starttime,
+            veh.overtimestar
+          );
+          let timew = [stime, etime];
+          let geo = [siteLang, siteLat];
+
+          Veh.time_window = timew;
+          //  Veh.start = geo;
+          //  Veh.end = geo;
+          //  var array = JSON.parse("[" + vehSkill + "]");
+          Veh.skills = vehSkill;
+          if (veh.maxordercnt > 0) {
+            Veh.max_tasks = veh.maxordercnt;
+          } else {
+            Veh.max_tasks = 3;
+          }
+          //
+          VehList.push(Veh);
+          VehEndTime = etime;
+          VehStartTime = stime;
+        } else if (sameVehiclesflag && sflag) {
+          let starttime = prevEndTime;
+          let loadingHrs = convertHrToSec(veh.startdepots);
+          let stime = starttime + loadingHrs;
+          //
+          //
+          let etime = splitTimeAndAddtimeAndConv2Sec(
+            veh.starttime,
+            veh.overtimestar
+          );
+
+          if (stime < etime) {
+            Veh.id = veh.codeyve;
+            Veh.name = veh.codeyve;
+            Veh.start_index = 0
+            Veh.end_index = 0
+            Veh.description = veh.codeyve;
+            Veh.max_travel_time = convertHrToSec(veh.maxtotaltrvtime);
+            // Veh.capacity = [veh.capacities];
+            Veh.capacity = [parseInt(veh.capacities), parseInt(veh.vol)];
+
+            //
+            let timew = [stime, etime];
+            let geo = [siteLang, siteLat];
+            Veh.time_window = timew;
+            // Veh.start = geo;
+            //   Veh.end = geo;
+            //  var array = JSON.parse("[" + vehSkill + "]");
+            Veh.skills = vehSkill;
+            if (veh.maxordercnt > 0) {
+              Veh.max_tasks = veh.maxordercnt;
+            } else {
+              Veh.max_tasks = 3;
+            }
+
+            //
+            VehList.push(Veh);
+            VehEndTime = etime;
+            VehStartTime = stime;
+          }
+        }
+      }
+
+      //
+      //
+      //
+
+      //
+      //
+      let maxDoc = this.state.defaultdocprocess;
+      let docprocessedCount = 0;
+      const jobs = []
+      let selDocs = [];
+      for (let j = 0; j < this.state.docsPanel.length; j++) {
+        let doc = this.state.docsPanel[j];
+        //
+        if (
+          doc.type === "open" &&
+          (doc.dlvystatus === "0" || doc.dlvystatus === "8") &&
+          doc.carrier == "INTERNAL" &&
+          doc.routeCodeDesc != "None"
+        ) {
+          var Doc = {};
+          selDocs.push(doc);
+          //
+          //
+          Doc.id = j + 1;
+          let newCoord = `${doc.lat},${doc.lng}`
+          let loc_index = locationArraybefore.push(newCoord) - 1 // Get the index
+
+          Doc.description = doc.docnum;
+          //
+
+          var FromArr;
+          var fromflag = false;
+          var toflag = false;
+          if (doc.fromTime.length > 0) {
+            FromArr = doc.fromTime.split(" ");
+            fromflag = true;
+          }
+          var ToArr;
+          if (doc.toTime.length > 0) {
+            ToArr = doc.toTime.split(" ");
+            toflag = true;
+          }
+
+          //
+          //
+
+          var timeWindw = [];
+
+          fromflag &&
+            FromArr.map((ft, index) => {
+              var tt = [];
+              //
+              tt.push(splitTimeAndConv2Sec(ft));
+              //
+              tt.push(splitTimeAndConv2Sec(ToArr[index]));
+
+              timeWindw.push(tt);
+            });
+
+          //
+
+          var DocLat, DocLang;
+          DocLat = doc.lat;
+          DocLang = doc.lng;
+
+          Doc.location = [DocLang, DocLat];
+          Doc.priority = parseInt(doc.priority);
+          // Doc.amount = [Math.round(doc.netweight)];
+          Doc.amount = [
+            parseInt(doc.netweight),
+            parseInt(doc.volume),
+            // , parseInt(doc.noofcases ? doc.noofcases : 0)
+          ];
+          //
+          let tempskillList;
+          if (doc.skills) {
+            tempskillList = doc.skills
+              .split(",")
+              .map((skill) => parseInt(skill.trim(), 10));
+          } else {
+            tempskillList = []; // or handle the case where skills is undefined or empty
+          }
+          let wtime = convertHrToSec(doc.waitingTime);
+          let stime = convertHrToSec(doc.serviceTime);
+
+          Doc.service = parseInt(wtime) + parseInt(stime);
+
+          let ps,
+            pe = 0;
+          let ds,
+            de = 0;
+
+          if (fromflag) {
+            if (timeWindw[0][0] !== 0) {
+              Doc.time_windows = timeWindw;
+            }
+          }
+
+          jobs.push({
+            id: j + 1,
+            location_index: loc_index, // Replace with real coordinates
+            service:
+              parseInt(convertHrToSec(doc.serviceTime)) +
+              parseInt(convertHrToSec(doc.waitingTime)),
+            amount: [parseInt(doc.netweight), parseInt(doc.volume)],
+            description: doc.docnum,
+            //time_windows: timeWindw,
+            ...(fromflag && { time_windows: timeWindw }),
+            skills: tempskillList,
+            priority: parseInt(doc.priority),
+          })
+
+          //
+          DocList.push(Doc);
+          docprocessedCount = docprocessedCount + 1;
+        }
+      }
+
+
+      let finallocationList = locationArraybefore // for another type optimisation this.formatLocationCoordinates(locationArraybefore);
+
+      let locactionsFinal = {
+        id: 1,
+        location: finallocationList,
+      }
+
+
+      // for sending route code matched vehicles to OSRM
+      let filteredVehArray = this.state.vehiclePanel.vehicles.filter((item1) =>
+        VehList.some((item2) => item1.codeyve === item2.description)
+      );
+
+      let nextBillonObject = {
+        jobs: jobs,
+        //options: vehile_profile_options,
+        locations: locactionsFinal,
+        vehicles: VehList,
+      }
+
+
+      let response = await fetch(`${postAPICode}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(nextBillonObject),
+      })
+    
+      if (response.status === 200) {
+       
+        if (!response.ok) {
+          const errorDetails = await response.json()
+        
+          this.setState({ loader: false })
+        } else {
+          const data = await response.json()
+         
+          await this.OrganiseNextBillionsResponse(
+            data,
+            selSite,
+            selDocs,
+            filteredVehArray,
+            selDrivers,
+            jobs,
+            []
+
+          )
+          this.setState({ loader: false })
+        }
+      } else {
+       
+        this.setState({ loader: false })
+      }
+    } else {
+      this.setState({
+        errorMessage:
+          VehList.length === 0
+            ? 'There are no vehicles selected.'
+            : 'There are no documents selected.',
+        addAlertShow: true,
+      })
+    }
+  };
+
+
+
+
+
+  OrganiseNextBillionsResponse = async (
+
+    data,
+    selSite,
+    SelDocs,
+    selVeh,
+    selDrivers,
+    assignedJobs,
+    assignedShipments = [],
+  ) => {
+
+    try {
+      const apiKey = 'b1cebb49fcaa4366abcb19cfb12b43b3'
+      const jobId = data.id
+      const postAPICodewithId = `https://api.nextbillion.io/optimization/v2/result?id=${jobId}&key=${apiKey}`
+
+      let attempt = 0
+      const maxAttempts = 50 // Stop after 20 tries (200 seconds)
+      let loopflg = true
+
+      while (attempt < maxAttempts && loopflg) {
+        await new Promise((res) => setTimeout(res, 10000)) // Wait for 10 seconds before each retry
+        attempt++
+
+        const response = await fetch(postAPICodewithId, { method: 'GET' })
+
+        if (response.status !== 200) {
+          loopflg = false
+          this.setState({
+            errorMessage: 'Something went wrong while fetching the route.',
+            addAlertShow: true,
+            loader: false,
+          })
+          throw new Error('Failed to fetch route optimization result')
+        }
+
+        const res = await response.json()
+       
+
+        if (res.status !== 'Ok') {
+          loopflg = false
+          throw new Error(`API Error: ${res.message || 'Unknown error'}`)
+        }
+
+        if (
+          res.message === 'Job still processing' ||
+          !res.result ||
+          (res.result.routes && res.result.routes.length === 0)
+        ) {
+         
+          continue
+        } else if (res.result?.routes?.length > 0) {
+         
+          loopflg = false
+          if (this.state.breaks) {
+            this.submitRoutesforTripsCreation(
+              res.result.routes,
+              selSite,
+              SelDocs,
+              selDrivers,
+              selVeh,
+              res.result,
+              jobId,
+              assignedShipments,
+              assignedJobs,
+              'auto'
+            )
+          } else {
+            this.submitRoutesforTripsCreationWithoutHOS(
+              res.result.routes,
+              selSite,
+              SelDocs,
+              selDrivers,
+              selVeh,
+              res.result,
+              jobId,
+              assignedShipments,
+              assignedJobs,
+              'auto'
+            )
+          }
+          return
+        } else if (
+          res.message === '' &&
+          res.result &&
+          res.result?.unassigned.length > 0
+        ) {
+          loopflg = false
+          this.Exceptionalanalysis(
+            SelDocs,
+            selVeh,
+            res.result,
+            assignedShipments,
+            assignedJobs,
+            'auto_next'
+          )
+          break // Stop the while loop
+          return
+        }
+      }
+
+      // Job completed, process the result
+
+      if (attempt === 50) {
+       
+        this.setState({
+          errorMessage:
+            'Route optimization took too long. Please try again later.',
+          addAlertShow: true,
+          loader: false,
+        })
+      }
+    } catch (error) {
+     
+      this.setState({
+        errorMessage: error.message || 'An error occurred',
+        addAlertShow: true,
+        loader: false,
+      })
+    }
+  }
+
+
+
+
+ safeParseRouteCodes = (input, fallbackCode) => {
+  try {
+    if (input && input.trim()) {
+      return JSON.parse("[" + input + "]");
+    }
+  } catch (err) {
+   
+  }
+  return fallbackCode ? [fallbackCode] : [];
+}
+
+
+
+
+  autoGenerateTrips = () => {
+    //filter the trips panle and sort it
+    var tempTripPanel = this.state.tripsPanel;
+    var orginalTripOrder = this.state.tripsPanel;
+    //
+
+    tempTripPanel.sort(
+      (a, b) => b.code.localeCompare(a.code) || b.trips - a.trips
+    );
+
+    //
+
+    const key = "code";
+
+    // let uniqueTripListByCode = [...new Map(tempTripPanel.map((item) => [item["code"], item])).values(),];
+
+    let selectedDate = this.state.documentPanel_date;
+
+    let DayOnDate = this.getDayOfWeek(selectedDate);
+
+    //
+
+    //
+
+    var resArr = [];
+    tempTripPanel.filter(function (item) {
+      var i = resArr.findIndex((x) => x.code == item.code);
+      if (i <= -1) {
+        resArr.push(item);
+      }
+      return null;
+    });
+
+    this.setState({ loader: true });
+    var sameVehiclesflag = this.state.checkedsameVehicles;
+    var DocCount = 0;
+    let VehStartTime, VehEndTime;
+    var internalArr = [];
+    var collectionArr = [];
+    var ExternalArr = [];
+    let noneDocs = [];
+
+    let temproutecodelistofdocs = [];
+
+    // for adding 1 route code at the end function
+    function moveOnesToEnd(jsonString) {
+      // Parse the JSON string into an array
+
+      // Separate the 1s from the other values
+      let ones = jsonString.filter((x) => x === 1);
+      let others = jsonString.filter((x) => x !== 1);
+
+      // Combine the arrays: other values first, followed by all 1s
+      return others.concat(ones);
+    }
+
+    var autoDocs = [];
+
+    for (let jj = 0; jj < this.state.docsPanel.length; jj++) {
+      let doc = this.state.docsPanel[jj];
+      if (
+        doc.type === "open" &&
+        (doc.dlvystatus === "0" || doc.dlvystatus === "8") &&
+        doc.carrier == "INTERNAL" &&
+        doc.routeCodeDesc != "None"
+      ) {
+        autoDocs.push(doc);
+        DocCount = DocCount + 1;
+
+        if (!temproutecodelistofdocs.includes(Number(doc.routeCode))) {
+          temproutecodelistofdocs.push(Number(doc.routeCode));
+        }
+
+        // temproutecodelistofdocs.push(doc);
+
+        if (doc.carrier === "INTERNAL") {
+          internalArr.push(doc);
+        }
+
+        if (doc.carrier === "COLLECTIONS") {
+          collectionArr.push(doc);
+        }
+
+        if (
+          doc.carrier === "EXTERNAl" ||
+          doc.carrier === "DPD" ||
+          doc.carrier === "MONTGOMERY"
+        ) {
+          ExternalArr.push(doc);
+        }
+      }
+
+      if (doc.routeCodeDesc == "None" && doc.carrier === "INTERNAL") {
+        noneDocs.push(doc.docnum);
+      }
+    }
+
+    //
+    //
+    //
+
+    if (DocCount > 0) {
+      //
+      //
+      //
+      //
+      //
+      var VehList = [],
+        DocList = [];
+      var siteLat, siteLang;
+      var doc = {};
+      var selSite = this.state.selectedMultipleSites[0];
+      //
+      this.state.sites.map((site) => {
+        if (selSite === site.id) {
+          siteLat = site.lat;
+          siteLang = site.lng;
+        }
+      });
+
+      var intenalVeh = [];
+      var collectionVehicle = [];
+      var externalVeh = [];
+
+      var vehSkill = "";
+
+      //
+    
+      let filteredVehicle = this.state.vehiclePanel.vehicles.filter(
+        (vehicle) => vehicle.bptnumType == "INTERNAL"
+      );
+      for (let i = 0; i < filteredVehicle.length; i++) {
+        var Veh = {};
+        let veh = filteredVehicle[i];
+
+        switch (DayOnDate) {
+          case "Monday":
+            let temodata = JSON.parse("[" + veh.mondayRC + "]");
+            temodata = moveOnesToEnd(temodata);
+
+            let finmodata = [];
+            //check temodata array count if it is greatee than 1
+            if (temodata.length > 1) {
+              for (let i = 0; i < temodata.length; i++) {
+                if (temproutecodelistofdocs.includes(temodata[i])) {
+                  finmodata.push(temodata[i]);
+
+                  break;
+                }
+              }
+            } else {
+              for (let i = 0; i < temodata.length; i++) {
+                if (temproutecodelistofdocs.includes(temodata[i])) {
+                  finmodata.push(temodata[i]);
+
+                  break;
+                }
+              }
+            }
+            // temodata - loop
+
+            //     routecode if it exist in temproutecodelistofdocs
+            //     vehSkill = routecodeec;
+
+            vehSkill = temodata;
+            break;
+          case "Tuesday":
+            let temtudata = JSON.parse("[" + veh.tuesdayRC + "]");
+            temtudata = moveOnesToEnd(temtudata);
+
+            let fintudata = [];
+            if (temtudata.length > 1) {
+              for (let i = 0; i < temtudata.length; i++) {
+                if (temproutecodelistofdocs.includes(temtudata[i])) {
+                  fintudata.push(temtudata[i]);
+
+                  break;
+                }
+              }
+            } else {
+              for (let i = 0; i < temtudata.length; i++) {
+                if (temproutecodelistofdocs.includes(temtudata[i])) {
+                  fintudata.push(temtudata[i]);
+
+                  break;
+                }
+              }
+            }
+
+            vehSkill = temtudata;
+            break;
+          case "Wednesday":
+            let temwedata = JSON.parse("[" + veh.wednesdayRC + "]");
+            temwedata = moveOnesToEnd(temwedata);
+
+            let finwedata = [];
+            if (temwedata.length > 1) {
+              for (let i = 0; i < temwedata.length; i++) {
+                if (temproutecodelistofdocs.includes(temwedata[i])) {
+                  finwedata.push(temwedata[i]);
+                  break;
+                }
+              }
+            } else {
+              for (let i = 0; i < temwedata.length; i++) {
+                if (temproutecodelistofdocs.includes(temwedata[i])) {
+                  finwedata.push(temwedata[i]);
+                  break;
+                }
+              }
+            }
+            vehSkill = temwedata;
+            break;
+          case "Thursday":
+            let temthdata = JSON.parse("[" + veh.thursdayRC + "]");
+            temthdata = moveOnesToEnd(temthdata);
+
+            let finthurdata = [];
+            if (temthdata.length > 1) {
+              for (let i = 0; i < temthdata.length; i++) {
+                if (temproutecodelistofdocs.includes(temthdata[i])) {
+                  finthurdata.push(temthdata[i]);
+                  break;
+                }
+              }
+            } else {
+              for (let i = 0; i < temthdata.length; i++) {
+                if (temproutecodelistofdocs.includes(temthdata[i])) {
+                  finthurdata.push(temthdata[i]);
+                  break;
+                }
+              }
+            }
+            vehSkill = temthdata;
+
+            break;
+          case "Friday":
+            let temfrdata = JSON.parse("[" + veh.fridayRC + "]");
+            //
+            temfrdata = moveOnesToEnd(temfrdata);
+            let finfridata = [];
+
+            if (temfrdata.length > 1) {
+              for (let i = 0; i < temfrdata.length; i++) {
+                if (temproutecodelistofdocs.includes(temfrdata[i])) {
+                  finfridata.push(temfrdata[i]);
+                  break;
+                }
+              }
+            } else {
+              for (let i = 0; i < temfrdata.length; i++) {
+                if (temproutecodelistofdocs.includes(temfrdata[i])) {
+                  finfridata.push(temfrdata[i]);
+                  break;
+                }
+              }
+            }
+
+            vehSkill = temfrdata;
+            break;
+        }
+
+      
+        const skillArray = veh.skills
+          .split(',')
+          .map(item => parseInt(item.trim(), 10))
+          .filter(num => num && !isNaN(num)); // Removes 0, NaN, null, undefined
+
+        // Step 2: Filter data1 to remove 0, null, '', undefined
+        let filteredData1 = vehSkill
+          .filter(num => num && !isNaN(num));
+
+
+        if (filteredData1.length === 0) {
+          filteredData1 = Array.from({ length: 57 }, (_, i) => i + 1);
+        }
+
+        // Step 3: Combine both arrays
+        const combinedArray = [...filteredData1, ...skillArray];
+
+      
+        var sflag = false;
+        var prevEndTime = 0;
+
+        for (let t = 0; t < resArr.length; t++) {
+          var currtrip = resArr[t];
+          if (currtrip.code === veh.codeyve) {
+            sflag = true;
+            var endTime = splitTimeAndConv2Sec(currtrip.endTime);
+            var unloadingtime = convertHrToSec(veh.enddepotserv);
+            prevEndTime = endTime + unloadingtime;
+            //
+            break;
+          }
+        }
+
+        // filtering vehicles based on careerType
+        if (veh.bptnumType === "INTERNAL") {
+          intenalVeh.push(veh);
+        }
+
+        if (veh.bptnumType === "COLLECTIONS") {
+          collectionVehicle.push(veh);
+        }
+
+        if (veh.bptnumType === "EXTERNAL") {
+          externalVeh.push(veh);
+        }
+
+        //
+
+        if (!sameVehiclesflag && !sflag) {
+          Veh.max_travel_time = convertHrToSec(veh.maxtotaltrvtime);
+          // Veh.capacity = [veh.capacities];
+          Veh.capacity = [
+            parseInt(veh.capacities),
+            parseInt(veh.vol),
+            // , parseInt(veh.totalCases ? veh.totalCases : 0)
+          ];
           Veh.id = i + 1;
           Veh.description = veh.codeyve;
           let starttime = splitTimeAndConv2Sec(veh.starttime);
@@ -6935,7 +8525,7 @@ class Dashboard extends Component {
           Veh.start = geo;
           Veh.end = geo;
           //  var array = JSON.parse("[" + vehSkill + "]");
-          Veh.skills = vehSkill;
+          Veh.skills = combinedArray;
           if (veh.maxordercnt > 0) {
             Veh.max_tasks = veh.maxordercnt;
           } else {
@@ -6970,7 +8560,7 @@ class Dashboard extends Component {
             Veh.start = geo;
             Veh.end = geo;
             //  var array = JSON.parse("[" + vehSkill + "]");
-            Veh.skills = vehSkill;
+            Veh.skills = combinedArray;
             if (veh.maxordercnt > 0) {
               Veh.max_tasks = veh.maxordercnt;
             } else {
@@ -7046,21 +8636,28 @@ class Dashboard extends Component {
           Doc.location = [DocLang, DocLat];
           Doc.priority = doc.priority;
           // Doc.amount = [Math.round(doc.netweight)];
-          Doc.amount = [
-            parseInt(doc.netweight),
-            parseInt(doc.volume),
-            // , parseInt(doc.noofcases ? doc.noofcases : 0)
-          ];
+          if(doc.doctype === "PRECEIPT" || doc.doctype === "SRN") { 
+             Doc.pickup = [ Math.round(doc.netweight),  Math.round(doc.volume)  ];
+             Doc.delivery = [0, 0];
+          }
+          else {
+             Doc.delivery = [ Math.round(doc.netweight),  Math.round(doc.volume)  ];
+             Doc.pickup = [0, 0];
+          }
+       //   Doc.amount = [ parseInt(doc.netweight),  parseInt(doc.volume)  ];
           //
           // var array1 = JSON.parse("[" + doc.skills + "]");
           // var array1 = []
           //  Veh.skills = array;
           // Doc.skills = (doc.skills).split(',');
           //  Doc.skills = doc.skills;
-          if (doc.skills) {
-            Doc.skills = doc.skills
-              .split(",")
-              .map((skill) => parseInt(skill.trim(), 10));
+          const skillresult = [
+            doc.routeCode,
+            ...(doc.skills || "").split(',')
+          ].map(s => Number(s?.trim()))
+            .filter(n => n && !isNaN(n));
+          if (skillresult) {
+            Doc.skills = skillresult
           } else {
             Doc.skills = []; // or handle the case where skills is undefined or empty
           }
@@ -7163,242 +8760,103 @@ class Dashboard extends Component {
           // });
 
           //     }
-          else {
-            let errorbox = [];
+        else {
+  let errorbox = [];
+  const noneDocs = [];
+  const selectedDate = this.state.documentPanel_date;
+  const DayOnDate = this.getDayOfWeek(selectedDate);
+  const vehicleAssignedWeight = {};
+  const vehicleAssignedVolume = {};
 
-            let selectedDate = this.state.documentPanel_date;
-            let DayOnDate = this.getDayOfWeek(selectedDate);
-
-            //         autoDocs.forEach((doc) => {
-            //           let glbalmissingskill = [];
-            //           let tempoptiError = {
-            //             docnum: "",
-            //             skillerrorflg: false,
-            //             skillmessage: "",
-            //             capacatyflg: false,
-            //             capacityError: "",
-            //             generalflg: false,
-            //             genearalError: "",
-            //           };
-            //           let glabalerrorOBject = "";
-
-            //           let isSkillMatchFoundflg = false;
-            //           let docskill = JSON.parse("[" + doc.skills + "]");
-            //           let tcapacatyflg = false;
-            //           let tskillflg = false;
-            //           let tvolumeflg = false;
-            //           let prodCodevehList = [];
-            //           let routeCodeVehList = [];
-            //           let timewindowVehList = [];
-            //           let capacityVehList = [];
-            //           let volumeVehList = [];
-            //           let vehClassVehList = [];
-            //           let TimewindowforDoc = [];
-            //           filteredVehArray.forEach((veh) => {
-            //             let missingSkillsForDoc = [];
-
-            //               var varray="";
-            // switch (DayOnDate) {
-            //   case "Monday":
-            //
-            //     varray= JSON.parse("[" + veh.mondayRC + "]");
-            //     break;
-            //   case "Tuesday":
-            //     varray= JSON.parse("[" + veh.tuesdayRC + "]");
-            //
-            //     break;
-            //   case "Wednesday":
-            //     varray= JSON.parse("[" + veh.wednesdayRC + "]");
-            //
-            //     break;
-            //   case "Thursday":
-            //     varray= JSON.parse("[" + veh.thursdayRC + "]");
-            //
-            //     break;
-            //   case "Friday":
-            //     varray= JSON.parse("[" + veh.fridayRC + "]");
-            //
-            //     break;
-            // }
-            //             const missingSkills = docskill.filter(
-            //               (skill) => !varray.includes(skill)
-            //             );
-
-            //
-
-            //             if (missingSkills.length == 0) {
-            //               // If no missing skills, it's a match
-            //               if (veh.capacities < doc.netweight) {
-            //                 tcapacatyflg = true;
-            //                 capacityVehList.push(veh.name);
-            //               }
-            //               // volume check
-            //               if (veh.vol < doc.volume) {
-            //                 tvolumeflg = true;
-            //                 volumeVehList.push(veh.name);
-            //               }
-            //             } else {
-            //               // If there are missing skills, collect them
-            //               isSkillMatchFoundflg = true;
-            //               missingSkillsForDoc.push(...missingSkills);
-            //               glbalmissingskill.push(...missingSkills);
-
-            //               if (veh.capacities < doc.netweight) {
-            //                 tcapacatyflg = true;
-            //                 capacityVehList.push(veh.name);
-            //               }
-            //               // volume check
-            //               if (veh.vol < doc.volume) {
-            //                 tvolumeflg = true;
-            //                 volumeVehList.push(veh.name);
-            //               }
-
-            //               // assign the not mathced skills to the vehicle array
-            //               const tempuniqueMissingSkills = [...new Set(missingSkills)];
-            //               const temprouteCodeErrors = tempuniqueMissingSkills.filter(
-            //                 (skill) => skill >= -1 && skill <= 100
-            //               );
-            //               const tempproductCategoryErrors =
-            //                 tempuniqueMissingSkills.filter(
-            //                   (skill) => skill > 100 && skill <= 200
-            //                 );
-            //               const tempvehicleClassErrors = tempuniqueMissingSkills.filter(
-            //                 (skill) => skill > 200
-            //               );
-
-            //               if (temprouteCodeErrors.length > 0) {
-            //                 routeCodeVehList.push(veh.name);
-            //               }
-            //               if (tempproductCategoryErrors.length > 0) {
-            //                 prodCodevehList.push(veh.name);
-            //               }
-            //               if (tempvehicleClassErrors.length > 0) {
-            //                 vehClassVehList.push(veh.name);
-            //               }
-            //             }
-            //           });
-
-            //           if (!tvolumeflg || !tcapacatyflg || !isSkillMatchFoundflg) {
-            //             tempoptiError.docnum = doc.docnum;
-            //             let tmsg = "";
-
-            //             if (doc.fromTime.length > 0) {
-            //               const fromTimes = this.TimeWindow_splitTime(doc.fromTime); // Split into ["0700", "0900"]
-            //               const toTimes = this.TimeWindow_splitTime(doc.toTime); // Split into ["0800", "1030"]
-            //
-            //               for (let i = 0; i < fromTimes.length; i++) {
-            //                 TimewindowforDoc.push(`${fromTimes[i]}-${toTimes[i]}`); // Combine each pair into a time range
-            //               }
-            //             }
-            //
-
-            //
-
-            //             if (vehClassVehList.length > 0) {
-            //               glabalerrorOBject =
-            //                 glabalerrorOBject +
-            //                 `Document ${doc.docnum} has been excluded as the Customer's assigned Vehicle Class does not match of these vehicles  ${vehClassVehList}. \n`;
-            //             }
-            //             if (prodCodevehList.length > 0) {
-            //               glabalerrorOBject =
-            //                 glabalerrorOBject +
-            //                 `Document ${doc.docnum} has been excluded as it contains products not matching the  vehicles' ${prodCodevehList}  product categories . \n`;
-            //             }
-            //             if (routeCodeVehList.length > 0) {
-            //               glabalerrorOBject =
-            //                 glabalerrorOBject +
-            //                 `Document ${doc.docnum} has been excluded as the customer's assigned RouteCode does not match any of the vehicles ${routeCodeVehList}. \n`;
-            //             }
-            //             if (capacityVehList.length > 0) {
-            //               glabalerrorOBject =
-            //                 glabalerrorOBject +
-            //                 `Document ${doc.docnum} has been excluded due to Weight Capacity restriction on the vehicles ${capacityVehList}. \n`;
-            //             }
-            //             if (volumeVehList.length > 0) {
-            //               glabalerrorOBject =
-            //                 glabalerrorOBject +
-            //                 `Document ${doc.docnum} has been excluded due to Volume Capacity restriction on the  vehicles ${volumeVehList}. \n`;
-            //             }
-            //             // if (TimewindowforDoc.length > 0) {
-            //             //   glabalerrorOBject =
-            //             //     glabalerrorOBject +
-            //             //     `Document ${doc.docnum} has been excluded due to Delivery Time Frame restriction (${TimewindowforDoc}) . \n`;
-            //             // }
-
-            //             if (glabalerrorOBject.length < 1) {
-            //               if (TimewindowforDoc.length > 0) {
-            //                 glabalerrorOBject =
-            //                   glabalerrorOBject +
-            //                   `Document ${doc.docnum} has been excluded due to Delivery Time Frame restriction (${TimewindowforDoc}). \n`;
-            //               } else {
-            //                 //
-            //                 glabalerrorOBject = `Document ${doc.docnum} has been excluded due to the vehicles weight/volume capacity was full in the current trip. \n`;
-            //               }
-            //             }
-
-            //             //
-            //             glabalerrorOBject = glabalerrorOBject + "\n";
-            //             //
-            //             errorbox.push(glabalerrorOBject);
-            //           }
-            //         });
-
-            // Track assigned weight and volume per vehicle
-            let vehicleAssignedWeight = {};
-            let vehicleAssignedVolume = {};
-
-            autoDocs.forEach((doc) => {
-              let tempoptiError = {
-                docnum: "",
-                skillerrorflg: false,
-                skillmessage: "",
-                capacatyflg: false,
-                capacityError: "",
-                generalflg: false,
-                genearalError: "",
-              };
-
-              let docskill = JSON.parse("[" + doc.skills + "]");
-              let matchedVehicles = [];
+  autoDocs.forEach((doc) => {
+    const docskill = JSON.parse("[" + doc.skills + "]").map(String);
+    let docRouteCodes = [];
+   //  let matchedVehicles = [];
               let unmatchedVehicles = [];
               let capacityFailedVehicles = new Set(); // Use Set to prevent duplicates
               let volumeFailedVehicles = new Set(); // Use Set to prevent duplicates
 
-              filteredVehArray.forEach((veh) => {
-                let varray = [];
 
-                // 🔹 Select the correct route based on the day
-                switch (DayOnDate) {
-                  case "Monday":
-                    varray = JSON.parse("[" + veh.mondayRC + "]");
-                    break;
-                  case "Tuesday":
-                    varray = JSON.parse("[" + veh.tuesdayRC + "]");
-                    break;
-                  case "Wednesday":
-                    varray = JSON.parse("[" + veh.wednesdayRC + "]");
-                    break;
-                  case "Thursday":
-                    varray = JSON.parse("[" + veh.thursdayRC + "]");
-                    break;
-                  case "Friday":
-                    varray = JSON.parse("[" + veh.fridayRC + "]");
-                    break;
-                }
 
-                // ✅ Check if at least one skill matches
-                const isSkillMatched = docskill.some((skill) =>
-                  varray.includes(skill)
-                );
+    switch (DayOnDate) {
+      case "Monday":
+        docRouteCodes = this.safeParseRouteCodes(doc.mondayRC, doc.routeCode);
+        break;
+      case "Tuesday":
+        docRouteCodes = this.safeParseRouteCodes(doc.tuesdayRC, doc.routeCode);
+        break;
+      case "Wednesday":
+        docRouteCodes = this.safeParseRouteCodes(doc.wednesdayRC, doc.routeCode);
+        break;
+      case "Thursday":
+        docRouteCodes = this.safeParseRouteCodes(doc.thursdayRC, doc.routeCode);
+        break;
+      case "Friday":
+        docRouteCodes = this.safeParseRouteCodes(doc.fridayRC, doc.routeCode);
+        break;
+    }
 
-                if (isSkillMatched) {
-                  matchedVehicles.push(veh.name);
-                } else {
-                  unmatchedVehicles.push(veh.name);
-                  return; // Skip further checks if skills don’t match
-                }
+    docRouteCodes = docRouteCodes.map(String);
 
-                // 🔹 Initialize assigned weight & volume if not present
+    const productMismatchVehicles = [];
+    const routeMismatchVehicles = [];
+    const maxOrderLimitVehicles = [];
+    const weightLimitVehicles = [];
+    const volumeLimitVehicles = [];
+    const timeWindowMismatchVehicles = [];
+
+    let matchedVehicles = [];
+    let routeCodeFlg = false;
+
+    filteredVehArray.forEach((veh) => {
+      let vehicleRouteCodes = [];
+
+      switch (DayOnDate) {
+        case "Monday":
+          vehicleRouteCodes = JSON.parse("[" + veh.mondayRC + "]");
+          break;
+        case "Tuesday":
+          vehicleRouteCodes = JSON.parse("[" + veh.tuesdayRC + "]");
+          break;
+        case "Wednesday":
+          vehicleRouteCodes = JSON.parse("[" + veh.wednesdayRC + "]");
+          break;
+        case "Thursday":
+          vehicleRouteCodes = JSON.parse("[" + veh.thursdayRC + "]");
+          break;
+        case "Friday":
+          vehicleRouteCodes = JSON.parse("[" + veh.fridayRC + "]");
+          break;
+      }
+
+      const vehicleName = veh.name;
+      const vehicleSkills = typeof veh.skills === "string"
+        ? veh.skills.split(",").map(s => s.trim()).map(String)
+        : Array.isArray(veh.skills)
+          ? veh.skills.map(String)
+          : [];
+
+      const routeMatched = docRouteCodes.some(code =>
+        vehicleRouteCodes.map(String).includes(String(code))
+      );
+
+
+      if (!routeMatched) {
+        routeMismatchVehicles.push(vehicleName);
+        unmatchedVehicles.push(vehicleName);
+       
+      } else {
+        routeCodeFlg = true;
+        matchedVehicles.push(vehicleName);
+      }
+
+      const missingSkills = docskill.filter(skill => !vehicleSkills.includes(skill));
+      if (missingSkills.length > 0) {
+        productMismatchVehicles.push(vehicleName);
+        
+      }
+
+   // 🔹 Initialize assigned weight & volume if not present
                 if (!vehicleAssignedWeight[veh.name])
                   vehicleAssignedWeight[veh.name] = 0;
                 if (!vehicleAssignedVolume[veh.name])
@@ -7435,6 +8893,20 @@ class Dashboard extends Component {
               let volumeFailed = false;
               // ✅ If at least one vehicle matched skills, check weight/volume errors
               if (matchedVehicles.length > 0) {
+                
+                  if( productMismatchVehicles.length > 0) {
+        //  errorMessagesArray.push(...productMismatchVehicles);
+errorMessagesArray.push(
+           `Document ${
+              doc.docnum
+            } excluded: Product Category not compatability with Vehicles : ${productMismatchVehicles.join(
+              ", "
+            )}.`
+          )
+       }
+                
+                
+                
                 if (capacityFailedVehicles.size > 0) {
                   capacityFailed = true;
                   errorMessagesArray.push(
@@ -7470,6 +8942,19 @@ class Dashboard extends Component {
                   errorMessagesArray.push(
                     `${doc.docnum} excluded: Trip is already generated for route code '${doc.routeCodeDesc}' using vehicle '${previousTripUsingRC.vehicleObject.name}'.`
                   );
+                
+                
+                    errorMessagesArray.push(
+                    `${
+                      doc.docnum
+                    } excluded: No vehicle matched for provided Route code '${
+                      doc.routeCodeDesc
+                    }'. Vehicles checked: ${unmatchedVehicles.join(", ")}.`
+                  );
+                
+                
+                
+                
                 } else {
                   // ❌ No vehicle matched, show skill mismatch error
                   errorMessagesArray.push(
@@ -7482,34 +8967,25 @@ class Dashboard extends Component {
                 }
               }
 
-              // 🔹 Push errors only if there are any
-              if (errorMessagesArray.length > 0) {
-                let globalErrorObject = errorMessagesArray.join("\n");
-                errorbox.push(globalErrorObject);
-              }
-            });
 
-            let errorMessagesArray = [];
+    if (errorMessagesArray.length > 0) {
+        let globalErrorObject = errorMessagesArray.join("\n");
 
-            noneDocs.forEach((doc) => {
-              errorMessagesArray.push(
-                `${doc} Document excluded: None route code assigned`
-              );
-            });
+      errorbox.push(globalErrorObject);
+    }
+  });
 
-            if (errorMessagesArray.length > 0) {
-              let globalErrorObject = errorMessagesArray.join("\n");
-              errorbox.push(globalErrorObject);
-            }
+  noneDocs.forEach((docnum) => {
+    errorbox.push(`${docnum} excluded: No route code assigned`);
+  });
 
-            const finalErrorMessage = errorbox.join("\n");
+  this.setState({
+    errorArrayMessage: errorbox,
+    loader: false,
+    addAlertArrayShow: true,
+  });
+}
 
-            this.setState({
-              errorArrayMessage: errorbox,
-              loader: false,
-              addAlertArrayShow: true,
-            });
-          }
         })
         .catch((err) => {
           this.setState({
@@ -7534,7 +9010,8 @@ class Dashboard extends Component {
     selDrivers,
     SelVehicles,
     res
-  ) => {
+  ) => 
+    {
     var RouteprocessedData = [];
     var sameProcessUsedDriversList = [];
     var TripsfromRoutes = [];
@@ -7557,6 +9034,12 @@ class Dashboard extends Component {
         }
       }
 
+      var fdistanceCost = 0,
+        ftimeCost = 0,
+        ftotalCost = 0,
+        fovertimecost = 0,
+        fRegularcost = 0,
+        ffixedcost = 0;
       //
       var dropObject = [],
         pickupObject = [],
@@ -7605,10 +9088,16 @@ class Dashboard extends Component {
 
       // loop thorugh the documents steps
       let seenClientAddress = new Set();
-
+      let prevDocDepartTime = 0
+      let sharedArrival = "";
+let sharedDeparture = "";
+let lastCoordsKey = "";
       for (let t = 0; t < currRoute.steps.length; t++) {
         var ttime = "";
         var currTask = currRoute.steps[t];
+         let prevTask1 = t > 0 ? currRoute.steps[t - 1] : null;
+
+         
 
         if (currTask.type !== "start" && currTask.type !== "end") {
           var docno = currTask.description;
@@ -7627,47 +9116,95 @@ class Dashboard extends Component {
                 // Push valueToCompare1 into array
                 routeCodeArr1.push(currDoc.routeCodeDesc);
               }
+
+  const currentCoordsKey = currTask.location?.join(",");
+        const isSameCoords = currentCoordsKey === lastCoordsKey;
+
+
+
+  const legDistance =
+          prevTask1 && currTask.distance && prevTask1.distance !== undefined
+            ? (currTask.distance - prevTask1.distance) / 1000
+            : 0;
+
+        const legDuration =
+          prevTask1 && currTask.duration && prevTask1.duration !== undefined
+            ? currTask.duration - prevTask1.duration
+            : 0;
+
+const sameLocation =
+  prevTask1 &&
+  typeof prevTask1.distance === "number" &&
+  typeof currTask.distance === "number" &&
+  Math.abs(currTask.distance - prevTask1.distance) < 1;
+
+           if (!isSameCoords) {
+lastCoordsKey = currentCoordsKey;
+          sharedArrival = secondsToHmsAutoGen(currTask.arrival);
+          sharedDeparture = secondsToHmsAutoGen(currTask.arrival + currTask.service);
+
+          currDoc.arrival = sharedArrival;
+        //  currDoc.serTime = secondsToHmsAutoGen(currTask.service);
+          currDoc.end = sharedDeparture;
+
+
+
+           }
+           else {
+
+ currDoc.arrival = sharedArrival;
+          currDoc.serTime = secondsToHmsAutoGen(0);
+          currDoc.serviceTime = 0;
+          currDoc.end = sharedDeparture;
+
+
+           }
+
+
+
+
+
               currDoc.vehicleCode = Veh;
 
-              currDoc.arrival = secondsToHmsAutoGen(currTask.arrival);
-              currDoc.time = convertSecToMin(currTask.duration);
+            //  currDoc.arrival = secondsToHmsAutoGen(currTask.arrival);
+              currDoc.time = convertSecToHr(legDuration).toFixed(3);
               // currDoc.distance = 0;
-              currDoc.distance = currTask.distance
-                ? currTask.distance / 1000
-                : 0;
-
+              currDoc.distance = legDistance;
+              currDoc.tTime = legDuration;
               currDoc.serTime = secondsToHmsAutoGen(currTask.service);
+ //              currDoc.end = sameLocation  ? secondsToHmsAutoGen(currTask.arrival)  : secondsToHmsAutoGen(currTask.arrival + currTask.service);
 
-              const clientAddressKey = `${clientCode}_${currDoc.adrescode}`;
 
-              if (seenClientAddress.has(clientAddressKey)) {
-                // Already processed this client+address → no service time
-                const prevDoc = itemTrip.selectedTripData.find(
-                  (doc) =>
-                    doc.bpcode === clientCode &&
-                    doc.adrescode === currDoc.adrescode
-                );
+           //   const clientAddressKey = `${clientCode}_${currDoc.adrescode}`;
 
-                if (prevDoc) {
-                  currDoc.arrival = prevDoc.arrival;
-                  currDoc.end = prevDoc.end;
-                }
+              // if (seenClientAddress.has(clientAddressKey)) {
+              //   // Already processed this client+address → no service time
+              //   const prevDoc = itemTrip.selectedTripData.find(
+              //     (doc) =>
+              //       doc.bpcode === clientCode &&
+              //       doc.adrescode === currDoc.adrescode
+              //   );
 
-                currDoc.serviceTime = secondsToHmsAutoGen(0);
-                currDoc.serTime = secondsToHmsAutoGen(0);
-              } else {
-                // First time → assign full service time
-                seenClientAddress.add(clientAddressKey);
-                currDoc.serTime = secondsToHmsAutoGen(currTask.service);
-                // let diff =convertHrToSec((Number(currDoc.waitingTime)),currTask.service)
-                //
-                currDoc.serviceTime = secondsToDecimalHours(
-                  currTask.service - convertHrToSec(Number(currDoc.waitingTime))
-                );
-                currDoc.end = secondsToHmsAutoGen(
-                  currTask.arrival + currTask.service
-                );
-              }
+              //   if (prevDoc) {
+              //     currDoc.arrival = prevDoc.arrival;
+              //     currDoc.end = prevDoc.end;
+              //   }
+
+              //   currDoc.serviceTime = secondsToHmsAutoGen(0);
+              //   currDoc.serTime = secondsToHmsAutoGen(0);
+              // } else {
+              //   // First time → assign full service time
+              //   seenClientAddress.add(clientAddressKey);
+              //   currDoc.serTime = secondsToHmsAutoGen(currTask.service);
+              //   // let diff =convertHrToSec((Number(currDoc.waitingTime)),currTask.service)
+              //   //
+              //   currDoc.serviceTime = secondsToDecimalHours(
+              //     currTask.service - convertHrToSec(Number(currDoc.waitingTime))
+              //   );
+              //   currDoc.end = secondsToHmsAutoGen(
+              //     currTask.arrival + currTask.service
+              //   );
+              // }
 
               currDoc.startDate = newStartDate1;
               currDoc.endDate = newStartDate1;
@@ -7721,6 +9258,20 @@ class Dashboard extends Component {
       var fld_tot_volume = VehicleObject.vol;
       var fld_uom_capacity = VehicleObject.xweu;
       var fld_uom_volume = VehicleObject.xvol;
+
+      // cost calculations
+      fdistanceCost = VehicleObject.costperunitd * Number(auto_total_distance);
+      if (auto_total_time > VehicleObject.overtimestar) {
+        fovertimecost = (auto_total_time - VehicleObject.overtimestar) * VehicleObject.costperunito;
+        fRegularcost = VehicleObject.overtimestar * VehicleObject.costperunitt;
+        ftimeCost = Math.round(fovertimecost + fRegularcost);
+      } else {
+        fRegularcost = VehicleObject.costperunitt * auto_total_time;
+        ftimeCost = fRegularcost;
+      }
+      ffixedcost = VehicleObject.fixedcost;
+      ftotalCost = VehicleObject.fixedcost + fdistanceCost + ftimeCost;
+     
 
       // default trailer assignment
       var defaultTrailer_a = "",
@@ -7989,8 +9540,8 @@ class Dashboard extends Component {
 
       var today = new Date();
       var execdate = today.getDate();
-      let commaSeperated = routeCodeArr1.join(", ");
-
+      //let commaSeperated = routeCodeArr1.join(", ");
+      let commaSeperated = routeCodeArr1.length > 0 ? routeCodeArr1[0] : "";
       //
 
       var user = JSON.parse(localStorage.getItem("authUser"));
@@ -8062,12 +9613,12 @@ class Dashboard extends Component {
         serviceTime: auto_service_time,
         totalTime: auto_total_time,
         totalDistance: auto_total_distance,
-        fixedCost: 0,
-        totalCost: 0,
-        distanceCost: 0,
-        regularCost: 0,
-        overtimeCost: 0,
-        timeCost: 0,
+        fixedCost: ffixedcost,
+        totalCost: ftotalCost.toFixed(2),
+        distanceCost: fdistanceCost.toFixed(2),
+        regularCost: fRegularcost,
+        overtimeCost: fovertimecost,
+        timeCost: ftimeCost,
         driverslist: "",
         allcustomers: "",
         customerlist: "",
@@ -8160,9 +9711,9 @@ class Dashboard extends Component {
         var freqtype = false;
         var appointmentExist = false;
         var routeCodeArr = [];
-        console.log(GroupedObjects, "this is groupedObjects 8146");
+       
         GroupedObjects.forEach(function (docItem) {
-          console.log(docItem, "this is docItem 8146");
+       
 
           // Splitting routeCodeDesc into an array
           const routeCodeDescArray =
@@ -8465,15 +10016,18 @@ class Dashboard extends Component {
 
     return timeStr;
   };
-  // exceptional List
-  Exceptionalanalysis = (
+
+  ExceptionalanalysisManual = async (
     selectedDocs,
     SelectedVehicles,
     res,
     tripsfromAuto
   ) => {
+
+
+   
     let totalSelectedDocs = selectedDocs.length;
-    let unassignedDocCount = res.unassigned.length;
+    let unassignedDocCount = res?.unassigned?.length ?? 0;
     let unassignedDocs = res.unassigned;
     let trips = res.routes.length;
     let assignedDocs = totalSelectedDocs - unassignedDocCount;
@@ -8485,40 +10039,33 @@ class Dashboard extends Component {
 
     let selVeh = SelectedVehicles;
 
-    for (let i = 0; i < allDocs.length; i++) {
-      if (
-        allDocs[i].routeCodeDesc == "None" &&
-        allDocs[i].carrier === "INTERNAL"
-      ) {
-        noneDocs.push(allDocs[i].docnum);
-      }
-    }
 
     let tempselDocs = [];
-    unassignedDocs.map((undoc, index) => {
-      for (let tempdoc of selectedDocs) {
-        if (tempdoc.docnum === undoc.description) {
-          tempselDocs.push(tempdoc);
-          break;
+    if (unassignedDocs?.length) {
+      unassignedDocs.map((undoc, index) => {
+        for (let tempdoc of selectedDocs) {
+          if (tempdoc.docnum === undoc.description) {
+            tempselDocs.push(undoc);
+            break;
+          }
         }
-      }
-    });
+      });
+    }
 
     // Initialize counts from tripsfromAuto or from previous calculation
-    tripsfromAuto.forEach((trip) => {
-      const vehicleCode = trip.vehicleObject.name;
-      const dropCount = trip.dropObject ? trip.dropObject.length : 0;
-      const pickupCount = trip.pickupObject ? trip.pickupObject.length : 0;
 
-      vehicleAssignedDocCount[vehicleCode] = dropCount + pickupCount;
-    });
+    const vehicleCode = tripsfromAuto.vehicleObject.name;
+    const dropCount = tripsfromAuto.dropObject ? tripsfromAuto.dropObject.length : 0;
+    const pickupCount = tripsfromAuto.pickupObject ? tripsfromAuto.pickupObject.length : 0;
+
+    vehicleAssignedDocCount[vehicleCode] = dropCount + pickupCount;
+
 
     summarybox.push(
-      ` ${trips} trips have been auto generated containing a total of  ${assignedDocs} documents  \n`
+      ` ${trips} trips have been optimised containing a total of  ${assignedDocs} documents  \n`
     );
     summarybox.push(
-      `${
-        unassignedDocCount + noneDocs.length
+      `${unassignedDocCount
       } out of ${totalSelectedDocs} documents have been excluded from the trip auto-generation process. \n`
     );
 
@@ -8529,8 +10076,7 @@ class Dashboard extends Component {
 
     //
 
-    let selectedDate = this.state.documentPanel_date;
-    let DayOnDate = this.getDayOfWeek(selectedDate);
+
 
     // specifically checking which vehicle weight exceed
 
@@ -8539,59 +10085,680 @@ class Dashboard extends Component {
     let vehicleAssignedVolume = {};
 
     tempselDocs.forEach((doc) => {
+      let glbalmissingskill = []
       let tempoptiError = {
-        docnum: "",
+        docnum: '',
         skillerrorflg: false,
-        skillmessage: "",
+        skillmessage: '',
         capacatyflg: false,
-        capacityError: "",
+        capacityError: '',
         generalflg: false,
-        genearalError: "",
-      };
+        genearalError: '',
+      }
+      // let glabalerrorOBject = [];
 
-      let docskill = JSON.parse("[" + doc.skills + "]");
+      let isSkillMatchFoundflg = false
+      //    let docskill = JSON.parse('[' + doc.skills + ']')
+      let tcapacatyflg = false
+      let tskillflg = false
+      let tvolumeflg = false
+      let prodCodevehList = []
+      let routeCodeVehList = []
+      let timewindowVehList = []
+      let capacityVehList = []
+      let volumeVehList = []
+      let vehClassVehList = []
+      let TimewindowforDoc = []
+     
+     
+      if (doc.reason && doc.reason.length > 0) {
+        let errorMessagesArray = []
+        errorMessagesArray.push(` ${doc.id} -   ${doc.reason}.`)
+        let glabalerrorOBject = errorMessagesArray
+
+        errorbox.push(glabalerrorOBject + '\n')
+      }
+    })
+    //   errorbox.push(glabalerrorOBject);
+
+    const finalErrorMessage = errorbox.join("\n");
+
+    this.setState({
+      errorArrayMessage: errorbox,
+      errorSummartMessage: summarybox,
+      loader: false,
+      addAlertSummaryShow: true,
+    });
+  };
+
+  Exceptionalanalysis11 = (selectedDocs, SelectedVehicles, res, tripsfromAuto) => {
+    try {
+      const totalSelectedDocs = selectedDocs.length;
+      const unassignedDocs = res.unassigned;
+      const unassignedDocCount = unassignedDocs.length;
+      const assignedDocs = totalSelectedDocs - unassignedDocCount;
+      const trips = res.routes.length;
+      const allDocs = this.state.docsPanel;
+      const selVeh = SelectedVehicles;
+
+      const summarybox = [];
+      const errorbox = [];
+      const noneDocs = [];
+
+      // 🔹 Identify documents with "None" route code
+      for (let i = 0; i < allDocs.length; i++) {
+        if (allDocs[i].routeCodeDesc === "None" && allDocs[i].carrier === "INTERNAL") {
+          noneDocs.push(allDocs[i].docnum);
+        }
+      }
+
+      // 🔹 Find full document info for each unassigned doc
+      const tempselDocs = [];
+      unassignedDocs.forEach((undoc) => {
+        const match = selectedDocs.find((tempdoc) => tempdoc.docnum === undoc.description);
+        if (match) tempselDocs.push(match);
+      });
+
+      // 🔹 Set up summary
+      summarybox.push(
+        `${trips} trips have been auto generated containing a total of ${assignedDocs} documents.\n`
+      );
+      summarybox.push(
+        `${unassignedDocCount + noneDocs.length} out of ${totalSelectedDocs} documents have been excluded from the trip auto-generation process.\n`
+      );
+
+      // 🔹 Get weekday for trip validation
+      const selectedDate = this.state.documentPanel_date;
+      const DayOnDate = this.getDayOfWeek(selectedDate);
+
+      // 🔹 Prepare vehicle doc assignment count
+      const vehicleAssignedDocCount = {};
+      tripsfromAuto.forEach((trip) => {
+        const vehicleCode = trip.vehicleObject?.name;
+        const dropCount = trip.dropObject?.length || 0;
+        const pickupCount = trip.pickupObject?.length || 0;
+        if (vehicleCode) {
+          vehicleAssignedDocCount[vehicleCode] = dropCount + pickupCount;
+        }
+      });
+
+      // 🔹 Vehicle assigned weight/volume tracker
+      const vehicleAssignedWeight = {};
+      const vehicleAssignedVolume = {};
+
+      // 🔍 Loop through each unassigned doc and analyze
+      tempselDocs.forEach((doc) => {
+        const docSkills = JSON.parse("[" + doc.skills + "]");
+
+        const docRouteCode = [];
+        switch (DayOnDate) {
+          case "Monday":
+            docRouteCode = JSON.parse("[" + doc.mondayRC + "]");
+            break;
+          case "Tuesday":
+            docRouteCode = JSON.parse("[" + doc.tuesdayRC + "]");
+            break;
+          case "Wednesday":
+            docRouteCode = JSON.parse("[" + doc.wednesdayRC + "]");
+            break;
+          case "Thursday":
+            docRouteCode = JSON.parse("[" + doc.thursdayRC + "]");
+            break;
+          case "Friday":
+            docRouteCode = JSON.parse("[" + doc.fridayRC + "]");
+            break;
+        }
+        const errorMessages = [];
+        let matchedVehicles = [];
+
+     
+
+        selVeh.forEach((veh) => {
+          let vehicleRouteCodes = [];
+
+        
+
+          // Check if the vehicle works on the selected day
+          switch (DayOnDate) {
+            case "Monday":
+              vehicleRouteCodes = JSON.parse("[" + veh.mondayRC + "]");
+              break;
+            case "Tuesday":
+              vehicleRouteCodes = JSON.parse("[" + veh.tuesdayRC + "]");
+              break;
+            case "Wednesday":
+              vehicleRouteCodes = JSON.parse("[" + veh.wednesdayRC + "]");
+              break;
+            case "Thursday":
+              vehicleRouteCodes = JSON.parse("[" + veh.thursdayRC + "]");
+              break;
+            case "Friday":
+              vehicleRouteCodes = JSON.parse("[" + veh.fridayRC + "]");
+              break;
+          }
+
+          const vehicleName = veh.name;
+          const vehicleSkills = veh.skills;
+
+         
+          // 🚫 Route code not included for vehicle today
+          if (!vehicleRouteCodes.includes(docRouteCode)) return;
+
+
+          // ✅ Skill match
+          const skillMatched = docSkills.every((skill) => vehicleSkills.includes(skill));
+          if (!skillMatched) {
+            errorMessages.push(
+              `${doc.docnum} excluded: Product Category  mismatch.`
+            );
+            return;
+          }
+
+          // ✅ Product category match
+          const missingProductSkills = vehicleSkills.filter(
+            (vs) => !docSkills.includes(vs)
+          );
+          if (missingProductSkills.length > 0) {
+            errorMessages.push(
+              `${doc.docnum} excluded: Product category mismatch with vehicle ${vehicleName}`
+            );
+            return;
+          }
+
+          // ✅ Max order count
+          const assignedCount = vehicleAssignedDocCount[vehicleName] || 0;
+          const maxOrders = veh.maxordercnt === 0 ? 3 : veh.maxordercnt;
+          if (assignedCount >= maxOrders) {
+            errorMessages.push(
+              `${doc.docnum} excluded: Vehicle ${vehicleName} has reached max order limit of ${maxOrders}`
+            );
+            return;
+          }
+
+          // ✅ Capacity check
+          const assignedWeight = tripsfromAuto
+            .filter((trip) => trip.code === veh.codeyve)
+            .reduce((sum, trip) => sum + Number(trip.doc_capacity || 0), 0);
+          const remainingWeight = veh.capacities - assignedWeight;
+          const currentWeight = vehicleAssignedWeight[vehicleName] || 0;
+
+          if (currentWeight + doc.netweight > remainingWeight) {
+            errorMessages.push(
+              `${doc.docnum} excluded: Vehicle ${vehicleName} has only ${remainingWeight}kg remaining, needs ${doc.netweight}kg`
+            );
+            return;
+          }
+
+          // ✅ Volume check
+          const assignedVolume = tripsfromAuto
+            .filter((trip) => trip.code === veh.codeyve)
+            .reduce((sum, trip) => sum + Number(trip.doc_volume || 0), 0);
+          const remainingVol = veh.vol - assignedVolume;
+          const currentVol = vehicleAssignedVolume[vehicleName] || 0;
+
+          if (currentVol + doc.volume > remainingVol) {
+            errorMessages.push(
+              `${doc.docnum} excluded: Vehicle ${vehicleName} has only ${remainingVol}L remaining, needs ${doc.volume}L`
+            );
+            return;
+          }
+
+          // ✅ Time window check
+          if (doc.fromTime && doc.toTime) {
+            const docTimeFrom = this.timeToMinutes(doc.fromTime);
+            const docTimeTo = this.timeToMinutes(doc.toTime);
+            const timeMatch = tripsfromAuto.some((trip) => {
+              if (!trip.startTime || !trip.endTime) return false;
+              const tripStart = this.timeToMinutes(trip.startTime);
+              const tripEnd = this.timeToMinutes(trip.endTime);
+              return docTimeFrom >= tripStart && docTimeTo <= tripEnd;
+            });
+
+            if (!timeMatch) {
+              const from = this.normalizeTimeFormat(doc.fromTime);
+              const to = this.normalizeTimeFormat(doc.toTime);
+              errorMessages.push(
+                `${doc.docnum} excluded: Delivery window ${from} - ${to} doesn't match any trip timing`
+              );
+              return;
+            }
+          }
+
+          // ✅ All good, record assignment
+          matchedVehicles.push(vehicleName);
+          vehicleAssignedWeight[vehicleName] =
+            (vehicleAssignedWeight[vehicleName] || 0) + doc.netweight;
+          vehicleAssignedVolume[vehicleName] =
+            (vehicleAssignedVolume[vehicleName] || 0) + doc.volume;
+        });
+
+        // No matched vehicles? Look up reason
+        if (matchedVehicles.length === 0) {
+          const previousTrip = this.state.tripsPanel.find(
+            (trip) => trip.allocatedRouteCodes === doc.routeCodeDesc
+          );
+          if (previousTrip) {
+            errorMessages.push(
+              `${doc.docnum} excluded: Trip already exists for route '${doc.routeCodeDesc}' using '${previousTrip.vehicleObject.name}'`
+            );
+          } else {
+            errorMessages.push(
+              `${doc.docnum} excluded: No vehicle available on ${DayOnDate} for route '${doc.routeCodeDesc}'`
+            );
+          }
+        }
+
+        if (errorMessages.length > 0) {
+          errorbox.push(...errorMessages);
+        }
+      });
+
+      // 🔹 Handle documents with no route assigned
+      noneDocs.forEach((docnum) => {
+        const alreadyHandled = tempselDocs.some((doc) => doc.docnum === docnum);
+        if (!alreadyHandled) {
+          errorbox.push(`${docnum} excluded: No route code assigned`);
+        }
+      });
+
+      // ✅ Final state update
+      this.setState({
+        errorArrayMessage: errorbox,
+        errorSummartMessage: summarybox,
+        loader: false,
+        addAlertSummaryShow: true,
+      });
+    } catch (err) {
+      this.setState({
+        errorArrayMessage: [`Unexpected error: ${err.message}`],
+        errorSummartMessage: [],
+        loader: false,
+        addAlertSummaryShow: true,
+      });
+    }
+  };
+
+normalizeRouteCodes = (input) => {
+  if (!input) return [];
+  
+  // Case 1: JSON array string like '["A","B"]'
+  if (input.trim().startsWith("[")) {
+    try {
+      const parsed = JSON.parse(input);
+      return Array.isArray(parsed) ? parsed.map(String) : [String(parsed)];
+    } catch (err) {
+    }
+  }
+
+  // Case 2: single string or comma-separated string
+  return input.split(",").map(s => s.trim()).filter(Boolean);
+
+}
+
+  Exceptionalanalysis4 = (selectedDocs, SelectedVehicles, res, tripsfromAuto) => {
+  try {
+    const totalSelectedDocs = selectedDocs.length;
+    const unassignedDocs = res.unassigned;
+    const unassignedDocCount = unassignedDocs.length;
+    const assignedDocs = totalSelectedDocs - unassignedDocCount;
+    const trips = res.routes.length;
+    const allDocs = this.state.docsPanel;
+    const selVeh = SelectedVehicles;
+
+    const summarybox = [];
+    const errorbox = [];
+    const noneDocs = [];
+
+    // 🔹 Identify docs with "None" route code
+    for (let i = 0; i < allDocs.length; i++) {
+      if (allDocs[i].routeCodeDesc === "None" && allDocs[i].carrier === "INTERNAL") {
+        noneDocs.push(allDocs[i].docnum);
+      }
+    }
+
+    // 🔹 Map unassigned docs to full doc info
+    const tempselDocs = [];
+    unassignedDocs.forEach((undoc) => {
+      const match = selectedDocs.find((tempdoc) => tempdoc.docnum === undoc.description);
+      if (match) tempselDocs.push(match);
+    });
+
+    // 🔹 Summary
+    summarybox.push(
+      `${trips} trips have been auto generated containing a total of ${assignedDocs} documents.\n`
+    );
+    summarybox.push(
+      `${unassignedDocCount + noneDocs.length} out of ${totalSelectedDocs} documents have been excluded from the trip auto-generation process.\n`
+    );
+
+    const selectedDate = this.state.documentPanel_date;
+    const DayOnDate = this.getDayOfWeek(selectedDate);
+
+    const vehicleAssignedDocCount = {};
+    tripsfromAuto.forEach((trip) => {
+      const vehicleCode = trip.vehicleObject?.name;
+      const dropCount = trip.dropObject?.length || 0;
+      const pickupCount = trip.pickupObject?.length || 0;
+      if (vehicleCode) {
+        vehicleAssignedDocCount[vehicleCode] = dropCount + pickupCount;
+      }
+    });
+
+    const vehicleAssignedWeight = {};
+    const vehicleAssignedVolume = {};
+
+    // 🔍 Analyze each unassigned doc
+    tempselDocs.forEach((doc) => {
+      const docskill = JSON.parse("[" + doc.skills + "]").map(String);
+      let docRouteCodes = [];
+     
+
+      // ✅ Get route codes based on selected day
+      switch (DayOnDate) {
+        case "Monday":
+          docRouteCodes = this.safeParseRouteCodes(doc.mondayRC, doc.routeCodeDesc);
+          break;
+        case "Tuesday":
+          docRouteCodes = this.safeParseRouteCodes(doc.tuesdayRC, doc.routeCodeDesc);
+          break;
+        case "Wednesday":
+          docRouteCodes = this.safeParseRouteCodes(doc.wednesdayRC, doc.routeCodeDesc);
+          break;
+        case "Thursday":
+          docRouteCodes = this.safeParseRouteCodes(doc.thursdayRC, doc.routeCodeDesc);
+          break;
+        case "Friday":
+          docRouteCodes = this.safeParseRouteCodes(doc.fridayRC, doc.routeCodeDesc);
+          break;
+      }
+
+      docRouteCodes = docRouteCodes.map(String);
+      const errorMessages = [];
       let matchedVehicles = [];
-      let unmatchedVehicles = [];
-      let capacityFailedVehicles = new Set(); // Use Set to prevent duplicates
+
+      selVeh.forEach((veh) => {
+        let vehicleRouteCodes = [];
+ let routeCodeFlg = false;
+        switch (DayOnDate) {
+          case "Monday":
+            vehicleRouteCodes = JSON.parse("[" + veh.mondayRC + "]");
+            break;
+          case "Tuesday":
+            vehicleRouteCodes = JSON.parse("[" + veh.tuesdayRC + "]");
+            break;
+          case "Wednesday":
+            vehicleRouteCodes = JSON.parse("[" + veh.wednesdayRC + "]");
+            break;
+          case "Thursday":
+            vehicleRouteCodes = JSON.parse("[" + veh.thursdayRC + "]");
+            break;
+          case "Friday":
+            vehicleRouteCodes = JSON.parse("[" + veh.fridayRC + "]");
+            break;
+        }
+
+        vehicleRouteCodes = vehicleRouteCodes.map(String);
+        const vehicleName = veh.name;
+        const vehicleSkills = typeof veh.skills === "string"
+  ? veh.skills.split(",").map(s => s.trim()).map(String)
+  : Array.isArray(veh.skills)
+    ? veh.skills.map(String)
+    : [];
+
+        const routeMatched = docRouteCodes.some(code => vehicleRouteCodes.includes(code));
+        if (!routeMatched) return;
+        else routeCodeFlg = true;
+
+        // ✅ Product category check (doc skills ⊆ vehicle skills)
+        const missingSkills = docskill.filter(skill => !vehicleSkills.includes(skill));
+        if (missingSkills.length > 0) {
+          errorMessages.push(
+            `${doc.docnum} excluded: Product category doesn't compatabiltiy  with vehicle ${vehicleName}`
+          );
+          return;
+        }
+
+        // ✅ Max order count
+        const assignedCount = vehicleAssignedDocCount[vehicleName] || 0;
+        const maxOrders = veh.maxordercnt === 0 ? 3 : veh.maxordercnt;
+        if (assignedCount >= maxOrders) {
+          errorMessages.push(
+            `${doc.docnum} excluded: Vehicle ${vehicleName} reached max order limit of ${maxOrders}`
+          );
+          return;
+        }
+
+        // 🔹 Weight/Volume Initialization
+        if (!vehicleAssignedWeight[vehicleName]) vehicleAssignedWeight[vehicleName] = 0;
+        if (!vehicleAssignedVolume[vehicleName]) vehicleAssignedVolume[vehicleName] = 0;
+
+        const totalWeight = vehicleAssignedWeight[vehicleName] + doc.netweight;
+        const totalVolume = vehicleAssignedVolume[vehicleName] + doc.volume;
+
+        // ✅ Weight check
+        if (totalWeight > veh.capacities) {
+          errorMessages.push(
+            `${doc.docnum} excluded: Vehicle ${vehicleName} max weight ${veh.capacities}kg exceeded (required: ${doc.netweight}kg)`
+          );
+          return;
+        } else {
+          vehicleAssignedWeight[vehicleName] += doc.netweight;
+        }
+
+        // ✅ Volume check
+        if (totalVolume > veh.vol) {
+          errorMessages.push(
+            `${doc.docnum} excluded: Vehicle ${vehicleName} max volume ${veh.vol}L exceeded (required: ${doc.volume}L)`
+          );
+          return;
+        } else {
+          vehicleAssignedVolume[vehicleName] += doc.volume;
+        }
+
+        // ✅ Time window check
+        if (doc.fromTime && doc.toTime) {
+          const docFrom = this.timeToMinutes(doc.fromTime);
+          const docTo = this.timeToMinutes(doc.toTime);
+
+          const matchedTime = tripsfromAuto.some((trip) => {
+            if (!trip.startTime || !trip.endTime) return false;
+            const tripFrom = this.timeToMinutes(trip.startTime);
+            const tripTo = this.timeToMinutes(trip.endTime);
+            return docFrom >= tripFrom && docTo <= tripTo;
+          });
+
+          if (!matchedTime) {
+            const from = this.normalizeTimeFormat(doc.fromTime);
+            const to = this.normalizeTimeFormat(doc.toTime);
+            errorMessages.push(
+              `${doc.docnum} excluded: Time window ${from} - ${to} does not match any trip schedule`
+            );
+            return;
+          }
+        }
+
+        matchedVehicles.push(vehicleName);
+      });
+
+      // 🚫 No valid vehicle assigned
+      if (matchedVehicles.length === 0) {
+     const previousTrip = this.state.tripsPanel.find((trip) => {
+  const allocatedCodes = this.normalizeRouteCodes(trip.allocatedRouteCodes);
+  return allocatedCodes.some(code => docRouteCodes.includes(code));
+});
+        if (previousTrip) {
+          errorMessages.push(
+            `${doc.docnum} excluded: Trip already generated for route(s) '${docRouteCodes.join(", ")}' using vehicle '${previousTrip.vehicleObject.name}'`
+          );
+        } else {
+          errorMessages.push(
+            `${doc.docnum} excluded: No vehicle available on ${DayOnDate} for route(s) '${docRouteCodes.join(", ")}' or might be vehicles are already assigned to other trips`
+          );
+        }
+      }
+
+      if (errorMessages.length > 0) {
+        errorbox.push(...errorMessages);
+      }
+    });
+
+    // 🔹 Handle "None" route code docs
+    noneDocs.forEach((docnum) => {
+      errorbox.push(`${docnum} excluded: No route code assigned`);
+    });
+
+    this.setState({
+      errorArrayMessage: errorbox,
+      errorSummartMessage: summarybox,
+      loader: false,
+      addAlertSummaryShow: true,
+    });
+
+  } catch (err) {
+    this.setState({
+      errorArrayMessage: [`Unexpected error: ${err.message}`],
+      errorSummartMessage: [],
+      loader: false,
+      addAlertSummaryShow: true,
+    });
+  }
+};
+
+Exceptionalanalysis = (selectedDocs, SelectedVehicles, res, tripsfromAuto) => {
+  
+  
+  try {
+    const totalSelectedDocs = selectedDocs.length;
+    const unassignedDocs = res.unassigned;
+    const unassignedDocCount = unassignedDocs.length;
+    const assignedDocs = totalSelectedDocs - unassignedDocCount;
+    const trips = res.routes.length;
+    const allDocs = this.state.docsPanel;
+    const selVeh = SelectedVehicles;
+
+     let vehicleAssignedDocCount = {};
+     
+
+     
+
+    const summarybox = [];
+    const errorbox = [];
+    const noneDocs = [];
+
+    // 🔹 Identify docs with "None" route code
+    for (let i = 0; i < allDocs.length; i++) {
+      if (allDocs[i].routeCodeDesc === "None" && allDocs[i].carrier === "INTERNAL") {
+        noneDocs.push(allDocs[i].docnum);
+      }
+    }
+
+    // 🔹 Map unassigned docs to full doc info
+    const tempselDocs = [];
+    unassignedDocs.forEach((undoc) => {
+      const match = selectedDocs.find((tempdoc) => tempdoc.docnum === undoc.description);
+      if (match) tempselDocs.push(match);
+    });
+
+    summarybox.push(
+      `${trips} trips have been auto generated containing a total of ${assignedDocs} documents.\n`
+    );
+    summarybox.push(
+      `${unassignedDocCount + noneDocs.length} out of ${totalSelectedDocs} documents have been excluded from the trip auto-generation process.\n`
+    );
+
+    const selectedDate = this.state.documentPanel_date;
+    const DayOnDate = this.getDayOfWeek(selectedDate);
+
+  //  const vehicleAssignedDocCount = {};
+    tripsfromAuto.forEach((trip) => {
+      const vehicleCode = trip.vehicleObject?.name;
+      const dropCount = trip.dropObject?.length || 0;
+      const pickupCount = trip.pickupObject?.length || 0;
+      if (vehicleCode) {
+        vehicleAssignedDocCount[vehicleCode] = dropCount + pickupCount;
+      }
+    });
+
+    const vehicleAssignedWeight = {};
+    const vehicleAssignedVolume = {};
+
+    tempselDocs.forEach((doc) => {
+      const docskill = JSON.parse("[" + doc.skills + "]").map(String);
+      let docRouteCodes = [];
+
+      switch (DayOnDate) {
+        case "Monday":
+          docRouteCodes = this.safeParseRouteCodes(doc.mondayRC, doc.routeCode);
+          break;
+        case "Tuesday":
+          docRouteCodes = this.safeParseRouteCodes(doc.tuesdayRC, doc.routeCode);
+          break;
+        case "Wednesday":
+          docRouteCodes = this.safeParseRouteCodes(doc.wednesdayRC, doc.routeCode);
+          break;
+        case "Thursday":
+          docRouteCodes = this.safeParseRouteCodes(doc.thursdayRC, doc.routeCode);
+          break;
+        case "Friday":
+          docRouteCodes = this.safeParseRouteCodes(doc.fridayRC, doc.routeCode);
+          break;
+      }
+
+      docRouteCodes = docRouteCodes.map(String);
+
+      const productMismatchVehicles = [];
+      const routeMismatchVehicles = [];
+      const maxOrderLimitVehicles = [];
+      const weightLimitVehicles = [];
+      const volumeLimitVehicles = [];
+      const timeWindowMismatchVehicles = [];
+  let capacityFailedVehicles = new Set(); // Use Set to prevent duplicates
       let volumeFailedVehicles = new Set(); // Use Set to prevent duplicates
       // let maxDistanceFailure = new Set();
       let timeWindowFailedDocuments = new Set();
       let maxOrderCountFaildedDocuments = new Set();
 
-      selVeh.forEach((veh) => {
-        let varray = [];
+      let matchedVehicles = [];
+      let unmatchedVehicles = []; 
+      let routeCodeFlg = false;
 
-        // 🔹 Select the correct route based on the day
+      selVeh.forEach((veh) => {
+        let vehicleRouteCodes = [];
         switch (DayOnDate) {
           case "Monday":
-            varray = JSON.parse("[" + veh.mondayRC + "]");
+            vehicleRouteCodes = JSON.parse("[" + veh.mondayRC + "]");
             break;
           case "Tuesday":
-            varray = JSON.parse("[" + veh.tuesdayRC + "]");
+            vehicleRouteCodes = JSON.parse("[" + veh.tuesdayRC + "]");
             break;
           case "Wednesday":
-            varray = JSON.parse("[" + veh.wednesdayRC + "]");
+            vehicleRouteCodes = JSON.parse("[" + veh.wednesdayRC + "]");
             break;
           case "Thursday":
-            varray = JSON.parse("[" + veh.thursdayRC + "]");
+            vehicleRouteCodes = JSON.parse("[" + veh.thursdayRC + "]");
             break;
           case "Friday":
-            varray = JSON.parse("[" + veh.fridayRC + "]");
+            vehicleRouteCodes = JSON.parse("[" + veh.fridayRC + "]");
             break;
         }
 
-        //
-        //
+        vehicleRouteCodes = vehicleRouteCodes.map(String);
+        const vehicleName = veh.name;
+        const vehicleSkills = typeof veh.skills === "string"
+          ? veh.skills.split(",").map(s => s.trim()).map(String)
+          : Array.isArray(veh.skills)
+            ? veh.skills.map(String)
+            : [];
 
-        // ✅ Check if at least one skill matches
-        const isSkillMatched = docskill.some((skill) => varray.includes(skill));
-
-        //
-
-        if (isSkillMatched) {
-          matchedVehicles.push(veh.name);
-
-          const assignedCount = vehicleAssignedDocCount[veh.name] || 0;
+        const routeMatched = docRouteCodes.some(code => vehicleRouteCodes.includes(code));
+        if (!routeMatched) {
+          routeMismatchVehicles.push(vehicleName);
+          unmatchedVehicles.push(vehicleName);
+        } else 
+        {
+          routeCodeFlg = true;
+          matchedVehicles.push(vehicleName);
+        const assignedCount = vehicleAssignedDocCount[veh.name] || 0;
 
           if (assignedCount >= veh.maxordercnt) {
             // Exclude document due to max order count
@@ -8604,13 +10771,19 @@ class Dashboard extends Component {
             );
             return; // Skip further checks for this vehicle
           }
-        } else {
-          unmatchedVehicles.push(veh.name);
+         // matchedVehicles.push(vehicleName);
         }
 
-        // maxordercnt
-        // checking time windo here
-        if (doc.fromTime && doc.toTime) {
+          // product category check
+        const missingSkills = docskill.filter(skill => !vehicleSkills.includes(skill));
+        if (missingSkills.length > 0) {
+          productMismatchVehicles.push(vehicleName);
+        }
+
+
+
+     // Time window check
+   if (doc.fromTime && doc.toTime) {
           let docTimeFrom = this.timeToMinutes(doc.fromTime);
           let docTimeTo = this.timeToMinutes(doc.toTime);
 
@@ -8626,21 +10799,16 @@ class Dashboard extends Component {
           if (!isTimeWindowMatched) {
             const from = this.normalizeTimeFormat(doc.fromTime);
             const to = this.normalizeTimeFormat(doc.toTime);
-
             timeWindowFailedDocuments.add(
               `${doc.docnum} Document excluded, Reason: Delivery time window for the customer (${from} - ${to}) does not fit within any vehicle's trip schedule.`
             );
           }
         }
 
-        // CAT012501PIC00243
-        // CAT012503PIC00171
-        // CAT012503PIC00172
-        //  checking max order count of the vehicle
 
-        //
 
-        // for getting vehicle fulled weight
+
+  // for getting vehicle fulled weight
         const assignedWeight = tripsfromAuto
           .filter((trip) => trip.code === veh.codeyve) // Find the trip for this vehicle
           .reduce((sum, trip) => sum + Number(trip.doc_capacity), 0); // Sum assigned weights
@@ -8654,7 +10822,7 @@ class Dashboard extends Component {
 
         const remainingVol = veh.vol - assignedVolume;
 
-        // 🔹 Initialize assigned weight & volume if not present
+  // 🔹 Initialize assigned weight & volume if not present
         if (!vehicleAssignedWeight[veh.name])
           vehicleAssignedWeight[veh.name] = 0;
         if (!vehicleAssignedVolume[veh.name])
@@ -8683,22 +10851,51 @@ class Dashboard extends Component {
         } else {
           vehicleAssignedVolume[veh.name] += doc.volume;
         }
+      
       });
 
-      // total distance time logic
 
-      let errorMessagesArray = [];
 
-      // for excluding capacity volume matched docs
-      let capacityFailed = false;
+      const errorMessages = [];
+
+      /*
+      if (productMismatchVehicles.length > 0) {
+        errorMessages.push(`${doc.docnum} excluded: Product category mismatch: ${productMismatchVehicles.join(", ")}`);
+      }
+      if (routeMismatchVehicles.length > 0) {
+        errorMessages.push(`${doc.docnum} excluded: Route code mismatch: ${routeMismatchVehicles.join(", ")}`);
+      }
+      if (maxOrderLimitVehicles.length > 0) {
+        errorMessages.push(`${doc.docnum} excluded: Max order limit reached: ${maxOrderLimitVehicles.join(", ")}`);
+      }
+      if (weightLimitVehicles.length > 0) {
+        errorMessages.push(`${doc.docnum} excluded: Weight limit exceeded: ${weightLimitVehicles.join(", ")}`);
+      }
+      if (volumeLimitVehicles.length > 0) {
+        errorMessages.push(`${doc.docnum} excluded: Volume limit exceeded: ${volumeLimitVehicles.join(", ")}`);
+      }
+      if (timeWindowMismatchVehicles.length > 0) {
+        errorMessages.push(`${doc.docnum} excluded: Time window mismatch: ${timeWindowMismatchVehicles.join(", ")}`);
+      }
+
+      */
+ let capacityFailed = false;
       let volumeFailed = false;
       let timeWindoFailed = false;
-
-      // none documents exceptional display
-
-      // ✅ If at least one vehicle matched skills, check weight/volume errors
+    let errorMessagesArray = [];
 
       if (matchedVehicles.length > 0) {
+
+       if( productMismatchVehicles.length > 0) {
+        //  errorMessagesArray.push(...productMismatchVehicles);
+errorMessagesArray.push(
+           `Document ${
+              doc.docnum
+            } excluded: Product Category not compatability with Vehicles : ${productMismatchVehicles.join(
+              ", "
+            )}.`
+          )
+       }
         if (maxOrderCountFaildedDocuments.size > 0) {
           errorMessagesArray.push(...maxOrderCountFaildedDocuments);
         } else {
@@ -8762,24 +10959,17 @@ class Dashboard extends Component {
         }
       }
 
-      // 🔹 Push errors only if there are any
+
+
       if (errorMessagesArray.length > 0) {
-        let globalErrorObject = errorMessagesArray.join("\n");
+         let globalErrorObject = errorMessagesArray.join("\n");
         errorbox.push(globalErrorObject);
       }
     });
 
-    // none docs checking and pushing here
     noneDocs.forEach((docnum) => {
-      const isAlreadyHandled = tempselDocs.some((doc) => doc.docnum === docnum);
-      if (!isAlreadyHandled) {
-        errorbox.push(`${docnum} Document excluded: None route code assigned`);
-      }
+      errorbox.push(`${docnum} excluded: None route code assigned`);
     });
-
-    //   errorbox.push(glabalerrorOBject);
-
-    const finalErrorMessage = errorbox.join("\n");
 
     this.setState({
       errorArrayMessage: errorbox,
@@ -8787,7 +10977,369 @@ class Dashboard extends Component {
       loader: false,
       addAlertSummaryShow: true,
     });
-  };
+
+  } catch (err) {
+   
+    this.setState({
+      errorArrayMessage: [`Unexpected error: ${err.message}`],
+      errorSummartMessage: [],
+      loader: false,
+      addAlertSummaryShow: true,
+    });
+  }
+};
+
+
+  // exceptional List
+  Exceptionalanalysis_backup = (
+    selectedDocs,
+    SelectedVehicles,
+    res,
+    tripsfromAuto
+  ) => {
+
+    try {
+      let totalSelectedDocs = selectedDocs.length;
+      let unassignedDocCount = res.unassigned.length;
+      let unassignedDocs = res.unassigned;
+      let trips = res.routes.length;
+      let assignedDocs = totalSelectedDocs - unassignedDocCount;
+      let glabalSummaryOBject = "";
+      let summarybox = [];
+      let noneDocs = [];
+      let allDocs = this.state.docsPanel;
+      let vehicleAssignedDocCount = {};
+
+      let selVeh = SelectedVehicles;
+
+
+
+
+      for (let i = 0; i < allDocs.length; i++) {
+        if (
+          allDocs[i].routeCodeDesc == "None" &&
+          allDocs[i].carrier === "INTERNAL"
+        ) {
+          noneDocs.push(allDocs[i].docnum);
+        }
+      }
+
+      let tempselDocs = [];
+      unassignedDocs.map((undoc, index) => {
+        for (let tempdoc of selectedDocs) {
+          if (tempdoc.docnum === undoc.description) {
+            tempselDocs.push(tempdoc);
+            break;
+          }
+        }
+      });
+     
+
+      // Initialize counts from tripsfromAuto or from previous calculation
+      tripsfromAuto.forEach((trip) => {
+        const vehicleCode = trip.vehicleObject.name;
+        const dropCount = trip.dropObject ? trip.dropObject.length : 0;
+        const pickupCount = trip.pickupObject ? trip.pickupObject.length : 0;
+
+        vehicleAssignedDocCount[vehicleCode] = dropCount + pickupCount;
+      });
+    
+      summarybox.push(
+        ` ${trips} trips have been auto generated containing a total of  ${assignedDocs} documents  \n`
+      );
+      summarybox.push(
+        `${unassignedDocCount + noneDocs.length
+        } out of ${totalSelectedDocs} documents have been excluded from the trip auto-generation process. \n`
+      );
+
+      // summarybox.push(glabalSummaryOBject);
+      // `Trips ${trips} are generated with ${assignedDocs} Documents  \n`;
+     
+      let errorbox = [];
+
+      //
+
+      let selectedDate = this.state.documentPanel_date;
+      let DayOnDate = this.getDayOfWeek(selectedDate);
+     
+      // specifically checking which vehicle weight exceed
+     
+      // Track assigned weight and volume per vehicle
+      let vehicleAssignedWeight = {};
+      let vehicleAssignedVolume = {};
+
+      tempselDocs.forEach((doc) => {
+        let tempoptiError = {
+          docnum: "",
+          skillerrorflg: false,
+          skillmessage: "",
+          capacatyflg: false,
+          capacityError: "",
+          generalflg: false,
+          genearalError: "",
+        };
+       
+        let docskill = JSON.parse("[" + doc.skills + "]");
+        let matchedVehicles = [];
+        let unmatchedVehicles = [];
+        let capacityFailedVehicles = new Set(); // Use Set to prevent duplicates
+        let volumeFailedVehicles = new Set(); // Use Set to prevent duplicates
+        let productCategoryFailedVehicles = new Set();
+        // let maxDistanceFailure = new Set();
+        let timeWindowFailedDocuments = new Set();
+        let maxOrderCountFaildedDocuments = new Set();
+       
+        selVeh.forEach((veh) => {
+          let varray = [];
+
+          // 🔹 Select the correct route based on the day
+          switch (DayOnDate) {
+            case "Monday":
+              varray = JSON.parse("[" + veh.mondayRC + "]");
+              break;
+            case "Tuesday":
+              varray = JSON.parse("[" + veh.tuesdayRC + "]");
+              break;
+            case "Wednesday":
+              varray = JSON.parse("[" + veh.wednesdayRC + "]");
+              break;
+            case "Thursday":
+              varray = JSON.parse("[" + veh.thursdayRC + "]");
+              break;
+            case "Friday":
+              varray = JSON.parse("[" + veh.fridayRC + "]");
+              break;
+          }
+
+          //
+          //
+         
+          // ✅ Check if at least one skill matches
+          const isSkillMatched = docskill.some((skill) => varray.includes(skill));
+        
+          //       if (isSkillMatched) {
+          //         matchedVehicles.push(veh.name);
+          // 
+          //         const assignedCount = vehicleAssignedDocCount[veh.name] || 0;
+
+          //         if (assignedCount >= veh.maxordercnt) {
+          //           // Exclude document due to max order count
+          //           maxOrderCountFaildedDocuments.add(
+          //             `${doc.docnum} excluded: ${veh.name
+          //             } has reached its max order limit of ${veh.maxordercnt == 0 ? 3 : veh.maxordercnt
+          //             }.`
+          //           );
+          //           return; // Skip further checks for this vehicle
+          //         }
+          //       } else {
+          //         unmatchedVehicles.push(veh.name);
+          //        
+          //       }
+
+          //       // maxordercnt
+          //       // checking time windo here
+          //       if (doc.fromTime && doc.toTime) {
+          //         let docTimeFrom = this.timeToMinutes(doc.fromTime);
+          //         let docTimeTo = this.timeToMinutes(doc.toTime);
+
+          //         let isTimeWindowMatched = tripsfromAuto.some((trip) => {
+          //           if (!trip.startTime || !trip.endTime) return false;
+       
+          //           let tripStart = this.timeToMinutes(trip.startTime);
+          //           let tripEnd = this.timeToMinutes(trip.endTime);
+
+          //           return docTimeFrom >= tripStart && docTimeTo <= tripEnd;
+          //         });
+
+          //         if (!isTimeWindowMatched) {
+          //           const from = this.normalizeTimeFormat(doc.fromTime);
+          //           const to = this.normalizeTimeFormat(doc.toTime);
+       
+          //           timeWindowFailedDocuments.add(
+          //             `${doc.docnum} Document excluded, Reason: Delivery time window for the customer (${from} - ${to}) does not fit within any vehicle's trip schedule.`
+          //           );
+          //         }
+          //       }
+
+          // CAT012501PIC00243
+          // CAT012503PIC00171
+          // CAT012503PIC00172
+          //  checking max order count of the vehicle
+
+          //
+
+          // for getting vehicle fulled weight
+          const assignedWeight = tripsfromAuto
+            .filter((trip) => trip.code === veh.codeyve) // Find the trip for this vehicle
+            .reduce((sum, trip) => sum + Number(trip.doc_capacity), 0); // Sum assigned weights
+
+          // Calculate remaining capacity
+          const remainingCapacity = Number(veh.capacities) - assignedWeight;
+         
+          const assignedVolume = tripsfromAuto
+            .filter((trip) => trip.code === veh.codeyve) // Find the trip for this vehicle
+            .reduce((sum, trip) => sum + Number(trip.doc_volume), 0); // Sum assigned weights
+
+          const remainingVol = veh.vol - assignedVolume;
+        
+          // 🔹 Initialize assigned weight & volume if not present
+          if (!vehicleAssignedWeight[veh.name])
+            vehicleAssignedWeight[veh.name] = 0;
+          if (!vehicleAssignedVolume[veh.name])
+            vehicleAssignedVolume[veh.name] = 0;
+
+          // ✅ Calculate total assigned weight if this doc is added
+          let totalWeightIfAdded =
+            vehicleAssignedWeight[veh.name] + doc.netweight;
+          let totalVolumeIfAdded = vehicleAssignedVolume[veh.name] + doc.volume;
+         
+          // checking distance related validation
+
+          // if(assignedDistance)
+
+          // ✅ Check if adding this document exceeds capacity
+          if (totalWeightIfAdded > remainingCapacity) {
+            capacityFailedVehicles.add(
+              `${doc.docnum} Document excluded: Vehicle ${veh.name} has only ${remainingCapacity} KG remaining, which is insufficient for the required ${doc.netweight} KG.`
+            );
+           
+          }
+          // ✅ Check if adding this document exceeds volume
+          // if (totalVolumeIfAdded > remainingVol) {
+          //   volumeFailedVehicles.add(
+          //     `${doc.docnum} Document excluded: Vehicle ${veh.name} has only ${remainingVol} L volume capacity remaining, which is insufficient for the required ${doc.volume} L.`
+          //   );
+          // 
+          // } else {
+          //  
+          //   vehicleAssignedVolume[veh.name] += doc.volume;
+          // }
+
+     
+
+          // check document adding becuase of product category
+          const missingSkills = veh.skills.filter(skill => !document.skills.includes(skill));
+
+          // if (missingSkills.length > 0) {
+          //   
+          //   productCategoryFailedVehicles.add(
+          //     `${doc.docnum} Document excluded: products are not compatable with Vehicle  ${veh.name} allowed product category `
+          //   );
+          // }
+        });
+
+        // total distance time logic
+       
+        let errorMessagesArray = [];
+
+        // for excluding capacity volume matched docs
+        let capacityFailed = false;
+        let volumeFailed = false;
+        let timeWindoFailed = false;
+        let productCategoryFailed = false;
+
+        // none documents exceptional display
+
+        // ✅ If at least one vehicle matched skills, check weight/volume errors
+      
+        //     if (matchedVehicles.length > 0) {
+        //       if (maxOrderCountFaildedDocuments.size > 0) {
+        //         errorMessagesArray.push(...maxOrderCountFaildedDocuments);
+        //       } else {
+        //         if (capacityFailedVehicles.size > 0) {
+        //           errorMessagesArray.push(...capacityFailedVehicles);
+        //           capacityFailed = true;
+        //         }
+        //         if (volumeFailedVehicles.size > 0) {
+        //           errorMessagesArray.push(...volumeFailedVehicles);
+        //           volumeFailed = true;
+        //         }
+
+        //         if (timeWindowFailedDocuments.size > 0) {
+        //           errorMessagesArray.push(...timeWindowFailedDocuments);
+        //           timeWindoFailed = true;
+        //         }
+
+        //         // if (productCategoryFailedVehicles.size > 0) {
+        //         //   errorMessagesArray.push(...productCategoryFailedVehicles);
+        //         //   productCategoryFailed = true; 
+        //         // }
+
+        //         if (!capacityFailed && !volumeFailed && !timeWindoFailed) {
+        //           //
+        //           errorMessagesArray.push(
+        //             `${doc.docnum} Document excluded: Could not be assigned due to travel time or distance constraints.`
+        //           );
+        //         }
+        //       }
+        //     } else {
+        //       // ❌ No vehicle matched, show skill mismatch error
+
+        //       // doc routeCodeDesc
+        //       // veh allocatedRouteCodes
+
+        //       // let previousTripUsingRC = this.state.tripsPanel.find(
+        //       //   (veh) => veh.allocatedRouteCodes == doc.routeCodeDesc
+        //       // );
+
+        //       // errorMessagesArray.push(
+        //       //   `${doc.docnum} excluded: No vehicle matched for provided Route code ${
+        //       //     doc.routeCodeDesc
+        //       //   }. Vehicles checked: ${unmatchedVehicles.join(", ")}.`
+        //       // );
+        // 
+        //       let previousTripUsingRC = this.state.tripsPanel.find(
+        //         (veh) => veh.allocatedRouteCodes == doc.routeCodeDesc
+        //       );
+        //       // checking if any trips are generated before for this day using this same matched route code vehicle
+
+        //       if (previousTripUsingRC) {
+        //         errorMessagesArray.push(
+        //           `${doc.docnum} excluded: Trip is already generated for route code '${doc.routeCodeDesc}' using vehicle '${previousTripUsingRC.vehicleObject.name}'.`
+        //         );
+        //       } else {
+        //         // ❌ No vehicle matched, show skill mismatch error
+        //       errorMessagesArray.push(
+        //     `Document ${doc.docnum} excluded: No available vehicle matches the provided route code "${doc.routeCodeDesc}" for the selected day. Vehicles evaluated: ${unmatchedVehicles.join(", ")}.`
+        // );
+        //       }
+        //     }
+        // 
+        //     // 🔹 Push errors only if there are any
+        //     if (errorMessagesArray.length > 0) {
+        //       let globalErrorObject = errorMessagesArray.join("\n");
+        //       errorbox.push(globalErrorObject);
+        //     }
+      });
+
+      // none docs checking and pushing here
+      noneDocs.forEach((docnum) => {
+        const isAlreadyHandled = tempselDocs.some((doc) => doc.docnum === docnum);
+        if (!isAlreadyHandled) {
+          errorbox.push(`${docnum} Document excluded: None route code assigned`);
+        }
+      });
+
+      //   errorbox.push(glabalerrorOBject);
+     
+      const finalErrorMessage = errorbox.join("\n");
+
+      this.setState({
+        errorArrayMessage: errorbox,
+        errorSummartMessage: summarybox,
+        loader: false,
+        addAlertSummaryShow: true,
+      });
+    } catch (error) {
+     
+      this.setState?.({
+        errorArrayMessage: [`Error occurred: ${error.message}`],
+        errorSummartMessage: [],
+        loader: false,
+        addAlertSummaryShow: true,
+      });
+    };
+  }
 
   ConfirmScheduledTrips = (trips, selDocs, SelVeh, res, from) => {
     this.setState({ loader: true });
@@ -8800,7 +11352,7 @@ class Dashboard extends Component {
         //
         this.handleErrors(response);
         this.notifySucess("Trip Added/Updated Sucessfully");
-        this.fetchDocumentPanelDateChange(this.state.documentPanel_date);
+          this.fetchDocumentPanelDateChange(this.state.documentPanel_date);
       })
       .then(() => {
         this.setState({
@@ -8840,7 +11392,7 @@ class Dashboard extends Component {
         //
         this.handleErrors(response);
       })
-      .then(function (response) {})
+      .then(function (response) { })
       .then(() => {
         //
         this.handleDateRangeChange();
@@ -8995,17 +11547,16 @@ class Dashboard extends Component {
     this.confirmTrip(routesSchedule.trips, "route", routesSchedule, newGeoData);
   };
 
-  notifySucess = (message) => toast.success(message, { autoClose: 3000,  toastId: Date.now()});
+  notifySucess = (message) => toast.success(message, { autoClose: 3000, toastId: Date.now() });
 
-  notifyError = (message) => toast.error(message, { autoClose: 3000,toastId: Date.now() });
+  notifyError = (message) => toast.error(message, { autoClose: 3000, toastId: Date.now() });
 
   render() {
     let filteredVeh = this.state.vehiclePanel.vehicles.filter((vehicle) => {
       return vehicle.bptnumType == "INTERNAL";
     });
 
-    // console.log(this.state.docsPanel , "this is docs panel state where will get all the documents");
-
+   
     //
 
     let optionItems = [];
@@ -9115,6 +11666,8 @@ class Dashboard extends Component {
                   this.submitDocumentsforTripCreation
                 }
                 autoGenerateTrips={this.autoGenerateTrips}
+                autoGenerateTrips_nextBillions={this.autoGenerateTrips_nextBillions}
+
                 autoResetTrips={this.autoResetTrips}
                 GrouplockTrips={this.GrouplockTrips}
                 grouplockTrips={this.grouplockTrips}
@@ -9231,6 +11784,8 @@ class Dashboard extends Component {
                         )
                       }
                       pickersList={this.state.pickersList}
+                      OSRM_manuallytrip={this.OSRM_manuallytrip}
+                      NB_manuallytrip={this.NB_manuallytrip}
                     />
                   </Col>
                 </Row>
@@ -9274,7 +11829,7 @@ class Dashboard extends Component {
                       updateTripsGeolocationbeforelock={
                         this.updateTripsGeolocationbeforelock
                       }
-                      onLockRecord={this.onLockRecord}
+                    
                       validate={this.validate}
                       onCompleteTripDelete={this.onCompleteTripDelete}
                       onWarningAlertOff={this.onWarningAlertOff}
@@ -9299,6 +11854,7 @@ class Dashboard extends Component {
                       OncheckedToPickupList={this.OncheckedToPickupList}
                       OnCheckedToShowoverMap={this.OnCheckedToShowoverMap}
                       refreshDocspanel={this.refreshDocspanel}
+                      NB_manuallytrip={this.NB_manuallytrip}
                       sites={this.state.sites}
                       selectedSite={this.Timeline_SelectedSite}
                       getValues={(
@@ -9328,7 +11884,7 @@ class Dashboard extends Component {
                       style={{
                         display:
                           this.state.tripsChecked === undefined ||
-                          this.state.tripsChecked.length === 0
+                            this.state.tripsChecked.length === 0
                             ? "none"
                             : "block",
                       }}
@@ -9546,6 +12102,7 @@ class Dashboard extends Component {
               data={this.state.guageTrip}
               selectedSite={this.Timeline_SelectedSite}
               vehiclePanel={this.state.vehiclePanel}
+              OSRM_manuallytrip={this.OSRM_manuallytrip}
               getValues={(routesSchedule, optiindex, auto) =>
                 this.getRouteSchedulerApp(
                   routesSchedule,

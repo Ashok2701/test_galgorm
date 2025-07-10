@@ -279,8 +279,8 @@ class TripsList3 extends React.Component {
 
   onOptimiseYes = (index) => {
 
-    var trips = this.props.tripsList;
-    var clickedTrip = trips[index];
+    let trips = this.props.tripsList;
+    let clickedTrip = trips[index];
     //clickedTrip.timelineInterval = trips[index].totalObject.timelineInterval;
     this.tempOptimizeRoute(clickedTrip, index);
     this.setState({
@@ -469,7 +469,13 @@ class TripsList3 extends React.Component {
       });
   };
 
-  tempOptimizeRoute = (data, SeletedI) => {
+
+tempOptimizeRoute = (data, SeletedI) => {
+    this.props.NB_manuallytrip(data);
+}
+
+
+  tempOptimizeRoute1 = (data, SeletedI) => {
     let passedData = data;
     this.setState({ loader: true });
    
@@ -2034,7 +2040,7 @@ let finalEndTime=addHoursToHHMM(splitTime(arrivalTime),Number(serviceTime[index]
                       <span className="vid">{trip.itemCode}</span>
                     </td>
                     {/* {trip.dropObject[0]?.weightunit} */}
-                    <td style={{fontSize:"14px",fontWeight:"bold"}} width="2%">  {trip.totalWeight}  </td>
+                    <td style={{fontSize:"14px",fontWeight:"bold"}} width="2%">  {parseFloat(trip.totalWeight).toFixed(2)} {trip.vehicleObject.xweu} </td>
                     <td width="6%">{trip.weightPercentage}</td>
                     <td>{this.casesCount(trip.dropObject,trip.pickupObject)}</td>
                     {/* {trip.dropObject[0]?.volume_unit} */}

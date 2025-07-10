@@ -1420,6 +1420,63 @@ class ExternalDragDrop extends Component {
     }
   }
 
+draggingProcessedFurtherforProdCategory = (data, event, index, cellData) => {
+   
+    let tempresourceDetails = this.scheduleObj.getResourcesByIndex(
+       cellData.groupIndex
+    );
+
+    let tempresourceData = tempresourceDetails.resourceData;
+   
+
+const vehicleSkillsRaw = tempresourceData?.skills  || "";
+
+  // Normalize skills to array of strings
+  const vehicleSkills = vehicleSkillsRaw
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+
+
+  const productSkills = (typeof data.skills === "string"
+    ? data.skills.split(",")
+    : Array.isArray(data.skills)
+      ? data.skills
+      : []
+  ).map((s) => s.trim()).filter(Boolean);
+
+  // If no skills defined, assume compatible
+  if (vehicleSkills.length === 0) {
+   
+   // dropCompatability = true;
+   this.addcontenttoScheduler(data, event, index, cellData);
+   return;
+  }  
+  
+   const allSkillsMatched = productSkills.every(skill => vehicleSkills.includes(skill));
+
+  
+   if (allSkillsMatched) {
+   
+ this.addcontenttoScheduler(data, event, index, cellData);
+   }
+   else {
+ 
+    this.setState({
+      errorType: "Vehicle",
+      errorMessage: `Vehicle ${tempresourceData.codeyve} - Product Category incompatible with assigned Product Category.`,
+      addAlertShow: true,
+      error: true,
+    });
+   }
+
+}
+
+
+
+
+
+
   draggingProcessedFurther = (data, event, index, cellData) => {
     if (data.miscpickflg == 2) {
       // 
@@ -1441,7 +1498,8 @@ class ExternalDragDrop extends Component {
       this.addcontenttoScheduler(data, event, index, cellData);
     } else {
       // 
-      this.addcontenttoScheduler(data, event, index, cellData);
+      //this.addcontenttoScheduler(data, event, index, cellData);
+      this.draggingProcessedFurtherforProdCategory(data, event, index, cellData);
       if (data.pairedDoc != undefined && data.pairedDoc != "") {
         // 
         for (var i = 0; i < this.props.dropsPanel.length; i++) {
@@ -1449,12 +1507,13 @@ class ExternalDragDrop extends Component {
           if (data.pairedDoc === this.props.dropsPanel[i].docnum) {
             //currentTrip = this.props.trips;
             // 
-            this.addcontenttoScheduler(
-              this.props.dropsPanel[i],
-              event,
-              i,
-              cellData
-            );
+           // this.addcontenttoScheduler(
+            //  this.props.dropsPanel[i],
+           //   event,
+           //   i,
+           //   cellData
+           // );
+            this.draggingProcessedFurtherforProdCategory(this.props.dropsPanel[i],event,i,cellData);
             break;
           }
         }
