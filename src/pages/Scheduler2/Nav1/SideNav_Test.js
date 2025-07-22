@@ -187,7 +187,7 @@ handleDaysDocChange = (event) => {
     return;
   }
 
-  if (value >= 1 && value <= 30) {
+  if (value >= 0 && value <= 30) {
     this.setState({ daysDoc: value });
 
     // Debounce: clear previous timeout
@@ -384,21 +384,14 @@ handleDaysDocChange = (event) => {
                     />
                     </Tooltip>
                   </span> */}
-
+                  <>
+                   {" "}
                    <span className="d-inline align-items-center">
-             
-                    <Tooltip
-                     title="Number of past days to include" placement="top"
-                       componentsProps={{
-    tooltip: {
-      sx: {
-        fontSize: '18px', // or '1rem', '16px', etc.
-        fontWeight: 'bold' // optional
-      }
-    }
-  }}
-                     >
-                    <Input
+              <span style={{ fontSize: "16px", fontWeight: "bold" }}>
+                      Prev Days :{" "}
+                    </span>{" "}
+                     
+                    <input
                       style={{
                         width: 50,
                         // height: "40px",
@@ -410,8 +403,10 @@ handleDaysDocChange = (event) => {
                       onChange={this.handleDaysDocChange}
                       value={this.state.daysDoc}
                     />
-                    </Tooltip>
+                   
                   </span>
+                  </>
+                 
                   {/* <Input
                     style={{ width: 100, height: "30px" }}
                     type="checkbox"

@@ -83,11 +83,11 @@ class WCalendar extends React.Component {
     let date = moment(new Date()).format("YYYY-MM-DD");
     Promise.all([
       fetch(
-        "http://routeplanner-galgorm.cpio.cloud:8084/api/v1/report/usrsites?user=" +
+        "https://routeplannertest-galgorm.cpio.cloud:8094/api/v1/report/usrsites?user=" +
           user.username
       ),
       fetch(
-        "http://routeplanner-galgorm.cpio.cloud:8084/api/v1/report/tripslist?date=" +
+        "https://routeplannertest-galgorm.cpio.cloud:8094/api/v1/report/tripslist?date=" +
           date
       ),
     ])
@@ -233,7 +233,7 @@ class WCalendar extends React.Component {
   onMapDateAndSiteChange = (seldate, sites) => {
     Promise.all([
       fetch(
-        `http://routeplanner-galgorm.cpio.cloud:8084/api/v1/report/tripslistbyDateandSite?date=${seldate}&site=${sites}`
+        `https://routeplannertest-galgorm.cpio.cloud:8094/api/v1/report/tripslistbyDateandSite?date=${seldate}&site=${sites}`
       ),
     ])
       .then(([trips]) => {
@@ -267,7 +267,7 @@ class WCalendar extends React.Component {
       
       Promise.all([
         fetch(
-          `http://routeplanner-galgorm.cpio.cloud:8084/api/v1/report/tripslist?date=${seldate}`
+          `https://routeplannertest-galgorm.cpio.cloud:8094/api/v1/report/tripslist?date=${seldate}`
         ),
       ])
         .then(([trips]) => {
@@ -300,10 +300,10 @@ class WCalendar extends React.Component {
     let endDate = moment(edate).format("YYYY-MM-DD");
     Promise.all([
       fetch(
-        `http://routeplanner-galgorm.cpio.cloud:8084/api/v1/report/vehicle?site=${selSite}`
+        `https://routeplannertest-galgorm.cpio.cloud:8094/api/v1/report/vehicle?site=${selSite}`
       ),
       fetch(
-        `http://routeplanner-galgorm.cpio.cloud:8084/api/v1/report/route?site=${selSite}&start=${startDate}&end=${endDate}`
+        `https://routeplannertest-galgorm.cpio.cloud:8094/api/v1/report/route?site=${selSite}&start=${startDate}&end=${endDate}`
       ),
     ])
       .then(([vehicles, data]) => {
@@ -349,7 +349,7 @@ class WCalendar extends React.Component {
     if (this.state.selectedSite) {
       Promise.all([
         fetch(
-          `http://routeplanner-galgorm.cpio.cloud:8084/api/v1/report/route?site=${this.state.selectedSitesArr}&start=${startDate}&end=${endDate}`
+          `https://routeplannertest-galgorm.cpio.cloud:8094/api/v1/report/route?site=${this.state.selectedSitesArr}&start=${startDate}&end=${endDate}`
         ),
       ])
         .then(([data]) => {
@@ -384,7 +384,7 @@ class WCalendar extends React.Component {
     if (this.state.selectedSite) {
       Promise.all([
         fetch(
-          `http://routeplanner-galgorm.cpio.cloud:8084/api/v1/report/route?site=${this.state.selectedSitesArr}&start=${startDate}&end=${endDate}`
+          `https://routeplannertest-galgorm.cpio.cloud:8094/api/v1/report/route?site=${this.state.selectedSitesArr}&start=${startDate}&end=${endDate}`
         ),
       ])
         .then(([data]) => {

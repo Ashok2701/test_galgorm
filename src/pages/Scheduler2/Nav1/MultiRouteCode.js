@@ -170,12 +170,13 @@ const MultiRouteCode = (props) => {
 
     if (!selectedOptions) {
       // Execute your function here when the clear button is clicked
-      
+      console.log("T444 if")
       props.ClearRouteCodes();
+      return;
     }
     else {
       props.updateselectedRCode(selectedOptions);
-      
+       console.log("T444 else")
     }
 
     // if(selectedOptions.length<1){
@@ -185,6 +186,7 @@ const MultiRouteCode = (props) => {
 
     // 
     {
+       console.log("T444 1-2")
       selectedOptions &&
       props.setSelectedRouteCodes(selectedValues.toString());
 

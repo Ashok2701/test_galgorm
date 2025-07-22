@@ -1,5 +1,5 @@
 import React from "react";
-import Drops3 from "./Drops3";
+import Drops3_galgorm_optimized from "./Drops3_galgorm_optimized";
 import TripList3 from "./TripsList3";
 import moment from "moment";
 import "moment-timezone";
@@ -512,7 +512,8 @@ class DocumentsPanel extends React.Component {
                     */
       });
 
-      if (this.props.selectedRouteCodeArr.length > 0) {
+       console.log("T444  data", this.props.selectedRouteCodeArr)
+      if (this.props?.selectedRouteCodeArr && this.props?.selectedRouteCodeArr.length > 0) {
         let SelectedRouteCodes = this.props.selectedRouteCodeArr;
         filterDrops = filterDrops.filter((drop) => {
           return SelectedRouteCodes.includes(drop.routeCodeDesc);
@@ -1210,7 +1211,7 @@ let internalCount = filterDrops?.filter((doc)=>doc.carrier== "INTERNAL").length 
             className="xl-tabcontent1"
             activeTab={this.state.activeTab}
           >
-            <Drops3
+            <Drops3_galgorm_optimized
             routeCodes={this.props.routeCodes}
             fetchDocumentPanelDateChange={this.props.fetchDocumentPanelDateChange}
             documentPanel_date={this.props.documentPanel_date}

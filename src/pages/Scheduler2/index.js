@@ -122,6 +122,18 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.schedulerRef = React.createRef();
+
+
+ // Fixed: Add abort controller for API cleanup
+    this.abortController = new AbortController();
+    
+    // Fixed: Add refs for cleanup
+    this.intervalRefs = [];
+    this.timeoutRefs = [];
+
+
+
+
     this.state = {
       currentViewCheck: "",
       activeTab: "Vehicles",
@@ -379,7 +391,24 @@ class Dashboard extends Component {
     this.setState({ selectedRCode: val });
   }
 
-  ClearRouteCodes() {
+  ClearRouteCodes = () => {
+  console.time("ClearRouteCodes");
+  this.setState({
+    selectedRCode: [],
+    tripsChecked: [],
+    checkedTrip: false,
+    showListRouteMap: false,
+    selectedRouteCodeArr: [],
+    selectedRouteCode: {
+      id: "All",
+    },
+  }, () => {
+    console.timeEnd("ClearRouteCodes"); // Logs duration
+  });
+};
+
+
+  ClearRouteCodes2() {
     this.setState({
       selectedRCode: [],
       tripsChecked: [],
@@ -1912,7 +1941,12 @@ class Dashboard extends Component {
   };
 
   setCurrentRoutecode = (selectedOption) => {
-    var currSelected = {};
+     let currSelected = {};
+     if (!selectedOption || selectedOption.length === 0) {
+   
+  }else {
+
+   
     this.state.RouteCode &&
       this.state.RouteCode.map((routecode) => {
         if (selectedOption[0] === routecode.routeNo) {
@@ -1920,6 +1954,8 @@ class Dashboard extends Component {
           currSelected.city = routecode.routeDesc;
         }
       });
+  
+  }
     this.setState({
       selectedRouteCode: currSelected,
       // selectedMultipleSites: selectedOption
@@ -1991,7 +2027,17 @@ class Dashboard extends Component {
   };
 
   RouteCodeArr = (val) => {
-    this.setCurrentRoutecode(val);
+     console.log("T444 val", val)
+
+ if (!val || val.length === 0) {
+    this.setState({
+      selectedRouteCode: {},
+      selectedRouteCodeArr: [],
+      loader : false
+    });
+    return;
+  }
+ this.setCurrentRoutecode(val);
     this.setState({ selectedRouteCodeArr: val });
   };
 
@@ -2142,6 +2188,7 @@ class Dashboard extends Component {
 
       fetchSchedulerAPI(this.state.selectedMultipleSites, StartDate, EndDate)
         .then(([res1, res2, res3, res4]) => {
+           requestIdleCallback(() => {
           this.setState({
             vehiclePanel: res1,
             docsPanel: res2,
@@ -2156,6 +2203,7 @@ class Dashboard extends Component {
             RouteCode: res4,
             daysDoc: 7,
           });
+        });
         })
         .then(() => {
           this.updateTopBar();
@@ -2216,7 +2264,7 @@ class Dashboard extends Component {
                    this.setState({loading: false})
           }
           */
-
+ requestIdleCallback(() => {
           this.setState({
             date: clickedDate,
             documentPanel_dateflg: true,
@@ -2227,6 +2275,7 @@ class Dashboard extends Component {
             RouteCode: res4,
             pickersList: res5,
           });
+        });
         })
         .then(() => {
           this.updateTopBar();
@@ -2260,6 +2309,7 @@ class Dashboard extends Component {
 
       fetchSchedulerAPI(this.state.selectedMultipleSites, StartDate, EndDate)
         .then(([res1, res2, res3, res4]) => {
+          requestIdleCallback(() => {
           this.setState({
             vehiclePanel: res1,
             docsPanel: res2,
@@ -2273,6 +2323,7 @@ class Dashboard extends Component {
             selectedDocumentList: [],
             RouteCode: res4,
           });
+        });
         })
         .then(() => {
           this.updateTopBar();
@@ -2338,7 +2389,7 @@ class Dashboard extends Component {
 
       fetchSchedulerAPI(selectedOption, startDate, currDate)
         .then(([res1, res2, res3, res4, res5]) => {
-        
+         requestIdleCallback(() => {
           this.setState({
             vehiclePanel: res1 || [], // fallback to empty array or object
             docsPanel: res2 || [],
@@ -2351,6 +2402,7 @@ class Dashboard extends Component {
             documentPanel_5dayscheck: false,
             filterVehicleflg: false,
           });
+        });
         })
         .then(() => {
           this.updateTopBar();
@@ -2363,6 +2415,7 @@ class Dashboard extends Component {
     } else {
       fetchSchedulerAPIOneDate(selectedOption, currDate)
         .then(([res1, res2, res3, res4, res5]) => {
+          requestIdleCallback(() => {
           this.setState({
             vehiclePanel: res1,
             docsPanel: res2,
@@ -2373,6 +2426,7 @@ class Dashboard extends Component {
             selectedDocumentList: [],
             pickersList: res5,
           });
+        });
         })
         .then(() => {
           this.updateTopBar();
@@ -2570,6 +2624,63 @@ class Dashboard extends Component {
     }
   };
 
+
+
+  componentWillUnmount() {
+    // Cancel all pending API requests
+    this.abortController.abort();
+    
+    // Clear all intervals
+    this.intervalRefs.forEach(intervalId => clearInterval(intervalId));
+    this.intervalRefs = [];
+    
+    // Clear all timeouts
+    this.timeoutRefs.forEach(timeoutId => clearTimeout(timeoutId));
+    this.timeoutRefs = [];
+    
+    // Remove event listeners
+    this.removeEventListeners();
+    
+    // Clean up refs
+    this.schedulerRef = null;
+    this.googleMapRef = null;
+  }
+
+
+
+  // Fixed: Add method to remove event listeners
+  removeEventListeners() {
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('resize', this.handleResize);
+      window.removeEventListener('beforeunload', this.handleBeforeUnload);
+      document.removeEventListener('click', this.handleDocumentClick);
+    }
+  }
+
+
+  // Fixed: Add method to handle API calls with abort signal
+  async fetchWithAbort(apiCall, ...args) {
+    try {
+      return await apiCall(...args, { signal: this.abortController.signal });
+    } catch (error) {
+      if (error.name === 'AbortError') {
+        console.log('API call was aborted');
+        return null;
+      }
+      throw error;
+    }
+  }
+
+  // Fixed: Optimize state updates using functional setState to prevent stale closures
+  setStateOptimized = (updater, callback) => {
+    if (typeof updater === 'function') {
+      this.setState(updater, callback);
+    } else {
+      this.setState(prevState => ({ ...prevState, ...updater }), callback);
+    }
+  };
+
+
   addSelectedTrips = (count) => {
     var slctTrips = this.state.slectedTrips;
     var emptyTrip = {};
@@ -2596,7 +2707,7 @@ class Dashboard extends Component {
                    this.setState({loading: false})
           }
           */
-
+ requestIdleCallback(() => {
         this.setState({
           date: currDate,
           default_date: currDate,
@@ -2618,6 +2729,7 @@ class Dashboard extends Component {
           dropsPanel: res2,
           tripsPanel: res3,
         });
+      });
       })
       .then(() => {
         this.updateTopBar();
@@ -3097,12 +3209,14 @@ class Dashboard extends Component {
   onVrRefresh = (vrnum) => {
     fetchVR(vrnum)
       .then(([res1, res2, res3]) => {
+         requestIdleCallback(() => {
         this.setState({
           vrlist: res1,
           vrdetaillist: res2,
           loadvehstock: res3,
           loader: false,
         });
+      });
       })
       .then(() => { })
       .catch((error) => {
@@ -3978,12 +4092,14 @@ class Dashboard extends Component {
         var tripsPanels = this.state.tripsPanel;
         var selVR_num = tripsPanels[i].itemCode;
         fetchVR(selVR_num).then(([res1, res2, res3]) => {
+          requestIdleCallback(() => {
           this.setState({
             vrlist: res1,
             vrdetaillist: res2,
             loadvehstock: res3,
             loader: false,
           });
+        });
 
           if (res3.xstoflg === 2) {
             this.notifySucess(
@@ -4125,11 +4241,13 @@ class Dashboard extends Component {
 
   // }
 
-  updateDocsGeoLocations = (index, drops) => {
+  updateDocsGeoLocations = (index, drops, isChecked) => {
     const checkboxes = document.getElementsByName("docsCheckBox");
+
     const currMarkers = [];
     const currGeoData = [];
     const { selectedDocs, selectedSite, sites, checkedDoccs } = this.state;
+ console.log("at index updateDocsGeoLocations checkboxes",checkboxes )
 
     // Determine the current marker
     if (typeof selectedSite === "string") {
@@ -4153,6 +4271,8 @@ class Dashboard extends Component {
       ];
 
       const checkedDocs = [...checkedDoccs, drops];
+
+      console.log("at index updateDocsGeoLocations checkedDocs",checkedDocs )
 
       this.setState(
         {
@@ -4549,11 +4669,13 @@ class Dashboard extends Component {
 
     fetchVR(selVR_num)
       .then(([res1, res2, res3]) => {
+        requestIdleCallback(() => {
         this.setState({
           vrlist: res1,
           vrdetaillist: res2,
           loadvehstock: res3,
         });
+      });
       })
       .then(() => { })
       .catch((error) => {
@@ -5198,6 +5320,8 @@ class Dashboard extends Component {
     var RouteprocessedData = [];
     var sameProcessUsedDriversList = [];
     var TripsfromRoutes = [];
+      let tripsEndDate = existingTrip.docdate;
+
     //
     for (let k = 0; k < routes.length; k++) {
       var currRoute = routes[k];
@@ -5206,6 +5330,7 @@ class Dashboard extends Component {
       var auto_total_time = (routes[k].duration + routes[k].service) / 60 / 60;
       var auto_service_time = routes[k].service / 60 / 60;
       var auto_total_distance = routes[k].distance / 1000;
+      let starTimeofTrip = 0;
 
       var fdistanceCost = 0,
         ftimeCost = 0,
@@ -5304,14 +5429,40 @@ const sameLocation =
 
 
 
+
+
+
+ function adjustDateTime(baseDate, seconds) {
+        const fullMoment = moment(baseDate, "YYYY-MM-DD")
+          .startOf("day")
+          .add(seconds, "seconds");
+
+        return {
+          date: fullMoment.format("YYYY-MM-DD"),
+          time: fullMoment.format("HH:mm"), // <- Only HH:mm
+        };
+      }
+
+       const baseDate = moment(existingTrip.docdate).format("YYYY-MM-DD");
+      const arrivalAdjusted = adjustDateTime(baseDate, currTask.arrival);
+      const departureAdjusted = adjustDateTime(
+        baseDate,
+        currTask.arrival + currTask.service
+      );
+
+
+
+
   if (!isSameCoords) {
   lastCoordsKey = currentCoordsKey;
-   sharedArrival = secondsToHmsAutoGen(currTask.arrival);
-          sharedDeparture = secondsToHmsAutoGen(currTask.arrival + currTask.service);
+   sharedArrival = arrivalAdjusted.time;
+          sharedDeparture = departureAdjusted.time;
 
           currDoc.arrival = sharedArrival;
         //  currDoc.serTime = secondsToHmsAutoGen(currTask.service);
           currDoc.end = sharedDeparture;
+            currDoc.startDate = arrivalAdjusted.date;
+        currDoc.endDate = departureAdjusted.date;
  
   }
   else {
@@ -5319,6 +5470,8 @@ const sameLocation =
           currDoc.serTime = secondsToHmsAutoGen(0);
           currDoc.end = sharedDeparture;
 currDoc.serviceTime = 0;
+ currDoc.startDate = arrivalAdjusted.date;
+        currDoc.endDate = departureAdjusted.date;
 
   }
 
@@ -5328,8 +5481,8 @@ currDoc.serviceTime = 0;
               currDoc.tTime = legDuration;
               currDoc.vehicleCode = Veh;
             //  currDoc.arrival = secondsToHmsAutoGen(currTask.arrival);
-              currDoc.startDate = newStartDate1;
-              currDoc.endDate = newStartDate1;
+              // currDoc.startDate = newStartDate1;
+              // currDoc.endDate = newStartDate1;
               currDoc.time = convertSecToHr(legDuration).toFixed(3);
              // currDoc.distance = 0;
              // currDoc.end = secondsToHmsAutoGen(
@@ -5362,8 +5515,25 @@ currDoc.serviceTime = 0;
           startTime = secondsToHms(currTask.arrival);
           ttime = startTime;
         } else if (currTask.type === "end") {
-          endTime = secondsToHms(currTask.arrival);
-          ttime = endTime;
+           function adjustDateTime(baseDate, seconds) {
+    const fullMoment = moment(baseDate, "YYYY-MM-DD")
+      .startOf("day")
+      .add(seconds, "seconds");
+
+    return {
+      date: fullMoment.format("YYYY-MM-DD"),
+      time: fullMoment.format("HH:mm"), // Only HH:mm
+    };
+  }
+//90820
+  const baseDate = moment(existingTrip.docdate).format("YYYY-MM-DD");
+  const endAdjusted = adjustDateTime(baseDate, currTask.arrival);
+
+          
+          tripsEndDate = endAdjusted.date;
+        endTime = endAdjusted.time;
+  ttime = endTime;
+
           //
         }
         //for timeline
@@ -5419,9 +5589,10 @@ currDoc.serviceTime = 0;
       var today = new Date();
       var execdate = today.getDate();
 
+   
       existingTrip.date = moment.tz(ddate, "").format("YYYY-MM-DD");
       existingTrip.docdate = moment.tz(ddate, "").format("YYYY-MM-DD");
-      existingTrip.endDate = ddate;
+      existingTrip.endDate = tripsEndDate;
       existingTrip.tot_capacity = fld_tot_capacity;
       existingTrip.tot_volume = fld_tot_volume;
       existingTrip.doc_capacity = fld_doc_capacity;
@@ -6177,11 +6348,50 @@ currDoc.serviceTime = 0;
         }
       } else {
       
+         console.log("at failing - else document are",DocListM);
+console.log("at failing - selected Data of trips",selectedTripdata);
+
+
+// Ireland bounds
+const latMin = 51.0;
+const latMax = 56.0;
+const lngMin = -10.5;
+const lngMax = -5.3;
+
+const tripdataMap = {};
+selectedTripdata.forEach(doc => {
+  tripdataMap[doc.docnum] = doc;
+});
+
+
+const failedIds = [];
+DocListM.forEach(shortDoc => {
+  const detail = tripdataMap[shortDoc.id];
+  if (
+    !detail || // no matching trip data
+    detail.lat < latMin || detail.lat > latMax ||
+    detail.lng < lngMin || detail.lng > lngMax
+  ) {
+    failedIds.push(shortDoc.id);
+  }
+});
+
+   if (failedIds.length > 0) {
+  const errorMessage = `Optimization failed. The following document(s) have coordinates out of range: ${failedIds.join(", ")}. Please review in Maps.`;
+  this.setState({
+    errorMessage,
+    loader: false,
+    addAlertShow: true,
+  });
+   }
+
+     else {
         this.setState({
           errorMessage: 'Optimization failed. Document/s coordiantes are not in same region. Please review in Maps',
           loader: false,
           addAlertShow: true,
         })
+      }
       }
     } catch (error) {
     
@@ -8246,7 +8456,7 @@ const matchedDoc = SelDocs.find(
     }
 
     var autoDocs = [];
-
+let selectedTripdata = this.state.docsPanel;
     for (let jj = 0; jj < this.state.docsPanel.length; jj++) {
       let doc = this.state.docsPanel[jj];
       if (
@@ -8729,14 +8939,90 @@ const matchedDoc = SelDocs.find(
         .then((response) => {
           if (response.status === 200) {
             return response.json();
-          } else {
-            var StatusErrorMessage = response.statusText;
-            this.setState({
-              errorMessage: { StatusErrorMessage },
+          } 
+          else {
+           // var StatusErrorMessage = response.statusText;
+
+// Ireland bounds
+const latMin = 51.0;
+const latMax = 56.0;
+const lngMin = -10.5;
+const lngMax = -5.3;
+
+const tripdataMap = {};
+selectedTripdata.forEach(doc => {
+  tripdataMap[doc.docnum] = doc;
+});
+
+console.log("at final tripdataMap", tripdataMap)
+
+const failedIds = [];
+DocList.forEach(shortDoc => {
+  const detail = tripdataMap[shortDoc.description];
+  console.log("at final detail", detail)
+  if (
+    !detail || // no matching trip data
+    detail.lat < latMin || detail.lat > latMax ||
+    detail.lng < lngMin || detail.lng > lngMax
+  ) {
+    failedIds.push(shortDoc.description);
+  }
+});
+
+console.log("at final DocList", DocList)
+
+   if (failedIds.length > 0) {
+  const errorMessage = `Optimization failed. The following document(s) have coordinates out of range: ${failedIds.join(", ")}. Please review in Maps.`;
+  this.setState({
+    errorMessage,
+    loader: false,
+    addAlertShow: true,
+  });
+   return Promise.reject(new Error(errorMessage));
+   }
+
+   else {
+let responedata = response.json();
+let responseText = response.text();
+   console.log("At final response", response);
+    console.log("At final response json data", responedata);
+    console.log("At final response json text", responseText);
+    console.log("At final response json data Promise", responedata.Promise);
+    console.log("At final response json data", responedata.Promise.toString());
+let responedata_promiseObject = responedata.Promise.PromiseResult.error;
+     console.log("At final response json data", responedata_promiseObject);
+ let   errorObj = responedata_promiseObject
+
+   const coordMatch = errorObj.error.match(/\[([-\d.]+);([-\d.]+)\]/);
+const [ , errLngString, errLatString ] = coordMatch || [];
+const errLng = parseFloat(errLngString);
+const errLat = parseFloat(errLatString);
+
+function coordsMatch(lat1, lng1, lat2, lng2) {
+    const epsilon = 1e-4; // allow for rounding differences, increase if needed
+    return Math.abs(lat1 - lat2) < epsilon && Math.abs(lng1 - lng2) < epsilon;
+}
+
+const failedDoc = DocList.find(doc =>
+    coordsMatch(doc.lat, doc.lng, errLat, errLng)
+);
+
+if (failedDoc) {
+    console.log(`Failed document is ${failedDoc.docnum} at (${failedDoc.lat},${failedDoc.lng})`);
+} else {
+    console.log('No document found for the error coordinates');
+}
+
+  this.setState({
+              errorMessage:  response.statusText ,
               loader: false,
               addAlertShow: true,
             });
+             return Promise.reject(new Error(response.statusText));
           }
+
+   }
+          
         })
         .then((res) => {
           if (res.routes.length > 0) {
@@ -8807,6 +9093,21 @@ const matchedDoc = SelDocs.find(
 
     let matchedVehicles = [];
     let routeCodeFlg = false;
+    let regionflg = false;
+
+    const latMin = 51.0;
+const latMax = 56.0;
+const lngMin = -10.5;
+const lngMax = -5.3;
+  
+
+    if (
+    !doc || // no matching trip data
+    doc.lat < latMin || doc.lat > latMax ||
+    doc.lng < lngMin || doc.lng > lngMax
+  ) {
+    regionflg = true;
+  }
 
     filteredVehArray.forEach((veh) => {
       let vehicleRouteCodes = [];
@@ -8938,7 +9239,13 @@ errorMessagesArray.push(
                 );
                 // checking if any trips are generated before for this day using this same matched route code vehicle
 
-                if (previousTripUsingRC) {
+                  if(regionflg) {
+
+     errorMessagesArray.push(
+              `${doc.docnum}  excluded: Coordiantes are out of range.Please verify and update`
+            );
+         }
+               else if (previousTripUsingRC) {
                   errorMessagesArray.push(
                     `${doc.docnum} excluded: Trip is already generated for route code '${doc.routeCodeDesc}' using vehicle '${previousTripUsingRC.vehicleObject.name}'.`
                   );
@@ -8989,7 +9296,7 @@ errorMessagesArray.push(
         })
         .catch((err) => {
           this.setState({
-            errorMessage: "No Documents are available for Trips creation",
+            errorMessage: err.message || "Unexpected error occurred",
             loader: false,
             addAlertShow: true,
           });
@@ -10109,10 +10416,35 @@ lastCoordsKey = currentCoordsKey;
       let volumeVehList = []
       let vehClassVehList = []
       let TimewindowforDoc = []
+      
+	     let regionflg = false;
+
+    const latMin = 51.0;
+const latMax = 56.0;
+const lngMin = -10.5;
+const lngMax = -5.3;
+  
+	 
+
+if (
+    !doc || // no matching trip data
+    doc.lat < latMin || doc.lat > latMax ||
+    doc.lng < lngMin || doc.lng > lngMax
+  ) {
+    regionflg = true;
+  }
+
+   let errorMessagesArray = []
      
-     
-      if (doc.reason && doc.reason.length > 0) {
-        let errorMessagesArray = []
+      if(regionflg) {
+
+     errorMessagesArray.push(
+              `${doc.docnum} Document excluded: Coordiantes are out of range.Please verify and update`
+            );
+         }
+
+      else if (doc.reason && doc.reason.length > 0) {
+       
         errorMessagesArray.push(` ${doc.id} -   ${doc.reason}.`)
         let glabalerrorOBject = errorMessagesArray
 
@@ -10721,6 +11053,32 @@ Exceptionalanalysis = (selectedDocs, SelectedVehicles, res, tripsfromAuto) => {
       let matchedVehicles = [];
       let unmatchedVehicles = []; 
       let routeCodeFlg = false;
+      let regionflg = false;
+
+
+const latMin = 51.0;
+const latMax = 56.0;
+const lngMin = -10.5;
+const lngMax = -5.3;
+  
+
+if (
+    !doc || // no matching trip data
+    doc.lat < latMin || doc.lat > latMax ||
+    doc.lng < lngMin || doc.lng > lngMax
+  ) {
+    regionflg = true;
+  }
+
+   console.log("at execption ",doc, regionflg)
+
+  // if(regionflg) {
+
+  //    errorMessagesArray.push(
+  //             `${doc.docnum} Document excluded: Coordiantes are out of range.Please verify and update`
+  //           );
+  // }
+
 
       selVeh.forEach((veh) => {
         let vehicleRouteCodes = [];
@@ -10941,11 +11299,20 @@ errorMessagesArray.push(
         );
         // checking if any trips are generated before for this day using this same matched route code vehicle
 
-        if (previousTripUsingRC) {
+        if(regionflg) {
+
+     errorMessagesArray.push(
+              `${doc.docnum} Document excluded: Coordiantes are out of range.Please verify and update`
+            );
+         }
+        else if (previousTripUsingRC) {
           errorMessagesArray.push(
             `${doc.docnum} excluded: Trip is already generated for route code '${doc.routeCodeDesc}' using vehicle '${previousTripUsingRC.vehicleObject.name}'.`
           );
-        } else {
+        }
+         
+        
+        else {
           // ❌ No vehicle matched, show skill mismatch error
           errorMessagesArray.push(
             `Document ${
