@@ -480,18 +480,18 @@ class Dashboard extends Component {
   updateDriverSearchTerm = (event) => {
     this.setState({ searchDString: event.target.value });
   };
-  updateDropSearchTerm = (event) => {
-    this.setState({ searchDrpString: event.target.value.trim() });
+  updateDropSearchTerm = (value) => {
+    this.setState({ searchDrpString: value });
   };
-  updatePickupSearchTerm = (event) => {
-    this.setState({ searchPckString: event.target.value });
+  updatePickupSearchTerm = (value) => {
+    this.setState({ searchPckString: value });
   };
 
-  updateTripsSearchTerm = (event) => {
+  updateTripsSearchTerm = (value) => {
     this.onRouteoptihide();
 
     this.setState({
-      searchTripString: event.target.value,
+      searchTripString: value,
       tripsChecked: [],
       checkedTrip: false,
       showListRouteMap: false,
@@ -1259,7 +1259,7 @@ class Dashboard extends Component {
         });
 
         this.notifySucess("Trip Added/Updated Sucessfully");
-         this.closeActivePanel();
+        this.closeActivePanel();
         this.fetchDocumentPanelDateChange(this.state.documentPanel_date);
       })
       .catch((error) => {
@@ -2028,7 +2028,7 @@ class Dashboard extends Component {
   };
 
   RouteCodeArr = (val) => {
-    
+     console.log("T444 val", val)
 
  if (!val || val.length === 0) {
     this.setState({
@@ -2221,40 +2221,7 @@ class Dashboard extends Component {
         .format("YYYY-MM-DD");
 
      
-
-      //   fetchSchedulerAPIOneDate(
-      //     this.state.selectedMultipleSites,
-      //     clickedDateinFormat
-      //   )
-      //     .then(([res1, res2, res3, res4]) => {
-      //       this.setState({
-      //         vehiclePanel: res1,
-      //         docsPanel: res2,
-      //         tripsPanel: res3,
-      //         loader: false,
-      //         RouteCode: res4,
-      //         date: clickedDateinFormat,
-      //         // documentPanel_dateflg: false,
-      //         // documentPanel_date: "",
-      //         // documentPanel_5dayscheck: false,
-      //         SelectedDeletedDocs: [],
-      //         selectedDocumentList: [],
-      //         filteredTripData: "",
-      //           daysDoc:7,
-      //       });
-      //     })
-
-      //     .then(() => {
-      //       this.updateTopBar();
-      //       this.refreshSite();
-      //       this.removeDocsCheckBoxes();
-      //     })
-      //     .catch((error) => {});
-      // }
-
-      // fetchDocumentPanelwithRangeDaysBack
-
-      refreshAllpanels(
+      fetchSchedulerAPI(
         this.state.selectedMultipleSites,
         startDate,
         clickedDateinFormat
@@ -2665,7 +2632,7 @@ class Dashboard extends Component {
       return await apiCall(...args, { signal: this.abortController.signal });
     } catch (error) {
       if (error.name === 'AbortError') {
-       
+        console.log('API call was aborted');
         return null;
       }
       throw error;
@@ -3713,7 +3680,6 @@ class Dashboard extends Component {
     this.setState({
       selectedDocs: [],
       checkedDoccs: [],
-      loader : false
     });
   };
 
@@ -4249,7 +4215,7 @@ class Dashboard extends Component {
     const currMarkers = [];
     const currGeoData = [];
     const { selectedDocs, selectedSite, sites, checkedDoccs } = this.state;
- 
+ console.log("at index updateDocsGeoLocations checkboxes",checkboxes )
 
     // Determine the current marker
     if (typeof selectedSite === "string") {
@@ -4274,7 +4240,7 @@ class Dashboard extends Component {
 
       const checkedDocs = [...checkedDoccs, drops];
 
-    
+      console.log("at index updateDocsGeoLocations checkedDocs",checkedDocs )
 
       this.setState(
         {
@@ -4715,7 +4681,9 @@ class Dashboard extends Component {
     //
     const currDate = moment.tz(date, "").format("YYYY-MM-DD");
     //
+
     const daysDoc = parseInt(this.state.daysDoc || 0, 10);
+
     const startDate = moment(currDate)
       .subtract(daysDoc, "days")
       .format("YYYY-MM-DD");
@@ -4736,6 +4704,7 @@ class Dashboard extends Component {
           documentPanel_dateflg: true,
           docsPanel: res1,
           tripsPanel: res2,
+          loader: false,
         });
       })
       .then(() => {
@@ -4790,7 +4759,7 @@ class Dashboard extends Component {
         this.updateTopBar();
         this.refreshSite();
         this.removeDocsCheckBoxes();
-       
+        
       })
       .catch((error) => {
         this.setState({
@@ -6347,7 +6316,8 @@ currDoc.serviceTime = 0;
         }
       } else {
       
-       
+         console.log("at failing - else document are",DocListM);
+console.log("at failing - selected Data of trips",selectedTripdata);
 
 
 // Ireland bounds
@@ -8952,12 +8922,12 @@ selectedTripdata.forEach(doc => {
   tripdataMap[doc.docnum] = doc;
 });
 
-
+console.log("at final tripdataMap", tripdataMap)
 
 const failedIds = [];
 DocList.forEach(shortDoc => {
   const detail = tripdataMap[shortDoc.description];
- 
+  console.log("at final detail", detail)
   if (
     !detail || // no matching trip data
     detail.lat < latMin || detail.lat > latMax ||
@@ -8967,6 +8937,7 @@ DocList.forEach(shortDoc => {
   }
 });
 
+console.log("at final DocList", DocList)
 
    if (failedIds.length > 0) {
   const errorMessage = `Optimization failed. The following document(s) have coordinates out of range: ${failedIds.join(", ")}. Please review in Maps.`;
@@ -8981,9 +8952,13 @@ DocList.forEach(shortDoc => {
    else {
 let responedata = response.json();
 let responseText = response.text();
-  
+   console.log("At final response", response);
+    console.log("At final response json data", responedata);
+    console.log("At final response json text", responseText);
+    console.log("At final response json data Promise", responedata.Promise);
+    console.log("At final response json data", responedata.Promise.toString());
 let responedata_promiseObject = responedata.Promise.PromiseResult.error;
-    
+     console.log("At final response json data", responedata_promiseObject);
  let   errorObj = responedata_promiseObject
 
    const coordMatch = errorObj.error.match(/\[([-\d.]+);([-\d.]+)\]/);
@@ -11063,7 +11038,7 @@ if (
     regionflg = true;
   }
 
- 
+   console.log("at execption ",doc, regionflg)
 
   // if(regionflg) {
 
@@ -11912,7 +11887,7 @@ errorMessagesArray.push(
   notifyError = (message) => toast.error(message, { autoClose: 3000, toastId: Date.now() });
 
   render() {
-    let filteredVeh = this.state.vehiclePanel.vehicles.filter((vehicle) => {
+    let filteredVeh = this.state.vehiclePanel?.vehicles?.filter((vehicle) => {
       return vehicle.bptnumType == "INTERNAL";
     });
 

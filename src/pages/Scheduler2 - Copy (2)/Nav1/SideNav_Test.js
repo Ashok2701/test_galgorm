@@ -384,13 +384,16 @@ handleDaysDocChange = (event) => {
                     />
                     </Tooltip>
                   </span> */}
-                  <>                   <span className="d-inline align-items-center">
-             
-                   
-                     Prev Days
+                  <>
+                   {" "}
+                   <span className="d-inline align-items-center">
+              <span style={{ fontSize: "16px", fontWeight: "bold" }}>
+                      Prev Days :{" "}
+                    </span>{" "}
+                     
                     <input
                       style={{
-                        width: 100,
+                        width: 50,
                         // height: "40px",
                         // fontSize: "16px",
                         // fontWeight: "bolder",
@@ -403,7 +406,7 @@ handleDaysDocChange = (event) => {
                    
                   </span>
                   </>
-
+                 
                   {/* <Input
                     style={{ width: 100, height: "30px" }}
                     type="checkbox"

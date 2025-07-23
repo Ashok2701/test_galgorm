@@ -1,5 +1,6 @@
 import React from "react";
-import Drops3 from "./Drops3";
+import Drops3_galgorm_optimized from "./Drops3_galgorm_optimized";
+import debounce from 'lodash.debounce';
 import TripList3 from "./TripsList3";
 import moment from "moment";
 import "moment-timezone";
@@ -55,16 +56,17 @@ class DocumentsPanel extends React.Component {
       ValidateRecords: false,
     };
     this.toggleTab = this.toggleTab.bind(this);
-    this.handleSearchDropsValue = this.handleSearchDropsValue.bind(this);
+     this.updateFilteredDataDebounced = debounce(this.updateFilteredData.bind(this), 300);
   }
 
-
-  
  componentDidMount() {
     this.updateFilteredData();
   }
 
 
+  componentDidMount() {
+    this.updateFilteredData();
+  }
 
   componentDidUpdate(prevProps, prevState) {
     if (
@@ -85,13 +87,15 @@ class DocumentsPanel extends React.Component {
     }
   }
 
-
+  componentWillUnmount() {
+  this.updateFilteredDataDebounced.cancel();
+}
 
   handleSearchDropsValue(value) {
-    console.log("handle search drops", value)
     const term = typeof value === "string" ? value : String(value?.target?.value || "");
     this.setState({ searchDrpTerm: term }, () => {
-    
+      this.updateFilteredDataDebounced();
+      
       this.updateFilteredData();
     });
   }
@@ -99,140 +103,19 @@ class DocumentsPanel extends React.Component {
   handleSearchTripsValue(value) {
     const term = typeof value === "string" ? value : String(value?.target?.value || "");
     this.setState({ searchTripTerm: term }, () => {
-    
+      this.updateFilteredDataDebounced();
+      
       this.updateFilteredData();
     });
   }
 
-
-
-  
   updateFilteredData() {
-  console.time("updateFilteredData total");
-
-  const site = "";
-  const searchDrpTerm = String(this.state.searchDrpTerm || "").toLowerCase().trim();
-  const searchTripTerm = String(this.state.searchTripTerm || "").toLowerCase().trim();
-
-  const selectedRouteCodes = this.props.selectedRouteCodeArr || [];
-  const dropsPanel = this.props.dropsPanel || [];
-  const tripsList = this.props.tripsList || [];
-
-  const noSearch = searchDrpTerm.length <= 1;
-  const noRouteCodeFilter = selectedRouteCodes.length === 0;
-  const noCheckboxFilters = !(
-    this.state.ToPlanchecked ||
-    this.state.Todropchecked ||
-    this.state.ToPickchecked ||
-    this.state.ToDeliverable ||
-    this.state.ToNotDeliverable
-  );
-
-  // 🔄 Fast path: nothing is filtered
-  if (noSearch && noRouteCodeFilter && noCheckboxFilters) {
-    console.time("count categories");
-    const internalCount = dropsPanel.filter(d => d.carrier === "INTERNAL").length;
-    const externalCount = dropsPanel.filter(d => ["EXTERNAL", "DPD", "MONTGOMERY"].includes(d.carrier)).length;
-    const collectionCount = dropsPanel.filter(d => d.carrier === "COLLECTIONS").length;
-    console.timeEnd("count categories");
-
-    console.time("filter trips (no filter)");
-    const filteredTrips = [...tripsList];
-    console.timeEnd("filter trips (no filter)");
-
-    this.setState({ filteredDrops: dropsPanel, filteredTrips, internalCount, externalCount, collectionCount }, () => {
-      console.timeEnd("updateFilteredData total");
-    });
-    return;
-  }
-
-  // 🔎 Drops filtering
-  console.time("filter drops");
-  let filteredDrops = dropsPanel.filter(drop => {
-    if (
-      this.state.ToPlanchecked &&
-      !this.state.Todropchecked &&
-      !this.state.ToPickchecked &&
-      !this.state.ToDeliverable &&
-      !this.state.ToNotDeliverable
-    ) {
-      return drop.type === "open" && ["0", "8"].includes(drop.dlvystatus);
-    }
-    if (!this.state.ToPlanchecked && this.state.Todropchecked && !this.state.ToPickchecked) {
-      return drop.movtype === "DROP";
-    }
-    if (!this.state.ToPlanchecked && !this.state.Todropchecked && this.state.ToPickchecked) {
-      return drop.movtype === "PICK";
-    }
-    return true;
-  });
-  console.timeEnd("filter drops");
-
-  if (!noRouteCodeFilter) {
-    console.time("filter by route code");
-    filteredDrops = filteredDrops.filter(drop => selectedRouteCodes.includes(drop.routeCodeDesc));
-    console.timeEnd("filter by route code");
-  }
-
-  if (!noSearch) {
-    console.time("filter by search");
-    const matches = (val) => val?.toLowerCase().includes(searchDrpTerm);
-    filteredDrops = filteredDrops.filter(drop =>
-      matches(drop.docnum) ||
-      matches(drop.bpcode) ||
-      matches(drop.bpname) ||
-      matches(drop.doctype) ||
-      matches(drop.poscode) ||
-      matches(drop.type) ||
-      matches(drop.city) ||
-      matches(drop.routeCodeDesc) ||
-      String(drop.netweight) === searchDrpTerm ||
-      String(drop.volume) === searchDrpTerm
-    );
-    console.timeEnd("filter by search");
-  }
-
-  console.time("count categories");
-  const internalCount = filteredDrops.filter(d => d.carrier === "INTERNAL").length;
-  const externalCount = filteredDrops.filter(d => ["EXTERNAL", "DPD", "MONTGOMERY"].includes(d.carrier)).length;
-  const collectionCount = filteredDrops.filter(d => d.carrier === "COLLECTIONS").length;
-  console.timeEnd("count categories");
-
-  // 🚚 Trips filtering
-  console.time("filter trips");
-  let filteredTrips = tripsList.filter(trip => {
-    const filters = [];
-    if (this.state.openRecords) filters.push(trip => trip.optistatus === "Open");
-    if (this.state.LockedRecords) filters.push(trip => trip.lock === true);
-    if (this.state.ValidateRecords) filters.push(trip => trip.tmsValidated === true);
-    if (this.state.OptimisedRecords) filters.push(trip => trip.optistatus === "Optimized");
-    return filters.length === 0 || filters.some(fn => fn(trip));
-  });
-
-  if (searchTripTerm.length > 1) {
-    filteredTrips = filteredTrips.filter(trip =>
-      trip.itemCode?.toLowerCase().includes(searchTripTerm) ||
-      trip.code?.toLowerCase().includes(searchTripTerm) ||
-      trip.driverName?.toLowerCase().includes(searchTripTerm)
-    );
-  }
-  console.timeEnd("filter trips");
-
-  this.setState({ filteredDrops, filteredTrips, internalCount, externalCount, collectionCount }, () => {
-    console.timeEnd("updateFilteredData total");
-  });
-}
-
-
-  updateFilteredData222() {
-    
-    console.time("updateFilteredData total"); // ⏱️ Start timing
     const site = "";
     const searchDrpTerm = String(this.state.searchDrpTerm || "").toLowerCase().trim();
     const searchTripTerm = String(this.state.searchTripTerm || "").toLowerCase().trim();
 
    
-console.log("data insdie updateFilteredDAta", searchDrpTerm)
+
     let filteredDrops = (this.props.dropsPanel || []).filter(drop => {
       if (
         this.state.ToPlanchecked &&
@@ -251,18 +134,13 @@ console.log("data insdie updateFilteredDAta", searchDrpTerm)
       }
       return true;
     });
-    console.timeEnd("filter drops");
 
-    console.time("filter by route"); // Optional
     // Route description filtering (by selectedRouteCodeArr)
     if (this.props.selectedRouteCodeArr && this.props.selectedRouteCodeArr.length > 0) {
       const SelectedRouteCodes = this.props.selectedRouteCodeArr;
       filteredDrops = filteredDrops.filter(drop => SelectedRouteCodes.includes(drop.routeCodeDesc));
     }
 
-     console.timeEnd("filter by route");
-
-  console.time("filter by search"); // Optional
     if (searchDrpTerm.length > 1) {
       const matches = (val) => val?.toLowerCase().includes(searchDrpTerm);
       filteredDrops = filteredDrops.filter(drop =>
@@ -278,15 +156,11 @@ console.log("data insdie updateFilteredDAta", searchDrpTerm)
         String(drop.volume) === searchDrpTerm
       );
     }
- console.timeEnd("filter by search");
 
-  console.time("count categories"); // Count types
     const internalCount = filteredDrops.filter(d => d.carrier === "INTERNAL").length;
     const externalCount = filteredDrops.filter(d => ["EXTERNAL", "DPD", "MONTGOMERY"].includes(d.carrier)).length;
     const collectionCount = filteredDrops.filter(d => d.carrier === "COLLECTIONS").length;
-console.timeEnd("count categories");
 
-  console.time("filter trips");
     let filteredTrips = (this.props.tripsList || []).filter(trip => {
       const tripFilters = [];
       if (this.state.openRecords) tripFilters.push(trip => trip.optistatus === "Open");
@@ -302,14 +176,11 @@ console.timeEnd("count categories");
         trip.code?.toLowerCase().includes(searchTripTerm) ||
         trip.driverName?.toLowerCase().includes(searchTripTerm)
       );
-    
     }
-console.timeEnd("filter trips");
-   this.setState({ filteredDrops, filteredTrips, internalCount, externalCount, collectionCount }, () => {
-    console.timeEnd("updateFilteredData total"); // ⏱️ End timing
-  });
-  
+
+    this.setState({ filteredDrops, filteredTrips, internalCount, externalCount, collectionCount });
   }
+
 
 
   checkBoxChange = () => {
@@ -432,20 +303,10 @@ console.timeEnd("filter trips");
     }
   }
 
-  SearchDrops = (e) => {
  
-    // 
-    this.props.updateDropSearchTerm(e);
-  };
-
-  SearchTrips = (e) => {
-  
-    this.props.updateTripsSearchTerm(e);
-  };
 
   render() {
-  
-    const {
+     const {
   filteredDrops = [],
   filteredTrips = [],
   internalCount,
@@ -474,7 +335,6 @@ console.timeEnd("filter trips");
     let collectionOutbound = filteredDrops.filter(drop => drop.movtype === 'DROP' && drop.carrier === 'COLLECTIONS').length;
     let collectionInbound = filteredDrops.filter(drop => drop.movtype === 'PICK' && drop.carrier === 'COLLECTIONS').length;
 
- 
     return (
       <>
         <div class="documentPanel" style={{ height: "100%" }}>
@@ -567,7 +427,7 @@ console.timeEnd("filter trips");
                     placeholder={this.props.t("SearchCaption")}
                     className="form-control"
                     value={this.state.searchDrpTerm}
-                    onChange={(e) => this.handleSearchDropsValue(e.target.value)}
+              onChange={(e) => this.handleSearchDropsValue(e.target.value)}
                   />
                 </FormGroup>
 
@@ -675,8 +535,8 @@ console.timeEnd("filter trips");
                     type="search"
                     placeholder={this.props.t("SearchCaption")}
                     className="form-control"
-                    value={this.state.searchDrpTerm}
-                    onChange={(e) => this.handleSearchDropsValue(e.target.value)}
+                    onChange={this.SearchDrops}
+                    value={this.props.searchDrp}
                   />
                 </FormGroup>
 
@@ -885,7 +745,7 @@ console.timeEnd("filter trips");
             className="xl-tabcontent1"
             activeTab={this.state.activeTab}
           >
-            <Drops3
+            <Drops3_galgorm_optimized
             routeCodes={this.props.routeCodes}
             fetchDocumentPanelDateChange={this.props.fetchDocumentPanelDateChange}
             documentPanel_date={this.props.documentPanel_date}

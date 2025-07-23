@@ -2,6 +2,7 @@ import React from "react";
 import DisplayProducts from "./DisplayProducts";
 import { withNamespaces } from "react-i18next";
 import moment from "moment";
+import { FixedSizeList } from "react-window";
 import "moment-timezone";
 import DisplayInformationIconDetails2 from "./DisplayInformationIconDetails2";
 import {
@@ -623,6 +624,32 @@ class Drops3 extends React.Component {
     }
   };
 
+  buildLogisticDetails = (drops) => {
+    return {
+      loadBay: drops.loadBay || "",
+      tailGate: drops.tailGate || "",
+      waitingTime: drops.waitingTime ? formatTime(drops.waitingTime) : "",
+      stackHeight: nullAndNanChecking(drops.stackHeight),
+      timings: nullAndNanChecking(drops.timings),
+      packing: drops.packing || "",
+      height: drops.height || "",
+      loadingOrder: drops.loadingOrder || "",
+      allDrivers: drops.allDrivers || "",
+      driverList: drops.driverList || "",
+      allVehClass: drops.allVehClass || "",
+      vehClassList: drops.vehClassList || "",
+      fromTime:
+        drops.fromTime && drops.fromTime.length > 1
+          ? drops.fromTime.split(" ")
+          : drops.fromTime,
+      toTime:
+        drops.toTime && drops.toTime.length > 1
+          ? drops.toTime.split(" ")
+          : drops.toTime,
+      availDays: drops.availDays || "",
+    };
+  };
+
   render() {
     let addProductsClose = () => this.setState({ addProductShow: false });
     let lang = localStorage.getItem("i18nextLng");
@@ -637,198 +664,110 @@ class Drops3 extends React.Component {
     let filteredExternalDrops = dropList?.filter((doc)=>doc.carrier=="COLLECTIONS")
 
 
-
-    return (
+ return (
       <TabPane
         className="tripstab"
         tabId="Collections"
         style={{ height: "550px", overflowX: "auto", overflowYL: "auto" }}
       >
-        <div class="reportlist-view tableCustomFixHead">
-          {/* <table class="table table-striped m-0">  */}
-          <table
-            class={
-              "table table-sm " +
-              (this.props.trailerDropped
-                ? " "
-                : this.props.dayschecked
-                ? " "
-                : " ")
-            }
-          >
-            <thead
-              class="custom-sort"
+        <div
+  style={{
+    height: "550px",
+    overflowX: "auto",
+    overflowY: "auto",
+   
+    border: "1px solid #ccc",
+  }}
+>
+  <div style={{ minWidth: "2800px" }}> {/* sets total table width */}
+  <table className="table table-sm" style={{ tableLayout: "fixed", width: "100%" }}>
+    <thead
+      style={{
+        position: "sticky",
+        top: 0,
+        background: "white",
+        zIndex: 2,
+      }}
+    >
+      <tr>
+        {/* your <th style={{ width: 120 }}> headers here */}
+        <th style={{ width: 30 }}></th>
+        <th style={{ width: 80 }}></th>
+        <th style={{ width: 120 }}>Client Code</th>
+        <th style={{ width: 220 }}>Client</th>
+        <th style={{ width: 180 }}>Route Code</th>
+        <th style={{ width: 220 }}>Transaction No</th>
+        <th style={{ width: 120 }}>Picker</th>
+        <th style={{ width: 120 }}>Date</th>
+        <th style={{ width: 120 }}>Priority</th>
+        <th style={{ width: 120 }}>Status</th>
+        <th style={{ width: 120 }}>Weight</th>
+        <th style={{ width: 60 }}>No. of Lines</th>
+        <th style={{ width: 60 }}>Cases</th>
+        <th style={{ width: 120 }}>Carrier</th>
+        <th style={{ width: 120 }}>Type</th>
+        <th style={{ width: 120 }}>City</th>
+        <th style={{ width: 90 }}>Site</th>
+        <th style={{ width: 120 }}>Preparation List</th>
+        <th style={{ width: 90 }}>Vehicle</th>
+        <th style={{ width: 90 }}>Driver</th>
+        <th style={{ width: 60 }}>Trip No</th>
+        <th style={{ width: 120 }}>Add Code</th>
+        <th style={{ width: 120 }}>Add Desc</th>
+        <th style={{ width: 90 }}>Info</th>
+        <th style={{ width: 90 }}>Service Time</th>
+      </tr>
+    </thead>
+  </table>
+
+  <FixedSizeList
+    height={500}
+    itemCount={filteredExternalDrops.length}
+    itemSize={60}
+    width={"100%"}
+  >
+    {({ index, style }) => {
+      const drops = filteredExternalDrops[index];
+      const logisticDetails = this.buildLogisticDetails(drops);
+      if (drops.optistatus === "dragged") return null;
+
+      return (
+        <table
+          className="table table-sm"
+          style={{
+            ...style,
+            tableLayout: "fixed",
+            width: "100%",
+          }}
+        >
+          <tbody>
+            <tr
+              key={"drops" + index}
               style={{
-                position: "sticky",
-                top: 0,
-                zIndex: 1,
-                background: "white",
+                backgroundColor: this.getColor(drops),
+                padding: "10px",
+                margin: "5px 0",
+                borderRadius: "5px",
               }}
+              className={this.dragStyle(drops.type, drops.dlvystatus)}
+              draggable={
+                drops.type === "open" &&
+                (drops.dlvystatus === "0" || drops.dlvystatus === "8")
+              }
+              onDragStart={(event) =>
+                this.props.handleDragStart(event, drops, "drops", index)
+              }
             >
-              <tr>
-                <th></th>
-                <th></th>
-                <th onClick={() => this.props.sortDrop("bpcode", 1)}>
-                  Client Code
-                  {this.props.dropOrder[1] === 1 ? "▼" : "▲"}
-                </th>
-                <th onClick={() => this.props.sortDrop("bpname", 2)}>
-                  {this.props.t("Client")}{" "}
-                  {this.props.dropOrder[2] === 1 ? "▼" : "▲"}
-                </th>
-                <th onClick={() => this.props.sortDrop("routecode", 12)}>
-                  {this.props.t("Route Code")}{" "}
-                  {this.props.dropOrder[12] === 1 ? "▼" : "▲"}
-                </th>
-
-                <th onClick={() => this.props.sortDrop("docnum", 0)}>
-                  {this.props.t("Transaction No")}{" "}
-                  {this.props.dropOrder[0] === 1 ? "▼" : "▲"}
-                </th>
-
-                <th>Picker</th>
-
-                <th onClick={() => this.props.sortDrop("docdate", 11)}>
-                  {this.props.t("Date")}{" "}
-                  {this.props.dropOrder[11] === 1 ? "▼" : "▲"}
-                </th>
-                <th onClick={() => this.props.sortDrop("Priority", 13)}>
-                  {this.props.t("Priority")}{" "}
-                  {this.props.dropOrder[13] === 1 ? "▼" : "▲"}
-                </th>
-                <th onClick={() => this.props.sortDrop("type", 8)}>
-                  {this.props.t("Status")}{" "}
-                  {this.props.dropOrder[8] === 1 ? "▼" : "▲"}
-                </th>
-                <th onClick={() => this.props.sortDrop("weight", 14)}>
-                  Weight
-                  {this.props.dropOrder[14] === 1 ? "▼" : "▲"}
-                </th>
-                <th onClick={() => this.props.sortDrop("quantity", 16)}>
-                  No. of Lines
-                  {this.props.dropOrder[16] === 1 ? "▼" : "▲"}
-                </th>
-                <th onClick={() => this.props.sortDrop("quantity", 16)}>
-                  Cases
-                  {this.props.dropOrder[16] === 1 ? "▼" : "▲"}
-                </th>
-
-                <th onClick={() => this.props.sortDrop("carrier", 15)}>
-                  {this.props.t("Carrier")}
-                  {this.props.dropOrder[15] === 1 ? "▼" : "▲"}
-                </th>
-                <th onClick={() => this.props.sortDrop("doctype", 3)}>
-                  {this.props.t("Type")}{" "}
-                  {this.props.dropOrder[3] === 1 ? "▼" : "▲"}
-                </th>
-                <th onClick={() => this.props.sortDrop("poscode", 4)}>
-                {this.props.t("City")}{" "}
-                  {this.props.dropOrder[4] === 1 ? "▼" : "▲"}
-                </th>
-                <th onClick={() => this.props.sortDrop("site", 9)}>
-                  {this.props.t("Site")}{" "}
-                  {this.props.dropOrder[9] === 1 ? "▼" : "▲"}
-                </th>
-                <th>Preparation List</th>
-                <th onClick={() => this.props.sortDrop("vehicleCode", 7)}>
-                  {this.props.t("Vehicle")}{" "}
-                  {this.props.dropOrder[7] === 1 ? "▼" : "▲"}
-                </th>
-                {/* <th onClick={() => this.props.sortDrop("Trailer", 10)}>
-                  {this.props.t("Trailer")}{" "}
-                  {this.props.dropOrder[10] === 1 ? "▼" : "▲"}
-                </th> */}
-
-                <th>{this.props.t("Driver")}</th>
-
-                <th>{this.props.t("tripno")} </th>
-
-                <th>{this.props.t("Add Code")}</th>
-                <th>{this.props.t("Add Desc")}</th>
-
-                {/* <th onClick = { () => this.props.sortDrop('netweight', 5)}>
-                                                                        Mass {this.props.dropOrder[5] === 1 ? "▼" : "▲"}
-                                                                    </th> */}
-                {/* <th onClick = { () => this.props.sortDrop('volume', 6)}>
-                                                                        Volume {this.props.dropOrder[6] === 1 ? "▼" : "▲"}
-                                                                    </th> */}
-                <th>Info</th>
-
-                <th>{this.props.t("ServiceTime")}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {(filteredExternalDrops || []).map((drops, i) => {
-                let logisticDetails = {};
-                logisticDetails.loadBay = drops.loadBay && drops.loadBay;
-                logisticDetails.tailGate = drops.tailGate && drops.tailGate;
-                logisticDetails.waitingTime =
-                  drops.waitingTime && formatTime(drops.waitingTime);
-                logisticDetails.stackHeight =
-                  drops.stackHeight && nullAndNanChecking(drops.stackHeight);
-                logisticDetails.timings =
-                  drops.timings && nullAndNanChecking(drops.timings);
-                logisticDetails.packing = drops.packing && drops.packing;
-                logisticDetails.height = drops.height && drops.height;
-                logisticDetails.loadingOrder =
-                  drops.loadingOrder && drops.loadingOrder;
-                logisticDetails.allDrivers =
-                  drops.allDrivers && drops.allDrivers;
-                logisticDetails.driverList =
-                  drops.driverList && drops.driverList;
-                logisticDetails.allVehClass =
-                  drops.allVehClass && drops.allVehClass;
-                logisticDetails.vehClassList =
-                  drops.vehClassList && drops.vehClassList;
-                logisticDetails.fromTime =
-                  drops.fromTime && drops.fromTime.length > 1
-                    ? drops.fromTime.split(" ")
-                    : drops.fromTime;
-                logisticDetails.toTime =
-                  drops.toTime && drops.toTime.length > 1
-                    ? drops.toTime.split(" ")
-                    : drops.toTime;
-                logisticDetails.availDays = drops.availDays && drops.availDays;
-
-                if (drops.optistatus && drops.optistatus == "dragged") {
-                  return "";
-                } else {
-                  return (
-                    <tr
-                      id={"drops" + i}
-                      className={this.dragStyle(drops.type, drops.dlvystatus)}
-                      draggable={
-                        drops.type === "open" &&
-                        (drops.dlvystatus == "0" || drops.dlvystatus == "8")
-                          ? "true"
-                          : "false"
-                      }
-                      style={{
-                        backgroundColor: this.getColor(drops),
-                        padding: "10px",
-                        margin: "5px 0",
-                        borderRadius: "5px",
-                      }}
-                      onDragStart={(event) =>
-                        this.props.handleDragStart(event, drops, "drops", i)
-                      }
-                      key={"drops" + i}
-                    >
-                      <td className="pl-2">
-                        <input
-                    
-                          type="checkbox"
-                          name="docsCheckBox"
-                          onClick={() =>
-                            this.props.updateDocsGeoLocations(i, drops)
-                          }
-                          style={{
-                            width: '17px',
-                            height: '17px',
-                          }}
-                        />
-                      </td>
-                      <td>
+              <td style={{ width: 30 }}>
+                <input
+                  type="checkbox"
+                  onClick={() =>
+                    this.props.updateDocsGeoLocations(index, drops)
+                  }
+                  style={{ width: "17px", height: "17px" }}
+                />
+              </td>
+               <td style={{ width: 80 }}>
                         {drops.movtype === "DROP" ? (
                           <img
                             draggable={
@@ -865,29 +804,8 @@ class Drops3 extends React.Component {
                           ></i>
                         )}
                       </td>
-                      <td> {this.navigateToCustomer(drops)}</td>
-
-                      {/* <td style={{ fontSize: "14px", fontWeight: "bold" }}>
-                        {" "}
-                        <a
-                          href="#"
-                          style={{
-                            cursor:
-                              drops.type === "open" && (drops.dlvystatus === "0" || drops.dlvystatus === "8")
-                                ? "pointer"
-                                : "default",
-                          }}
-
-                          
-                  
-                          onClick={() =>
-                            this.onInfoClick(logisticDetails, drops.docnum)
-                          }
-                        >
-                          {drops.bpname}{" "}
-                        </a>
-                      </td> */}
-                      <td style={{ fontSize: "14px", fontWeight: "bold" }}>
+              <td style={{ width: 120 }}>{this.navigateToCustomer(drops)}</td>
+              <td style={{ fontSize: "14px", fontWeight: "bold" ,width: 220 }}>
                         <a
                           href="#"
                           style={{
@@ -910,101 +828,71 @@ class Drops3 extends React.Component {
                           {drops.bpname}{" "}
                         </a>
                       </td>
-
-                      <td>
-                        {drops.routeCodeDesc &&
+              <td style={{ width: 180 }}> {drops.routeCodeDesc &&
                           this.displayRouteCodeColor(
                             drops.routeCodeDesc,
                             drops.routeColor
-                          )}
-                      </td>
-                      <td>
-                        {/* <span style= {{ cursor: 'pointer'}} onClick= {() => this.onDocClick(drops.products, drops.docnum)}>{drops.docnum}</span> */}
-                        <span
-                          onClick={() =>
-                            this.onDocClick(
-                              drops.products,
-                              drops.docnum,
-                              drops.doctype,
-                              drops.skills
-                            )
-                          }
-                        >
-                          {drops.docnum}
-                        </span>
-                      </td>
-                      <td>{drops.picker}</td>
-                      <td width="5%">
-                        {moment.tz(drops.docdate, "").format("DD-MM-YYYY")}
-                      </td>
-                      <td width="5%">{this.displayPriority(drops)}</td>
-                      <td>
-                        {/* <span className= { this.colorStyle(drops.type) }>{drops.type}</span> */}
-                        <td width="3%">
-                          {this.displayDropStatus(drops.type, drops.dlvystatus)}
-                        </td>
-                      </td>
-                      <td>
-                        {drops.netweight == 0 ? "" : drops.netweight}{" "}
-                        {drops.netweight == 0 ? "" : drops.weightunit}
-                      </td>
-                      <td className="text-center">{drops.products?.length}</td>
-                      <td className="text-center">{this.getproductsTotalQuantity(drops.products)}</td>
-                      <td>
-                        {" "}
-                        {drops.carrier &&
-                          this.displayCarrierColor(
-                            drops.carrier,
-                            drops.carrierColor
-                          )}
-                      </td>
-                      <td width="3%">{this.displayRouteTag(drops, lang)}</td>
-                      <td>
-                        {drops.poscode}, {drops.city}
-                      </td>
-
-                      <td style={{ fontSize: "14px", fontWeight: "bold" }}>
-                        {drops.site}
-                      </td>
-                      <td>{drops.prelistCode}</td>
-
-                      <td>{drops.vehicleCode}</td>
-                      {/* <td>{drops.trailer}</td> */}
-
-                      <td>{drops.drivercode}</td>
-
-                      <td>{drops.tripno === "0" ? "" : drops.tripno}</td>
-
-                      <td>{drops.adrescode}</td>
-                      <td>{drops.adresname}</td>
-                      {/* <td>{drops.doctype ? drops.doctype : drops.movtype}</td> */}
-
-                      {/* <td>{drops.netweight} {drops.weightunit}</td>
-                                            <td>{drops.volume} {drops.volume_unit}</td> */}
-                      <td data-toggle="tooltip" data-placement="top">
-                        <a
-                          draggable={
-                            drops.type === "open" &&
-                            (drops.dlvystatus === "0" ||
-                              drops.dlvystatus === "8")
-                          }
-                          href="#"
-                          onClick={() =>
-                            this.onInfoClick(logisticDetails, drops.docnum)
-                          }
-                        >
-                          <i class="fa fa-info-circle" aria-hidden="true"></i>
-                        </a>
-                      </td>
-
-                      <td>{formatTime(convertHrToSec(drops.serviceTime))}</td>
-                    </tr>
-                  );
-                }
-              })}
-            </tbody>
-          </table>
-
+                          )}</td>
+              <td style={{ width: 220 }}>
+                <span
+                  onClick={() =>
+                    this.onDocClick(
+                      drops.products,
+                      drops.docnum,
+                      drops.doctype,
+                      drops.skills
+                    )
+                  }
+                >
+                  {drops.docnum}
+                </span>
+              </td>
+              <td style={{ width: 120 }}>{drops.picker}</td>
+              <td style={{ width: 120 }}>{moment.tz(drops.docdate, "").format("DD-MM-YYYY")}</td>
+              <td style={{ width: 120 }}>{this.displayPriority(drops)}</td>
+              <td style={{ width: 120 }}>
+                {this.displayDropStatus(drops.type, drops.dlvystatus, drops.reschFlg)}
+              </td>
+              <td style={{ width: 120 }}>
+                {drops.netweight === 0 ? "" : drops.netweight}{" "}
+                {drops.netweight === 0 ? "" : drops.weightunit}
+              </td>
+              <td className="text-center" style={{ width: 60 }}>{drops.products?.length}</td>
+              <td className="text-center" style={{ width: 60 }}>
+                {this.getproductsTotalQuantity(drops.products)}
+              </td>
+              <td style={{ width: 120 }}>
+                {drops.carrier &&
+                  this.displayCarrierColor(drops.carrier, drops.carrierColor)}
+              </td>
+              <td style={{ width: 120 }}>{this.displayRouteTag(drops, localStorage.getItem("i18nextLng"))}</td>
+              <td style={{ width: 120 }}>{drops.poscode}, {drops.city}</td>
+              <td style={{ width: 90 }}>{drops.site}</td>
+              <td style={{ width: 120 }}>{drops.prelistCode}</td>
+              <td style={{ width: 90 }}>{drops.vehicleCode}</td>
+              <td style={{ width: 90 }}>{drops.drivercode}</td>
+              <td style={{ width: 60 }}>{drops.tripno === "0" ? "" : drops.tripno}</td>
+              <td style={{ width: 120 }}>{drops.adrescode}</td>
+              <td style={{ width: 120 }}>{drops.adresname}</td>
+              <td style={{ width: 90 }}>
+                <a
+                  href="#"
+                  onClick={() =>
+                    this.onInfoClick(logisticDetails, drops.docnum)
+                  }
+                >
+                  <i className="fa fa-info-circle" />
+                </a>
+              </td>
+              <td style={{ width: 90 }}>{formatTime(convertHrToSec(drops.serviceTime))}</td>
+            </tr>
+          </tbody>
+        </table>
+      );
+    }}
+  </FixedSizeList>
+</div>
+</div>
           <DisplayProducts
             routeCodes={this.props.routeCodes}
             currDropsPanel={this.props.currDropsPanel}
@@ -1030,7 +918,7 @@ class Drops3 extends React.Component {
             dataType="object"
             docNum={this.state.docNumber}
           ></DisplayInformationIconDetails2>
-        </div>
+       
       </TabPane>
     );
   }
