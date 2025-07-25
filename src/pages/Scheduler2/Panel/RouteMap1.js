@@ -1233,7 +1233,7 @@ class RouteMap extends React.Component {
                   <th width="6%">{this.props.t("Site")}</th>
                   <th width="6%">{this.props.t("Client Code")}</th>
                   <th width="6%">{this.props.t("Client")}</th>
-                  <th width="6%">{this.props.t("postal City")}</th>
+                  <th width="6%">{this.props.t("Postal City")}</th>
                   <th width="6%">{this.props.t("Weight")}</th>
                   <th width="6%">{this.props.t("Volume")}</th>
                   <th width="6%">{this.props.t("Arrival")}</th>

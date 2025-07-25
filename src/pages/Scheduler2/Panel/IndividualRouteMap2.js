@@ -476,7 +476,7 @@ class IndividualRouteMap2 extends React.Component {
                 {Object.keys(this.props.siteDetails).length > 0 && (
                   <GoogleMapReact
                     bootstrapURLKeys={{
-                      key: "AIzaSyCezUPUlJ28J6S_1o7TDwjoKW2si4o4U4c",
+                      key: "AIzaSyAgLp4IWxgo22lGxq-gP7_0p2bDJA_tbcc",
                       language: "en",
                       region: "US",
                     }}

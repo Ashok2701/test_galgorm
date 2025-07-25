@@ -55,262 +55,7 @@ class DocumentsPanel extends React.Component {
       ValidateRecords: false,
     };
     this.toggleTab = this.toggleTab.bind(this);
-    this.handleSearchDropsValue = this.handleSearchDropsValue.bind(this);
   }
-
-
-  
- componentDidMount() {
-    this.updateFilteredData();
-  }
-
-
-
-  componentDidUpdate(prevProps, prevState) {
-    if (
-      prevProps.searchDrp !== this.props.searchDrp ||
-      prevProps.dropsPanel !== this.props.dropsPanel ||
-      prevProps.searchTrip !== this.props.searchTrip ||
-      prevProps.tripsList !== this.props.tripsList ||
-      prevProps.selectedRouteCodeArr !== this.props.selectedRouteCodeArr ||
-      prevState.openRecords !== this.state.openRecords ||
-      prevState.LockedRecords !== this.state.LockedRecords ||
-      prevState.ValidateRecords !== this.state.ValidateRecords ||
-      prevState.OptimisedRecords !== this.state.OptimisedRecords ||
-      prevState.ToPlanchecked !== this.state.ToPlanchecked ||
-      prevState.Todropchecked !== this.state.Todropchecked ||
-      prevState.ToPickchecked !== this.state.ToPickchecked
-    ) {
-      this.updateFilteredData();
-    }
-  }
-
-
-
-  handleSearchDropsValue(value) {
-    console.log("handle search drops", value)
-    const term = typeof value === "string" ? value : String(value?.target?.value || "");
-    this.setState({ searchDrpTerm: term }, () => {
-    
-      this.updateFilteredData();
-    });
-  }
-
-  handleSearchTripsValue(value) {
-    const term = typeof value === "string" ? value : String(value?.target?.value || "");
-    this.setState({ searchTripTerm: term }, () => {
-    
-      this.updateFilteredData();
-    });
-  }
-
-
-
-  
-  updateFilteredData() {
-  console.time("updateFilteredData total");
-
-  const site = "";
-  const searchDrpTerm = String(this.state.searchDrpTerm || "").toLowerCase().trim();
-  const searchTripTerm = String(this.state.searchTripTerm || "").toLowerCase().trim();
-
-  const selectedRouteCodes = this.props.selectedRouteCodeArr || [];
-  const dropsPanel = this.props.dropsPanel || [];
-  const tripsList = this.props.tripsList || [];
-
-  const noSearch = searchDrpTerm.length <= 1;
-  const noRouteCodeFilter = selectedRouteCodes.length === 0;
-  const noCheckboxFilters = !(
-    this.state.ToPlanchecked ||
-    this.state.Todropchecked ||
-    this.state.ToPickchecked ||
-    this.state.ToDeliverable ||
-    this.state.ToNotDeliverable
-  );
-
-  // 🔄 Fast path: nothing is filtered
-  if (noSearch && noRouteCodeFilter && noCheckboxFilters) {
-    console.time("count categories");
-    const internalCount = dropsPanel.filter(d => d.carrier === "INTERNAL").length;
-    const externalCount = dropsPanel.filter(d => ["EXTERNAL", "DPD", "MONTGOMERY"].includes(d.carrier)).length;
-    const collectionCount = dropsPanel.filter(d => d.carrier === "COLLECTIONS").length;
-    console.timeEnd("count categories");
-
-    console.time("filter trips (no filter)");
-    const filteredTrips = [...tripsList];
-    console.timeEnd("filter trips (no filter)");
-
-    this.setState({ filteredDrops: dropsPanel, filteredTrips, internalCount, externalCount, collectionCount }, () => {
-      console.timeEnd("updateFilteredData total");
-    });
-    return;
-  }
-
-  // 🔎 Drops filtering
-  console.time("filter drops");
-  let filteredDrops = dropsPanel.filter(drop => {
-    if (
-      this.state.ToPlanchecked &&
-      !this.state.Todropchecked &&
-      !this.state.ToPickchecked &&
-      !this.state.ToDeliverable &&
-      !this.state.ToNotDeliverable
-    ) {
-      return drop.type === "open" && ["0", "8"].includes(drop.dlvystatus);
-    }
-    if (!this.state.ToPlanchecked && this.state.Todropchecked && !this.state.ToPickchecked) {
-      return drop.movtype === "DROP";
-    }
-    if (!this.state.ToPlanchecked && !this.state.Todropchecked && this.state.ToPickchecked) {
-      return drop.movtype === "PICK";
-    }
-    return true;
-  });
-  console.timeEnd("filter drops");
-
-  if (!noRouteCodeFilter) {
-    console.time("filter by route code");
-    filteredDrops = filteredDrops.filter(drop => selectedRouteCodes.includes(drop.routeCodeDesc));
-    console.timeEnd("filter by route code");
-  }
-
-  if (!noSearch) {
-    console.time("filter by search");
-    const matches = (val) => val?.toLowerCase().includes(searchDrpTerm);
-    filteredDrops = filteredDrops.filter(drop =>
-      matches(drop.docnum) ||
-      matches(drop.bpcode) ||
-      matches(drop.bpname) ||
-      matches(drop.doctype) ||
-      matches(drop.poscode) ||
-      matches(drop.type) ||
-      matches(drop.city) ||
-      matches(drop.routeCodeDesc) ||
-      String(drop.netweight) === searchDrpTerm ||
-      String(drop.volume) === searchDrpTerm
-    );
-    console.timeEnd("filter by search");
-  }
-
-  console.time("count categories");
-  const internalCount = filteredDrops.filter(d => d.carrier === "INTERNAL").length;
-  const externalCount = filteredDrops.filter(d => ["EXTERNAL", "DPD", "MONTGOMERY"].includes(d.carrier)).length;
-  const collectionCount = filteredDrops.filter(d => d.carrier === "COLLECTIONS").length;
-  console.timeEnd("count categories");
-
-  // 🚚 Trips filtering
-  console.time("filter trips");
-  let filteredTrips = tripsList.filter(trip => {
-    const filters = [];
-    if (this.state.openRecords) filters.push(trip => trip.optistatus === "Open");
-    if (this.state.LockedRecords) filters.push(trip => trip.lock === true);
-    if (this.state.ValidateRecords) filters.push(trip => trip.tmsValidated === true);
-    if (this.state.OptimisedRecords) filters.push(trip => trip.optistatus === "Optimized");
-    return filters.length === 0 || filters.some(fn => fn(trip));
-  });
-
-  if (searchTripTerm.length > 1) {
-    filteredTrips = filteredTrips.filter(trip =>
-      trip.itemCode?.toLowerCase().includes(searchTripTerm) ||
-      trip.code?.toLowerCase().includes(searchTripTerm) ||
-      trip.driverName?.toLowerCase().includes(searchTripTerm)
-    );
-  }
-  console.timeEnd("filter trips");
-
-  this.setState({ filteredDrops, filteredTrips, internalCount, externalCount, collectionCount }, () => {
-    console.timeEnd("updateFilteredData total");
-  });
-}
-
-
-  updateFilteredData222() {
-    
-    console.time("updateFilteredData total"); // ⏱️ Start timing
-    const site = "";
-    const searchDrpTerm = String(this.state.searchDrpTerm || "").toLowerCase().trim();
-    const searchTripTerm = String(this.state.searchTripTerm || "").toLowerCase().trim();
-
-   
-console.log("data insdie updateFilteredDAta", searchDrpTerm)
-    let filteredDrops = (this.props.dropsPanel || []).filter(drop => {
-      if (
-        this.state.ToPlanchecked &&
-        !this.state.Todropchecked &&
-        !this.state.ToPickchecked &&
-        !this.state.ToDeliverable &&
-        !this.state.ToNotDeliverable
-      ) {
-        return drop.type === "open" && ["0", "8"].includes(drop.dlvystatus);
-      }
-      if (!this.state.ToPlanchecked && this.state.Todropchecked && !this.state.ToPickchecked) {
-        return drop.movtype === "DROP";
-      }
-      if (!this.state.ToPlanchecked && !this.state.Todropchecked && this.state.ToPickchecked) {
-        return drop.movtype === "PICK";
-      }
-      return true;
-    });
-    console.timeEnd("filter drops");
-
-    console.time("filter by route"); // Optional
-    // Route description filtering (by selectedRouteCodeArr)
-    if (this.props.selectedRouteCodeArr && this.props.selectedRouteCodeArr.length > 0) {
-      const SelectedRouteCodes = this.props.selectedRouteCodeArr;
-      filteredDrops = filteredDrops.filter(drop => SelectedRouteCodes.includes(drop.routeCodeDesc));
-    }
-
-     console.timeEnd("filter by route");
-
-  console.time("filter by search"); // Optional
-    if (searchDrpTerm.length > 1) {
-      const matches = (val) => val?.toLowerCase().includes(searchDrpTerm);
-      filteredDrops = filteredDrops.filter(drop =>
-        matches(drop.docnum) ||
-        matches(drop.bpcode) ||
-        matches(drop.bpname) ||
-        matches(drop.doctype) ||
-        matches(drop.poscode) ||
-        matches(drop.type) ||
-        matches(drop.city) ||
-        matches(drop.routeCodeDesc) ||
-        String(drop.netweight) === searchDrpTerm ||
-        String(drop.volume) === searchDrpTerm
-      );
-    }
- console.timeEnd("filter by search");
-
-  console.time("count categories"); // Count types
-    const internalCount = filteredDrops.filter(d => d.carrier === "INTERNAL").length;
-    const externalCount = filteredDrops.filter(d => ["EXTERNAL", "DPD", "MONTGOMERY"].includes(d.carrier)).length;
-    const collectionCount = filteredDrops.filter(d => d.carrier === "COLLECTIONS").length;
-console.timeEnd("count categories");
-
-  console.time("filter trips");
-    let filteredTrips = (this.props.tripsList || []).filter(trip => {
-      const tripFilters = [];
-      if (this.state.openRecords) tripFilters.push(trip => trip.optistatus === "Open");
-      if (this.state.LockedRecords) tripFilters.push(trip => trip.lock === true);
-      if (this.state.ValidateRecords) tripFilters.push(trip => trip.tmsValidated === true);
-      if (this.state.OptimisedRecords) tripFilters.push(trip => trip.optistatus === "Optimized");
-      return tripFilters.length === 0 || tripFilters.some(fn => fn(trip));
-    });
-
-    if (searchTripTerm.length > 1) {
-      filteredTrips = filteredTrips.filter(trip =>
-        trip.itemCode?.toLowerCase().includes(searchTripTerm) ||
-        trip.code?.toLowerCase().includes(searchTripTerm) ||
-        trip.driverName?.toLowerCase().includes(searchTripTerm)
-      );
-    
-    }
-console.timeEnd("filter trips");
-   this.setState({ filteredDrops, filteredTrips, internalCount, externalCount, collectionCount }, () => {
-    console.timeEnd("updateFilteredData total"); // ⏱️ End timing
-  });
-  
-  }
-
 
   checkBoxChange = () => {
     // 
@@ -444,37 +189,617 @@ console.timeEnd("filter trips");
   };
 
   render() {
+    const site = "";
+    // 
+    //const currDate = moment(this.props.selectedDate).format('YYYY-MM-DD');
+    const currDate = moment
+      .tz(this.props.selectedDate, "")
+      .format("YYYY-MM-DD");
+    const today = moment().format('YYYY-MM-DD');
+
+    let SelectedDate = "";
+
+    if (this.props.currentView != "TimelineWorkWeek") {
+      if (this.props.documentPanel_dateflg) {
+        // 
+        // 
+        // 
+        SelectedDate = this.props.documentPanel_date;
+
+        // 
+      } else {
+        SelectedDate = today
+      }
+    }
+
+
+    let filterTrips;
+    
+
+    if (this.props.tripsList) {
+      // 
+      filterTrips = this.props.tripsList.filter((trip) => {
+        // 
+        // 
+        if (
+          this.state.openRecords &&
+          this.state.LockedRecords &&
+          this.state.ValidateRecords &&
+          this.state.OptimisedRecords
+        ) {
+     
+          return (
+            trip.optistatus === "Open" ||
+            trip.optistatus === "Optimized" ||
+            trip.lock === true ||
+            trip.tmsValidated === true
+          );
+        }
+        if (
+          !this.state.openRecords &&
+          this.state.LockedRecords &&
+          this.state.ValidateRecords &&
+          this.state.OptimisedRecords
+        ) {
+       
+          return (
+            trip.optistatus === "Optimized" ||
+            trip.lock === true ||
+            trip.tmsValidated === true
+          );
+        }
+        if (
+          this.state.openRecords &&
+          !this.state.LockedRecords &&
+          this.state.ValidateRecords &&
+          this.state.OptimisedRecords
+        ) {
+       
+          return (
+            (trip.optistatus === "Open" ||
+              trip.tmsValidated === true) ||
+            (trip.optistatus === "Optimized" && trip.lock !== true)
+          );
+        }
+        if (
+          this.state.openRecords &&
+          this.state.LockedRecords &&
+          !this.state.ValidateRecords &&
+          this.state.OptimisedRecords
+        ) {
+    
+          return (
+            (trip.optistatus === "Open" ||
+              trip.optistatus === "Optimized" ||
+              trip.lock === true) && trip.tmsValidated == false
+          );
+        }
+        if (
+          this.state.openRecords &&
+          this.state.LockedRecords &&
+          this.state.ValidateRecords &&
+          !this.state.OptimisedRecords
+        ) {
   
-    const {
-  filteredDrops = [],
-  filteredTrips = [],
-  internalCount,
-  externalCount,
-  collectionCount
-} = this.state;
+          return (
+            (trip.optistatus === "Open" || trip.lock === true || trip.tmsValidated === true) && ![5, 6, 7, 10].includes(trip.lvsStatus)
+          );
+        }
+        // 2 elements
+        if (
+          this.state.openRecords &&
+          this.state.LockedRecords &&
+          !this.state.ValidateRecords &&
+          !this.state.OptimisedRecords
+        ) {
+      
+          return (trip.optistatus === "Open" || trip.lock === true) && trip.tmsValidated == false
+        }
+        if (
+          this.state.openRecords &&
+          !this.state.LockedRecords &&
+          this.state.ValidateRecords &&
+          !this.state.OptimisedRecords
+        ) {
+          return (
+            (trip.optistatus === "Open" || trip.tmsValidated === true) &&
+            ![5, 6, 7, 10].includes(trip.lvsStatus)
+          );
+        }
+        if (
+          this.state.openRecords &&
+          !this.state.LockedRecords &&
+          !this.state.ValidateRecords &&
+          this.state.OptimisedRecords
+        ) {
+    
+          return ((trip.optistatus === "Open" || trip.optistatus === "Optimized") && trip.tmsValidated == false && trip.lock == false
+          )
 
-   // const { filteredDrops, filteredTrips, internalCount, externalCount, collectionCount } = this.state;
+        }
+        if (
+          !this.state.openRecords &&
+          this.state.LockedRecords &&
+          this.state.ValidateRecords &&
+          !this.state.OptimisedRecords
+        ) {
+      
+          return trip.lock === true || trip.tmsValidated === true;
+        }
+        if (
+          !this.state.openRecords &&
+          this.state.LockedRecords &&
+          !this.state.ValidateRecords &&
+          this.state.OptimisedRecords
+        ) {
+     
+          return ((trip.optistatus === "Optimized" || trip.lock === true) && trip.tmsValidated == false
 
-    const SelectedDate = moment.tz(this.props.selectedDate, '').format('YYYY-MM-DD');
+          );
+        }
+        if (
+          !this.state.openRecords &&
+          !this.state.LockedRecords &&
+          this.state.ValidateRecords &&
+          this.state.OptimisedRecords
+        ) {
+     
+          return (
+            (trip.optistatus === "Optimized" && trip.lock === false) ||
+            (trip.tmsValidated === true && trip.lock === true)
+          );
 
-    let OpenTripsCount = filteredTrips.filter(trip => trip.optistatus === 'Open').length;
-    let OptimisedTripsCount = filteredTrips.filter(trip => trip.optistatus === 'Optimized' && trip.lock === false).length;
-    let LockedTripsCount = filteredTrips.filter(trip => trip.lock === true && trip.optistatus === 'Optimized' && !trip.tmsValidated).length;
-    let ValidatedTripsCount = filteredTrips.filter(trip => trip.tmsValidated && ![5, 6, 7, 10].includes(trip.lvsStatus)).length;
 
-    let ToPlanCount = filteredDrops.filter(drop => drop.type === 'open' && ['0', '8'].includes(drop.dlvystatus)).length;
-    let OutboundCount = filteredDrops.filter(drop => drop.movtype === 'DROP').length;
-    let InboundCount = filteredDrops.filter(drop => drop.movtype === 'PICK').length;
+        }
 
-    let externalToplan = filteredDrops.filter(drop => drop.type === 'open' && ['0', '8'].includes(drop.dlvystatus) && ['EXTERNAL', 'DPD', 'MONTGOMERY'].includes(drop.carrier)).length;
-    let externalOutbound = filteredDrops.filter(drop => drop.movtype === 'DROP' && ['EXTERNAL', 'DPD', 'MONTGOMERY'].includes(drop.carrier)).length;
-    let externalInbound = filteredDrops.filter(drop => drop.movtype === 'PICK' && ['EXTERNAL', 'DPD', 'MONTGOMERY'].includes(drop.carrier)).length;
+        //1 element
+        if (
+          this.state.openRecords &&
+          !this.state.LockedRecords &&
+          !this.state.ValidateRecords &&
+          !this.state.OptimisedRecords
+        ) {
+  
+          return trip.optistatus === "Open";
+        }
+        if (
+          !this.state.openRecords &&
+          this.state.LockedRecords &&
+          !this.state.ValidateRecords &&
+          !this.state.OptimisedRecords
+        ) {
+     
+          return trip.lock === true && trip.tmsValidated === false;
+        }
+        if (
+          !this.state.openRecords &&
+          !this.state.LockedRecords &&
+          this.state.ValidateRecords &&
+          !this.state.OptimisedRecords
+        ) {
+      
+          return trip.tmsValidated === true;
+        }
+        if (
+          !this.state.openRecords &&
+          !this.state.LockedRecords &&
+          !this.state.ValidateRecords &&
+          this.state.OptimisedRecords
+        ) {
+          
+          return (
+            trip.optistatus === "Optimized" && trip.lock === false && trip.tmsValidated === false
+          );
+        } else {
+         
+          return trip;
+        }
+      });
 
-    let collectionToPan = filteredDrops.filter(drop => drop.type === 'open' && ['0', '8'].includes(drop.dlvystatus) && drop.carrier === 'COLLECTIONS').length;
-    let collectionOutbound = filteredDrops.filter(drop => drop.movtype === 'DROP' && drop.carrier === 'COLLECTIONS').length;
-    let collectionInbound = filteredDrops.filter(drop => drop.movtype === 'PICK' && drop.carrier === 'COLLECTIONS').length;
+    
+      if (this.props.searchTrip.length > 1) {
+        filterTrips = filterTrips.filter((trip) => {
+          return (
+            trip.itemCode
+              .toLowerCase()
+              .indexOf(this.props.searchTrip.toLowerCase()) !== -1 ||
+            trip.code
+              .toLowerCase()
+              .indexOf(this.props.searchTrip.toLowerCase()) !== -1 ||
+            trip.driverName
+              .toLowerCase()
+              .indexOf(this.props.searchTrip.toLowerCase()) !== -1
+          );
 
- 
+          // 
+        });
+      }
+    }
+
+    let filterDrops;
+    let filterPickups;
+    if (this.props.dropsPanel) {
+      filterDrops = this.props.dropsPanel.filter((drop) => {
+        if (
+          this.state.ToPlanchecked &&
+          !this.state.Todropchecked &&
+          !this.state.ToPickchecked &&
+          !this.state.ToDeliverable &&
+          !this.state.ToNotDeliverable
+        ) {
+          return (
+            drop.type === "open" &&
+            (drop.dlvystatus === "0" || drop.dlvystatus === "8")
+          );
+        } else if (
+          !this.state.ToPlanchecked &&
+          this.state.Todropchecked &&
+          !this.state.ToPickchecked
+        ) {
+          return drop.movtype === "DROP";
+        } else if (
+          !this.state.ToPlanchecked &&
+          !this.state.Todropchecked &&
+          this.state.ToPickchecked
+        ) {
+          return drop.movtype === "PICK";
+        } else if (
+          this.state.ToPlanchecked &&
+          this.state.Todropchecked &&
+          !this.state.ToPickchecked
+        ) {
+          return (
+            drop.type === "open" &&
+            (drop.dlvystatus === "0" || drop.dlvystatus === "8") &&
+            drop.movtype === "DROP"
+          );
+        } else if (
+          this.state.ToPlanchecked &&
+          !this.state.Todropchecked &&
+          this.state.ToPickchecked
+        ) {
+          return (
+            drop.type === "open" &&
+            (drop.dlvystatus === "0" || drop.dlvystatus === "8") &&
+            drop.movtype === "PICK"
+          );
+        } else {
+          return drop;
+        }
+
+        
+
+        /*
+                    if(site === ""){
+                      return ((drop.docnum.toLowerCase().indexOf(
+                                              this.props.searchDrp.toLowerCase()
+                                          ) !== -1) || (drop.bpcode.toLowerCase().indexOf(
+                                              this.props.searchDrp.toLowerCase()
+                                          ) !== -1) || (drop.bpname.toLowerCase().indexOf(
+                                              this.props.searchDrp.toLowerCase()
+                                          ) !== -1) || (drop.doctype.toLowerCase().indexOf(
+                                              this.props.searchDrp.toLowerCase()
+                                          ) !== -1) || (drop.poscode.toLowerCase().indexOf(
+                                              this.props.searchDrp.toLowerCase()
+                                          ) !== -1) || (String(drop.netweight).indexOf(
+                                              this.props.searchDrp.toLowerCase()
+                                          ) !== -1) || (String(drop.volume).indexOf(
+                                              this.props.searchDrp.toLowerCase()
+                                          ) !== -1)  || (drop.type.toLowerCase().indexOf(
+                                              this.props.searchDrp.toLowerCase()
+                                          ) !== -1));
+
+                    }
+                    else {
+                       return (((drop.docnum.toLowerCase().indexOf(
+                                               this.props.searchDrp.toLowerCase()
+                                           ) !== -1) || (drop.bpcode.toLowerCase().indexOf(
+                                               this.props.searchDrp.toLowerCase()
+                                           ) !== -1) || (drop.bpname.toLowerCase().indexOf(
+                                               this.props.searchDrp.toLowerCase()
+                                           ) !== -1) || (drop.doctype.toLowerCase().indexOf(
+                                               this.props.searchDrp.toLowerCase()
+                                           ) !== -1) || (drop.poscode.toLowerCase().indexOf(
+                                               this.props.searchDrp.toLowerCase()
+                                           ) !== -1) || (String(drop.netweight).indexOf(
+                                               this.props.searchDrp.toLowerCase()
+                                           ) !== -1) || (String(drop.volume).indexOf(
+                                               this.props.searchDrp.toLowerCase()
+                                           ) !== -1)  || (drop.type.toLowerCase().indexOf(
+                                               this.props.searchDrp.toLowerCase()
+                                           ) !== -1)) && (drop.site === site));
+                    }
+                    */
+      });
+
+      
+      if (this.props?.selectedRouteCodeArr && this.props?.selectedRouteCodeArr.length > 0) {
+        let SelectedRouteCodes = this.props.selectedRouteCodeArr;
+        filterDrops = filterDrops.filter((drop) => {
+          return SelectedRouteCodes.includes(drop.routeCodeDesc);
+        });
+      }
+
+      // if (this.props.searchDrp.length > 1) {
+
+      //   
+      //   filterDrops = filterDrops.filter((drop) => {
+      //     // 
+      //     if (site === "") {
+      //       return (
+      //         drop.docnum
+      //           .toLowerCase()
+      //           .indexOf(this.props.searchDrp.toLowerCase()) !== -1 ||
+      //         // drop.bpcode?.toLowerCase()
+      //         //   .indexOf(this.props.searchDrp.toLowerCase()) !== -1 ||
+      //         // drop.carrier
+      //         //    .toLowerCase()
+      //         //    .indexOf(this.props.searchDrp.toLowerCase()) !== -1 ||
+      //         // drop.bpname
+      //         //   .toLowerCase()
+      //         //   .indexOf(this.props.searchDrp.toLowerCase()) !== -1 ||
+      //         drop.doctype
+      //           .toLowerCase()
+      //           .indexOf(this.props.searchDrp.toLowerCase()) !== -1 ||
+      //         drop.poscode
+      //           .toLowerCase()
+      //           .indexOf(this.props.searchDrp.toLowerCase()) !== -1 ||
+      //         String(drop.netweight).indexOf(
+      //           this.props.searchDrp.toLowerCase()
+      //         ) !== -1 ||
+      //         String(drop.volume).indexOf(
+      //           this.props.searchDrp.toLowerCase()
+      //         ) !== -1 ||
+      //         drop.type
+      //           .toLowerCase()
+      //           .indexOf(this.props.searchDrp.toLowerCase()) !== -1 ||
+      //         drop.city
+      //           .toLowerCase()
+      //           .indexOf(this.props.searchDrp.toLowerCase()) !== -1 || 
+      //           drop.routeCodeDesc
+      //           .toLowerCase()
+      //           .indexOf(this.props.searchDrp.toLowerCase()) !== -1 
+      //       );
+      //     } else {
+      //       return (
+      //         (drop.docnum
+      //           .toLowerCase()
+      //           .indexOf(this.props.searchDrp.toLowerCase()) !== -1 ||
+      //           drop.bpcode
+      //             .toLowerCase()
+      //             .indexOf(this.props.searchDrp.toLowerCase()) !== -1 ||
+      //           drop.carrier
+      //             .toLowerCase()
+      //             .indexOf(this.props.searchDrp.toLowerCase()) !== -1 ||
+      //           // drop.bpname
+      //           //   .toLowerCase()
+      //           //   .indexOf(this.props.searchDrp.toLowerCase()) !== -1 ||
+      //           drop.doctype
+      //             .toLowerCase()
+      //             .indexOf(this.props.searchDrp.toLowerCase()) !== -1 ||
+      //           drop.poscode
+      //             .toLowerCase()
+      //             .indexOf(this.props.searchDrp.toLowerCase()) !== -1 ||
+      //           drop.city
+      //             .toLowerCase()
+      //             .indexOf(this.props.searchDrp.toLowerCase()) !== -1 ||
+      //           String(drop.netweight).indexOf(
+      //             this.props.searchDrp.toLowerCase()
+      //           ) !== -1 ||
+      //           String(drop.volume).indexOf(
+      //             this.props.searchDrp.toLowerCase()
+      //           ) !== -1 ||
+      //           drop.type
+      //             .toLowerCase()
+      //             .indexOf(this.props.searchDrp.toLowerCase()) !== -1) &&
+      //         drop.site === site ||
+      //         drop.routeCodeDesc
+      //           .toLowerCase()
+      //           .indexOf(this.props.searchDrp.toLowerCase()) !== -1 
+      //       );
+      //     }
+      //   });
+      // }
+      if (this.props.searchDrp.length > 1) {
+
+        const searchTerm = this.props.searchDrp.toLowerCase();
+      
+        const matchesSearchTerm = (value) => 
+          value ? value.toLowerCase().indexOf(searchTerm) !== -1 : false;
+      
+        filterDrops = filterDrops.filter((drop) => {
+          if (site === "") {
+            return (
+              matchesSearchTerm(drop.docnum) ||
+              matchesSearchTerm(drop.bpcode) ||
+              matchesSearchTerm(drop.bpname) ||
+              matchesSearchTerm(drop.doctype) ||
+              matchesSearchTerm(drop.poscode) ||
+              String(drop.netweight).indexOf(searchTerm) !== -1 ||
+              String(drop.volume).indexOf(searchTerm) !== -1 ||
+              matchesSearchTerm(drop.type) ||
+              matchesSearchTerm(drop.city) ||
+              matchesSearchTerm(drop.routeCodeDesc)
+            );
+          } else {
+            return (
+              (matchesSearchTerm(drop.docnum) ||
+               matchesSearchTerm(drop.bpcode) ||
+               matchesSearchTerm(drop.bpname) ||
+               matchesSearchTerm(drop.carrier) ||
+               matchesSearchTerm(drop.doctype) ||
+               matchesSearchTerm(drop.poscode) ||
+               matchesSearchTerm(drop.city) ||
+               String(drop.netweight).indexOf(searchTerm) !== -1 ||
+               String(drop.volume).indexOf(searchTerm) !== -1 ||
+               matchesSearchTerm(drop.type)) &&
+              drop.site === site ||
+              matchesSearchTerm(drop.routeCodeDesc)
+            );
+          }
+        });
+      }
+      
+    }
+
+
+    // 
+
+
+
+
+    // writing document for toplan status to active tour
+
+    // delete trippp
+    // if(this.props.deleteTripDocNo){
+    //   filterDrops.forEach((item)=>{
+    //     if(item.docnum == this.props.deleteTripDocNo){
+    //       item.dlvystatus = "8"; 
+    //     }
+    //   })
+    // }
+
+    // filterDrops.forEach(item => {
+    //   // 
+
+    //     if (item.docnum === this.props.selectedTripData.docnum) {
+    //       item.dlvystatus = "1";  // Update dlvyStatus to "1"
+    //     }
+
+
+    // });
+
+    if (filterDrops && Array.isArray(filterDrops)) {
+      filterDrops.forEach(item => {
+        if (item && item.docnum && this.props.selectedTripData && this.props.selectedTripData.docnum) {
+          if (item.docnum === this.props.selectedTripData.docnum) {
+            item.dlvystatus = "1";  // Update dlvyStatus to "1"
+          }
+        }
+      });
+    }
+
+
+
+    // 
+
+
+    // end of the toplain status for active tour
+
+    // 
+
+
+
+
+
+    let ToPlanCount = 0;
+    let InboundCount = 0;
+    let OutboundCount = 0;
+    let externalToplan=0;
+    let externalInbound=0;
+    let externalOutbound=0;
+
+    // for collections
+    let collectionToPan=0;
+    let collectionInbound=0;
+    let collectionOutbound=0;
+
+
+    let OpenTripsCount = 0;
+    let OptimisedTripsCount = 0;
+    let LockedTripsCount = 0;
+    let ValidatedTripsCount = 0;
+
+    this.props.tripsList &&
+      this.props.tripsList.map((trip, k) => {
+        if (trip.optistatus === "Open") {
+          OpenTripsCount = OpenTripsCount + 1;
+        }
+        if (trip.optistatus === "Optimized" && trip.lock === false) {
+          OptimisedTripsCount = OptimisedTripsCount + 1;
+        }
+        if (trip.lock === true && trip.optistatus === "Optimized" && trip.tmsValidated != true) {
+          LockedTripsCount = LockedTripsCount + 1;
+        }
+        if (trip.tmsValidated === true &&
+          ![5, 6, 7, 10].includes(trip.lvsStatus)) {
+          ValidatedTripsCount = ValidatedTripsCount + 1;
+        }
+      });
+
+    filterDrops &&
+    filterDrops.map((drop, i) => {
+        // To plan count
+        if (
+          drop.type === "open" &&
+          (drop.dlvystatus === "0" || drop.dlvystatus === "8")
+        ) {
+          ToPlanCount = ToPlanCount + 1;
+        }
+
+        // external document toplan
+        if (
+          drop.type === "open" &&
+          (drop.dlvystatus === "0" || drop.dlvystatus === "8") && drop.carrier == "EXTERNAL" || drop.carrier == "DPD" || drop.carrier == "MONTGOMERY"
+        ) {
+          // ToPlanCount = ToPlanCount + 1;
+          externalToplan+=1
+        }
+
+        // collections documents to plan
+
+        if (
+          drop.type === "open" &&
+          (drop.dlvystatus === "0" || drop.dlvystatus === "8") && drop.carrier == "COLLECTIONS"
+        ) {
+          // ToPlanCount = ToPlanCount + 1;
+          collectionToPan+=1
+        }
+
+
+        //To drop
+        if (drop.movtype === "DROP") {
+          OutboundCount = OutboundCount + 1;
+        }     
+
+        //To Pickup
+
+        if (drop.movtype === "PICK") {
+          InboundCount = InboundCount + 1;
+        }
+
+        if (drop.movtype === "DROP" && drop.carrier == "EXTERNAL" || drop.carrier == "DPD" || drop.carrier == "MONTGOMERY") {
+          // OutboundCount = OutboundCount + 1;
+          externalOutbound+=1
+        }
+
+        // collections 
+
+        if (drop.movtype === "DROP" && drop.carrier == "COLLECTIONS") {
+          // OutboundCount = OutboundCount + 1;
+          collectionOutbound+=1
+        }
+
+        if (drop.movtype === "PICK" && drop.carrier == "EXTERNAL" || drop.carrier == "DPD" || drop.carrier == "MONTGOMERY") {
+          // OutboundCount = OutboundCount + 1;
+          externalInbound+=1
+        }
+
+     
+      });
+
+
+    // 
+
+
+let externalCount = filterDrops?.filter((doc)=>doc.carrier== "EXTERNAL"|| doc.carrier == "DPD" || doc.carrier == "MONTGOMERY").length || 0;
+
+let collectionCount =  filterDrops?.filter((doc)=>doc.carrier== "COLLECTIONS").length || 0;
+
+let internalCount = filterDrops?.filter((doc)=>doc.carrier== "INTERNAL").length || 0;
+
+
+
     return (
       <>
         <div class="documentPanel" style={{ height: "100%" }}>
@@ -506,7 +831,7 @@ console.timeEnd("filter trips");
                   }}
                 >
                   <span style={{ fontWeight: "bolder", fontSize: "large" }}>
-                    {this.props.t("Trips")}[{filteredTrips.length}]
+                    {this.props.t("Trips")}[{filterTrips.length}]
                   </span>
                 </NavLink>
               </NavItem>
@@ -566,8 +891,8 @@ console.timeEnd("filter trips");
                     type="search"
                     placeholder={this.props.t("SearchCaption")}
                     className="form-control"
-                    value={this.state.searchDrpTerm}
-                    onChange={(e) => this.handleSearchDropsValue(e.target.value)}
+                    onChange={this.SearchDrops}
+                    value={this.props.searchDrp}
                   />
                 </FormGroup>
 
@@ -675,8 +1000,8 @@ console.timeEnd("filter trips");
                     type="search"
                     placeholder={this.props.t("SearchCaption")}
                     className="form-control"
-                    value={this.state.searchDrpTerm}
-                    onChange={(e) => this.handleSearchDropsValue(e.target.value)}
+                    onChange={this.SearchDrops}
+                    value={this.props.searchDrp}
                   />
                 </FormGroup>
 
@@ -786,8 +1111,8 @@ console.timeEnd("filter trips");
                     type="search"
                     placeholder={this.props.t("SearchCaption")}
                     className="form-control"
-                   value={this.state.searchTripTerm}
-              onChange={(e) => this.handleSearchTripsValue(e.target.value)}
+                    value={this.props.searchTrip}
+                    onChange={this.SearchTrips}
                   />
                 </FormGroup>
                 <div
@@ -894,7 +1219,7 @@ console.timeEnd("filter trips");
               updateDropSearchTerm={this.props.updateDropSearchTerm}
               sortDrop={this.props.sortDrop}
               dropOrder={this.props.dropOrder}
-              dropsList={filteredDrops}
+              dropsList={filterDrops}
               dayschecked={this.props.daysCheckedIn}
               currDate={this.props.selectedDate}
               handleDragStart={this.props.handleDragStart}
@@ -902,7 +1227,7 @@ console.timeEnd("filter trips");
               selectedDocs={this.props.selectedDocs}
             />
             <TripList3
-              tripsList={filteredTrips}
+              tripsList={filterTrips}
               updateTripsSearchTerm={this.props.updateTripsSearchTerm}
               vehiclePanel={this.props.vehiclePanel}
               updateTripsGeoLocations={this.props.updateTripsGeoLocations}
@@ -940,7 +1265,7 @@ console.timeEnd("filter trips");
                updateDropSearchTerm={this.props.updateDropSearchTerm}
                sortDrop={this.props.sortDrop}
                dropOrder={this.props.dropOrder}
-               dropsList={filteredDrops}
+               dropsList={filterDrops}
                dayschecked={this.props.daysCheckedIn}
                currDate={this.props.selectedDate}
                handleDragStart={this.props.handleDragStart}
@@ -958,7 +1283,7 @@ console.timeEnd("filter trips");
                updateDropSearchTerm={this.props.updateDropSearchTerm}
                sortDrop={this.props.sortDrop}
                dropOrder={this.props.dropOrder}
-               dropsList={filteredDrops}
+               dropsList={filterDrops}
                dayschecked={this.props.daysCheckedIn}
                currDate={this.props.selectedDate}
                handleDragStart={this.props.handleDragStart}

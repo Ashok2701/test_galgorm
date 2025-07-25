@@ -142,6 +142,7 @@ class Dashboard extends Component {
       checkedToOpen: false,
       checkedToOptimise: false,
       checkedToLock: false,
+      DraggedDocsScheder : [],
       checkedToValidate: false,
       checked5days: false,
       checkedDropsList: false,
@@ -374,7 +375,7 @@ class Dashboard extends Component {
         },
       ],
       googeMapURL:
-        "https://maps.googleapis.com/maps/api/js?key=AIzaSyANa5oogYwmC9XtnHep09-JoU0Bjp13tWU&v=3.exp&libraries=geometry,drawing,places",
+        "https://maps.googleapis.com/maps/api/js?key=AIzaSyAgLp4IWxgo22lGxq-gP7_0p2bDJA_tbcc&v=3.exp&libraries=geometry,drawing,places",
     };
     this.toggleTab = this.toggleTab.bind(this);
     this.handleDefault = this.handleDefault.bind(this);
@@ -1164,6 +1165,21 @@ class Dashboard extends Component {
     });
   };
 
+
+
+  addDataintoCaledar = (eventData) => {
+    let tempcalendarData = this.state.DraggedDocsScheder;
+tempcalendarData.push(eventData)
+
+console.log("index at addDataintoCalenar", tempcalendarData)
+   this.setState({
+      DraggedDocsScheder : tempcalendarData
+   });
+
+  }
+
+
+
   disableDivs = (index, type, docNum) => {
     //
     //
@@ -1205,6 +1221,7 @@ class Dashboard extends Component {
           }
         });
       }
+      console.log("at disable",currVeh)
       currDocssPanel = currVeh;
       //
     }
@@ -1256,6 +1273,7 @@ class Dashboard extends Component {
           toAllocationdetailsShow: "none",
           vehicleChecked: "none",
           tripsChecked: [],
+
         });
 
         this.notifySucess("Trip Added/Updated Sucessfully");
@@ -1996,6 +2014,7 @@ class Dashboard extends Component {
       fridayMatchedRouteCodeDesc: {},
       selectedDocs: [],
       checkedDoccs: [],
+      DraggedDocsScheder : [],
     });
     this.handleDateRangeChange();
   };
@@ -2535,48 +2554,6 @@ class Dashboard extends Component {
       mapChanged: true,
     });
   };
-
-  // checkStatus=(document)=>{
-
-  //   let status ="";
-
-  //   if (dropStatus == "open" && dlvyStatus == "1") {
-  //     return (
-  //       <h6>
-  //         <span class="badge badge-success text-uppercase" style={{fontSize:"14px"}}>
-  //           {this.props.t("Planned")}
-  //         </span>
-  //       </h6>
-  //     );
-  //   }
-  //   if (dropStatus == "Allocated" && (dlvyStatus == "0" || dlvyStatus == "8")) {
-  //     return (
-  //       <h6>
-  //         <span class="badge badge-success text-uppercase" style={{fontSize:"14px"}}>
-  //           {this.props.t("Planned")}
-  //         </span>
-  //       </h6>
-  //     );
-  //   }
-  //   if (dropStatus == "selected" && (dlvyStatus == "0" || dlvyStatus == "8")) {
-  //     return (
-  //       <h6>
-  //         <span class="badge badge-success text-uppercase" style={{fontSize:"14px"}}>
-  //           {this.props.t("Planned")}
-  //         </span>
-  //       </h6>
-  //     );
-  //   }
-  //   if (dlvyStatus == "1") {
-  //     return (
-  //       <h6>
-  //         <span class="badge badge-success text-uppercase" style={{fontSize:"14px"}}>
-  //           {this.props.t("Planned")}
-  //         </span>
-  //       </h6>
-  //     );
-  //   }
-  // }
 
   addGeoList = (geoData, index) => {
     const currData = this.state.geoData;
@@ -3843,6 +3820,7 @@ class Dashboard extends Component {
       toAllocationdetailsShow: "none",
       vehicleChecked: "none",
       tripsChecked: [],
+      addDataintoCaledar : [],
     });
     var checkboxes = document.getElementsByName("tripsCheckBox");
     for (var i = 0; i < checkboxes.length; i++) {
@@ -12335,6 +12313,8 @@ errorMessagesArray.push(
                     selectedDocs={this.state.selectedDocs}
                     checkedDoccs={this.state.checkedDoccs}
                     removeDocsCheckBoxes={this.removeDocsCheckBoxes}
+                    DraggedDocsScheder = {this.state.DraggedDocsScheder}
+                    addDataintoCaledar = {this.addDataintoCaledar}
                   />
 
                   {/* </Col> */}

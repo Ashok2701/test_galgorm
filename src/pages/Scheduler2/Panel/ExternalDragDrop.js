@@ -82,6 +82,7 @@ class ExternalDragDrop extends Component {
       addotherRCConfirmShow: false,
       isTreeItemDropped: false,
       draggedItemId: "",
+      allowDragedDocs : [],
       selectedDate: props.documentPanel_date,
       showEditorTemplate: false,
       EditorData: "",
@@ -1084,6 +1085,7 @@ class ExternalDragDrop extends Component {
       const parseDate = new Date(Date.parse(cellData.startTime)).toString();
 
       const SelParsedate = moment.tz(parseDate, "").format("YYYY-MM-DD");
+    
 
   
       let eventData: { [key: string]: Object } = {
@@ -1114,8 +1116,13 @@ class ExternalDragDrop extends Component {
         })
 */
       // 
+    console.log("data inside add event", eventData)
+// this.props.addDataintoCaledar(eventData);
       this.scheduleObj.addEvent(eventData);
       this.props.disableDivs(index, "doc", data.docnum);
+     
+    
+     
     }
   };
 
@@ -1422,6 +1429,9 @@ class ExternalDragDrop extends Component {
 
 draggingProcessedFurtherforProdCategory = (data, event, index, cellData) => {
    
+  console.log('data loaded draggingProcessedFurtherforProdCategory ', data, event, index, cellData)
+
+
     let tempresourceDetails = this.scheduleObj.getResourcesByIndex(
        cellData.groupIndex
     );
@@ -1949,10 +1959,10 @@ const vehicleSkillsRaw = tempresourceData?.skills  || "";
         ? filteredVehicle
         : this.props.vehicles;
     const drivers = this.props.drivers;
-    const TripsDocData = this.props.dropsPanel;
+    const TripsDocData = this.props.DraggedDocsScheder || [] // this.props.dropsPanel;
 
     // 
-
+  console.log("In exter source",TripsDocData)
 
     return (
       <div
